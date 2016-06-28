@@ -1,0 +1,18 @@
+machine:
+  node:
+    version: 6.2.0
+
+dependencies:
+  cache_directories:
+    - ./node_modules/
+
+test:
+  override:
+    - npm run lint
+    - npm test
+
+deployment:
+  production:
+    branch: master
+    commands:
+      - npm run publish:prod

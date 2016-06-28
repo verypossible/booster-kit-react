@@ -1,0 +1,17 @@
+{
+  "extends": "stylelint-config-standard",
+  "ignoreFiles": [
+    "./src/universal/styles/vendor/",
+  ],
+  "rules": {
+    "color-hex-case": "upper",
+    "at-rule-no-vendor-prefix",
+    "media-feature-name-no-vendor-prefix",
+    "property-no-vendor-prefix",
+    "selector-no-vendor-prefix",
+    "value-no-vendor-prefix",
+    "declaration-block-properties-order": "alphabetical",
+    "font-family-name-quotes": "always-where-recommended",
+    "selector-pseudo-class-no-unknown": [true, ignorePseudoClasses: ["global", "local"]]
+  }
+}
