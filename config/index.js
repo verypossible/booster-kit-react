@@ -70,6 +70,7 @@ const config = {
     'react-router-redux',
     'redux'
   ],
+  compiler_target_library : 'umd',
 
   // ----------------------------------
   // Test Configuration
@@ -103,7 +104,8 @@ config.globals = {
   '__TEST__'     : config.env === 'test',
   '__DEBUG__'    : config.env === 'development' && !argv.no_debug,
   '__COVERAGE__' : !argv.watch && config.env === 'test',
-  '__BASENAME__' : JSON.stringify(process.env.BASENAME || '')
+  '__BASENAME__' : JSON.stringify(process.env.BASENAME || ''),
+  '__STATIC__'   : config.env === 'static'
 }
 
 // ------------------------------------

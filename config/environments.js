@@ -29,5 +29,20 @@ export default {
       chunkModules: true,
       colors: true
     }
+  }),
+
+  // ======================================================
+  // Overrides when NODE_ENV === 'static'
+  // ======================================================
+  static: (config) => ({
+    compiler_public_path: '/',
+    compiler_fail_on_warning: true,
+    compiler_hash_type: 'chunkhash',
+    compiler_devtool: null,
+    compiler_stats: {
+      chunks: true,
+      chunkModules: true,
+      colors: true
+    }
   })
 }

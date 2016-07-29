@@ -301,6 +301,10 @@ In production, webpack will extract styles to a `.css` file, minify your JavaScr
 
 Please review the [contributing guidelines](/.github/CONTRIBUTING.md)
 
+If you open an issue, please use the Issue template.
+
+If you open a PR, please use the PR template.
+
 
 ## Thanks
 

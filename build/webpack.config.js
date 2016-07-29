@@ -1,8 +1,9 @@
 import webpack from 'webpack'
 import BrowserSyncPlugin from 'browser-sync-webpack-plugin'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
-import HtmlWebpackPlugin from 'html-webpack-plugin'
-import renderHtml from './html.config'
+// import HtmlWebpackPlugin from 'html-webpack-plugin'
+// import renderHtml from './html.config'
+import StaticSiteGeneratorPlugin from 'static-site-generator-webpack-plugin'
 
 // ------------------------------------
 // PostCSS
@@ -20,7 +21,7 @@ import _debug from 'debug'
 
 const debug = _debug('app:webpack:config')
 const paths = config.utils_paths
-const {__DEV__, __PROD__, __TEST__} = config.globals
+const {__DEV__, __PROD__, __TEST__, __STATIC__} = config.globals
 
 debug('Create configuration.')
 const webpackConfig = {
@@ -41,11 +42,17 @@ const APP_ENTRY_PATHS = [
   paths.client('index.js')
 ]
 
-webpackConfig.entry = {
-  app: __DEV__
-    ? APP_ENTRY_PATHS.concat(`webpack-hot-middleware/client?path=${config.compiler_public_path}__webpack_hmr`)
-    : APP_ENTRY_PATHS,
-  vendor: config.compiler_vendor
+if (__STATIC__) {
+  webpackConfig.entry = {
+    app: APP_ENTRY_PATHS
+  }
+} else {
+  webpackConfig.entry = {
+    app: __DEV__
+      ? APP_ENTRY_PATHS.concat(`webpack-hot-middleware/client?path=${config.compiler_public_path}__webpack_hmr`)
+      : APP_ENTRY_PATHS,
+    vendor: config.compiler_vendor
+  }
 }
 
 // ------------------------------------
@@ -54,16 +61,31 @@ webpackConfig.entry = {
 webpackConfig.output = {
   filename: `[name].[${config.compiler_hash_type}].js`,
   path: paths.dist(),
-  publicPath: config.compiler_public_path
+  publicPath: config.compiler_public_path,
+  libraryTarget: config.compiler_target_library
 }
 
+// ------------------------------------
+// Paths
+// ------------------------------------
+const scope = { window: {} }
+const staticPaths = [
+  '/',
+  '/react-web/counter'
+]
 // ------------------------------------
 // Plugins
 // ------------------------------------
 webpackConfig.plugins = [
   new webpack.DefinePlugin(config.globals),
-  new HtmlWebpackPlugin(renderHtml.index),
-  new HtmlWebpackPlugin(renderHtml.twoHundred)
+  new StaticSiteGeneratorPlugin(
+    'app',
+    staticPaths,
+    null,
+    scope
+  )
+  // new HtmlWebpackPlugin(renderHtml.index),
+  // new HtmlWebpackPlugin(renderHtml.twoHundred)
 ]
 
 if (__DEV__) {
@@ -100,6 +122,14 @@ if (__DEV__) {
 
 // Don't split bundles during testing, since we only want import one bundle
 if (!__TEST__) {
+  webpackConfig.plugins.push(
+    new webpack.optimize.CommonsChunkPlugin({
+      names: ['vendor']
+    })
+  )
+}
+
+if (!__STATIC__) {
   webpackConfig.plugins.push(
     new webpack.optimize.CommonsChunkPlugin({
       names: ['vendor']
