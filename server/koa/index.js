@@ -10,7 +10,7 @@ import config from '../../config'
 import webpackDevMiddleware from '../middleware/webpack-dev'
 import webpackHMRMiddleware from '../middleware/webpack-hmr'
 
-const debug = _debug('app:server')
+const debug = _debug('app:server:koa')
 const paths = config.utils_paths
 const app = new Koa()
 
