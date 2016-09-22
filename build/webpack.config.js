@@ -3,6 +3,7 @@ import BrowserSyncPlugin from 'browser-sync-webpack-plugin'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import renderHtml from './html.config'
+import path from 'path'
 
 // ------------------------------------
 // PostCSS
@@ -28,10 +29,12 @@ debug('Create configuration.')
 const webpackConfig = {
   name: 'client',
   target: 'web',
+  context: path.resolve(__dirname, 'src'),
   devtool: config.compiler_devtool,
   resolve: {
-    root: paths.universal(),
-    extensions: ['', '.js', '.jsx', '.json', '.css', '.scss', '.md']
+    modules: [paths.client, paths.universal, paths.server, 'node_modules'],
+    extensions: ['.js', '.jsx', '.json', '.css', '.scss', '.md'],
+    descriptionFiles: ['package.json']
   },
   module: {}
 }
@@ -39,7 +42,8 @@ const webpackConfig = {
 // Entry Points
 // ------------------------------------
 const APP_ENTRY_PATHS = [
-  paths.client('index.js')
+  'react-hot-loader/patch',
+  path.join(paths.client, 'index.js')
 ]
 
 webpackConfig.entry = {
@@ -54,7 +58,7 @@ webpackConfig.entry = {
 // ------------------------------------
 webpackConfig.output = {
   filename: `[name].[${config.compiler_hash_type}].js`,
-  path: paths.dist(),
+  path: paths.dist,
   publicPath: config.compiler_public_path
 }
 
@@ -112,20 +116,10 @@ if (!__TEST__) {
 // Loaders
 // ------------------------------------
 // JavaScript / JSON
-webpackConfig.module.loaders = [{
+webpackConfig.module.rules = [{
   test: /\.(js|jsx)$/,
   exclude: /node_modules/,
-  loader: 'babel',
-  query: {
-    cacheDirectory: true,
-    plugins: ['transform-runtime'],
-    presets: ['es2015', 'react', 'stage-0'],
-    env: {
-      production: {
-        presets: ['react-optimize']
-      }
-    }
-  }
+  loader: 'babel'
 },
 {
   test: /\.json$/,
@@ -148,7 +142,7 @@ const PATHS_TO_TREAT_AS_CSS_MODULES = [
 // If config has CSS modules enabled, treat this project's styles as CSS modules.
 if (config.compiler_css_modules) {
   PATHS_TO_TREAT_AS_CSS_MODULES.push(
-    paths.universal().replace(/[\^\$\.\*\+\-\?\=\!\:\|\\\/\(\)\[\]\{\}\,]/g, '\\$&') // eslint-disable-line
+    paths.universal.replace(/[\^\$\.\*\+\-\?\=\!\:\|\\\/\(\)\[\]\{\}\,]/g, '\\$&') // eslint-disable-line
   )
 }
 
@@ -164,7 +158,7 @@ if (isUsingCSSModules) {
     'localIdentName=[name]__[local]___[hash:base64:5]'
   ].join('&')
 
-  webpackConfig.module.loaders.push({
+  webpackConfig.module.rules.push({
     test: /\.scss$/,
     include: cssModulesRegex,
     loaders: [
@@ -175,7 +169,7 @@ if (isUsingCSSModules) {
     ]
   })
 
-  webpackConfig.module.loaders.push({
+  webpackConfig.module.rules.push({
     test: /\.css$/,
     include: cssModulesRegex,
     loaders: [
@@ -188,7 +182,7 @@ if (isUsingCSSModules) {
 
 // Loaders for files that should not be treated as CSS modules.
 const excludeCSSModules = isUsingCSSModules ? cssModulesRegex : false
-webpackConfig.module.loaders.push({
+webpackConfig.module.rules.push({
   test: /\.scss$/,
   exclude: excludeCSSModules,
   loaders: [
@@ -198,7 +192,7 @@ webpackConfig.module.loaders.push({
     'sass?sourceMap'
   ]
 })
-webpackConfig.module.loaders.push({
+webpackConfig.module.rules.push({
   test: /\.css$/,
   exclude: excludeCSSModules,
   loaders: [
@@ -211,33 +205,59 @@ webpackConfig.module.loaders.push({
 // ------------------------------------
 // Style Configuration
 // ------------------------------------
-webpackConfig.sassLoader = {
-  includePaths: paths.universal('styles')
-}
+webpackConfig.plugins.push(
+  new webpack.LoaderOptionsPlugin({
+    options: {
+      sassLoader: {
+        includePaths: path.join(paths.universal, 'styles')
+      }
+    }
+  })
+)
 
-webpackConfig.postcss = function () {
-  return [
-    stylelint,
-    precss,
-    cssNext,
-    lost,
-    fontMagician({
-      formats: 'local woff2 woff ttf eot svg otf'
-    }),
-    cssBrowserReporter,
-    cssReporter
-  ]
-}
+webpackConfig.plugins.push(
+  new webpack.LoaderOptionsPlugin({
+    options: {
+      postcss: function () {
+        return [
+          stylelint,
+          precss,
+          cssNext,
+          lost,
+          fontMagician({
+            formats: 'local woff2 woff ttf eot svg otf'
+          }),
+          cssBrowserReporter,
+          cssReporter
+        ]
+      }
+    }
+  })
+)
+
+// webpackConfig.postcss = function () {
+//   return [
+//     stylelint,
+//     precss,
+//     cssNext,
+//     lost,
+//     fontMagician({
+//       formats: 'local woff2 woff ttf eot svg otf'
+//     }),
+//     cssBrowserReporter,
+//     cssReporter
+//   ]
+// }
 
 // File loaders
 /* eslint-disable */
-webpackConfig.module.loaders.push(
+webpackConfig.module.rules.push(
   { test: /\.md$/, loader: 'babel-loader!reactdown/webpack' },
   { test: /\.woff(\?.*)?$/,  loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/font-woff' },
   { test: /\.otf(\?.*)?$/,   loader: 'file?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=font/opentype' },
   { test: /\.ttf(\?.*)?$/,   loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/octet-stream' },
   { test: /\.eot(\?.*)?$/,   loader: 'file?prefix=fonts/&name=[path][name].[ext]' },
-  { test: /\.svg(\?.*)?$/,   loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=image/svg+xml', include: paths.universal('styles/fonts')},
+  { test: /\.svg(\?.*)?$/,   loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=image/svg+xml', include: path.join(paths.universal, 'styles/fonts')},
   { test: /\.(png|jpg)$/,    loader: 'url?limit=8192' },
 )
 /* eslint-enable */
@@ -247,7 +267,7 @@ webpackConfig.module.loaders.push(
 // ------------------------------------
 if (!__DEV__) {
   debug('Apply ExtractTextPlugin to CSS loaders.')
-  webpackConfig.module.loaders.filter((loader) =>
+  webpackConfig.module.rules.filter((loader) =>
     loader.loaders && loader.loaders.find((name) => /css/.test(name.split('?')[0]))
   ).forEach((loader) => {
     const [first, ...rest] = loader.loaders

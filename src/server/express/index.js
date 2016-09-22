@@ -1,8 +1,9 @@
 import express from 'express'
 import _debug from 'debug'
 import webpack from 'webpack'
-import webpackConfig from '../../build/webpack.config'
-import config from '../../config'
+import webpackConfig from '../../../build/webpack.config'
+import config from '../../../config'
+import path from 'path'
 
 const debug = _debug('app:server:express')
 const app = express()
@@ -22,7 +23,7 @@ if (config.env === 'development') {
   debug('Enable webpack dev and HMR middleware')
   app.use(require('webpack-dev-middleware')(compiler, {
     publicPath: webpackConfig.output.publicPath,
-    contentBase: paths.client(),
+    contentBase: paths.client,
     hot: true,
     quiet: config.compiler_quiet,
     noInfo: config.compiler_quiet,
@@ -35,7 +36,7 @@ if (config.env === 'development') {
   // these files. This middleware doesn't need to be enabled outside
   // of development since this directory will be copied into ~/dist
   // when the application is compiled.
-  app.use(express.static(paths.universal('static')))
+  app.use(express.static(path.join(paths.universal, 'static')))
 } else {
   debug(
     'Server is being run outside of live development mode, meaning it will ' +

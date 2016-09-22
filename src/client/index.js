@@ -1,8 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { browserHistory } from 'react-router'
+import { AppContainer } from 'react-hot-loader'
 import createStore from '../universal/store/createStore'
-import AppContainer from '../universal/containers/AppContainer'
+import App from '../universal/containers/App'
 
 // ========================================================
 // Store and History Instantiation
@@ -15,15 +16,17 @@ const store = createStore(preloadedState)
 // ========================================================
 const MOUNT_NODE = document.getElementById('root')
 
-let render = () => {
-  const routes = require('../universal/routes/index').default(store)
+const routes = require('../universal/routes/index').default(store)
 
+let render = () => {
   ReactDOM.render(
-    <AppContainer
-      store={store}
-      history={browserHistory}
-      routes={routes}
-    />,
+    <AppContainer>
+      <App
+        store={store}
+        history={browserHistory}
+        routes={routes}
+      />
+    </AppContainer>,
     MOUNT_NODE
   )
 }
@@ -40,29 +43,18 @@ if (__DEV__) {
 // This code is excluded from production bundle
 if (__DEV__) {
   if (module.hot) {
-    // Development render functions
-    const renderApp = render
-    const renderError = (error) => {
-      const RedBox = require('redbox-react').default
-
-      ReactDOM.render(<RedBox error={error} />, MOUNT_NODE)
-    }
-
-    // Wrap render in try/catch
-    render = () => {
-      try {
-        renderApp()
-      } catch (error) {
-        renderError(error)
-      }
-    }
-
-    // Setup hot module replacement
-    module.hot.accept('../universal/routes/index', () => {
-      setTimeout(() => {
-        ReactDOM.unmountComponentAtNode(MOUNT_NODE)
-        render()
-      })
+    module.hot.accept('../universal/containers/App', () => {
+      const NextApp = require('../universal/containers/App').default
+      ReactDOM.render(
+        <AppContainer>
+          <NextApp
+            store={store}
+            history={browserHistory}
+            routes={routes}
+          />
+        </AppContainer>,
+        MOUNT_NODE
+      )
     })
   }
 }

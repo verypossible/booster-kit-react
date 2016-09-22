@@ -1,5 +1,5 @@
 import config from '../config'
-import server from '../server/koa'
+import server from '../src/server/koa'
 import _debug from 'debug'
 
 const debug = _debug('app:bin:server:koa')

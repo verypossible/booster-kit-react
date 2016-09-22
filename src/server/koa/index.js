@@ -1,14 +1,15 @@
 import Koa from 'koa'
 import convert from 'koa-convert'
 import webpack from 'webpack'
-import webpackConfig from '../../build/webpack.config'
+import webpackConfig from '../../../build/webpack.config'
 import historyApiFallback from 'koa-connect-history-api-fallback'
 import serve from 'koa-static'
 import proxy from 'koa-proxy'
 import _debug from 'debug'
-import config from '../../config'
+import config from '../../../config'
 import webpackDevMiddleware from '../middleware/webpack-dev'
 import webpackHMRMiddleware from '../middleware/webpack-hmr'
+import path from 'path'
 
 const debug = _debug('app:server:koa')
 const paths = config.utils_paths
@@ -42,7 +43,7 @@ if (config.env === 'development') {
   // these files. This middleware doesn't need to be enabled outside
   // of development since this directory will be copied into ~/dist
   // when the application is compiled.
-  app.use(serve(paths.universal('static')))
+  app.use(serve(path.join(paths.universal, 'static')))
 } else {
   debug(
     'Server is being run outside of live development mode, meaning it will ' +
@@ -55,7 +56,7 @@ if (config.env === 'development') {
   // Serving ~/dist by default. Ideally these files should be served by
   // the web server and not the app server, but this helps to demo the
   // server in production.
-  app.use(serve(paths.dist()))
+  app.use(serve(paths.dist))
 }
 
 export default app

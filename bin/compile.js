@@ -3,6 +3,7 @@ import _debug from 'debug'
 import webpackCompiler from '../build/webpack-compiler'
 import webpackConfig from '../build/webpack.config'
 import config from '../config'
+import path from 'path'
 
 const debug = _debug('app:bin:compile')
 const paths = config.utils_paths
@@ -16,7 +17,7 @@ const paths = config.utils_paths
       process.exit(1)
     }
     debug('Copy static assets to dist folder.')
-    fs.copySync(paths.universal('static'), paths.dist())
+    fs.copySync(path.join(paths.universal, 'static'), paths.dist)
   } catch (e) {
     debug('Compiler encountered an error.', e)
     process.exit(1)

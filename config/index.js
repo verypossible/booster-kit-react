@@ -19,12 +19,12 @@ const config = {
   // ----------------------------------
   // Project Structure
   // ----------------------------------
-  path_base     : path.resolve(__dirname, '..'),
-  dir_client    : 'client',
-  dir_universal : 'universal',
-  dir_dist      : 'dist',
-  dir_server    : 'server',
-  dir_test      : 'tests',
+  path_base     : path.resolve(__dirname, '../src'),
+  dir_client    : path.resolve(__dirname, '../src/client'),
+  dir_universal : path.resolve(__dirname, '../src/universal'),
+  dir_dist      : path.resolve(__dirname, '../dist'),
+  dir_server    : path.resolve(__dirname, '../src/server'),
+  dir_test      : path.resolve(__dirname, '../test'),
 
   // ----------------------------------
   // Server Configuration
@@ -123,17 +123,16 @@ config.compiler_vendor = config.compiler_vendor
 // ------------------------------------
 // Utilities
 // ------------------------------------
-function base () {
-  const args = [config.path_base].concat([].slice.call(arguments))
-  return path.resolve.apply(path, args)
-}
+// function base () {
+//   const args = [config.path_base].concat([].slice.call(arguments))
+//   return path.resolve.apply(path, args)
+// }
 
 config.utils_paths = {
-  base      : base,
-  client    : base.bind(null, config.dir_client),
-  dist      : base.bind(null, config.dir_dist),
-  server    : base.bind(null, config.dir_server),
-  universal : base.bind(null, config.dir_universal)
+  client    : config.dir_client,
+  dist      : config.dir_dist,
+  server    : config.dir_server,
+  universal : config.dir_universal
 }
 
 // ========================================================
