@@ -1,9 +1,8 @@
 # Roadmap
 
-* Enhance the Koa static server to provide options to render and serve React markup via a production Node server. This will enable us run small sites that depend on SEO friendly markup with ease.
-* Enhance the Webpack build process to generate all html files with SEO friendly markup via React's `renderToSring` server function.
+* Enhance the Webpack & create SSR for server so the build process generates all html files with SEO friendly markup via React's `renderToSring` server function.
 * Integrate SocketCluster on the server and client
-* Enhance configuration to easily support three different build types - static client, universal app, and static site generation.
+* Enhance configuration to easily support three different build types - static client and universal app.
 * Refactor Webpack configuration to better support different build types. It should be a factory.
 * Remove `node-babael` as a dependency for builds and replace it with `babel-register` - this will improve production performance.
 

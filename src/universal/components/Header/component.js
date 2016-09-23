@@ -4,7 +4,7 @@ import { IndexLink, Link } from 'react-router'
 import styles from './styles'
 import mark from './assets/mark-color.png'
 
-export const Header = () => (
+const Header = () => (
   <div className={styles.container}>
     <div className={styles.header}>
       <IndexLink className={styles.logo} to='/' activeClassName={styles.activeRoute}>
