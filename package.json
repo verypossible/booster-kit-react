@@ -14,8 +14,7 @@
     "compile": "better-npm-run compile",
     "lint": "eslint bin build config server src tests",
     "lint:fix": "npm run lint -- --fix",
-    "start:koa": "better-npm-run start:koa",
-    "start:express": "better-npm-run start:express",
+    "start": "better-npm-run start:express",
     "dev": "better-npm-run dev:static",
     "test": "better-npm-run test",
     "test:dev": "npm run test -- --watch",
@@ -25,7 +24,8 @@
     "publish": "better-npm-run publish",
     "publish:prod": "npm run deploy:prod && npm run publish",
     "codecov": "cat coverage/*/lcov.info | codecov",
-    "debug": "better-npm-run debug"
+    "debug:dev": "better-npm-run debug:dev",
+    "debug:prod": "better-npm-run debug:prod"
   },
   "betterScripts": {
     "compile": {
@@ -35,7 +35,7 @@
       }
     },
     "dev": {
-      "command": "nodemon --exec babel-node bin/koa",
+      "command": "nodemon --exec babel-node bin/express",
       "env": {
         "NODE_ENV": "development",
         "DEBUG": "app:*"
@@ -61,12 +61,6 @@
         "DEBUG": "app:*"
       }
     },
-    "start:koa": {
-      "command": "babel-node bin/koa",
-      "env": {
-        "DEBUG": "app:*"
-      }
-    },
     "start:express": {
       "command": "babel-node bin/express",
       "env": {
@@ -79,9 +73,17 @@
         "DEBUG": "app:*"
       }
     },
-    "debug": {
-      "command": "babel-node bin/koa",
+    "debug:dev": {
+      "command": "babel-node bin/express",
       "env": {
+        "NODE_ENV": "development",
+        "DEBUG": "*"
+      }
+    },
+    "debug:prod": {
+      "command": "babel-node bin/express",
+      "env": {
+        "NODE_ENV": "production",
         "DEBUG": "*"
       }
     },
@@ -125,11 +127,6 @@
     "ip": "^1.1.2",
     "isomorphic-fetch": "^2.2.1",
     "json-loader": "^0.5.4",
-    "koa": "^2.0.0-alpha.3",
-    "koa-connect-history-api-fallback": "^0.3.0",
-    "koa-convert": "^1.2.0",
-    "koa-proxy": "^0.6.0",
-    "koa-static": "^3.0.0",
     "node-sass": "^3.10.0",
     "npm": "^3.10.7",
     "phoenixjs": "^1.0.5",
