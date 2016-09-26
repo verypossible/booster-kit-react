@@ -29,9 +29,10 @@ const webpackConfig = {
   name: 'client',
   target: 'web',
   devtool: config.compiler_devtool,
+  context: paths.client(),
   resolve: {
-    root: paths.universal(),
-    extensions: ['', '.js', '.jsx', '.json', '.css', '.scss', '.md']
+    extensions: ['', '.js', '.jsx', '.json', '.css', '.scss', '.md'],
+    modules: [paths.universal(), paths.client(), 'node_modules']
   },
   module: {}
 }
@@ -39,6 +40,7 @@ const webpackConfig = {
 // Entry Points
 // ------------------------------------
 const APP_ENTRY_PATHS = [
+  'react-hot-loader/patch',
   paths.client('index.js')
 ]
 
@@ -115,17 +117,7 @@ if (!__TEST__) {
 webpackConfig.module.loaders = [{
   test: /\.(js|jsx)$/,
   exclude: /node_modules/,
-  loader: 'babel',
-  query: {
-    cacheDirectory: true,
-    plugins: ['transform-runtime'],
-    presets: ['es2015', 'react', 'stage-0'],
-    env: {
-      production: {
-        presets: ['react-optimize']
-      }
-    }
-  }
+  loader: 'babel'
 },
 {
   test: /\.json$/,
