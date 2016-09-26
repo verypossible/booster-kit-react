@@ -10,6 +10,22 @@ class AppContainer extends React.Component {
     store: PropTypes.object.isRequired
   }
 
+  componentDidMount () {
+    const { history, store } = this.props
+
+    // Use history to update store with location
+    this.unsubscribe = history.listen(location => {
+      store.dispatch({
+        type: 'LOCATION_CHANGE',
+        location
+      })
+    })
+  }
+
+  componentWillUnmount () {
+    this.unsubscribe && this.unsubscribe()
+  }
+
   render () {
     const { history, routes, routerKey, store } = this.props
 

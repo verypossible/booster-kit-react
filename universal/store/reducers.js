@@ -1,10 +1,19 @@
 import { combineReducers } from 'redux'
-import { routerReducer as router } from 'react-router-redux'
+
+const locationState = {
+  location: null
+}
+
+const locationReducer = (state = locationState, action) => {
+  return action.type === 'LOCATION_CHANGE'
+    ? action.location
+    : state
+}
 
 export const makeRootReducer = (asyncReducers) => {
   return combineReducers({
     // Add sync reducers here
-    router,
+    location: locationReducer,
     ...asyncReducers
   })
 }

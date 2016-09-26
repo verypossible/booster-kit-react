@@ -5,7 +5,9 @@
     "standard-react"
   ],
   "plugins": [
-    "babel"
+    "babel",
+    "react",
+    "promise"
   ],
   "env"     : {
     "browser" : true

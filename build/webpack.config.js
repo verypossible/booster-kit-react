@@ -20,7 +20,9 @@ import _debug from 'debug'
 
 const debug = _debug('app:webpack:config')
 const paths = config.utils_paths
-const {__DEV__, __PROD__, __TEST__} = config.globals
+const __DEV__ = config.globals.__DEV__
+const __PROD__ = config.globals.__PROD__
+const __TEST__ = config.globals.__TEST__
 
 debug('Create configuration.')
 const webpackConfig = {
@@ -37,7 +39,6 @@ const webpackConfig = {
 // Entry Points
 // ------------------------------------
 const APP_ENTRY_PATHS = [
-  'babel-polyfill',
   paths.client('index.js')
 ]
 

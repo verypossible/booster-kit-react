@@ -63,11 +63,10 @@ const config = {
     colors : true
   },
   compiler_vendor : [
-    'history',
+    'babel-polyfill',
     'react',
     'react-redux',
     'react-router',
-    'react-router-redux',
     'redux'
   ],
 
@@ -102,8 +101,7 @@ config.globals = {
   '__PROD__'     : config.env === 'production',
   '__TEST__'     : config.env === 'test',
   '__DEBUG__'    : config.env === 'development' && !argv.no_debug,
-  '__COVERAGE__' : !argv.watch && config.env === 'test',
-  '__BASENAME__' : JSON.stringify(process.env.BASENAME || '')
+  '__COVERAGE__' : !argv.watch && config.env === 'test'
 }
 
 // ------------------------------------
@@ -125,9 +123,10 @@ config.compiler_vendor = config.compiler_vendor
 // ------------------------------------
 // Utilities
 // ------------------------------------
-const resolve = path.resolve
-const base = (...args) =>
-  Reflect.apply(resolve, null, [config.path_base, ...args])
+function base () {
+  const args = [config.path_base].concat([].slice.call(arguments))
+  return path.resolve.apply(path, args)
+}
 
 config.utils_paths = {
   base      : base,
