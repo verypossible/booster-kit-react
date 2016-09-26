@@ -71,6 +71,65 @@ if (module.hot) {
     } else {
       // Log the error as normally
       orgError.apply(console, args)
+=======
+// ========================================================
+const preloadedState = window.___PRELOADED_STATE__
+const store = createStore(preloadedState)
+
+// ========================================================
+// Render Setup
+// ========================================================
+const MOUNT_NODE = document.getElementById('root')
+
+let render = () => {
+  const routes = require('../universal/routes/index').default(store)
+
+  ReactDOM.render(
+    <AppContainer
+      store={store}
+      history={browserHistory}
+      routes={routes}
+    />,
+    MOUNT_NODE
+  )
+}
+
+// ========================================================
+// Developer Tools Setup
+// ========================================================
+if (__DEV__) {
+  if (window.devToolsExtension) {
+    window.devToolsExtension.open()
+  }
+}
+
+// This code is excluded from production bundle
+if (__DEV__) {
+  if (module.hot) {
+    // Development render functions
+    const renderApp = render
+    const renderError = (error) => {
+      const RedBox = require('redbox-react').default
+
+      ReactDOM.render(<RedBox error={error} />, MOUNT_NODE)
+>>>>>>> master
     }
+
+    // Wrap render in try/catch
+    render = () => {
+      try {
+        renderApp()
+      } catch (error) {
+        renderError(error)
+      }
+    }
+
+    // Setup hot module replacement
+    module.hot.accept('../universal/routes/index', () => {
+      setTimeout(() => {
+        ReactDOM.unmountComponentAtNode(MOUNT_NODE)
+        render()
+      })
+    })
   }
 }
