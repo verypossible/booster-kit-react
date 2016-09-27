@@ -14,7 +14,6 @@ import cssNext from 'postcss-cssnext'
 import cssReporter from 'postcss-reporter'
 import cssBrowserReporter from 'postcss-browser-reporter'
 import precss from 'precss'
-import sugarss from 'sugarss'
 
 import config from '../config'
 import _debug from 'debug'
