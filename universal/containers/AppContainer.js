@@ -1,13 +1,12 @@
 import React, { PropTypes } from 'react'
 import { Router } from 'react-router'
 import { Provider } from 'react-redux'
+import createRoutes from 'routes'
 
 class AppContainer extends React.Component {
   static propTypes = {
-    history: PropTypes.object.isRequired,
-    routes: PropTypes.object.isRequired,
-    routerKey: PropTypes.number,
-    store: PropTypes.object.isRequired
+    store: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired
   }
 
   componentDidMount () {
@@ -27,12 +26,12 @@ class AppContainer extends React.Component {
   }
 
   render () {
-    const { history, routes, routerKey, store } = this.props
+    const { store, history } = this.props
 
     return (
       <Provider store={store}>
         <div style={{ height: '100%' }}>
-          <Router history={history} children={routes} key={routerKey} />
+          <Router history={history} children={createRoutes(store)} />
         </div>
       </Provider>
     )
