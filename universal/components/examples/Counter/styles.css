@@ -1,8 +1,9 @@
+/* stylelint-disable */
 .counter {
   font-weight: bold;
 }
 
-.counter--green {
-  color: rgb(25, 200, 25);
+.green {
   composes: counter;
+  color: rgb(25, 200, 25);
 }
