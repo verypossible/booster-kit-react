@@ -104,7 +104,7 @@ webpackConfig.postcss = function () {
 webpackConfig.module.loaders.push(configLoaders)
 
 // ------------------------------------
-// Finalize Configuration
+// Extract Text Plugin Configuration
 // ------------------------------------
 if (!__DEV__) {
   webpackConfig.plugins.push(configStyles.extract)
