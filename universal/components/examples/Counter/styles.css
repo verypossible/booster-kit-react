@@ -1,9 +1,10 @@
-/* stylelint-disable */
 .counter {
   font-weight: bold;
 }
 
+/* stylelint-disable */
 .green {
   composes: counter;
   color: rgb(25, 200, 25);
 }
+/* stylint-enable */

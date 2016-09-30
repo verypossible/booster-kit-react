@@ -1,15 +1,11 @@
 .mainContainer {
   height: 100%;
-
-  @lost-center: 1400px;
+  lost-center: 1400px;
 }
 
 .bodyContainer {
   height: 100%;
-
-  @lost-align: center;
-
-  @lost-column: 12/12;
-
+  lost-align: center;
+  lost-column: 12/12;
   padding: 0 10px;
 }

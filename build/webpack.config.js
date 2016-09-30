@@ -1,19 +1,7 @@
-import webpack from 'webpack'
-import BrowserSyncPlugin from 'browser-sync-webpack-plugin'
-import ExtractTextPlugin from 'extract-text-webpack-plugin'
-import HtmlWebpackPlugin from 'html-webpack-plugin'
-import renderHtml from './html.config'
-
-// ------------------------------------
-// PostCSS
-// ------------------------------------
-import stylelint from 'stylelint'
-import lost from 'lost'
-import fontMagician from 'postcss-font-magician'
-import cssNext from 'postcss-cssnext'
-import cssReporter from 'postcss-reporter'
-import cssBrowserReporter from 'postcss-browser-reporter'
-import precss from 'precss'
+import configLoaders from './webpack.loaders'
+import configPlugins from './webpack.plugins'
+import configPostCSS from './webpack.postcss'
+import configStyles from './webpack.styles'
 
 import config from '../config'
 import _debug from 'debug'
@@ -63,51 +51,24 @@ webpackConfig.output = {
 // ------------------------------------
 // Plugins
 // ------------------------------------
-webpackConfig.plugins = [
-  new webpack.DefinePlugin(config.globals),
-  new HtmlWebpackPlugin(renderHtml.index),
-  new HtmlWebpackPlugin(renderHtml.twoHundred)
-]
+webpackConfig.plugins = configPlugins.common
 
 if (__DEV__) {
   debug('Enable plugins for live development (HMR, NoErrors).')
-  webpackConfig.plugins.push(
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
-    new BrowserSyncPlugin({
-      open: config.browser_sync_open_window,
-      host: config.server_host,
-      port: config.browser_sync_port,
-      proxy: config.compiler_public_path,
-      ui: {
-        port: config.browser_sync_ui_port
-      }
-    }, {
-      reload: false
-    })
-  )
-} else if (__PROD__) {
-  debug('Enable plugins for production (OccurenceOrder, Dedupe & UglifyJS).')
-  webpackConfig.plugins.push(
-    new webpack.optimize.OccurrenceOrderPlugin(),
-    new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        unused: true,
-        dead_code: true,
-        warnings: false
-      }
-    })
-  )
+  const { hmr, noErrors, browserSync } = configPlugins
+  webpackConfig.plugins.push(hmr, noErrors, browserSync)
+}
+
+if (__PROD__) {
+  debug('Enable plugins for production (Dedupe & UglifyJS).')
+  const { dedupe, uglify } = configPlugins
+  webpackConfig.plugins.push(dedupe, uglify)
 }
 
 // Don't split bundles during testing, since we only want import one bundle
 if (!__TEST__) {
-  webpackConfig.plugins.push(
-    new webpack.optimize.CommonsChunkPlugin({
-      names: ['vendor']
-    })
-  )
+  const { vendorCommons } = configPlugins
+  webpackConfig.plugins.push(vendorCommons)
 }
 
 // ------------------------------------
@@ -116,8 +77,9 @@ if (!__TEST__) {
 // JavaScript / JSON
 webpackConfig.module.loaders = [{
   test: /\.(js|jsx)$/,
-  exclude: /node_modules/,
-  loader: 'babel'
+  loader: 'babel',
+  include: paths.base(),
+  exclude: /node_modules/
 },
 {
   test: /\.json$/,
@@ -128,68 +90,24 @@ webpackConfig.module.loaders = [{
 // Style Loaders
 // ------------------------------------
 if (__DEV__) {
-  webpackConfig.module.loaders.push({
-    test: /\.css$/,
-    loaders: [
-      'style-loader',
-      { loader: 'css-loader', query: { modules: true } },
-      { loader: 'postcss-loader' }
-    ]
-  })
+  webpackConfig.module.loaders.push(configStyles.dev)
 } else {
   debug('Apply ExtractTextPlugin to CSS loaders.')
-  webpackConfig.module.loaders.push({
-    test: /\.css$/,
-    loader: ExtractTextPlugin.extract({
-      fallbackLoader: 'style-loader',
-      loader: [
-        { loader: 'css-loader', query: { modules: true } },
-        { loader: 'postcss-loader' }
-      ]
-    })
-  })
+  webpackConfig.module.loaders.push(configStyles.prod)
 }
 
-// ------------------------------------
-// Style Configuration
-// ------------------------------------
 webpackConfig.postcss = function () {
-  return [
-    stylelint,
-    precss,
-    cssNext,
-    lost,
-    fontMagician({
-      formats: 'local woff2 woff ttf eot svg otf'
-    }),
-    cssBrowserReporter,
-    cssReporter
-  ]
+  return configPostCSS
 }
 
 // File loaders
-/* eslint-disable */
-webpackConfig.module.loaders.push(
-  { test: /\.md$/, loader: 'babel-loader!reactdown/webpack' },
-  { test: /\.woff(\?.*)?$/,  loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/font-woff' },
-  { test: /\.otf(\?.*)?$/,   loader: 'file?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=font/opentype' },
-  { test: /\.ttf(\?.*)?$/,   loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/octet-stream' },
-  { test: /\.eot(\?.*)?$/,   loader: 'file?prefix=fonts/&name=[path][name].[ext]' },
-  { test: /\.svg(\?.*)?$/,   loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=image/svg+xml', include: paths.universal('styles/fonts')},
-  { test: /\.(png|jpg)$/,    loader: 'url?limit=8192' },
-)
-/* eslint-enable */
+webpackConfig.module.loaders.push(configLoaders)
 
 // ------------------------------------
 // Extract Text Plugin Configuration
 // ------------------------------------
 if (!__DEV__) {
-  webpackConfig.plugins.push(
-    new ExtractTextPlugin({
-      filename: '[name].[contenthash].css',
-      allChunks: true
-    })
-  )
+  webpackConfig.plugins.push(configStyles.extract)
 }
 
 export default webpackConfig
