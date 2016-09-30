@@ -3,6 +3,7 @@ import _debug from 'debug'
 import webpack from 'webpack'
 import webpackConfig from '../build/webpack.config'
 import config from '../config'
+import createSSR from './createSSR'
 
 const debug = _debug('app:server:express')
 const app = express()
@@ -50,5 +51,7 @@ if (config.env === 'development') {
   // server in production.
   app.use(express.static(paths.dist()))
 }
+
+app.get('*', createSSR)
 
 export default app
