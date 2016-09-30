@@ -12,7 +12,7 @@ export default (preloadedState = {}) => {
   // Store Enhancers
   // ======================================================
   const enhancers = []
-  if (__DEBUG__) {
+  if (__DEBUG__ !== undefined && __DEBUG__) {
     const devToolsExtension = window.devToolsExtension
     if (typeof devToolsExtension === 'function') {
       enhancers.push(devToolsExtension())

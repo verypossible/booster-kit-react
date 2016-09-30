@@ -28,7 +28,7 @@ export default class Html extends Component {
         <head>
           <meta charSet='utf-8' />
           <meta name='viewport' content='width=device-width, initial-scale=1' />
-          {PROD && <link rel='stylesheet' href='/static/prerender.css' type='text/css' />}
+          {PROD && <link rel='stylesheet' href='/dist/app.css' type='text/css' />}
           <title>{title}</title>
         </head>
         <body>
@@ -36,7 +36,7 @@ export default class Html extends Component {
           {PROD ? <div id='root' style='height: 100%;' dangerouslySetInnerHTML={{__html: root}}></div> : <div id='root' style='height: 100%'></div>}
           {PROD && <script dangerouslySetInnerHTML={{__html: manifest.text}} />}
           {PROD && <script src={vendor.js}></script>}
-          <script src={PROD ? app.js : '/static/app.js'} type='text/javascript'></script>
+          <script src={PROD ? app.js : '/dist/app.js'} type='text/javascript'></script>
         </body>
       </html>
     )

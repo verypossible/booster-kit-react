@@ -1,16 +1,28 @@
 import webpack from 'webpack'
+import AssetsPlugin from 'assets-webpack-plugin'
 import BrowserSyncPlugin from 'browser-sync-webpack-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 
 import config from '../config'
 import renderHtml from './html.config'
+import path from 'path'
+
+const root = process.cwd()
 
 // ------------------------------------
 // Plugins
 // ------------------------------------
 export default {
   common: [
-    new webpack.DefinePlugin(config.globals),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('production')
+    })
+  ],
+  assets: new AssetsPlugin({
+    path: path.join(root, 'dist'),
+    filename: 'assets.json'
+  }),
+  static: [
     new HtmlWebpackPlugin(renderHtml.index),
     new HtmlWebpackPlugin(renderHtml.twoHundred)
   ],
