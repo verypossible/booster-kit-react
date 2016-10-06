@@ -5,9 +5,9 @@ export function parseJSON (response) {
 }
 
 export function hostUrl () {
-  const host = process.env.HOST
-  const protocol = process.env.PROTOCOL
-  const port = process.env.PORT
+  const host = __HOST__
+  const protocol = __PROTOCOL__
+  const port = __PORT__
   return `${protocol}://${host}:${port}`
 }
 
