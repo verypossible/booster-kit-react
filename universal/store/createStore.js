@@ -3,8 +3,6 @@ import thunk from 'redux-thunk'
 import makeRootReducer from './reducers'
 import createLogger from 'redux-logger'
 
-const logger = createLogger()
-
 export default (preloadedState = {}) => {
   // ======================================================
   // Middleware Configuration
@@ -17,6 +15,7 @@ export default (preloadedState = {}) => {
   const enhancers = []
   if (__DEBUG__) {
     const devToolsExtension = window.devToolsExtension
+    const logger = createLogger()
     if (typeof devToolsExtension === 'function') {
       enhancers.push(devToolsExtension())
     }
