@@ -197,6 +197,7 @@
     "react-addons-test-utils": "^15.3.2",
     "react-storybook-addon-backgrounds": "0.0.4",
     "reactdown": "^1.0.0-alpha14",
+    "redux-logger": "^2.7.0",
     "sinon": "^1.17.6",
     "sinon-chai": "^2.8.0",
     "storybook-addon-specifications": "^1.0.15",
