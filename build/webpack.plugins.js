@@ -12,7 +12,12 @@ export default {
   common: [
     new webpack.DefinePlugin(config.globals),
     new HtmlWebpackPlugin(renderHtml.index),
-    new HtmlWebpackPlugin(renderHtml.twoHundred)
+    new HtmlWebpackPlugin(renderHtml.twoHundred),
+    new webpack.EnvironmentPlugin([
+      'API_PROTOCOL',
+      'API_HOST',
+      'API_PORT'
+    ])
   ],
   hmr: new webpack.HotModuleReplacementPlugin(),
   noErrors: new webpack.NoErrorsPlugin(),
