@@ -11,7 +11,6 @@ class AppContainer extends React.Component {
 
   componentDidMount () {
     const { history, store } = this.props
-    console.log(store)
 
     // Use history to update store with location
     this.unsubscribe = history.listen(location => {
