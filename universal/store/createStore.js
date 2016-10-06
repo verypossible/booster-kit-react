@@ -1,6 +1,9 @@
 import { applyMiddleware, compose, createStore } from 'redux'
 import thunk from 'redux-thunk'
 import makeRootReducer from './reducers'
+import createLogger from 'redux-logger'
+
+const logger = createLogger()
 
 export default (preloadedState = {}) => {
   // ======================================================
@@ -17,6 +20,7 @@ export default (preloadedState = {}) => {
     if (typeof devToolsExtension === 'function') {
       enhancers.push(devToolsExtension())
     }
+    middleware.push(logger)
   }
 
   // ======================================================
