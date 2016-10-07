@@ -1,6 +1,3 @@
-import Counter from 'containers'
+import Counter from 'containers/Counter'
 
-export default (store) => ({
-  path: 'counter',
-  component: Counter
-})
+export default Counter

@@ -53,3 +53,5 @@ export const counter = {
   actions,
   reducer
 }
+
+export default counter
