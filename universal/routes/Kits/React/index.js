@@ -1,9 +1,9 @@
-import ReactKit from './container'
+import ReactKitContainer from './container'
 
 // Sync route definition
 export default (store) => ({
   path: 'react-web',
-  component: ReactKit,
+  component: ReactKitContainer,
   getChildRoutes (location, cb) {
     require.ensure([], (require) => {
       cb(null, [
