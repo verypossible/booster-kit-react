@@ -10,12 +10,10 @@ import { toast } from 'modules/Toast'
 
 const ToastContainer = toast.container
 
-
 export const CoreLayout = ({ children }) => (
   <div className={styles.mainContainer}>
     <ToastContainer />
     <Header />
-    {/* <CounterContainer /> */}
     <div className={styles.bodyContainer}>
       {children}
     </div>
