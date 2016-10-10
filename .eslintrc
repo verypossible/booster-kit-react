@@ -17,7 +17,10 @@
     "__PROD__"     : false,
     "__DEBUG__"    : false,
     "__COVERAGE__" : false,
-    "__BASENAME__" : false
+    "__PROTOCOL__" : false,
+    "__HOST__"     : false,
+    "__PORT__"     : false
+
   },
   "rules": {
     "semi" : [2, "never"],
