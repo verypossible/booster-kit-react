@@ -1,15 +1,17 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { toast } from 'modules'
 
-import Toast from './component'
+import toastModule from './module'
+import Toast from 'components/Toast'
 
-// Component
+const { KEY } = toastModule
+
+// Container
 type Props = {
   toast: Object
 }
 
-class ToastContainer extends Component {
+class ConnectedToast extends Component {
   props: Props;
 
   render () {
@@ -26,8 +28,10 @@ class ToastContainer extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    toast: state[toast.KEY]
+    toast: state[KEY]
   }
 }
 
-export default connect(mapStateToProps)(ToastContainer)
+const ToastContainer = connect(mapStateToProps)(ConnectedToast)
+
+export default ToastContainer

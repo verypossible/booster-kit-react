@@ -1,14 +1,10 @@
 /* @flow */
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-
-// Module
 const KEY = 'toast'
 
 // Actions
 const SHOW_TOAST = `${KEY}/SHOW_TOAST`
 
-function show (type, message) {
+function show ({type, message}) {
   return {
     type: SHOW_TOAST,
     toast: {
@@ -44,8 +40,10 @@ const reducer = (state = preloadedState, action) => {
   }
 }
 
-export const toast = {
+const toastModule = {
   KEY,
   actions,
   reducer
 }
+
+export default toastModule

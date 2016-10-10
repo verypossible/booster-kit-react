@@ -6,12 +6,16 @@ import React from 'react'
 import Header from 'components/Header'
 import styles from './styles'
 
-import Toast from 'containers/Toast'
+import { toast } from 'modules/Toast'
+
+const ToastContainer = toast.container
+
 
 export const CoreLayout = ({ children }) => (
   <div className={styles.mainContainer}>
-    <Toast />
+    <ToastContainer />
     <Header />
+    {/* <CounterContainer /> */}
     <div className={styles.bodyContainer}>
       {children}
     </div>

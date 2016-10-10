@@ -1,5 +1,5 @@
 import React from 'react'
-import Rocket from '../../assets/rocket.png'
+import Rocket from './assets/rocket.png'
 import styles from './styles'
 
 export const HomeView = () => (

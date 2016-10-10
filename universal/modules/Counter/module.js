@@ -26,7 +26,7 @@ const doubleAsync = () => {
   }
 }
 
-export const actions = {
+const actions = {
   increment,
   doubleAsync
 }
@@ -48,10 +48,10 @@ const reducer = (state = preloadedState, action) => {
   return handler ? handler(state, action) : state
 }
 
-export const counter = {
-  KEY,
+const counterModule = {
   actions,
+  KEY,
   reducer
 }
 
-export default counter
+export default counterModule

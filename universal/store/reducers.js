@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import { toast } from 'modules'
+import { toast } from 'modules/Toast'
 
 const locationState = {
   location: null
