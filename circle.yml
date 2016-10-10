@@ -1,6 +1,6 @@
 machine:
   node:
-    version: 6.2.0
+    version: 6.7.0
 
 dependencies:
   cache_directories:
@@ -15,4 +15,4 @@ deployment:
   production:
     branch: master
     commands:
-      - npm run publish:prod
+      - npm run deploy:prod
