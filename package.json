@@ -1,28 +1,25 @@
 {
   "name": "react-web-booster-kit",
   "version": "1.0.0-alpha.0",
-  "homepage": "react.joinspartan.com",
+  "homepage": "boosters.joinspartan.com",
   "description": "Get started with React, Redux, and React-Router!",
   "main": "index.js",
   "private": "true",
   "engines": {
-    "node": ">=6.2.0",
-    "npm": "^3.10.2"
+    "node": ">=6.7.0",
+    "npm": "^3.10.6"
   },
   "scripts": {
     "clean": "rimraf dist",
     "compile": "better-npm-run compile",
     "lint": "eslint bin build config server src tests",
     "lint:fix": "npm run lint -- --fix",
-    "start": "better-npm-run start:express",
-    "dev": "better-npm-run dev:static",
+    "start": "better-npm-run start",
+    "dev": "better-npm-run dev",
     "test": "better-npm-run test",
     "test:dev": "npm run test -- --watch",
-    "deploy": "better-npm-run deploy",
-    "deploy:dev": "better-npm-run deploy:dev",
-    "deploy:prod": "better-npm-run deploy:prod",
-    "publish": "better-npm-run publish",
-    "publish:prod": "npm run deploy:prod && npm run publish",
+    "deploy:staging": "better-npm-run build && better-npm-run publish:staging",
+    "deploy:prod": "better-npm-run build && better-npm-run publish:prod",
     "codecov": "cat coverage/*/lcov.info | codecov",
     "debug:dev": "better-npm-run debug:dev",
     "debug:prod": "better-npm-run debug:prod",
@@ -43,36 +40,31 @@
         "DEBUG": "app:*"
       }
     },
-    "deploy": {
+    "build": {
       "command": "npm run clean && npm run compile",
       "env": {
-        "DEBUG": "app:*"
+        "DEBUG": "app:*",
+        "NODE_ENV": "production"
       }
     },
-    "deploy:dev": {
-      "command": "npm run deploy",
-      "env": {
-        "NODE_ENV": "development",
-        "DEBUG": "app:*"
-      }
-    },
-    "deploy:prod": {
-      "command": "npm run deploy",
-      "env": {
-        "NODE_ENV": "production",
-        "DEBUG": "app:*"
-      }
-    },
-    "start:express": {
+    "start": {
       "command": "babel-node bin/express",
       "env": {
         "DEBUG": "app:*"
       }
     },
-    "publish": {
+    "publish:prod": {
       "command": "surge --project ./dist/ --domain boosters.joinspartan.com",
       "env": {
-        "DEBUG": "app:*"
+        "DEBUG": "app:*",
+        "NODE_ENV": "production"
+      }
+    },
+    "publish:staging": {
+      "command": "surge --project ./dist/ --domain scary-coil.surge.sh",
+      "env": {
+        "DEBUG": "app:*",
+        "NODE_ENV": "development"
       }
     },
     "debug:dev": {
@@ -136,7 +128,7 @@
     "react-dom": "^15.3.2",
     "react-hot-loader": "^3.0.0-beta.5",
     "react-redux": "^4.0.0",
-    "react-router": "^3.0.0-beta.1",
+    "react-router": "3.0.0-beta.1",
     "redux": "^3.6.0",
     "redux-form": "^6.0.5",
     "redux-socket-cluster": "^0.9.2",
