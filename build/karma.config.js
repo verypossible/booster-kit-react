@@ -58,7 +58,8 @@ const karmaConfig = {
   },
   coverageReporter: {
     reporters: config.coverage_reporters
-  }
+  },
+  port: 9876
 }
 
 if (config.globals.__COVERAGE__) {
