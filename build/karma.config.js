@@ -11,10 +11,11 @@ const karmaConfig = {
   files: [
     {
       pattern: `./${config.dir_test}/test-bundler.js`,
-      watched: false,
+      watched: true,
       served: true,
       included: true
     }
+
   ],
   singleRun: !argv.watch,
   frameworks: ['mocha'],
