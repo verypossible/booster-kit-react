@@ -2,6 +2,7 @@ import webpack from 'webpack'
 import BrowserSyncPlugin from 'browser-sync-webpack-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 
+import postcssPlugins from './webpack.postcss'
 import config from '../config'
 import renderHtml from './html.config'
 
@@ -17,7 +18,15 @@ export default {
       'API_PROTOCOL',
       'API_HOST',
       'API_PORT'
-    ])
+    ]),
+    new webpack.LoaderOptionsPlugin({
+      options: {
+        context: __dirname,
+        postcss: function () {
+          return postcssPlugins
+        }
+      }
+    })
   ],
   hmr: new webpack.HotModuleReplacementPlugin(),
   noErrors: new webpack.NoErrorsPlugin(),

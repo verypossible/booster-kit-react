@@ -1,6 +1,5 @@
 import configLoaders from './webpack.loaders'
 import configPlugins from './webpack.plugins'
-import configPostCSS from './webpack.postcss'
 import configStyles from './webpack.styles'
 
 import config from '../config'
@@ -16,7 +15,6 @@ debug('Create configuration.')
 const webpackConfig = {
   name: 'client',
   target: 'web',
-  devtool: config.compiler_devtool,
   context: paths.client(),
   resolve: {
     extensions: ['.js', '.jsx', '.json', '.css', '.sss', '.md'],
@@ -57,6 +55,7 @@ if (__DEV__) {
   debug('Enable plugins for live development (HMR, NoErrors).')
   const { hmr, noErrors, browserSync } = configPlugins
   webpackConfig.plugins.push(hmr, noErrors, browserSync)
+  webpackConfig.devtool = config.compiler_devtool
 }
 
 if (__PROD__) {
@@ -75,7 +74,7 @@ if (!__TEST__) {
 // Loaders
 // ------------------------------------
 // JavaScript / JSON
-webpackConfig.module.loaders = [{
+webpackConfig.module.rules = [{
   test: /\.(js|jsx)$/,
   loader: 'babel',
   include: paths.base(),
@@ -90,18 +89,14 @@ webpackConfig.module.loaders = [{
 // Style Loaders
 // ------------------------------------
 if (__DEV__) {
-  webpackConfig.module.loaders.push(configStyles.dev)
+  webpackConfig.module.rules.push(configStyles.dev)
 } else {
   debug('Apply ExtractTextPlugin to CSS loaders.')
-  webpackConfig.module.loaders.push(configStyles.prod)
-}
-
-webpackConfig.postcss = function () {
-  return configPostCSS
+  webpackConfig.module.rules.push(configStyles.prod)
 }
 
 // File loaders
-webpackConfig.module.loaders.push(configLoaders)
+webpackConfig.module.rules.push(...configLoaders)
 
 // ------------------------------------
 // Extract Text Plugin Configuration
@@ -109,5 +104,6 @@ webpackConfig.module.loaders.push(configLoaders)
 if (!__DEV__) {
   webpackConfig.plugins.push(configStyles.extract)
 }
+console.log(...webpackConfig.plugins)
 
 export default webpackConfig
