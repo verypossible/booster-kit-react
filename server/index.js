@@ -8,7 +8,7 @@ const debug = _debug('app:server:express')
 const app = express()
 const paths = config.utils_paths
 
-require('events').EventEmitter.prototype._maxListeners = 100;
+require('events').EventEmitter.prototype._maxListeners = 100
 
 // This rewrites all routes requests to the root /index.html file
 // (ignoring file requests). If you want to implement universal
