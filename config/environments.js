@@ -17,7 +17,7 @@ export default {
     compiler_public_path: '/',
     compiler_fail_on_warning: true,
     compiler_hash_type: 'chunkhash',
-    compiler_devtool: null,
+    compiler_devtool: false,
     compiler_stats: {
       chunks: true,
       chunkModules: true,

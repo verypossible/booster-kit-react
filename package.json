@@ -64,7 +64,7 @@
       "command": "surge --project ./dist/ --domain scary-coil.surge.sh",
       "env": {
         "DEBUG": "app:*",
-        "NODE_ENV": "development"
+        "NODE_ENV": "production"
       }
     },
     "debug:dev": {

@@ -2,7 +2,7 @@ import config from '../config'
 
 const paths = config.utils_paths
 
-export default [
+const fileLoaders = [
   {
     test: /\.md$/,
     loader: 'babel-loader!reactdown/webpack'
@@ -27,3 +27,5 @@ export default [
     loader: 'url?limit=8192'
   }
 ]
+
+export default fileLoaders

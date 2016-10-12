@@ -21,7 +21,7 @@ module.exports = function(config, env) {
   config.context = UNIVERSAL
   config.resolve = {
     root: UNIVERSAL,
-    extensions: [...webpackConfig.resolve.extensions, ''],
+    extensions: [...appConfig.compiler_extensions, ''],
     moduleDirectories: [UNIVERSAL, NODE_MODULES]
   }
 
