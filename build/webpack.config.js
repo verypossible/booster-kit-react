@@ -62,10 +62,10 @@ const webpackConfig = (options) => {
   const totalPlugins = webpackPlugins[ENV].length
   const pluginsToPush = webpackPlugins[ENV].slice(1, totalPlugins)
 
+  debug(`Loading configured plugins for ${ENV}`)
   for (const plugin of pluginsToPush) {
     plugins.push(plugin)
   }
-
   // ------------------------------------
   // Webpack Configuration
   // ------------------------------------

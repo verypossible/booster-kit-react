@@ -2,7 +2,6 @@ import webpack from 'webpack'
 import BrowserSyncPlugin from 'browser-sync-webpack-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
-import _debug from 'debug'
 
 import postcssPlugins from './webpack.postcss'
 import config from '../config'
@@ -14,7 +13,6 @@ const commonsChunkOptions = (
   })
 )
 
-const debug = _debug('app:webpack:plugins')
 const webpackPlugins = {
   common: [
     new webpack.DefinePlugin(config.globals),
@@ -35,7 +33,6 @@ const webpackPlugins = {
     })
   ],
   development: [
-    debug('Enable plugins and styles for local development (HMR, NoErrors).'),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
     new BrowserSyncPlugin({
@@ -52,7 +49,6 @@ const webpackPlugins = {
     commonsChunkOptions
   ],
   production: [
-    debug('Enable plugins and styles for production (Dedupe & UglifyJS).'),
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
