@@ -8,7 +8,7 @@ import { expect } from 'chai'
 
 import AppContainer from 'containers/AppContainer'
 
-describe.only('<AppContainer />', () => {
+describe('<AppContainer />', () => {
   const store = createStore({})
   const wrapper = mount(<AppContainer store={store} history={browserHistory} />)
 
