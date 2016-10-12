@@ -1,4 +1,4 @@
-import CoreLayout from './component'
+import LayoutCore from './component'
 
 // Sync route definition
-export default CoreLayout
+export default LayoutCore
