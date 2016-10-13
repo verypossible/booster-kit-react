@@ -10,13 +10,9 @@ const paths = config.utils_paths
 
 debug('Create configuration.')
 const webpackConfig = (options) => {
-  // Env vars
   const DEV = options.env === 'development'
   const ENV = options.env
 
-  // ------------------------------------
-  // Entry
-  // ------------------------------------
   const APP_ENTRY_PATHS = [
     'react-hot-loader/patch',
     paths.client('index.js')
@@ -29,18 +25,13 @@ const webpackConfig = (options) => {
     vendor: config.compiler_vendor
   }
 
-  // ------------------------------------
-  // Output
-  // ------------------------------------
   const output = {
     filename: `[name].[${config.compiler_hash_type}].js`,
     path: paths.dist(),
     publicPath: config.compiler_public_path
   }
 
-  // ------------------------------------
-  // Configure Rules (Loaders)
-  // ------------------------------------
+  debug(`Configuring loaders for ${ENV}`)
   const rules = [{
     test: /\.(js|jsx)$/,
     loader: 'babel',
@@ -54,21 +45,17 @@ const webpackConfig = (options) => {
   rules.push(...fileLoaders)
   rules.push(styleLoaders[ENV])
 
-  // ------------------------------------
-  // Configure Plugins
-  // ------------------------------------
+  debug(`Configuring plugins for ${ENV}`)
   const plugins = webpackPlugins.common
 
   const totalPlugins = webpackPlugins[ENV].length
   const pluginsToPush = webpackPlugins[ENV].slice(1, totalPlugins)
 
-  debug(`Loading configured plugins for ${ENV}`)
   for (const plugin of pluginsToPush) {
     plugins.push(plugin)
   }
-  // ------------------------------------
-  // Webpack Configuration
-  // ------------------------------------
+
+  debug(`Finalizing webpack configuration for ${ENV}`)
   return {
     devtool: config.compiler_devtool,
     target: config.compiler_target,
@@ -76,6 +63,11 @@ const webpackConfig = (options) => {
     resolve: {
       extensions: config.compiler_extensions,
       modules: [paths.universal(), paths.client(), 'node_modules']
+    },
+    externals: {
+      'react/addons': true,
+      'react/lib/ExecutionEnvironment': true,
+      'react/lib/ReactContext': true
     },
     entry: entry,
     output: output,

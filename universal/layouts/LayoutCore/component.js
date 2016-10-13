@@ -10,18 +10,18 @@ import { toast } from 'modules/Toast'
 
 const ToastContainer = toast.container
 
-export const CoreLayout = ({ children }) => (
-  <div className={styles.mainContainer}>
+export const LayoutCore = ({ children }) => (
+  <section className={styles.mainContainer}>
     <ToastContainer />
     <Header />
     <div className={styles.bodyContainer}>
       {children}
     </div>
-  </div>
+  </section>
 )
 
-CoreLayout.propTypes = {
-  children: React.PropTypes.element.isRequired
+LayoutCore.propTypes = {
+  children: React.PropTypes.element
 }
 
-export default CoreLayout
+export default LayoutCore

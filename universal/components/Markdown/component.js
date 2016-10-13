@@ -1,7 +1,7 @@
 import React from 'react'
 import Document from './content'
 
-const Markdown = props => (
+const Markdown = () => (
   <div>
     <Document />
   </div>
