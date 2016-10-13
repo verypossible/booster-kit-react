@@ -9,7 +9,7 @@ dependencies:
 test:
   override:
     - npm run lint
-    - npm test
+    - npm test -- --json
 
 deployment:
   production:

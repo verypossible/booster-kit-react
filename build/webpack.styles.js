@@ -1,27 +1,35 @@
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
+// import postcssPlugins from './webpack.postcss'
 
-export default {
-  dev: {
+const loaderOptions = [
+  { loader: 'css-loader', query: { modules: true, importLoaders: 1 } },
+  { loader: 'postcss-loader'
+    // pending new postcss-loader release - then remove loaderOptionsPlugin
+    // options: {
+    //   plugins: function () {
+    //     return postcssPlugins
+    //   }
+    // }
+  }
+]
+
+const styleLoaders = {
+  development: {
     test: /\.css$/,
     loaders: [
       'style-loader',
-      { loader: 'css-loader', query: { modules: true } },
-      { loader: 'postcss-loader' }
+      ...loaderOptions
     ]
   },
-  prod: {
+  production: {
     test: /\.css$/,
-    loader: ExtractTextPlugin.extract({
+    loaders: ExtractTextPlugin.extract({
       fallbackLoader: 'style-loader',
       loader: [
-        { loader: 'css-loader', query: { modules: true } },
-        { loader: 'postcss-loader' }
+        ...loaderOptions
       ]
     })
-  },
-  extract:
-    new ExtractTextPlugin({
-      filename: '[name].[contenthash].css',
-      allChunks: true
-    })
+  }
 }
+
+export default styleLoaders

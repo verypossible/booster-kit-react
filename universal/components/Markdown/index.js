@@ -1,3 +1,1 @@
-import Markdown from './component'
-
-export default Markdown
+export { default } from './component'

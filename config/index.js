@@ -52,6 +52,18 @@ const config = {
   // ----------------------------------
   // Compiler Configuration
   // ----------------------------------
+  compiler_options         : {
+    env: process.env.NODE_ENV || 'development'
+  },
+  compiler_extensions      : [
+    '.js',
+    '.jsx',
+    '.json',
+    '.css',
+    '.sss',
+    '.md'
+  ],
+  compiler_target          : 'web',
   compiler_devtool         : 'source-map',
   compiler_hash_type       : 'hash',
   compiler_fail_on_warning : false,

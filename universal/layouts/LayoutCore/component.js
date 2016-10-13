@@ -11,13 +11,13 @@ import { toast } from 'modules/Toast'
 const ToastContainer = toast.container
 
 export const LayoutCore = ({ children }) => (
-  <div className={styles.mainContainer}>
+  <section className={styles.mainContainer}>
     <ToastContainer />
     <Header />
     <div className={styles.bodyContainer}>
       {children}
     </div>
-  </div>
+  </section>
 )
 
 LayoutCore.propTypes = {

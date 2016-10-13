@@ -1,10 +1,14 @@
 import { argv } from 'yargs'
 import config from '../config'
 import webpackConfig from './webpack.config'
+
 import _debug from 'debug'
 
 const debug = _debug('app:karma')
 debug('Create configuration.')
+
+const genWebpackConfig = webpackConfig(config.compiler_options)
+console.log(genWebpackConfig)
 
 const karmaConfig = {
   basePath: '../', // project root in relation to bin/karma.js
@@ -29,7 +33,6 @@ const karmaConfig = {
     resolve: {
       ...webpackConfig.resolve,
       alias: {
-        ...webpackConfig.resolve.alias,
         sinon: 'sinon/pkg/sinon.js'
       }
     },
@@ -38,7 +41,7 @@ const karmaConfig = {
       noParse: [
         /\/sinon\.js/
       ],
-      loaders: webpackConfig.module.loaders.concat([
+      loaders: webpackConfig.module.rules.concat([
         {
           test: /sinon(\\|\/)pkg(\\|\/)sinon\.js/,
           loader: 'imports?define=>false,require=>false'

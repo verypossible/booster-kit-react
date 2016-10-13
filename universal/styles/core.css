@@ -2,30 +2,32 @@
 @lost flexbox flex;
 @lost cycle none;
 
-html {
-  box-sizing: border-box;
-}
+:global {
+  html {
+    box-sizing: border-box;
+  }
 
-html,
-body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
+  html,
+  body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
 
-/* Enable this to display lost Grid debugging in browser */
+  /* Enable this to display lost Grid debugging in browser */
 
-/* html {
-  lost-utility: edit;
-} */
+  /* html {
+    lost-utility: edit;
+  } */
 
-i {
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-}
+  i {
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+  }
 
-*,
-*::before,
-*::after {
-  box-sizing: inherit;
+  *,
+  *::before,
+  *::after {
+    box-sizing: inherit;
+  }
 }
