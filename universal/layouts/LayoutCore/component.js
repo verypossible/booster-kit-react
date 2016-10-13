@@ -21,7 +21,7 @@ export const LayoutCore = ({ children }) => (
 )
 
 LayoutCore.propTypes = {
-  children: React.PropTypes.element
+  children: React.PropTypes.element.isRequired
 }
 
 export default LayoutCore

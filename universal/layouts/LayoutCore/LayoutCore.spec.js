@@ -7,7 +7,7 @@ import { toast } from 'modules/Toast'
 const ToastContainer = toast.container
 
 describe('<LayoutCore>', () => {
-  const wrapper = shallow(<LayoutCore/>)
+  const wrapper = shallow(<LayoutCore><div>Hello</div></LayoutCore>)
   it('should contain the <Header />', () => {
     expect(wrapper.contains(<Header />)).toBe(true)
   })
