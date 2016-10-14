@@ -93,7 +93,7 @@
       }
     },
     "test:configs": {
-      "command": "rimraf tests/config/generated/tests.specs.json && rimraf tests/config/generated/tests.features.json && json-concat tests/config/specs.config.json tests/config/common.config.json tests/config/generated/tests.specs.json && json-concat tests/config/features.config.json tests/config/common.config.json tests/config/generated/tests.features.json",
+      "command": "rimraf tests/config/generated/* && json-concat tests/config/specs.config.json tests/config/common.config.json tests/config/generated/tests.specs.json && json-concat tests/config/features.config.json tests/config/common.config.json tests/config/generated/tests.features.json",
       "env": {
         "DEBUG": "app:*"
       }

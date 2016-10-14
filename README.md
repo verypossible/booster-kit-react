@@ -61,7 +61,7 @@ While developing, you will probably rely mostly on `npm start`; however, there a
 |`dev`|Same as `npm start`, but enables nodemon for the server as well.|
 |`codecov`|Generates code coverage info via [codecov.io](https://www.npmjs.com/package/codecov.io).|
 |`test`|Runs unit & feature tests with Jest.|
-|`test:featuers`|Runs just feature tests with Jest and Nightmare.|
+|`test:features`|Runs just feature tests with Jest and Nightmare.|
 |`test:specs`|Runs just unit tests with Jest.|
 |`test:configs`|Generates the Jest test config files for unit and feature testing.|
 |`test:watch`|Runs the Jest spec tests and watches files for changes to rerun tests.|
