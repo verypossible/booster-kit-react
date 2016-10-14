@@ -9,7 +9,7 @@ describe('Browser test yahoo search results', () => {
       .click('form[action*="/search"] [type=submit]')
       .wait('#main')
       .evaluate(function () {
-        return document.querySelector('#main .searchCenterMiddle li a').href
+        return document.querySelector('#web .searchCenterMiddle .first a').href
       })
       .end()
       .then(function (link) {
