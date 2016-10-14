@@ -22,7 +22,7 @@
     "test:features": "better-npm-run test --config tests/config/generated/tests.features.json",
     "test:configs": "better-npm-run test:configs",
     "test:watch": "npm run test:configs && better-npm-run test -- --watch --config tests/config/generated/tests.specs.json",
-    "deploy:staging": "better-npm-run build && better-npm-run publish:staging",
+    "deploy:test": "better-npm-run build && better-npm-run publish:test",
     "deploy:prod": "better-npm-run build && better-npm-run publish:prod",
     "codecov": "cat coverage/*/lcov.info | codecov",
     "debug:dev": "better-npm-run debug:dev",
@@ -64,7 +64,7 @@
         "NODE_ENV": "production"
       }
     },
-    "publish:staging": {
+    "publish:test": {
       "command": "surge --project ./dist/ --domain scary-coil.surge.sh",
       "env": {
         "DEBUG": "app:*",

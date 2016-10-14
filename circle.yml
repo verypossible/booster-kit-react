@@ -9,6 +9,7 @@ dependencies:
 test:
   override:
     - npm run lint
+    - npm run deploy:test
     - npm run test:configs
     - npm run test:specs -- --json
     - npm run test:features -- --json

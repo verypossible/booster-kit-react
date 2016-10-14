@@ -1,19 +1,17 @@
 /* eslint-disable */
-import { browser } from '../browser/config'
+import { browser, baseUrl } from '../browser/config'
 
-describe('Browser test yahoo search results', () => {
-  it('should find the nightmare github link first', async (done) => {
+describe('Booster Kit Nav', () => {
+  it('should find the react link', async (done) => {
     await browser
-      .goto('http://yahoo.com')
-      .type('form[action*="/search"] [name=p]', 'github nightmare')
-      .click('form[action*="/search"] [type=submit]')
-      .wait('#main')
+      .goto(baseUrl)
+      .wait('#header')
       .evaluate(function () {
-        return document.querySelector('#web .searchCenterMiddle .first a').href
+        return document.querySelector('#react').href
       })
       .end()
       .then(function (link) {
-        expect(link).toEqual('https://github.com/segmentio/nightmare')
+        expect(link).toEqual(`${baseUrl}/react`)
         done()
       })
       .catch(function (error) {
