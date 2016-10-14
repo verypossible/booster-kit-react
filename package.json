@@ -17,11 +17,14 @@
     "lint:fix": "npm run lint -- --fix",
     "start": "better-npm-run start",
     "dev": "better-npm-run dev",
-    "test": "better-npm-run test",
-    "test:dev": "npm run test -- --watch",
+    "test": "npm run test:configs && npm run test:specs && npm run test:features",
+    "test:specs": "better-npm-run test --config tests/config/generated/tests.specs.json",
+    "test:features": "better-npm-run test --config tests/config/generated/tests.features.json",
+    "test:configs": "better-npm-run test:configs",
+    "test:watch": "npm run test:configs && better-npm-run test -- --watch --config tests/config/generated/tests.specs.json",
     "deploy:staging": "better-npm-run build && better-npm-run publish:staging",
     "deploy:prod": "better-npm-run build && better-npm-run publish:prod",
-    "codecov": "better-npm-run test -- --coverage",
+    "codecov": "cat coverage/*/lcov.info | codecov",
     "debug:dev": "better-npm-run debug:dev",
     "debug:prod": "better-npm-run debug:prod",
     "storybook:start": "start-storybook -p 4003 -c .storybook",
@@ -29,13 +32,13 @@
   },
   "betterScripts": {
     "compile": {
-      "command": "babel-node bin/compile",
+      "command": "node bin/compile.babel",
       "env": {
         "DEBUG": "app:*"
       }
     },
     "dev": {
-      "command": "nodemon --exec babel-node bin/express",
+      "command": "nodemon --exec node bin/server.babel",
       "env": {
         "NODE_ENV": "development",
         "DEBUG": "app:*"
@@ -49,7 +52,7 @@
       }
     },
     "start": {
-      "command": "babel-node bin/express",
+      "command": "node bin/server.babel",
       "env": {
         "DEBUG": "app:*"
       }
@@ -69,14 +72,14 @@
       }
     },
     "debug:dev": {
-      "command": "babel-node bin/express",
+      "command": "node bin/server.babel",
       "env": {
         "NODE_ENV": "development",
         "DEBUG": "*"
       }
     },
     "debug:prod": {
-      "command": "babel-node bin/express",
+      "command": "node bin/server.babel",
       "env": {
         "NODE_ENV": "production",
         "DEBUG": "*"
@@ -86,6 +89,12 @@
       "command": "jest",
       "env": {
         "NODE_ENV": "test",
+        "DEBUG": "app:*"
+      }
+    },
+    "test:configs": {
+      "command": "rimraf tests/config/generated/tests.specs.json && rimraf tests/config/generated/tests.features.json && json-concat tests/config/specs.config.json tests/config/common.config.json tests/config/generated/tests.specs.json && json-concat tests/config/features.config.json tests/config/common.config.json tests/config/generated/tests.features.json",
+      "env": {
         "DEBUG": "app:*"
       }
     }
@@ -148,6 +157,7 @@
     "babel-plugin-transform-object-rest-spread": "^6.8.0",
     "browser-sync": "^2.16.0",
     "browser-sync-webpack-plugin": "^1.1.3",
+    "codecov": "^1.0.1",
     "connect-history-api-fallback": "^1.3.0",
     "enzyme": "^2.0.0",
     "eslint": "^3.5.0",
@@ -158,9 +168,10 @@
     "eslint-plugin-react": "^6.3.0",
     "eslint-plugin-standard": "^2.0.0",
     "identity-obj-proxy": "^3.0.0",
-    "isparta-loader": "^2.0.0",
     "jest": "^16.0.1",
+    "json-concat": "0.0.1",
     "lost": "^7.1.0",
+    "nightmare": "^2.7.0",
     "nodemon": "^1.10.2",
     "postcss-browser-reporter": "^0.5.0",
     "postcss-cssnext": "^2.8.0",
@@ -186,13 +197,13 @@
   "jest": {
     "scriptPreprocessor": "<rootDir>/tests/preprocessor",
     "globals": {
-      "__DEV__"      : true,
-      "__PROD__"     : false,
-      "__DEBUG__"    : false,
-      "__COVERAGE__" : false,
-      "__PROTOCOL__" : false,
-      "__HOST__"     : false,
-      "__PORT__"     : false
+      "__DEV__": true,
+      "__PROD__": false,
+      "__DEBUG__": false,
+      "__COVERAGE__": false,
+      "__PROTOCOL__": false,
+      "__HOST__": false,
+      "__PORT__": false
     },
     "moduleFileExtensions": [
       "js",
