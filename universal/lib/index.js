@@ -1,3 +1,4 @@
-import * as http from 'http'
+import * as http from './http'
+import * as validate from './valdiate'
 
-export { http }
+export { http, validate }

@@ -57,15 +57,22 @@ While developing, you will probably rely mostly on `npm start`; however, there a
 |------------------|-----------|
 |`start`|Serves your app at `localhost:3000`. HMR will be enabled in development.|
 |`compile`|Compiles the application to disk (`~/dist` by default).|
+|`clean:project`|Runs `npm prune` && `npm cache clear` && `npm install`.|
 |`dev`|Same as `npm start`, but enables nodemon for the server as well.|
 |`codecov`|Generates code coverage info via [codecov.io](https://www.npmjs.com/package/codecov.io).|
-|`test`|Runs unit tests with Karma and generates a coverage report.|
+|`test`|Runs unit & feature tests with Jest.|
+|`test:features`|Runs just feature tests with Jest and Nightmare.|
+|`test:specs`|Runs just unit tests with Jest.|
+|`test:configs`|Generates the Jest test config files for unit and feature testing.|
+|`test:watch`|Runs the Jest spec tests and watches files for changes to rerun tests.|
 |`deploy:staging`|Compiles assets and deploys to staging env via Surge.|
 |`deploy:prod`|Same as `deploy:staging` but overrides `NODE_ENV` to "production".|
 |`lint`|Lint all `.js` files.|
 |`lint:fix`|Lint and fix all `.js` files. [Read more on this](http://eslint.org/docs/user-guide/command-line-interface.html#fix).|
 |`storybook:start`|Starts a storybook on the specified local port|
 |`storybook:build`|Builds a static storybook to `.storybook-static`|
+|`debug:dev`|Start the app in dev mode with full debugging output in the console|
+|`debug:prod`|Start the app in prod mode with full debugging output in the console|
 
 ## Application Structure
 
@@ -121,11 +128,23 @@ Then follow the [manual integration walkthrough](https://github.com/gaearon/redu
 We use `react-router` [plain route definitions](https://github.com/reactjs/react-router/blob/master/docs/API.md#plainroute) (`<route>/index.js`) to define units of logic within our application. See the [application structure](#application-structure) section for more information.
 
 ## Testing
-To add a unit test, simply create a `.spec.js` file anywhere in `~/tests`. Karma will pick up on these files automatically, and Mocha and Chai will be available within your test without the need to import them. If you are using `redux-cli`, test files should automatically be generated when you create a component or redux module.
+### Configs
+Configs in `tests/config` are generated automatically when `npm run test` is run. That script executes the following three tasks in sequential order:
+  1. Generate spec and feature configs for Jest and place them in `tests/config/generated`.
+  2. Run unit and component tests via `npm run test:specs`.
+  3. Run feature tests via `npm run test:features`
+
+If you make changes to the test configs in `tests/config`, it's generally a good idea to run `npm run test:configs` to regenerate the configs.
+
+### Unit Tests
+You can run just the unit tests via `npm run test:specs` or you can watch them via `npm run test:watch`. To add a unit test, simply create a `.spec.js` file in your component or module directory. Jest will pick up on these files automatically. Enzyme is supported as well so long as you import . If you are using `redux-cli`, test files should automatically be generated when you create a component or redux module.
 
 Coverage reports will be compiled to `~/coverage` by default. If you wish to change what reporters are used and where reports are compiled, you can do so by modifying `coverage_reporters` in `~/config/index.js`.
 
-We're currently evaluating [Ava](https://github.com/avajs/ava) - which is installed in this project - so feel free to explore writing tests with this runner. The main benefits are the speed at which it can concurrently run tests.
+### Feature Tests
+You can run the feature tests via `npm run test:features` or watch them via `npm run test:features -- --watch`. Browser automation is provided by [NightmareJS](https://github.com/segmentio/nightmare), which uses Electron under the hood. To add a Jest feature test, simply create a `.feature.js` file in your component or module directory, then import Nightmare via the `browser` named variable from `tests/browser/config`. Check out the Nightmare docs for all the cool things you can do.
+
+To watch the feature tests run in the browser, set `show` to `true` in `tests/browser/config`. Due to the feature tests being long-running, it's recommended to make them asynchronous promises by using `async/await`. [Read more](https://facebook.github.io/jest/docs/tutorial-async.html) about Async testing via Jest.
 
 ## Deployment
 

@@ -12,7 +12,7 @@ type Props = {
 const NavBar = (props: Props) => {
   let navElements = props.navItems.map((item) => {
     let navItem = (
-      <li key={shortid.generate()}>
+      <li id={item.id} key={shortid.generate()}>
         <Link
           to={item.to}
           className={item.className}
@@ -33,8 +33,8 @@ const NavBar = (props: Props) => {
 
 NavBar.defaultProps = {
   navItems: [
-    {'to': '/', 'className': 'link', 'activeClassName': 'activeRoute', 'text': 'hello'},
-    {'to': '/', 'className': 'link', 'activeClassName': 'activeRoute', 'text': 'world'}
+    {'to': '/', 'className': 'link', 'activeClassName': 'activeRoute', 'text': 'hello', 'id': 'one'},
+    {'to': '/', 'className': 'link', 'activeClassName': 'activeRoute', 'text': 'world', 'id': 'two'}
   ]
 }
 

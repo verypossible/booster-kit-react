@@ -19,7 +19,8 @@
     "__COVERAGE__" : false,
     "__PROTOCOL__" : false,
     "__HOST__"     : false,
-    "__PORT__"     : false
+    "__PORT__"     : false,
+    "__TEST_SERVER__" : false
 
   },
   "rules": {

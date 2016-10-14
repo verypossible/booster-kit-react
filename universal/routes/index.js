@@ -22,9 +22,7 @@ export const createRoutes = (store) => ({
           path: 'markdown',
           component: Markdown
         }
-      ],
-
-      path: 'context.html'
+      ]
     }
   ]
 })
