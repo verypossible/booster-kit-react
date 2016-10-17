@@ -36,7 +36,7 @@ const webpackConfig = (options) => {
     test: /\.(js|jsx)$/,
     loader: 'babel',
     include: paths.base(),
-    exclude: /node_modules/
+    exclude: paths.base('node_modules')
   }, {
     test: /\.json$/,
     loader: 'json'
@@ -49,7 +49,7 @@ const webpackConfig = (options) => {
   const plugins = webpackPlugins.common
 
   const totalPlugins = webpackPlugins[ENV].length
-  const pluginsToPush = webpackPlugins[ENV].slice(1, totalPlugins)
+  const pluginsToPush = webpackPlugins[ENV].slice(0, totalPlugins)
 
   for (const plugin of pluginsToPush) {
     plugins.push(plugin)
