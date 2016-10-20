@@ -10,27 +10,35 @@
     "npm": "^3.10.6"
   },
   "scripts": {
-    "clean": "rimraf dist",
+    "build:client": "better-npm-run build:client",
+    "build:server": "better-npm-run build:server",
     "clean:project": "npm prune && npm cache clear && npm install",
-    "compile": "better-npm-run compile",
-    "lint": "eslint bin build config server src tests",
-    "lint:fix": "npm run lint -- --fix",
-    "start": "better-npm-run start",
-    "dev": "better-npm-run dev",
-    "test": "npm run test:configs && npm run test:specs && npm run test:features",
-    "test:specs": "better-npm-run test --config tests/config/generated/tests.specs.json",
-    "test:features": "better-npm-run test --config tests/config/generated/tests.features.json",
-    "test:configs": "better-npm-run test:configs",
-    "test:watch": "npm run test:configs && better-npm-run test -- --watch --config tests/config/generated/tests.specs.json",
-    "deploy:test": "better-npm-run build && better-npm-run publish:test",
-    "deploy:prod": "better-npm-run build && better-npm-run publish:prod",
+    "clean": "rimraf dist",
     "codecov": "cat coverage/*/lcov.info | codecov",
+    "compile": "better-npm-run compile",
     "debug:dev": "better-npm-run debug:dev",
     "debug:prod": "better-npm-run debug:prod",
+    "deploy:prod": "npm run build:client && better-npm-run publish:prod",
+    "deploy:test": "npm run build:client && better-npm-run publish:test",
+    "dev": "better-npm-run dev",
+    "lint:fix": "npm run lint -- --fix",
+    "lint": "eslint bin build config server src tests",
+    "start": "better-npm-run start",
+    "storybook:build": "build-storybook -c .storybook -0 .storybook-static",
     "storybook:start": "start-storybook -p 4003 -c .storybook",
-    "storybook:build": "build-storybook -c .storybook -0 .storybook-static"
+    "test:configs": "better-npm-run test:configs",
+    "test:features": "better-npm-run test --config tests/config/generated/tests.features.json",
+    "test:specs": "better-npm-run test --config tests/config/generated/tests.specs.json",
+    "test:watch": "npm run test:configs && better-npm-run test -- --watch --config tests/config/generated/tests.specs.json",
+    "test": "npm run test:configs && npm run test:specs && npm run test:features"
   },
   "betterScripts": {
+    "start": {
+      "command": "node bin/express.babel",
+      "env": {
+        "DEBUG": "app:*"
+      }
+    },
     "compile": {
       "command": "node bin/compile.babel",
       "env": {
@@ -44,17 +52,20 @@
         "DEBUG": "app:*"
       }
     },
-    "build": {
+    "build:client": {
       "command": "npm run clean && npm run compile",
       "env": {
         "DEBUG": "app:*",
-        "NODE_ENV": "production"
+        "NODE_ENV": "production",
+        "CLIENT": true
       }
     },
-    "start": {
-      "command": "node bin/server.babel",
+    "build:server": {
+      "command": "npm run clean && npm run compile",
       "env": {
-        "DEBUG": "app:*"
+        "DEBUG": "app:*",
+        "NODE_ENV": "production",
+        "CLIENT": false
       }
     },
     "publish:prod": {
@@ -118,6 +129,9 @@
     "babel-register": "^6.14.0",
     "babel-runtime": "^6.3.19",
     "better-npm-run": "0.0.11",
+    "body-parser": "^1.15.2",
+    "compression": "^1.6.2",
+    "cors": "^2.8.1",
     "css-loader": "^0.25.0",
     "debug": "^2.2.0",
     "express": "^4.14.0",
@@ -131,6 +145,7 @@
     "json-loader": "^0.5.4",
     "npm": "^3.10.7",
     "phoenixjs": "^1.0.5",
+    "piping": "^1.0.0-rc.4",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
     "react-hot-loader": "^3.0.0-beta.6",
@@ -140,7 +155,9 @@
     "redux-form": "^6.0.5",
     "redux-thunk": "^2.0.0",
     "rimraf": "^2.5.1",
+    "rollbar": "^0.6.2",
     "shortid": "^2.2.6",
+    "socketcluster": "^5.0.18",
     "socketcluster-client": "^5.0.13",
     "style-loader": "^0.13.0",
     "url-loader": "^0.5.6",

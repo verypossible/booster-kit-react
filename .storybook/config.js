@@ -15,7 +15,8 @@ setOptions({
   downPanelInRight: false,
 })
 
-const req = require.context('../universal', true, /.stories.js$/)
+const req = require.context('../src/universal', true, /.stories.js$/)
+console.log(req)
 
 function loadStories() {
   req.keys().forEach((filename) => req(filename))

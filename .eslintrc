@@ -13,14 +13,15 @@
     "browser" : true
   },
   "globals" : {
-    "__DEV__"      : false,
-    "__PROD__"     : false,
-    "__DEBUG__"    : false,
-    "__COVERAGE__" : false,
-    "__PROTOCOL__" : false,
-    "__HOST__"     : false,
-    "__PORT__"     : false,
-    "__TEST_SERVER__" : false
+    "__DEV__"         : false,
+    "__PROD__"        : false,
+    "__DEBUG__"       : false,
+    "__COVERAGE__"    : false,
+    "__PROTOCOL__"    : false,
+    "__HOST__"        : false,
+    "__PORT__"        : false,
+    "__TEST_SERVER__" : false,
+    "__CLIENT__"      : false
 
   },
   "rules": {

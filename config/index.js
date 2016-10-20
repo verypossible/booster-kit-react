@@ -20,10 +20,11 @@ const config = {
   // Project Structure
   // ----------------------------------
   path_base     : path.resolve(__dirname, '..'),
-  dir_client    : 'client',
-  dir_universal : 'universal',
+  dir_src       : path.resolve(__dirname, '../src'),
+  dir_client    : path.resolve(__dirname, '../src/client'),
+  dir_universal : path.resolve(__dirname, '../src/universal'),
   dir_dist      : 'dist',
-  dir_server    : 'server',
+  dir_server    : path.resolve(__dirname, '../src/server'),
   dir_test      : 'tests',
 
   // ----------------------------------
@@ -64,11 +65,12 @@ const config = {
     '.md'
   ],
   compiler_target          : 'web',
+  compiler_library         : false,
   compiler_devtool         : 'source-map',
   compiler_hash_type       : 'hash',
   compiler_fail_on_warning : false,
   compiler_quiet           : false,
-  compiler_public_path     : '/',
+  compiler_public_path     : '/static/',
   compiler_stats           : {
     chunks : false,
     chunkModules : false,
@@ -93,7 +95,7 @@ const config = {
 
 config.server_url = `${config.server_protocol}://${config.server_host}:${config.server_port}`
 config.test_server = process.env.TEST_SERVER || config.server_url
-
+console.log(config.dir_client)
 /************************************************
 -------------------------------------------------
 
@@ -116,6 +118,7 @@ config.globals = {
   '__PROD__'     : config.env === 'production',
   '__TEST__'     : config.env === 'test',
   '__DEBUG__'    : config.env === 'development' && !argv.no_debug,
+  '__CLIENT__'   : process.env.CLIENT,
   '__COVERAGE__' : !argv.watch && config.env === 'test',
   '__PROTOCOL__' : config.server_protocol,
   '__HOST__'     : config.server_host,
@@ -149,6 +152,7 @@ function base () {
 
 config.utils_paths = {
   base      : base,
+  src       : base.bind(null, config.dir_src),
   client    : base.bind(null, config.dir_client),
   dist      : base.bind(null, config.dir_dist),
   server    : base.bind(null, config.dir_server),

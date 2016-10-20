@@ -59,10 +59,10 @@ const webpackConfig = (options) => {
   return {
     devtool: config.compiler_devtool,
     target: config.compiler_target,
-    context: paths.client(),
+    context: paths.src(),
     resolve: {
       extensions: config.compiler_extensions,
-      modules: [paths.universal(), paths.client(), 'node_modules']
+      modules: [paths.client(), paths.server(), paths.universal(), 'node_modules']
     },
     externals: {
       'react/addons': true,

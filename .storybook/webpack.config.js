@@ -1,18 +1,18 @@
 const path = require('path')
 
-const webpack = require('../build/webpack.babel')
-const appConfig = require('../config/index').default
+const webpack = require('./webpack.babel')
+const { appConfig } = require('./app.config')
 const genDefaultConfig = require('@kadira/storybook/dist/server/config/defaults/webpack.config.js')
 
+const app = appConfig.default
 const webpackConfig = webpack.config.default
 const postcss = webpack.postcss.default
 const loaders = webpack.loaders.default
 
-const UNIVERSAL = path.resolve(__dirname, '../universal')
-const CLIENT = path.resolve(__dirname, '../client')
-const NODE_MODULES = path.resolve(__dirname, 'node_modules')
-
-const env = appConfig.env
+const UNIVERSAL = path.resolve(__dirname, '../src/universal')
+const CLIENT = path.resolve(__dirname, '../src/client')
+const NODE_MODULES = path.resolve(__dirname, '../node_modules')
+const env = app.env
 
 module.exports = function(config, env) {
   var config = genDefaultConfig(config, env)
@@ -21,7 +21,7 @@ module.exports = function(config, env) {
   config.context = UNIVERSAL
   config.resolve = {
     root: UNIVERSAL,
-    extensions: [...appConfig.compiler_extensions, ''],
+    extensions: [...app.compiler_extensions, ''],
     moduleDirectories: [UNIVERSAL, NODE_MODULES]
   }
 

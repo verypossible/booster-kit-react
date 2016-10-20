@@ -1,8 +1,9 @@
 import express from 'express'
 import _debug from 'debug'
 import webpack from 'webpack'
-import webpackConfig from '../build/webpack.config'
-import config from '../config'
+
+import webpackConfig from '../../build/webpack.config'
+import config from '../../config'
 
 const debug = _debug('app:server:express')
 const app = express()
@@ -13,7 +14,7 @@ require('events').EventEmitter.prototype._maxListeners = 100
 // This rewrites all routes requests to the root /index.html file
 // (ignoring file requests). If you want to implement universal
 // rendering, you'll want to remove this middleware.
-app.use(require('connect-history-api-fallback')())
+// app.use(require('connect-history-api-fallback')())
 
 // ------------------------------------
 // Apply Webpack HMR Middleware
