@@ -54,7 +54,9 @@ const config = {
   // Compiler Configuration
   // ----------------------------------
   compiler_options         : {
-    env: process.env.NODE_ENV || 'development'
+    env     : process.env.NODE_ENV || 'development',
+    client  : process.env.CLIENT,
+    server  : process.env.SERVER
   },
   compiler_extensions      : [
     '.js',

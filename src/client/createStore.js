@@ -1,17 +1,17 @@
 import { applyMiddleware, compose, createStore } from 'redux'
+import { routerMiddleware } from 'react-router-redux'
+import { browserHistory } from 'react-router'
 import thunk from 'redux-thunk'
-import makeRootReducer from './reducers'
+import makeRootReducer from '../universal/redux/reducers'
 import createLogger from 'redux-logger'
 
 export default (preloadedState = {}) => {
-  // ======================================================
-  // Middleware Configuration
-  // ======================================================
-  const middleware = [thunk]
+  const reduxRouter = routerMiddleware(browserHistory)
+  const middleware = [
+    reduxRouter,
+    thunk
+  ]
 
-  // ======================================================
-  // Store Enhancers
-  // ======================================================
   const enhancers = []
   if (__DEBUG__) {
     const devToolsExtension = window.devToolsExtension
@@ -22,9 +22,6 @@ export default (preloadedState = {}) => {
     middleware.push(logger)
   }
 
-  // ======================================================
-  // Store Instantiation and HMR Setup
-  // ======================================================
   const store = createStore(
     makeRootReducer(),
     preloadedState,

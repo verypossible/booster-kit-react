@@ -1,4 +1,4 @@
-import { injectReducer } from 'store/reducers'
+import { injectReducer } from 'redux/reducers'
 import module from './module'
 import container from './container'
 

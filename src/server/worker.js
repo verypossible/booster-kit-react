@@ -6,13 +6,12 @@ import bodyParser from 'body-parser'
 // import rollbar from 'rollbar'
 import _debug from 'debug'
 
-import config from '../../config'
+// import config from '../../config'
 import webpackConfig from '../../build/webpack.config'
-import createSSR from './ssr'
+import createSSR from './createSSR'
 
 const debug = _debug('app:server:worker')
 const PROD = process.env.NODE_ENV === 'production'
-const paths = config.utils_paths
 
 export function run (worker) {
   debug('Worker PID:', process.pid)
@@ -26,13 +25,16 @@ export function run (worker) {
 
   // HMR
   if (!PROD) {
-    const compiler = webpack(webpackConfig(config.compiler_options))
+    const options = {
+      ENV: 'development',
+      CLIENT: true
+    }
+    const compiler = webpack(webpackConfig(options))
+    console.log(compiler, 'COMPILER')
 
     debug('Enable webpack dev and HMR middleware')
     app.use(require('webpack-dev-middleware')(compiler, {
       publicPath: config.compiler_public_path,
-      contentBase: paths.client(),
-      hot: true,
       quiet: config.compiler_quiet,
       noInfo: config.compiler_quiet,
       lazy: false,
@@ -58,14 +60,10 @@ export function run (worker) {
   // app.use(rollbar.errorHandler(process.env.ROLLBAR_SERVER))
   // rollbar.handleUncaughtExceptionsAndRejections(process.env.ROLLBAR_SERVER, rollbarOptions)
 
-  // server-side rendering
-  app.get('*')
+  app.get('*', createSSR)
 
-  // handle sockets
   scServer.on('connection', socket => {
     debug('Client connected:', socket.id)
-    // hold the client-submitted docs in a queue while they get validated & handled in the DB
-    // then, when the DB emits a change, we know if the client caused it or not
     socket.docQueue = new Set()
     socket.on('disconnect', () => debug('Client disconnected:', socket.id))
   })

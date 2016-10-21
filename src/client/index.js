@@ -1,27 +1,29 @@
 import React from 'react'
 import { render } from 'react-dom'
 import { AppContainer } from 'react-hot-loader'
+import { Map as iMap } from 'immutable'
 import { browserHistory } from 'react-router'
+import injectTapEventPlugin from 'react-tap-event-plugin'
 
-import createStore from '../universal/store/createStore'
-import App from '../universal/containers/AppContainer'
+import createStore from './createStore'
+import Root from './Root'
 
-// ========================================================
-// Store and History Instantiation
-// ========================================================
-const preloadedState = window.___PRELOADED_STATE__
+const { routing, form, toast } = window.__PRELOADED_STATE__
+
+const preloadedState = iMap([
+  ['routing', routing],
+  ['form', form],
+  ['toast', toast]
+])
+
+const MOUNT_NODE = document.getElementById('root')
 const store = createStore(preloadedState)
 
-// ========================================================
-// Render Setup
-// ========================================================
-const MOUNT_NODE = document.getElementById('root')
-
+injectTapEventPlugin()
 render(
   <AppContainer>
-    <App
+    <Root
       store={store}
-      history={browserHistory}
     />
   </AppContainer>,
   MOUNT_NODE
@@ -30,21 +32,21 @@ render(
 // ========================================================
 // Developer Tools Setup
 // ========================================================
-if (__DEV__) {
-  if (window.devToolsExtension) {
-    window.devToolsExtension.open()
-  }
-}
+// if (__DEV__) {
+//   if (window.devToolsExtension) {
+//     window.devToolsExtension.open()
+//   }
+// }
 
 // This code is excluded from production bundle
 if (__DEV__) {
   if (module.hot) {
-    module.hot.accept('../universal/containers/AppContainer', () => {
-      const NextApp = require('../universal/containers/AppContainer').default
+    module.hot.accept('./Root', () => {
+      const NextRoot = require('./Root').default
 
       render(
         <AppContainer>
-          <NextApp
+          <NextRoot
             store={store}
             history={browserHistory}
           />

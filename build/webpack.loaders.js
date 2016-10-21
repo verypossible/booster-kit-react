@@ -4,6 +4,10 @@ const paths = config.utils_paths
 
 const fileLoaders = [
   {
+    test: /\.json$/,
+    loader: 'json'
+  },
+  {
     test: /\.md$/,
     loader: 'babel-loader!reactdown/webpack'
   }, {

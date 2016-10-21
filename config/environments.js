@@ -11,14 +11,9 @@ export default {
     compiler_hash_type: 'chunkhash',
     compiler_devtool: false,
     compiler_stats: {
-      chunks: true,
+      chunks: false,
       chunkModules: true,
       colors: true
     }
-  }),
-
-  server: (config) => ({
-    compiler_target: 'node',
-    compiler_library: 'commonjs2'
   })
 }

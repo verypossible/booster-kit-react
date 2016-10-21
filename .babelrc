@@ -1,8 +1,9 @@
 {
   "presets": [["es2015", { "loose" : true }], "react", "stage-0"],
   "plugins": [
-    "transform-runtime",
+    "add-module-exports",
     "react-hot-loader/babel",
-    "transform-object-rest-spread"
+    "transform-object-rest-spread",
+    "transform-decorators-legacy"
   ]
 }
