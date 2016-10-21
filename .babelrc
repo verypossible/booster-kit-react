@@ -3,7 +3,6 @@
   "plugins": [
     "add-module-exports",
     "react-hot-loader/babel",
-    "transform-object-rest-spread",
-    "transform-decorators-legacy"
+    "transform-object-rest-spread"
   ]
 }

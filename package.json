@@ -63,7 +63,7 @@
       }
     },
     "build:client": {
-      "command": "webpack --color --config ./build/webpack.babel.js --env.CLIENT --env.ENV production",
+      "command": "webpack --color --config build/webpack.babel --env.CLIENT --env.ENV production",
       "env": {
         "DEBUG": "app:*",
         "NODE_ENV": "production",
@@ -71,7 +71,7 @@
       }
     },
     "build:server": {
-      "command": "webpack --color --config ./build/webpack.babel.js  --env.SERVER --env.ENV production",
+      "command": "webpack --color --config build/webpack.babel  --env.SERVER --env.ENV production",
       "env": {
         "DEBUG": "app:*",
         "NODE_ENV": "production",

@@ -97,7 +97,6 @@ const config = {
 
 config.server_url = `${config.server_protocol}://${config.server_host}:${config.server_port}`
 config.test_server = process.env.TEST_SERVER || config.server_url
-console.log(config.dir_client)
 /************************************************
 -------------------------------------------------
 

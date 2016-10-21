@@ -12,10 +12,10 @@ const serverInclude = [paths.server(), paths.universal()]
 
 debug('Create configuration.')
 const webpackConfig = (options) => {
-  const ENV = options.env
+  const ENV = options.ENV
   const DEV = ENV === 'development'
-  const CLIENT = options.client
-  const SERVER = options.server
+  const CLIENT = options.CLIENT
+  const SERVER = options.SERVER
 
   const APP_ENTRY_PATHS = [
     'react-hot-loader/patch',
