@@ -13,7 +13,7 @@
     "clean": "rimraf dist",
     "clean:project": "npm prune && npm cache clear && npm install",
     "compile": "better-npm-run compile",
-    "lint": "eslint bin build config server src tests",
+    "lint": "eslint bin build config server universal tests",
     "lint:fix": "npm run lint -- --fix",
     "start": "better-npm-run start",
     "dev": "better-npm-run dev",

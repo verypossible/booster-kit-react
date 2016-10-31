@@ -12,7 +12,7 @@ export const HomeView = () => (
     </div>
     <div className={styles.icon}>
       <p>If you don't see an icon below, something is wrong with icon fonts...</p>
-      <i className='icon-icon-mobile'></i>
+      <i className='icon-icon-mobile' />
     </div>
   </div>
 )
