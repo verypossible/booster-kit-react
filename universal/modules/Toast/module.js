@@ -4,7 +4,12 @@ const KEY = 'toast'
 // Actions
 const SHOW_TOAST = `${KEY}/SHOW_TOAST`
 
-function show ({type, message}) {
+type showProps = {
+  type: any,
+  message: string,
+}
+
+function show ({type, message}: showProps) {
   return {
     type: SHOW_TOAST,
     toast: {
@@ -26,7 +31,7 @@ const preloadedState = {
   message: null
 }
 
-const reducer = (state = preloadedState, action) => {
+const reducer = (state: any = preloadedState, action: any) => {
   switch (action.type) {
     case SHOW_TOAST:
       return {

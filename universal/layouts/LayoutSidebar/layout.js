@@ -3,10 +3,11 @@ import React from 'react'
 import NavBar from 'components/NavBar'
 
 import styles from './styles'
+import type { NavElement } from 'lib/types'
 
 type Props = {
   children: any,
-  navItems: Array,
+  navItems: Array<NavElement>,
   handleClick: Function,
 }
 
