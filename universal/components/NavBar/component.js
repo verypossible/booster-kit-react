@@ -2,11 +2,12 @@
 import React from 'react'
 import shortid from 'shortid'
 import { Link } from 'react-router'
+import type { NavElement } from 'lib/types'
 
 import styles from './styles'
 
 type Props = {
-  navItems: Array
+  navItems: Array<NavElement>
 }
 
 const NavBar = (props: Props) => {

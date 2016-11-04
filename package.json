@@ -10,6 +10,7 @@
     "npm": "^3.10.6"
   },
   "scripts": {
+    "analyze": "flow",
     "clean": "rimraf dist",
     "clean:project": "npm prune && npm cache clear && npm install",
     "compile": "better-npm-run compile",
@@ -167,6 +168,7 @@
     "eslint-plugin-promise": "^3.0.0",
     "eslint-plugin-react": "^6.3.0",
     "eslint-plugin-standard": "^2.0.0",
+    "flow-bin": "^0.34.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^16.0.1",
     "json-concat": "0.0.1",

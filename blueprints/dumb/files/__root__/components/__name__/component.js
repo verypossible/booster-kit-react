@@ -1,9 +1,10 @@
+/* @flow */
 import React from 'react'
 import styles from './styles'
 
 type Props = {
-  title: String
-};
+  title: string
+}
 
 const <%= pascalEntityName %> = ({ title = '<%= pascalEntityName %>' }: Props) => {
   return (

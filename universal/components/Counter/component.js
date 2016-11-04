@@ -1,7 +1,14 @@
+/* @flow */
 import React from 'react'
 import styles from './styles'
 
-export const Counter = (props) => (
+type Props = {
+  counter: number,
+  doubleAsync: Function,
+  increment: Function
+}
+
+export const Counter = (props: Props) => (
   <div>
     <h2 className={styles.counterContainer}>
       Counter:
