@@ -35,6 +35,7 @@ The microsite for [Spartan's booster kits](http://boosters.joinspartan.com) was 
 ## Requirements
 * node `^6.7.0`
 * yarn `^0.19.1`
+  * [Yarn Installation Guide](https://yarnpkg.com/en/docs/install)
 
 ## Getting Started
 
