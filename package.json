@@ -6,19 +6,18 @@
   "main": "index.js",
   "private": "true",
   "engines": {
-    "node": ">=6.7.0",
-    "npm": "^3.10.6"
+    "node": ">=6.7.0"
   },
   "scripts": {
     "analyze": "flow",
     "clean": "rimraf dist",
-    "clean:project": "npm prune && npm cache clear && npm install",
+    "clean:project": "yarn cache clean && yarn install --force",
     "compile": "better-npm-run compile",
     "lint": "eslint bin build config server universal tests",
-    "lint:fix": "npm run lint -- --fix",
+    "lint:fix": "yarn run lint -- --fix",
     "start": "better-npm-run start",
     "dev": "better-npm-run dev",
-    "test": "npm run test:configs && npm run test:specs && npm run test:features",
+    "test": "yarn run test:configs && yarn run test:specs && yarn run test:features",
     "test:specs": "better-npm-run test --config tests/config/generated/tests.specs.json",
     "test:features": "better-npm-run test --config tests/config/generated/tests.features.json",
     "test:configs": "better-npm-run test:configs",
@@ -46,7 +45,7 @@
       }
     },
     "build": {
-      "command": "npm run clean && npm run compile",
+      "command": "yarn run clean && yarn run compile",
       "env": {
         "DEBUG": "app:*",
         "NODE_ENV": "production"
@@ -130,7 +129,6 @@
     "ip": "^1.1.2",
     "isomorphic-fetch": "^2.2.1",
     "json-loader": "^0.5.4",
-    "npm": "^3.10.7",
     "phoenixjs": "^1.0.5",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",

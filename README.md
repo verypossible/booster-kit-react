@@ -34,7 +34,7 @@ The microsite for [Spartan's booster kits](http://boosters.joinspartan.com) was 
 
 ## Requirements
 * node `^6.7.0`
-* npm `^3.10.6`
+* yarn `^0.19.1`
 
 ## Getting Started
 
@@ -43,22 +43,22 @@ After confirming that your development environment meets the specified [requirem
 ```bash
 $ git clone https://github.com/spartansystems/booster-kit-react.git
 $ cd booster-kit-react
-$ npm install                   # Install project dependencies
-$ npm start                     # Compile and launch
+$ yarn install                   # Install project dependencies
+$ yarn start                     # Compile and launch
 ```
 
 If everything works, you should see the following:
 
 <img src="http://i.imgur.com/zR7VRG6.png?2" />
 
-While developing, you will probably rely mostly on `npm start`; however, there are additional scripts at your disposal:
+While developing, you will probably rely mostly on `yarn start`; however, there are additional scripts at your disposal:
 
-|`npm run <script>`|Description|
+|`yarn run <script>`|Description|
 |------------------|-----------|
 |`start`|Serves your app at `localhost:3000`. HMR will be enabled in development.|
 |`compile`|Compiles the application to disk (`~/dist` by default).|
-|`clean:project`|Runs `npm prune` && `npm cache clear` && `npm install`.|
-|`dev`|Same as `npm start`, but enables nodemon for the server as well.|
+|`clean:project`|Runs `yarn cache clean` && `yarn install --force`.|
+|`dev`|Same as `yarn start`, but enables nodemon for the server as well.|
 |`codecov`|Generates code coverage info via [codecov.io](https://www.npmjs.com/package/codecov.io).|
 |`test`|Runs unit & feature tests with Jest.|
 |`test:features`|Runs just feature tests with Jest and Nightmare.|
@@ -116,10 +116,10 @@ The application structure presented in this boilerplate is **fractal**, where fu
 **Make sure you install the [Redux DevTools Chrome Extension](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd).**
 Using the chrome extension allows your monitors to run on a separate thread and affords better performance and functionality. It comes with several of the most popular monitors, is easy to configure, filters actions, and doesn’t require installing any packages.
 
-However, adding the DevTools components to your project is simple. First, grab the packages from npm:
+However, adding the DevTools components to your project is simple. First, grab the packages using yarn:
 
 ```bash
-npm i --save-dev redux-devtools redux-devtools-log-monitor redux-devtools-dock-monitor
+yarn i --save-dev redux-devtools redux-devtools-log-monitor redux-devtools-dock-monitor
 ```
 
 Then follow the [manual integration walkthrough](https://github.com/gaearon/redux-devtools/blob/master/docs/Walkthrough.md).
@@ -129,20 +129,20 @@ We use `react-router` [plain route definitions](https://github.com/reactjs/react
 
 ## Testing
 ### Configs
-Configs in `tests/config` are generated automatically when `npm run test` is run. That script executes the following three tasks in sequential order:
+Configs in `tests/config` are generated automatically when `yarn run test` is run. That script executes the following three tasks in sequential order:
   1. Generate spec and feature configs for Jest and place them in `tests/config/generated`.
-  2. Run unit and component tests via `npm run test:specs`.
-  3. Run feature tests via `npm run test:features`
+  2. Run unit and component tests via `yarn run test:specs`.
+  3. Run feature tests via `yarn run test:features`
 
-If you make changes to the test configs in `tests/config`, it's generally a good idea to run `npm run test:configs` to regenerate the configs.
+If you make changes to the test configs in `tests/config`, it's generally a good idea to run `yarn run test:configs` to regenerate the configs.
 
 ### Unit Tests
-You can run just the unit tests via `npm run test:specs` or you can watch them via `npm run test:watch`. To add a unit test, simply create a `.spec.js` file in your component or module directory. Jest will pick up on these files automatically. Enzyme is supported as well so long as you import . If you are using `redux-cli`, test files should automatically be generated when you create a component or redux module.
+You can run just the unit tests via `yarn run test:specs` or you can watch them via `yarn run test:watch`. To add a unit test, simply create a `.spec.js` file in your component or module directory. Jest will pick up on these files automatically. Enzyme is supported as well so long as you import . If you are using `redux-cli`, test files should automatically be generated when you create a component or redux module.
 
 Coverage reports will be compiled to `~/coverage` by default. If you wish to change what reporters are used and where reports are compiled, you can do so by modifying `coverage_reporters` in `~/config/index.js`.
 
 ### Feature Tests
-You can run the feature tests via `npm run test:features` or watch them via `npm run test:features -- --watch`. Browser automation is provided by [NightmareJS](https://github.com/segmentio/nightmare), which uses Electron under the hood. To add a Jest feature test, simply create a `.feature.js` file in your component or module directory, then import Nightmare via the `browser` named variable from `tests/browser/config`. Check out the Nightmare docs for all the cool things you can do.
+You can run the feature tests via `yarn run test:features` or watch them via `yarn run test:features -- --watch`. Browser automation is provided by [NightmareJS](https://github.com/segmentio/nightmare), which uses Electron under the hood. To add a Jest feature test, simply create a `.feature.js` file in your component or module directory, then import Nightmare via the `browser` named variable from `tests/browser/config`. Check out the Nightmare docs for all the cool things you can do.
 
 To watch the feature tests run in the browser, set `show` to `true` in `tests/browser/config`. Due to the feature tests being long-running, it's recommended to make them asynchronous promises by using `async/await`. [Read more](https://facebook.github.io/jest/docs/tutorial-async.html) about Async testing via Jest.
 
@@ -152,14 +152,14 @@ To watch the feature tests run in the browser, set `show` to `true` in `tests/br
 If you want to simply publish the site as a static client, the project is configured to use [surge.sh](http://surge.sh/).
 
 Steps to publish:
-* `npm install -g surge`
+* `yarn install -g surge`
 * `surge` to create your account and complete the initial build.
-* Update the new host domain path in the `publish:env` npm script in `package.json`.
+* Update the new host domain path in the `publish:env` yarn script in `package.json`.
 * Add tokens to CircleCI if you want to set up automatic deploys. See below for more information.
 
 `circle.yml` is configured to publish on successful merges into master, but you will still need to provide it with a Surge auth token. [Read more](http://surge.sh/help/integrating-with-circleci) about Surge continous deployment via CIrcleCI.
 
-### Server Side Rendering  
+### Server Side Rendering
 #### Integration With The Rails Booster Kit
 Coming soon...
 
@@ -179,8 +179,8 @@ This app has not been optimized (yet) to render static markup on the server. Thi
 Heroku has `nodejs buildpack` script that does the following when you deploy your app to Heroku.
 1. Find `packages.json` in the root directory.
 2. Install `nodejs` and `npm` packages.
-3. Run `npm postinstall script`
-4. Run `npm start`
+3. Run `yarn postinstall script`
+4. Run `yarn start`
 
 Therefore, you need to modify `package.json` before deploying to Heroku. Make the following changes in the `scripts` section of `package.json`.
 
@@ -188,7 +188,7 @@ Therefore, you need to modify `package.json` before deploying to Heroku. Make th
 ...
 "start": "better-npm-run start:prod",
 "serve": "better-npm-run start",
-"postinstall": "npm run deploy:prod",
+"postinstall": "yarn run deploy:prod",
 "betterScripts": {
   ...
   "start:prod": {
@@ -261,7 +261,7 @@ These are global variables available to you anywhere in your source code. If you
 |`__DEV__`|True when `process.env.NODE_ENV` is `development`|
 |`__PROD__`|True when `process.env.NODE_ENV` is `production`|
 |`__TEST__`|True when `process.env.NODE_ENV` is `test`|
-|`__DEBUG__`|True when `process.env.NODE_ENV` is `development` and cli arg `--no_debug` is not set (`npm run dev:no-debug`)|
+|`__DEBUG__`|True when `process.env.NODE_ENV` is `development` and cli arg `--no_debug` is not set (`yarn run dev:no-debug`)|
 |`__PROTOCOL__`|True when `process.env.PROTOCOL` is defined|
 |`__HOST__`|True when `process.env.HOST` is defined|
 |`__PORT__`|True when `process.env.PORT` is defined|
