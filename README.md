@@ -1,6 +1,8 @@
 # React Redux Booster Kit
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/338bf79312184e0f9bbaeacf710e0fc9)](https://www.codacy.com/app/Spartan/booster-kit-react?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=spartansystems/booster-kit-react&amp;utm_campaign=Badge_Grade)
+[![Code Climate](https://codeclimate.com/repos/5882a516df5c47459c002cde/badges/0f6560266e94398ffc2b/gpa.svg)](https://codeclimate.com/repos/5882a516df5c47459c002cde/feed)
+[![Test Coverage](https://codeclimate.com/repos/5882a516df5c47459c002cde/badges/0f6560266e94398ffc2b/coverage.svg)](https://codeclimate.com/repos/5882a516df5c47459c002cde/coverage)
+[![Issue Count](https://codeclimate.com/repos/5882a516df5c47459c002cde/badges/0f6560266e94398ffc2b/issue_count.svg)](https://codeclimate.com/repos/5882a516df5c47459c002cde/feed)
 [![CircleCI](https://circleci.com/gh/spartansystems/booster-kit-react/tree/master.svg?style=svg)](https://circleci.com/gh/spartansystems/booster-kit-react/tree/master)
 [![dependencies](https://david-dm.org/spartansystems/booster-kit-react.svg)](https://david-dm.org/spartansystems/booster-kit-react)
 [![devDependency Status](https://david-dm.org/spartansystems/booster-kit-react/dev-status.svg)](https://david-dm.org/spartansystems/booster-kit-react/#info=devDependencies)
