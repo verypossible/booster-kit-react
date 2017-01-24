@@ -2,10 +2,10 @@ const path = require('path')
 
 const webpack = require('../build/webpack.babel')
 const appConfig = require('../config/index').default
+const postcss = require('../postcss.config')
 const genDefaultConfig = require('@kadira/storybook/dist/server/config/defaults/webpack.config.js')
 
 const webpackConfig = webpack.config.default
-const postcss = webpack.postcss.default
 const loaders = webpack.loaders.default
 
 const UNIVERSAL = path.resolve(__dirname, '../universal')
@@ -47,7 +47,7 @@ module.exports = function(config, env) {
   config.module.loaders.push(...loaders)
 
   config.postcss = function () {
-      return postcss
+      return postcss.plugins
     }
 
   return config

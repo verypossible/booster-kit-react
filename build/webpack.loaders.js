@@ -2,30 +2,72 @@ import config from '../config'
 
 const paths = config.utils_paths
 
-const fileLoaders = [
+export default [
   {
     test: /\.md$/,
-    loader: 'babel-loader!reactdown/webpack'
+    use: [
+      'babel-loader',
+      'reactdown/webpack'
+    ]
   }, {
     test: /\.woff$/,
-    loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/font-woff'
+    loader: 'url-loader',
+    query: {
+      prefix: 'fonts/',
+      name: '[path][name].[ext]',
+      limit: 10000,
+      mimetype: 'application/font-woff'
+    }
+  },
+  {
+    test: /\.woff2$/,
+    loader: 'url-loader',
+    query: {
+      prefix: 'fonts/',
+      name: '[path][name].[ext]',
+      limit: 10000,
+      mimetype: 'application/font-woff2'
+    }
   }, {
     test: /\.otf$/,
-    loader: 'file?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=font/opentype'
+    loader: 'file-loader',
+    query: {
+      prefix: 'fonts/',
+      name: '[path][name].[ext]',
+      limit: 10000,
+      mimetype: 'font/opentype'
+    }
   }, {
     test: /\.ttf$/,
-    loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/octet-stream'
+    loader: 'url-loader',
+    query: {
+      prefix: 'fonts/',
+      name: '[path][name].[ext]',
+      limit: 10000,
+      mimetype: 'application/octet-stream'
+    }
   }, {
     test: /\.eot$/,
-    loader: 'file?prefix=fonts/&name=[path][name].[ext]'
+    loader: 'file-loader',
+    query: {
+      prefix: 'fonts/',
+      name: '[path][name].[ext]'
+    }
   }, {
     test: /\.svg$/,
-    loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=image/svg+xml',
-    include: paths.universal('styles/fonts')
+    loader: 'url-loader',
+    include: paths.universal('styles/fonts'),
+    query: {
+      prefix: 'fonts/',
+      name: '[path][name].[ext]',
+      limit: 10000,
+      mimetype: 'image/svg+xml'
+    }
   }, {
     test: /\.(png|jpg)$/,
-    loader: 'url?limit=8192'
+    loader: 'url-loader',
+    query: {
+      limit: 8192
+    }
   }
 ]
-
-export default fileLoaders

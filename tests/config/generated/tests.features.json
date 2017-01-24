@@ -1,7 +1,9 @@
 {
   "testRegex": "(/__tests__/.*|\\.(feature))\\.(js)$"
 ,
-  "scriptPreprocessor": "<rootDir>/tests/config/preprocessor",
+  "transform": {
+      ".*": "<rootDir>/tests/config/preprocessor.js"
+    },
   "globals": {
     "__DEV__": true,
     "__PROD__": false,
@@ -17,7 +19,9 @@
     "json",
     "css",
     "sss",
-    "md"
+    "scss",
+    "md",
+    "graphql"
   ],
   "moduleDirectories": [
     "node_modules",

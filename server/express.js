@@ -23,13 +23,17 @@ if (config.env === 'development') {
 
   debug('Enable webpack dev and HMR middleware')
   app.use(require('webpack-dev-middleware')(compiler, {
-    publicPath: config.compiler_public_path,
+    publicPath: `${config.server_url}/`,
     contentBase: paths.client(),
     hot: true,
-    quiet: config.compiler_quiet,
-    noInfo: config.compiler_quiet,
+    quiet: false,
+    noInfo: false,
     lazy: false,
-    stats: config.compiler_stats
+    stats: {
+      chunks: false,
+      chunkModules: false,
+      colors: true
+    }
   }))
   app.use(require('webpack-hot-middleware')(compiler))
 
