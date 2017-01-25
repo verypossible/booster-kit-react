@@ -15,7 +15,6 @@ export const counter = {
 const Counter = container
 
 export default ({ store }: Object) => {
-  console.log(store)
   injectReducer(store, { key: KEY, reducer: reducer })
   return (
     <Counter />
