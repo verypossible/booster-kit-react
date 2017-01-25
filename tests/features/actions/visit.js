@@ -8,5 +8,6 @@ export default function (path = '', query = {}) {
   return (
     nightmare(options)
       .goto(location)
+      .wait('#header')
   )
 }

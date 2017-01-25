@@ -1,5 +1,5 @@
 /* @flow */
-import HomeRoutes from './Index'
+import HomeRoutes from './Root'
 import ReactRoutes from './React'
 
 export default [

@@ -3,10 +3,10 @@ import React from 'react'
 
 import LayoutCore from 'layouts/LayoutCore'
 
-import type { Route } from './types'
 import match from './matches'
+import routes from './routes'
 
-const ConfigureRoutes = ({ store, routes }: { store: Object, routes: Array<Route> }) => {
+const Router = ({ store }: { store: Object }) => {
   return (
     <LayoutCore>
       <div>
@@ -18,4 +18,4 @@ const ConfigureRoutes = ({ store, routes }: { store: Object, routes: Array<Route
   )
 }
 
-export default ConfigureRoutes
+export default Router

@@ -173,6 +173,7 @@
     "identity-obj-proxy": "^3.0.0",
     "inline-manifest-webpack-plugin": "^3.0.1",
     "jest": "^18.1.0",
+    "jest-enzyme": "^2.1.0",
     "json-concat": "^0.0.1",
     "lost": "^8.0.0",
     "nightmare": "^2.7.0",

@@ -2,8 +2,8 @@
   "testRegex": "(/__tests__/.*|\\.(spec))\\.(js|jsx)$"
 ,
   "transform": {
-      ".*": "<rootDir>/tests/config/preprocessor.js"
-    },
+    ".*": "<rootDir>/tests/config/preprocessor.js"
+  },
   "globals": {
     "__DEV__": true,
     "__PROD__": false,
@@ -34,5 +34,6 @@
   },
   "testPathIgnorePatterns": [
     "(/blueprints/.*|\\.md$)"
-  ]
+  ],
+  "setupTestFrameworkScriptFile": "<rootDir>/node_modules/jest-enzyme/lib/index.js"
 }

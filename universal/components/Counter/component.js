@@ -17,7 +17,7 @@ export const Counter = (props: Props) => (
         {props.counter}
       </span>
     </h2>
-    <button className='btn btn-default' onClick={props.increment}>
+    <button id='counterIncrement' className='btn btn-default' onClick={props.increment}>
       Increment
     </button>
     {' '}

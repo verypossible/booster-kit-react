@@ -1,10 +1,10 @@
 import React from 'react'
 import { Provider } from 'react-redux'
-import createStore from 'store/createStore'
+import createStore from '../universal/store/createStore'
 
 import { mount } from 'enzyme'
-import AppContainer from './Root'
-describe('<AppContainer />', () => {
+import Root from './Root'
+describe('(Container) Root', () => {
   const store = createStore({})
   const wrapper = mount(<Root store={store} />)
 
@@ -15,10 +15,9 @@ describe('<AppContainer />', () => {
     expect(providerElement.props().store).toEqual(store)
   })
 
-  it('Should render a child <Router />', () => {
-    const routerElement = wrapper.find('Router')
+  it('Should render a child <BrowserRouter />', () => {
+    const browserRouter = wrapper.find('BrowserRouter')
 
-    expect(routerElement.length).toBe(1)
-    expect(routerElement.props().store).toEqual(store)
+    expect(browserRouter.length).toBe(1)
   })
 })
