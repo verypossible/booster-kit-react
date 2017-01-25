@@ -1,7 +1,7 @@
 import config from '../config'
 const paths = config.utils_paths
 
-const output = {
+export default {
   common: {
     path: paths.dist()
   },
@@ -14,5 +14,3 @@ const output = {
     publicPath: '/'
   }
 }
-
-export default (ENV) => Object.assign({}, output.common, output[ENV])

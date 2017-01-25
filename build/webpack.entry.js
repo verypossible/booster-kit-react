@@ -7,7 +7,7 @@ const APP_ENTRY_PATHS = [
   paths.client('index.js')
 ]
 
-const entry = {
+export default {
   common: {
     vendor: [
       'babel-polyfill',
@@ -18,11 +18,9 @@ const entry = {
     ]
   },
   development: {
-    app: APP_ENTRY_PATHS.concat(`webpack-hot-middleware/client?path=${config.server_url}__webpack_hmr`)
+    app: APP_ENTRY_PATHS.concat(`webpack-hot-middleware/client?path=${config.server_url}/__webpack_hmr`)
   },
   production: {
     app: APP_ENTRY_PATHS
   }
 }
-
-export default (ENV) => Object.assign({}, entry.common, entry[ENV])

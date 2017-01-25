@@ -1,16 +1,16 @@
 /* @flow */
 import React from 'react'
-import { IndexLink, Link } from 'react-router'
+import { Link } from 'react-router'
 
 import styles from './styles'
 import mark from './assets/mark-color.png'
 
-export const Header = () => (
+const Header = () => (
   <div id='header' className={styles.container}>
     <div className={styles.header}>
-      <IndexLink className={styles.logo} to='/' activeClassName={styles.activeRoute}>
+      <Link className={styles.logo} to='/' activeClassName={styles.activeRoute}>
         <img src={mark} height='40' width='40' />
-      </IndexLink>
+      </Link>
       <h1>Spartan Booster Kits</h1>
     </div>
     <div id='nav' className={styles.links}>

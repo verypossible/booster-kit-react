@@ -9,14 +9,7 @@ import WebpackMd5Hash from 'webpack-md5-hash'
 import config from '../config'
 import renderHtml from './html'
 
-const commonsChunkOptions = (
-  new webpack.optimize.CommonsChunkPlugin({
-    names: ['vendor', 'manifest'],
-    minChunks: Infinity
-  })
-)
-
-const plugins = {
+export default {
   common: [
     new WebpackMd5Hash(),
     new ManifestPlugin(),
@@ -28,6 +21,10 @@ const plugins = {
     new HtmlWebpackPlugin(renderHtml('200.html')),
     new webpack.LoaderOptionsPlugin({
       minimize: true
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+      names: ['vendor', 'manifest'],
+      minChunks: Infinity
     })
   ],
   development: [
@@ -51,8 +48,7 @@ const plugins = {
       }
     }, {
       reload: false
-    }),
-    commonsChunkOptions
+    })
   ],
   production: [
     new webpack.optimize.UglifyJsPlugin({
@@ -70,9 +66,6 @@ const plugins = {
       filename: '[name].[contenthash].css',
       disable: false,
       allChunks: true
-    }),
-    commonsChunkOptions
+    })
   ]
 }
-
-export default (ENV) => [...plugins.common, ...plugins[ENV]]

@@ -1,15 +1,12 @@
 import React from 'react'
 import { Provider } from 'react-redux'
-import { createMemoryHistory } from 'react-router'
 import createStore from 'store/createStore'
-import locationReducer from 'store/reducers'
 
 import { mount } from 'enzyme'
-const history = createMemoryHistory('/')
-import AppContainer from 'containers/AppContainer'
+import AppContainer from './Root'
 describe('<AppContainer />', () => {
   const store = createStore({})
-  const wrapper = mount(<AppContainer store={store} history={history} />)
+  const wrapper = mount(<Root store={store} />)
 
   it('Should render as a <Provider />.', () => {
     const providerElement = wrapper.find('Provider')
@@ -22,6 +19,6 @@ describe('<AppContainer />', () => {
     const routerElement = wrapper.find('Router')
 
     expect(routerElement.length).toBe(1)
-    expect(routerElement.props().history).toEqual(history)
+    expect(routerElement.props().store).toEqual(store)
   })
 })

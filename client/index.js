@@ -1,10 +1,9 @@
 import React from 'react'
 import { render } from 'react-dom'
 import { AppContainer } from 'react-hot-loader'
-import { browserHistory } from 'react-router'
 
 import createStore from '../universal/store/createStore'
-import App from '../universal/containers/AppContainer'
+import Root from './Root'
 
 // ========================================================
 // Store and History Instantiation
@@ -19,9 +18,8 @@ const MOUNT_NODE = document.getElementById('root')
 
 render(
   <AppContainer>
-    <App
+    <Root
       store={store}
-      history={browserHistory}
     />
   </AppContainer>,
   MOUNT_NODE
@@ -39,14 +37,13 @@ if (__DEV__) {
 // This code is excluded from production bundle
 if (__DEV__) {
   if (module.hot) {
-    module.hot.accept('../universal/containers/AppContainer', () => {
-      const NextApp = require('../universal/containers/AppContainer').default
+    module.hot.accept('./Root', () => {
+      const NextRoot = require('./Root').default
 
       render(
         <AppContainer>
-          <NextApp
+          <NextRoot
             store={store}
-            history={browserHistory}
           />
         </AppContainer>,
         MOUNT_NODE

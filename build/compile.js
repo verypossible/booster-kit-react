@@ -11,7 +11,7 @@ const paths = config.utils_paths
   debug(config.env, 'ENVIRONMENT')
   try {
     debug('Run compiler')
-    const stats = await webpackCompiler(webpackConfig(config.compiler_options))
+    const stats = await webpackCompiler(webpackConfig)
     if (stats.warnings.length && config.compiler_fail_on_warning) {
       debug('Config set to fail on warning, exiting with status code "1".')
       process.exit(1)

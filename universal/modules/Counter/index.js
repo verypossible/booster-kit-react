@@ -1,3 +1,4 @@
+import React from 'react'
 import { injectReducer } from 'store/reducers'
 import module from './module'
 import container from './container'
@@ -11,7 +12,12 @@ export const counter = {
   reducer
 }
 
-export default (store) => {
+const Counter = container
+
+export default ({ store }: Object) => {
+  console.log(store)
   injectReducer(store, { key: KEY, reducer: reducer })
-  return container
+  return (
+    <Counter />
+  )
 }
