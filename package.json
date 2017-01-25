@@ -16,7 +16,7 @@
     "compile": "bnr compile",
     "debug:dev": "bnr debug:dev",
     "debug:prod": "bnr debug:prod",
-    "deploy:prod": "bnr && bnr publish:prod",
+    "deploy:prod": "bnr build && bnr publish:prod",
     "deploy:test": "bnr build && bnr publish:test",
     "dev": "bnr dev",
     "lint:fix": "yarn run lint -- --fix",
