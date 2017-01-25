@@ -35,7 +35,7 @@ The microsite for [Spartan's booster kits](http://boosters.joinspartan.com) was 
 1. [Contributing](#contributing)
 
 ## Requirements
-* node `^6.7.0`
+* node `^7.4.0`
 * yarn `^0.19.1`
   * [Yarn Installation Guide](https://yarnpkg.com/en/docs/install)
 
@@ -47,7 +47,7 @@ After confirming that your development environment meets the specified [requirem
 $ git clone https://github.com/spartansystems/booster-kit-react.git
 $ cd booster-kit-react
 $ yarn install                   # Install project dependencies
-$ yarn start                     # Compile and launch
+$ yarn run start                     # Compile and launch
 ```
 
 If everything works, you should see the following:
@@ -122,7 +122,7 @@ Using the chrome extension allows your monitors to run on a separate thread and 
 However, adding the DevTools components to your project is simple. First, grab the packages using yarn:
 
 ```bash
-yarn i --save-dev redux-devtools redux-devtools-log-monitor redux-devtools-dock-monitor
+yarn add -D redux-devtools redux-devtools-log-monitor redux-devtools-dock-monitor
 ```
 
 Then follow the [manual integration walkthrough](https://github.com/gaearon/redux-devtools/blob/master/docs/Walkthrough.md).
@@ -155,7 +155,7 @@ To watch the feature tests run in the browser, set `show` to `true` in `tests/br
 If you want to simply publish the site as a static client, the project is configured to use [surge.sh](http://surge.sh/).
 
 Steps to publish:
-* `yarn install -g surge`
+* `yarn add global surge`
 * `surge` to create your account and complete the initial build.
 * Update the new host domain path in the `publish:env` yarn script in `package.json`.
 * Add tokens to CircleCI if you want to set up automatic deploys. See below for more information.
@@ -183,7 +183,7 @@ Heroku has `nodejs buildpack` script that does the following when you deploy you
 1. Find `packages.json` in the root directory.
 2. Install `nodejs` and `npm` packages.
 3. Run `yarn postinstall script`
-4. Run `yarn start`
+4. Run `yarn run start`
 
 Therefore, you need to modify `package.json` before deploying to Heroku. Make the following changes in the `scripts` section of `package.json`.
 

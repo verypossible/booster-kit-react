@@ -34,15 +34,6 @@ const config = {
   server_port        : process.env.PORT || 3000,
 
   // ----------------------------------
-  // Socket Configuration
-  // ----------------------------------
-  socket_channel_limit     : 1000,
-  socket_log_level         : 1,
-  socket_workers           : 1,
-  socket_brokers           : 1,
-  socket_engine            : 1,
-
-  // ----------------------------------
   // BrowserSync Options
   // ----------------------------------
   browser_sync_port        : 4000,
@@ -55,53 +46,16 @@ const config = {
   compiler_options         : {
     env: process.env.NODE_ENV || 'development'
   },
-  compiler_extensions      : [
-    '.js',
-    '.jsx',
-    '.json',
-    '.css',
-    '.sss',
-    '.md'
-  ],
-  compiler_target          : 'web',
-  compiler_devtool         : 'source-map',
-  compiler_hash_type       : 'hash',
-  compiler_fail_on_warning : false,
-  compiler_quiet           : false,
-  compiler_public_path     : '/',
   compiler_stats           : {
     chunks : false,
     chunkModules : false,
     colors : true
   },
-  compiler_vendor : [
-    'babel-polyfill',
-    'react',
-    'react-redux',
-    'react-router',
-    'redux'
-  ],
-
-  // ----------------------------------
-  // Test Configuration
-  // ----------------------------------
-  coverage_reporters : [
-    { type : 'text-summary' },
-    { type : 'lcov', dir : 'coverage' }
-  ]
+  compiler_fail_on_warning : false
 }
 
 config.server_url = `${config.server_protocol}://${config.server_host}:${config.server_port}`
-config.test_server = process.env.TEST_SERVER || config.server_url
-
-/************************************************
--------------------------------------------------
-
-All Internal Configuration Below
-Edit at Your Own Risk
-
--------------------------------------------------
-************************************************/
+config.testServer = process.env.TEST_SERVER || `${config.server_url}`
 
 // ------------------------------------
 // Environment
@@ -122,22 +76,6 @@ config.globals = {
   '__PORT__'     : config.server_port,
   '__TEST_SERVER__' : config.test_server
 }
-
-// ------------------------------------
-// Validate Vendor Dependencies
-// ------------------------------------
-const pkg = require('../package.json')
-
-config.compiler_vendor = config.compiler_vendor
-  .filter((dep) => {
-    if (pkg.dependencies[dep]) return true
-
-    debug(
-      `Package "${dep}" was not found as an npm dependency in package.json; ` +
-      `it won't be included in the webpack vendor bundle.
-       Consider removing it from vendor_dependencies in ~/config/index.js`
-    )
-  })
 
 // ------------------------------------
 // Utilities

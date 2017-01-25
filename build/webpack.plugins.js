@@ -1,47 +1,53 @@
-import webpack from 'webpack'
 import BrowserSyncPlugin from 'browser-sync-webpack-plugin'
-import HtmlWebpackPlugin from 'html-webpack-plugin'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
+import HtmlWebpackPlugin from 'html-webpack-plugin'
+import InlineManifestWebpackPlugin from 'inline-manifest-webpack-plugin'
+import ManifestPlugin from 'webpack-manifest-plugin'
+import webpack from 'webpack'
+import WebpackMd5Hash from 'webpack-md5-hash'
 
-import postcssPlugins from './webpack.postcss'
 import config from '../config'
-import renderHtml from './html.config'
+import renderHtml from './html'
 
 const commonsChunkOptions = (
   new webpack.optimize.CommonsChunkPlugin({
-    names: ['vendor']
+    names: ['vendor', 'manifest'],
+    minChunks: Infinity
   })
 )
 
-const webpackPlugins = {
+const plugins = {
   common: [
+    new WebpackMd5Hash(),
+    new ManifestPlugin(),
+    new InlineManifestWebpackPlugin({
+      name: 'webpackManifest'
+    }),
     new webpack.DefinePlugin(config.globals),
-    new HtmlWebpackPlugin(renderHtml.index),
-    new HtmlWebpackPlugin(renderHtml.twoHundred),
-    new webpack.EnvironmentPlugin([
-      'API_PROTOCOL',
-      'API_HOST',
-      'API_PORT'
-    ]),
+    new HtmlWebpackPlugin(renderHtml('index.html')),
+    new HtmlWebpackPlugin(renderHtml('200.html')),
     new webpack.LoaderOptionsPlugin({
-      options: {
-        context: __dirname,
-        postcss: function () {
-          return postcssPlugins
-        }
-      }
+      minimize: true
     })
   ],
   development: [
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
+    new webpack.LoaderOptionsPlugin({
+      debug: true
+    }),
     new BrowserSyncPlugin({
       open: config.browser_sync_open_window,
       host: config.server_host,
       port: config.browser_sync_port,
-      proxy: config.compiler_public_path,
+      proxy: `${config.server_host}:${config.server_port}`,
       ui: {
         port: config.browser_sync_ui_port
+      },
+      ghostMode: {
+        clicks: true,
+        forms: true,
+        scroll: true
       }
     }, {
       reload: false
@@ -49,20 +55,24 @@ const webpackPlugins = {
     commonsChunkOptions
   ],
   production: [
-    new webpack.optimize.DedupePlugin(),
     new webpack.optimize.UglifyJsPlugin({
+      sourceMap: true,
       compress: {
         unused: true,
         dead_code: true,
         warnings: false
       }
     }),
+    new webpack.LoaderOptionsPlugin({
+      debug: false
+    }),
     new ExtractTextPlugin({
       filename: '[name].[contenthash].css',
+      disable: false,
       allChunks: true
     }),
     commonsChunkOptions
   ]
 }
 
-export default webpackPlugins
+export default (ENV) => [...plugins.common, ...plugins[ENV]]

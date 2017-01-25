@@ -8,6 +8,7 @@ const debug = _debug('app:bin:compile')
 const paths = config.utils_paths
 
 ;(async function () {
+  debug(config.env, 'ENVIRONMENT')
   try {
     debug('Run compiler')
     const stats = await webpackCompiler(webpackConfig(config.compiler_options))
