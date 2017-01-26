@@ -9,11 +9,9 @@ import routes from './routes'
 const Router = ({ store }: { store: Object }) => {
   return (
     <LayoutCore>
-      <div>
-        {routes.map((route, i) => (
-          <match.WithSubRoutes key={i} {...route} store={store} />
-        ))}
-      </div>
+      {routes.map((route, i) => (
+        <match.WithSubRoutes key={i} {...route} store={store} />
+      ))}
     </LayoutCore>
   )
 }
