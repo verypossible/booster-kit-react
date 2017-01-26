@@ -21,13 +21,14 @@
     "dev": "bnr dev",
     "lint:fix": "yarn run lint -- --fix",
     "lint": "eslint bin build config server universal tests",
+    "preflight": "yarn run analyze && yarn run lint && yarn run test",
     "start": "bnr start",
     "storybook:build": "build-storybook -c .storybook -0 .storybook-static",
     "storybook:start": "start-storybook -p 4003 -c .storybook",
     "test:configs": "bnr test:configs",
     "test:features": "bnr test --config tests/config/generated/tests.features.json",
     "test:specs": "bnr test --config tests/config/generated/tests.specs.json",
-    "test:watch": "yarn run test:configs && bnr test -- --watch --config tests/config/generated/tests.specs.json",
+    "test:watch": "yarn run test:configs && bnr test --watch --config tests/config/generated/tests.specs.json",
     "test": "yarn run test:configs && yarn run test:specs && yarn run test:features"
   },
   "betterScripts": {

@@ -9,9 +9,11 @@ import routes from './routes'
 const Routes = ({ store }: { store: Object }) => {
   return (
     <LayoutCore>
-      {routes.map((route, i) => (
-        <MatchWithSubRoutes key={i} {...route} store={store} />
-      ))}
+      <div>
+        {routes.map((route, i) => (
+          <MatchWithSubRoutes key={i} {...route} store={store} />
+        ))}
+      </div>
     </LayoutCore>
   )
 }

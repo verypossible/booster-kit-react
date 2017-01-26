@@ -3,12 +3,12 @@ import React from 'react'
 
 import Home from 'layouts/Home'
 
-const HomeRoute = () => (
+const RootRoute = () => (
   <Home />
 )
 
 export default [{
   pattern: '/',
-  component: HomeRoute,
+  component: RootRoute,
   exactly: true
 }]
