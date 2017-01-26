@@ -2,7 +2,7 @@
 import React from 'react'
 import NavBar from 'components/NavBar'
 
-import styles from './styles'
+import styles from './styles.css'
 import type { NavElement } from 'lib/types'
 
 type Props = {

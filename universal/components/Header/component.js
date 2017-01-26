@@ -2,7 +2,7 @@
 import React from 'react'
 import { Link } from 'react-router'
 
-import styles from './styles'
+import styles from './styles.css'
 import mark from './assets/mark-color.png'
 
 const Header = () => (

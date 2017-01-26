@@ -1,6 +1,6 @@
 /* @flow */
 import React from 'react'
-import styles from './styles'
+import styles from './styles.css'
 
 type Props = {
   counter: number,
