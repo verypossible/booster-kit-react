@@ -58,18 +58,18 @@ While developing, you will probably rely mostly on `yarn start`; however, there 
 
 |`yarn run <script>`|Description|
 |------------------|-----------|
+|`analyze`|Analyzes types with flow.|
+|`build`|Cleans `dist` and runs the compiler.|
 |`start`|Serves your app at `localhost:3000`. HMR will be enabled in development.|
 |`compile`|Compiles the application to disk (`~/dist` by default).|
+|`clean`|Runs rimraf on `dist`|
 |`clean:project`|Runs `yarn cache clean` && `yarn install --force`.|
 |`dev`|Same as `yarn start`, but enables nodemon for the server as well.|
-|`codecov`|Generates code coverage info via [codecov.io](https://www.npmjs.com/package/codecov.io).|
+|`flow-typed`|Installs flow library definitions for third-party packages.|
 |`test`|Runs unit & feature tests with Jest.|
-|`test:features`|Runs just feature tests with Jest and Nightmare.|
-|`test:specs`|Runs just unit tests with Jest.|
-|`test:configs`|Generates the Jest test config files for unit and feature testing.|
 |`test:watch`|Runs the Jest spec tests and watches files for changes to rerun tests.|
-|`deploy:staging`|Compiles assets and deploys to staging env via Surge.|
-|`deploy:prod`|Same as `deploy:staging` but overrides `NODE_ENV` to "production".|
+|`deploy:test`|Compiles assets and deploys to test environment via Surge.|
+|`deploy:prod`|Same as `deploy:test` but changes the deploy location".|
 |`lint`|Lint all `.js` files.|
 |`lint:fix`|Lint and fix all `.js` files. [Read more on this](http://eslint.org/docs/user-guide/command-line-interface.html#fix).|
 |`storybook:start`|Starts a storybook on the specified local port|

@@ -1,6 +1,6 @@
 import React from 'react'
 import Rocket from './assets/rocket.png'
-import styles from './styles'
+import styles from './styles.css'
 
 export const HomeView = () => (
   <div className={styles.container}>
