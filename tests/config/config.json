@@ -33,5 +33,6 @@
   "testPathIgnorePatterns": [
     "(/blueprints/.*|\\.md$)"
   ],
-  "setupTestFrameworkScriptFile": "<rootDir>/node_modules/jest-enzyme/lib/index.js"
+  "setupTestFrameworkScriptFile": "<rootDir>/node_modules/jest-enzyme/lib/index.js",
+  "testRegex": "(/__tests__/.*|\\.(feature|spec))\\.(js)$"
 }

@@ -28,15 +28,14 @@
     "max-len": [2, 120, 2],
     "no-console": 2,
     "generator-star-spacing": 0,
-    "babel/generator-star-spacing": 1,
-    "promise/always-return": "error",
-    "promise/no-return-wrap": "error",
-    "promise/param-names": "error",
-    "promise/catch-or-return": "error",
-    "promise/no-native": "off",
-    "promise/no-nesting": "warn",
-    "promise/no-promise-in-callback": "warn",
-    "promise/no-callback-in-promise": "warn",
-    "promise/avoid-new": "off"
+    "promise/always-return": 2,
+    "promise/no-return-wrap": 2,
+    "promise/param-names": 2,
+    "promise/catch-or-return": 2,
+    "promise/no-native": 0,
+    "promise/no-nesting": 1,
+    "promise/no-promise-in-callback": 1,
+    "promise/no-callback-in-promise": 1,
+    "promise/avoid-new": 0
   }
 }
