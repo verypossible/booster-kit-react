@@ -4,7 +4,7 @@ import shortid from 'shortid'
 import { Link } from 'react-router'
 import type { NavElement } from 'lib/types'
 
-import styles from './styles'
+import styles from './styles.css'
 
 type Props = {
   navItems: Array<NavElement>
