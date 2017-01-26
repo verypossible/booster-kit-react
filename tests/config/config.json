@@ -1,6 +1,4 @@
 {
-  "testRegex": "(/__tests__/.*|\\.(feature))\\.(js)$"
-,
   "transform": {
       ".*": "<rootDir>/tests/config/preprocessor.js"
     },
@@ -34,5 +32,6 @@
   },
   "testPathIgnorePatterns": [
     "(/blueprints/.*|\\.md$)"
-  ]
+  ],
+  "testRegex": "(/__tests__/.*|\\.(feature|spec))\\.(js)$"
 }

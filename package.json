@@ -24,11 +24,8 @@
     "start": "bnr start",
     "storybook:build": "build-storybook -c .storybook -0 .storybook-static",
     "storybook:start": "start-storybook -p 4003 -c .storybook",
-    "test:configs": "bnr test:configs",
-    "test:features": "bnr test --config tests/config/generated/tests.features.json",
-    "test:specs": "bnr test --config tests/config/generated/tests.specs.json",
-    "test:watch": "yarn run test:configs && bnr test -- --watch --config tests/config/generated/tests.specs.json",
-    "test": "yarn run test:configs && yarn run test:specs && yarn run test:features"
+    "test:watch": "bnr test --watch --config tests/config/config.json",
+    "test": "bnr test --config tests/config/config.json"
   },
   "betterScripts": {
     "compile": {
@@ -89,12 +86,6 @@
       "command": "jest",
       "env": {
         "NODE_ENV": "test",
-        "DEBUG": "app:*"
-      }
-    },
-    "test:configs": {
-      "command": "rimraf tests/config/generated/* && json-concat tests/config/specs.config.json tests/config/common.config.json tests/config/generated/tests.specs.json && json-concat tests/config/features.config.json tests/config/common.config.json tests/config/generated/tests.features.json",
-      "env": {
         "DEBUG": "app:*"
       }
     }
@@ -173,7 +164,6 @@
     "identity-obj-proxy": "^3.0.0",
     "inline-manifest-webpack-plugin": "^3.0.1",
     "jest": "^18.1.0",
-    "json-concat": "^0.0.1",
     "lost": "^8.0.0",
     "nightmare": "^2.7.0",
     "nodemon": "^1.10.2",
