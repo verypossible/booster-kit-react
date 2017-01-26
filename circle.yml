@@ -22,9 +22,7 @@ test:
     - yarn run lint
     - yarn run analyze
     - yarn run deploy:test
-    - yarn run test:configs
-    - yarn run test:specs -- --json
-    - yarn run test:features -- --json
+    - yarn test
 
 deployment:
   production:
