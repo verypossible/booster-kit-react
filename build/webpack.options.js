@@ -2,7 +2,7 @@ import config from '../config'
 
 const paths = config.utils_paths
 
-const options = {
+export default {
   common: {
     context: paths.client(),
     resolve: {
@@ -36,5 +36,3 @@ const options = {
     devtool: 'source-map'
   }
 }
-
-export default (ENV) => Object.assign({}, options.common, options[ENV])

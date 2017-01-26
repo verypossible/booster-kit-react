@@ -36,8 +36,8 @@ const config = {
   // ----------------------------------
   // BrowserSync Options
   // ----------------------------------
-  browser_sync_port        : 4000,
-  browser_sync_ui_port     : 4001,
+  browser_sync_port        : 3010,
+  browser_sync_ui_port     : 3011,
   browser_sync_open_window : false,
 
   // ----------------------------------

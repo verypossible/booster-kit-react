@@ -21,7 +21,7 @@ const sassOptions = [
   { loader: sass, query: { outputStyle: 'compressed', includePaths: /node_modules/ } }
 ]
 
-const styleLoaders = {
+export default {
   development: [
     {
       test: /\.css$/,
@@ -57,5 +57,3 @@ const styleLoaders = {
     }
   ]
 }
-
-export default styleLoaders

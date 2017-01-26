@@ -27,7 +27,7 @@ const Layout = ({children, handleClick}: Props) => {
 
 const navItems = [
   {
-    'to': '/react/counter', 'className': 'link', 'activeClassName': 'activeRoute', 'text': 'Counter'
+    'to': '/react/counter', 'className': 'link', 'activeClassName': 'activeRoute', 'text': 'Counter', id: 'counterLink'
   }, {
     'to': '/react/markdown', 'className': 'link', 'activeClassName': 'activeRoute', 'text': 'Markdown'
   }]

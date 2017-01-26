@@ -1,30 +1,21 @@
+/* @flow */
+import React from 'react'
+
 import LayoutCore from 'layouts/LayoutCore'
-import Home from 'layouts/Home'
 
-import LayoutSidebar from 'layouts/LayoutSidebar'
-import Counter from 'modules/Counter'
-import Markdown from 'components/Markdown'
+import { MatchWithSubRoutes } from 'lib/router'
+import routes from './routes'
 
-export const createRoutes = (store) => ({
-  path: '/',
-  component: LayoutCore,
-  indexRoute: Home,
-  childRoutes: [
-    {
-      path: 'react',
-      component: LayoutSidebar,
-      childRoutes: [
-        {
-          path: 'counter',
-          component: Counter(store)
-        },
-        {
-          path: 'markdown',
-          component: Markdown
-        }
-      ]
-    }
-  ]
-})
+const Routes = ({ store }: { store: Object }) => {
+  return (
+    <LayoutCore>
+      <div>
+        {routes.map((route, i) => (
+          <MatchWithSubRoutes key={i} {...route} store={store} />
+        ))}
+      </div>
+    </LayoutCore>
+  )
+}
 
-export default createRoutes
+export default Routes
