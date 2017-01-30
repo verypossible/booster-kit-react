@@ -7,7 +7,7 @@ type Props = {
   meta: Object
 }
 
-const CheckbBx = ({ label }: Props) => {
+const CheckBox = ({ label }: Props) => {
   return (
     <div className={styles.inputWrap}>
       <input type='checkbox' className={styles.check} placeholder={label} />
