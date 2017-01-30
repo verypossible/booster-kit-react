@@ -1,3 +1,5 @@
+@value dark = rgba(24, 27, 32, 100);
+
 .button {
   border: 1px solid;
   border-radius: 40px;
@@ -22,18 +24,34 @@
 
 .light:hover {
   background-color: #FFF;
-  color: rgba(24, 27, 32, 100);
+  color: dark;
 }
 
 /* stylelint-disable */
 .dark {
   composes: button;
-  border-color: rgba(24, 27, 32, 100);
-  color: rgba(24, 27, 32, 100);
+  border-color: dark;
+  color: dark;
 }
 /* stylelint-enable*/
 
 .dark:hover {
-  background-color: rgba(24, 27, 32, 100);
+  background-color: dark;
   color: #FFF;
+}
+
+.form {
+  background-color: dark;
+  color: white;
+  display: flex;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 700;
+  padding: 20px 30px;
+  margin-top: 10px;
+  letter-spacing: 3px;
+  text-align: center;
+  text-transform: uppercase;
+  width: 100%;
+  border: 0;
 }

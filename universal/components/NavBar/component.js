@@ -19,7 +19,8 @@ const NavBar = (props: Props) => {
           className={item.className}
           activeClassName={item.activeClassName}
         >
-          {item.text}
+          {({isActive, location, href, onClick, transition}) =>
+            <a href={href} onClick={onClick}>{item.text}</a>}
         </Link>
       </li>
     )

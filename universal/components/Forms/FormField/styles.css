@@ -1,0 +1,32 @@
+.inputWrap {
+  max-width: 500px;
+  border: 1px solid #EAEAEA;
+  background-color: #EAEAEA;
+  margin-bottom: -1px;
+  padding: 10px;
+  text-transform: lowercase;
+}
+
+.label {
+  padding: 5px;
+}
+
+.input {
+  background-color: #EAEAEA;
+  border-width: 0;
+  border-style: none;
+  outline: none;
+  padding: 5px;
+  width: 100%;
+  color: rgba(0, 0, 0, 0.5);
+  text-transform: lowercase;
+}
+
+input:focus {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.error {
+  color: red;
+  padding: 5px;
+}

@@ -20,7 +20,14 @@ export default {
         paths.client(),
         paths.universal(),
         'node_modules'
-      ]
+      ],
+      alias: {
+        colors: paths.universal('styles/colors.css'),
+        text: paths.universal('styles/typography.css'),
+        breakpoints: paths.universal('styles/breakpoints.css'),
+        spacing: paths.universal('styles/spacing.css'),
+        grid: paths.universal('styles/grid.css')
+      }
     },
     externals: {
       'react/addons': true,

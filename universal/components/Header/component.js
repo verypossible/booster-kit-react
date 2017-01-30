@@ -2,6 +2,8 @@
 import React from 'react'
 import { Link } from 'react-router'
 
+import NavBar from '../NavBar'
+
 import styles from './styles.css'
 import mark from './assets/mark-color.png'
 
@@ -14,11 +16,15 @@ const Header = () => (
       <h1>Spartan Booster Kits</h1>
     </div>
     <div id='nav' className={styles.links}>
-      <Link id='react' to='/react' className={styles.link} activeClassName={styles.activeRoute}>
-        React Web
-      </Link>
+      <NavBar navItems={links} />
     </div>
   </div>
 )
+
+const links = [
+  {'to': '/react', 'className': 'link', 'activeClassName': 'activeRoute', 'text': 'React', 'id': 'react'},
+  {'to': '/signup', 'className': 'link', 'activeClassName': 'activeRoute', 'text': 'Sign Up', 'id': 'signUp'},
+  {'to': '/login', 'className': 'link', 'activeClassName': 'activeRoute', 'text': 'Log In', 'id': 'logIn'}
+]
 
 export default Header

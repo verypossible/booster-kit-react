@@ -20,7 +20,10 @@
     "__PROTOCOL__" : false,
     "__HOST__"     : false,
     "__PORT__"     : false,
-    "__TEST_SERVER__" : false
+    "__TEST_SERVER__" : false,
+    "__SERVER_URL__" : false,
+    "__SERVER_TYPE__" : false,
+    "__APP_NAME__" : false
 
   },
   "rules": {
@@ -28,7 +31,7 @@
     "max-len": [2, 120, 2],
     "no-console": 2,
     "generator-star-spacing": 0,
-    "promise/always-return": 2,
+    "promise/always-return": 0,
     "promise/no-return-wrap": 2,
     "promise/param-names": 2,
     "promise/catch-or-return": 2,

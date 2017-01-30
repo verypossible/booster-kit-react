@@ -4,6 +4,7 @@
 }
 
 .bodyContainer {
+  lost-align: center;
   height: 100%;
   lost-column: 12/12;
   padding: 0 10px;
