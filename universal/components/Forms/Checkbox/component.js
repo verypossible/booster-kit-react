@@ -7,7 +7,7 @@ type Props = {
   meta: Object
 }
 
-const Checkbox = ({ label }: Props) => {
+const CheckbBx = ({ label }: Props) => {
   return (
     <div className={styles.inputWrap}>
       <input type='checkbox' className={styles.check} placeholder={label} />
@@ -15,4 +15,4 @@ const Checkbox = ({ label }: Props) => {
     </div>
   )
 }
-export default Checkbox
+export default CheckBox
