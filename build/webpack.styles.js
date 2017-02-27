@@ -41,16 +41,16 @@ export default {
     {
       test: /\.css$/,
       loaders: ExtractTextPlugin.extract({
-        fallbackLoader: style,
-        loader: [
+        fallback: style,
+        use: [
           ...cssOptions
         ]
       })
     }, {
       test: /\.scss$/,
       loaders: ExtractTextPlugin.extract({
-        fallbackLoader: style,
-        loader: [
+        fallback: style,
+        use: [
           ...sassOptions
         ]
       })

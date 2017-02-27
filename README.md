@@ -65,7 +65,7 @@ While developing, you will probably rely mostly on `yarn start`; however, there 
 |`clean`|Runs rimraf on `dist`|
 |`clean:project`|Runs `yarn cache clean` && `yarn install --force`.|
 |`dev`|Same as `yarn start`, but enables nodemon for the server as well.|
-|`flow-typed`|Installs flow library definitions for third-party packages.|
+|`flow:update`|Updates flow library definitions for third-party packages.|
 |`test`|Runs unit & feature tests with Jest.|
 |`test:watch`|Runs the Jest spec tests and watches files for changes to rerun tests.|
 |`deploy:test`|Compiles assets and deploys to test environment via Surge.|

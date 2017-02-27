@@ -1,6 +1,6 @@
 /* @flow */
 import React from 'react'
-import { Link } from 'react-router'
+import { Link } from 'lib/router'
 
 import styles from './styles.css'
 import mark from './assets/mark-color.png'

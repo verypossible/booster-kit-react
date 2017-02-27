@@ -8,7 +8,7 @@ const RootRoute = () => (
 )
 
 export default [{
-  pattern: '/',
-  component: RootRoute,
-  exactly: true
+  path: '/',
+  routeComponent: RootRoute,
+  exact: true
 }]

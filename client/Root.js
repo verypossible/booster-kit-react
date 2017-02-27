@@ -1,7 +1,7 @@
 /* @flow */
 import React from 'react'
 import { Provider } from 'react-redux'
-import { BrowserRouter } from 'react-router'
+import { BrowserRouter } from 'react-router-dom'
 import Routes from '../universal/routes'
 
 const Root = ({ store }: Object) => {
