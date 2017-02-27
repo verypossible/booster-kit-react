@@ -1,7 +1,7 @@
 /* @flow */
 import React from 'react'
 import shortid from 'shortid'
-import { Link } from 'react-router'
+import { Link } from 'lib/router'
 import type { NavElement } from 'lib/types'
 
 import styles from './styles.css'

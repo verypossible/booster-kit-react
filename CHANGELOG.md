@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.0.1
+-------------
+* Updates packages and flow library definitions
+* Migrates to react-router-dom
+* Patches stylelint config
+
 1.0.0-alpha.0
 -------------
 

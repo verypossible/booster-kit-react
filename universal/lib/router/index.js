@@ -1,3 +1,3 @@
 /* @flow */
 export { MatchWithSubRoutes } from './MatchWithSubRoutes'
-export { Redirect, Miss, Match, NavigationPrompt } from 'react-router'
+export { Redirect, Route, Link, NavLink, NavPrompt } from 'react-router-dom'

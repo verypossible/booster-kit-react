@@ -3,6 +3,9 @@
   "ignoreFiles": [
     "./src/universal/styles/vendor/",
   ],
+  "plugins": [
+    "stylelint-order"
+  ],
   "rules": {
     "color-hex-case": "upper",
     "at-rule-no-vendor-prefix",
@@ -13,7 +16,7 @@
     "block-no-empty": null,
     "no-missing-end-of-source-newline": null,
     "value-no-vendor-prefix",
-    "declaration-block-properties-order": "alphabetical",
+    "order/declaration-block-properties-alphabetical-order": true,
     "font-family-name-quotes": "always-where-recommended",
     "selector-pseudo-class-no-unknown": [true, ignorePseudoClasses: ["global", "local"]],
     "property-no-unknown": [true, ignoreProperties: ["composes", "/^lost-/", "font-smoothing"]]

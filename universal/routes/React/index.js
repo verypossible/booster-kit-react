@@ -20,13 +20,13 @@ const ReactRoute = ({ routes, store }: { routes: Array<Route>, store: Object }) 
 }
 
 export default [{
-  pattern: '/react',
-  component: ReactRoute,
+  path: '/react',
+  routeComponent: ReactRoute,
   routes: [{
-    pattern: '/react/markdown',
-    component: Markdown
+    path: '/react/markdown',
+    routeComponent: Markdown
   }, {
-    pattern: '/react/counter',
-    component: Counter
+    path: '/react/counter',
+    routeComponent: Counter
   }]
 }]
