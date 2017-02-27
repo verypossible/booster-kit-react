@@ -22,7 +22,7 @@ export const LayoutCore = ({ children }) => (
 )
 
 LayoutCore.propTypes = {
-  children: React.PropTypes.element.isRequired
+  children: React.PropTypes.any.isRequired
 }
 
 export default LayoutCore
