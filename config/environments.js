@@ -1,13 +1,21 @@
-/*
-  As we are migrating to a more modular configuration,
-  we can still include overrides but shouldn't need to. Uncomment and add config overrides below
-*/
+const string = (value) => JSON.stringify(value)
+
 export default {
   // Development overrides
-  // development: (config) => ({}),
+  development: (config) => ({
+    globals: {
+      ...config.globals,
+      '__SERVER_URL__': string('http://localhost:4000/api/v1')
+    }
+  }),
 
   // Production overrides
-  // production: (config) => ({}),
+  production: (config) => ({
+    globals: {
+      ...config.globals,
+      '__SERVER_URL__': string('https://api.foresight.io/api/v1')
+    }
+  })
 
   // Test overrides
   // test: (config) => ({})

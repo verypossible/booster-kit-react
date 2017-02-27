@@ -1,0 +1,13 @@
+@value large: 46.875rem;
+@value medium: 29rem;
+@value small: 1rem;
+@value x-Large: 53.75em;
+@value xx-large: 75em;
+@value bp-large: (min-width: large);
+@value bp-medium: (min-width: medium);
+@value bp-small: (min-width: small);
+@value bp-xLarge: (min-width: x-large);
+@value bp-xxlarge: (min-width: xx-large);
+@value bplarge: (min-width: large);
+@value bpMedium: (min-width: medium);
+@value bpSmall: (min-width: small);

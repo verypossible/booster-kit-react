@@ -9,7 +9,10 @@
     "__COVERAGE__": false,
     "__PROTOCOL__": false,
     "__HOST__": false,
-    "__PORT__": false
+    "__PORT__": false,
+    "__SERVER_URL__": "https://localhost:4000/api/v1",
+    "__SERVER_TYPE__": "phoenix",
+    "__APP_NAME__": false
   },
   "moduleFileExtensions": [
     "js",

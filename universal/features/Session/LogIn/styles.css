@@ -1,0 +1,23 @@
+@value bp-large, bp-medium from 'breakpoints';
+
+.container {
+  margin: 20px 0;
+  lost-flex-container: column;
+  align-items: center;
+  justify-content: center;
+
+  @media bp-medium {
+    height: calc(70vh - 70px);
+    margin: 10px 0;
+  }
+}
+
+.terms {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.formButton {
+  composes: form from "../../../components/Button/styles.css"
+}

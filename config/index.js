@@ -8,13 +8,14 @@ const localip = ip.address()
 const debug = _debug('app:config')
 debug('Creating default configuration.')
 
+export const string = (value) => JSON.stringify(value)
 // ========================================================
 // Default Configuration
 // ========================================================
 const config = {
   env    : process.env.NODE_ENV || 'development',
 
-  app_name : 'reactBoosterKit',
+  app_name : string('reactBoosterKit'),
 
   // ----------------------------------
   // Project Structure
@@ -32,6 +33,7 @@ const config = {
   server_protocol    : process.env.PROTOCOL || 'http',
   server_host        : process.env.HOST || localip,
   server_port        : process.env.PORT || 3000,
+  server_type        : string('phoenix'),
 
   // ----------------------------------
   // BrowserSync Options
@@ -63,7 +65,7 @@ config.testServer = process.env.TEST_SERVER || `${config.server_url}`
 // N.B.: globals added here must _also_ be added to .eslintrc
 config.globals = {
   'process.env'  : {
-    'NODE_ENV' : JSON.stringify(config.env)
+    'NODE_ENV' : string(config.env)
   },
   'NODE_ENV'     : config.env,
   '__DEV__'      : config.env === 'development',
@@ -74,7 +76,9 @@ config.globals = {
   '__PROTOCOL__' : config.server_protocol,
   '__HOST__'     : config.server_host,
   '__PORT__'     : config.server_port,
-  '__TEST_SERVER__' : config.test_server
+  '__TEST_SERVER__' : config.test_server,
+  '__SERVER_TYPE__' : config.server_type,
+  '__APP_NAME__' : config.app_name
 }
 
 // ------------------------------------
