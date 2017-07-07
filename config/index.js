@@ -2,9 +2,7 @@
 import path from 'path'
 import _debug from 'debug'
 import { argv } from 'yargs'
-import ip from 'ip'
 
-const localip = ip.address()
 const debug = _debug('app:config')
 debug('Creating default configuration.')
 
@@ -20,17 +18,15 @@ const config = {
   // Project Structure
   // ----------------------------------
   path_base     : path.resolve(__dirname, '..'),
-  dir_client    : 'client',
-  dir_universal : 'universal',
-  dir_dist      : 'dist',
-  dir_server    : 'server',
+  dir_src       : 'src',
+  dir_build     : 'build',
   dir_test      : 'tests',
 
   // ----------------------------------
   // Server Configuration
   // ----------------------------------
   server_protocol    : process.env.PROTOCOL || 'http',
-  server_host        : process.env.HOST || localip,
+  server_host        : process.env.HOST || 'localhost',
   server_port        : process.env.PORT || 3000,
 
   // ----------------------------------
@@ -87,10 +83,8 @@ function base () {
 
 config.utils_paths = {
   base      : base,
-  client    : base.bind(null, config.dir_client),
-  dist      : base.bind(null, config.dir_dist),
-  server    : base.bind(null, config.dir_server),
-  universal : base.bind(null, config.dir_universal)
+  src       : base.bind(null, config.dir_src),
+  build     : base.bind(null, config.dir_build),
 }
 
 // ========================================================

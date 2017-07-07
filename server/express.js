@@ -1,7 +1,7 @@
 import express from 'express'
 import _debug from 'debug'
 import webpack from 'webpack'
-import webpackConfig from '../build/webpack.config'
+import webpackConfig from '../webpack/webpack.config'
 import config from '../config'
 
 const debug = _debug('app:server:express')
@@ -24,11 +24,12 @@ if (config.env === 'development') {
   debug('Enable webpack dev and HMR middleware')
   app.use(require('webpack-dev-middleware')(compiler, {
     publicPath: webpackConfig.output.publicPath,
-    contentBase: paths.client(),
+    contentBase: paths.src('client'),
     hot: true,
     quiet: false,
     noInfo: false,
     lazy: false,
+    headers: { 'Access-Control-Allow-Origin': '*' },
     stats: {
       chunks: false,
       chunkModules: false,
@@ -41,20 +42,20 @@ if (config.env === 'development') {
   // these files. This middleware doesn't need to be enabled outside
   // of development since this directory will be copied into ~/dist
   // when the application is compiled.
-  app.use(express.static(paths.universal('static')))
+  app.use(express.static(paths.src('universal/static')))
 } else {
   debug(
     'Server is being run outside of live development mode, meaning it will ' +
-    'only serve the compiled application bundle in ~/dist. Generally you ' +
+    'only serve the compiled application bundle in ~/build. Generally you ' +
     'do not need an application server for this and can instead use a web ' +
     'server such as nginx to serve your static files. See the "deployment" ' +
     'section in the README for more information on deployment strategies.'
   )
 
-  // Serving ~/dist by default. Ideally these files should be served by
+  // Serving ~/build by default. Ideally these files should be served by
   // the web server and not the app server, but this helps to demo the
   // server in production.
-  app.use(express.static(paths.dist()))
+  app.use(express.static(paths.build()))
 }
 
 export default app
