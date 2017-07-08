@@ -37,6 +37,18 @@ const config = {
   browser_sync_open_window : false,
 
   // ----------------------------------
+  // Rollbar Tokens
+  // ----------------------------------
+  rollbar_client  : 'bc54120a29d747309c1beeb8d2e024a1',
+  rollbar_server  : '85651afd5f674040bdd94969fa856680',
+
+  // ----------------------------------
+  // Analytics
+  // ----------------------------------
+  segment_dev  : 'QpF5Rgp3JayD8pwJ3uwlOAUKI95wWRvk',
+  segment_prod : 'Qt0CVzWXKQzk4TTAm4QoR87mliiNRtsZ',
+
+  // ----------------------------------
   // Compiler Configuration
   // ----------------------------------
   compiler_options         : {

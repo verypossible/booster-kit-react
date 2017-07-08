@@ -5,7 +5,8 @@ node_modules
 
 dist
 coverage
-tests/config/generated/*.json
+jest.config.json
+
 
 .env
 .awcache/*
