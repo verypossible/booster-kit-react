@@ -3,10 +3,9 @@
 
 node_modules
 
-dist
 coverage
 jest.config.json
 
-
+build/*
 .env
 .awcache/*

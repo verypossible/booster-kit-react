@@ -9,10 +9,9 @@
     "node": ">=8.3.1"
   },
   "scripts": {
-    "build": "bnr build",
+    "build": "yarn run clean && yarn run init && bnr build",
     "clean:project": "yarn cache clean && yarn install --force",
-    "clean": "rimraf dist",
-    "compile": "bnr compile",
+    "clean": "rimraf build",
     "deploy:prod": "bnr build && bnr publish:prod",
     "deploy:test": "bnr build && bnr publish:test",
     "init": "node scripts/init",
@@ -28,14 +27,7 @@
   },
   "betterScripts": {
     "build": {
-      "command": "yarn run clean && yarn run init && webpack --config webpack/webpack.config --colors --progress --env.production",
-      "env": {
-        "DEBUG": "app:*",
-        "NODE_ENV": "production"
-      }
-    },
-    "build:test": {
-      "command": "yarn run clean && yarn run init && yarn run compile",
+      "command": "webpack --config webpack/webpack.config --colors --progress --env.env=production",
       "env": {
         "DEBUG": "app:*",
         "NODE_ENV": "production"
@@ -45,20 +37,6 @@
       "command": "webpack-dev-server --config webpack/webpack.config",
       "env": {
         "DEBUG": "app:*"
-      }
-    },
-    "publish:prod": {
-      "command": "surge --project ./dist/ --domain boosters.joinspartan.com",
-      "env": {
-        "DEBUG": "app:*",
-        "NODE_ENV": "production"
-      }
-    },
-    "publish:test": {
-      "command": "surge --project ./dist/ --domain scary-coil.surge.sh",
-      "env": {
-        "DEBUG": "app:*",
-        "NODE_ENV": "production"
       }
     },
     "test": {
@@ -192,7 +170,6 @@
     "source-map-loader": "^0.2.1",
     "storybook-addon-specifications": "^2.1.0",
     "style-loader": "^0.18.2",
-    "surge": "^0.19.0",
     "ts-jest": "^20.0.7",
     "tslint": "^5.5.0",
     "tslint-react": "^3.0.0",
