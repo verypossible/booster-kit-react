@@ -24,7 +24,7 @@ export default {
   context: paths.src(),
   resolve,
   target: 'web',
-  entry,
+  entry: entry.base,
   output: {
     path: paths.build()
   },
