@@ -6,6 +6,6 @@ node_modules
 coverage
 jest.config.json
 
-build/*
+build
 .env
 .awcache/*
