@@ -1,9 +1,11 @@
 import * as React from 'react'
 
-import Box from 'atoms/Box'
-import Icon from 'atoms/Icon'
-import Image from 'atoms/Image'
-import Paragraph from 'atoms/Paragraph'
+import {
+  Box,
+  Icon,
+  Image,
+  Paragraph
+} from 'atoms'
 
 import * as rocket from './rocket.png'
 

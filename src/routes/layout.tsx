@@ -1,5 +1,6 @@
 import * as React from 'react'
 
+import { Box } from 'atoms'
 import Header from 'components/Header'
 import { renderGlobalStyles, theme, ThemeProvider } from 'ui'
 
@@ -11,12 +12,12 @@ const LayoutCore: React.SFC<LayoutCoreProps> = ({ children }) => {
   renderGlobalStyles()
   return (
     <ThemeProvider theme={theme.light}>
-      <section>
+      <Box tag='section'>
           <Header />
-          <div>
+          <Box>
             {children}
-          </div>
-      </section>
+          </Box>
+      </Box>
     </ThemeProvider>
   )
 }

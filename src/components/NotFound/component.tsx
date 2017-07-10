@@ -1,9 +1,13 @@
 import * as React from 'react'
 
+import {
+  Box
+} from 'atoms'
+
 const NotFound = () => (
-  <div>
+  <Box>
     Not Found
-  </div>
+  </Box>
 )
 
 export default NotFound

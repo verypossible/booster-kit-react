@@ -44,26 +44,25 @@
       "env": {
         "NODE_ENV": "test",
         "DEBUG": "app:*",
+        "COVERAGE": true,
         "TEST_FEATURES": true,
         "TEST_SPECS": true
       }
     },
     "test:specs": {
-      "command": "yarn run test",
+      "command": "yarn run init && jest --config jest.config.json --colors",
       "env": {
         "NODE_ENV": "test",
         "DEBUG": "app:*",
-        "TEST_FEATURES": false,
         "TEST_SPECS": true
       }
     },
     "test:features": {
-      "command": "yarn run test",
+      "command": "yarn run init && jest --config jest.config.json --colors",
       "env": {
         "NODE_ENV": "test",
         "DEBUG": "app:*",
-        "TEST_FEATURES": true,
-        "TEST_SPECS": false
+        "TEST_FEATURES": true
       }
     }
   },
@@ -102,7 +101,6 @@
     "react-redux": "^5.0.5",
     "react-router-dom": "^4.1.1",
     "redux": "^3.7.1",
-    "redux-action-buffer": "^1.1.0",
     "redux-form": "^6.8.0",
     "redux-next": "reactjs/redux#next",
     "redux-persist": "^4.8.2",
@@ -166,6 +164,7 @@
     "react-addons-test-utils": "^15.6.0",
     "react-storybook-addon-backgrounds": "^0.0.7",
     "react-test-renderer": "^15.6.1",
+    "redux-mock-store": "^1.2.3",
     "rimraf": "^2.6.1",
     "rollbar-sourcemap-webpack-plugin": "^2.2.0",
     "source-map-loader": "^0.2.1",

@@ -1,7 +1,7 @@
-import ReactRoutes from './react'
+import DocsRoutes from './docs'
 import HomeRoute from './home'
 
 export default [
   ...HomeRoute,
-  ...ReactRoutes
+  ...DocsRoutes
 ]

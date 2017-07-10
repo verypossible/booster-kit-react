@@ -1,26 +1,16 @@
 import * as React from 'react'
 
-import { Link } from 'lib/router'
+import {
+  Anchor,
+  Box
+} from 'atoms'
 
-const NavBar: React.SFC<NavBarProps> = ({ navItems }) => {
-  const navElements = navItems.map((item) => {
-    const navItem = (
-      <li id={item.id} key={item.id}>
-        <Link
-          to={item.to}
-          className={item.className}
-        >
-          {item.text}
-        </Link>
-      </li>
-    )
-    return navItem
-  })
-  return (
-    <ul className='list'>
-      {navElements}
-    </ul>
-  )
-}
+const NavBar: React.SFC<NavBar> = ({ navItems }) => (
+  <Box>
+    {navItems.map((item) => (
+      <Anchor key={item.id} id={item.id} to={item.to}>{item.text}</Anchor>
+    ))}
+  </Box>
+)
 
 export default NavBar

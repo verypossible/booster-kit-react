@@ -2,17 +2,18 @@ import * as React from 'react'
 
 import atom, { css } from 'ui'
 
-const grid = ({
-  rows,
-  columns,
-  rowGutter,
-  columnGutter,
-  theme,
-  autoRows,
+const gridContainer = ({
   autoColumns,
-  autoFlow
+  autoFlow,
+  autoRows,
+  columnGutter,
+  columns,
+  display,
+  rowGutter,
+  rows,
+  theme
 }: Box) => css`
-  ${
+  ${display === 'grid' &&
     ((rowGutter || columnGutter) &&
     `grid-gap: ${theme.grid.rowGutter[rowGutter]} ${theme.grid.columnGutter[columnGutter]};`)
     || `grid-gap: ${theme.grid.rowGutter.medium} ${theme.grid.columnGutter.medium};`
@@ -22,6 +23,16 @@ const grid = ({
   ${autoRows && `grid-auto-rows: ${autoRows};`}
   ${autoColumns && `grid-auto-columns: ${autoColumns};`}
   ${autoFlow && `grid-auto-flow: ${autoFlow};`}
+`
+
+const gridItem = ({
+  area,
+  column,
+  row
+}: Box) => css`
+  ${column && `grid-column: ${column[0]} / ${column[1]};`}
+  ${row && `grid-row: ${row[0]} / ${row[1]};`}
+  ${area && `grid-area: ${area};`}
 `
 
 const setBackground = (background, inverse, colors) => `
@@ -65,14 +76,16 @@ const styles = ({
   ${textAlign && `textAlign: ${textAlign};`}
 `
 
-const Box = ({
+export default ({
   children,
   tag = 'div',
   ...props
-}) => React.createElement(tag, { ...props }, children)
-
-export default atom(Box)`
-  ${grid}
-  ${layout}
-  ${styles}
+}) => {
+  const BoxElement = atom[tag]`
+    ${gridContainer}
+    ${gridItem}
+    ${layout}
+    ${styles}
   `
+  return <BoxElement {...props}>{children}</BoxElement>
+}

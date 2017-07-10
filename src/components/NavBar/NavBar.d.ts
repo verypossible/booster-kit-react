@@ -5,6 +5,6 @@ declare interface NavItem {
   text?: string
 }
 
-declare interface NavBarProps {
+declare interface NavBar {
   navItems: NavItem[]
 }

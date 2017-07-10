@@ -13,6 +13,7 @@ const Header = () => (
       <Icon icon='Trademark' />
     </Anchor>
     <H1>Spartan Booster Kit</H1>
+    <Anchor to='/docs' navLink>Docs</Anchor>
   </Box>
 )
 

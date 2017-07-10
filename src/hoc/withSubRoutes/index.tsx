@@ -7,9 +7,10 @@ import WithSubRoutes from 'lib/router/WithSubRoutes'
 
 import { getDisplayName } from '../helpers'
 
-const getPath = (match: string, path: string) => {
-  const isSubRouteIndex = path === '/'
-  return isSubRouteIndex ? match : `${match}${path}`
+const getPath = (match: Match, path: string) => {
+  console.log(match, path)
+  const isSubRouteIndex = !path
+  return isSubRouteIndex ? match.path : `${match.path}${path}`
 }
 
 const composedMatchSubRoutes = (WrappedComponent: React.SFC<any>) => {
@@ -17,7 +18,7 @@ const composedMatchSubRoutes = (WrappedComponent: React.SFC<any>) => {
     const SwitchRoutes = (
       <Switch>
         {routes.map(({ path, ...route }) => (
-          <WithSubRoutes key={route.id} path={getPath(match.path, path)} store={store} {...route} />
+          <WithSubRoutes key={route.id} path={getPath(match, path)} store={store} {...route} />
         ))}
         <Route path='*' component={NotFound} />
       </Switch>

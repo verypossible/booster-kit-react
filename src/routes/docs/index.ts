@@ -3,19 +3,19 @@ import SidebarWithNav from 'layouts/SidebarWithNav'
 
 import CounterRoutes from './counter'
 import MarkdownRoutes from './markdown'
-import ReactHome from './root'
+import DocHome from './root'
 
-const ReactRouteWithLayout = withSubRoutes(SidebarWithNav)
+const DocRouteWithLayout = withSubRoutes(SidebarWithNav)
 
 export default [{
-  id: 'root-react',
-  path: '/react',
-  routeComponent: ReactRouteWithLayout,
+  id: 'root-docs',
+  path: '/docs',
+  routeComponent: DocRouteWithLayout,
   routes: [{
     exact: true,
-    id: 'react-home',
-    path: '/',
-    routeComponent: ReactHome
+    id: 'docs-home',
+    routeComponent: DocHome,
+    strict: true
   },
     ...CounterRoutes,
     ...MarkdownRoutes

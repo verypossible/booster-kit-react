@@ -15,12 +15,12 @@ const defaultNavItems = [{
   className: 'link',
   id: 'counterLink',
   text: 'Counter',
-  to: '/react/counter'
+  to: '/docs/counter'
 }, {
   className: 'link',
   id: 'markdownLink',
   text: 'Markdown',
-  to: '/react/markdown'
+  to: '/docs/markdown'
 }]
 
 const Layout: React.SFC<LayoutSidebarProps> = ({

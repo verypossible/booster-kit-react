@@ -1,9 +1,9 @@
 import { applyMiddleware, compose, createStore } from 'redux'
-import * as createActionBuffer from 'redux-action-buffer'
 import { autoRehydrate } from 'redux-persist'
 import { REHYDRATE } from 'redux-persist/constants'
 import thunk from 'redux-thunk'
 
+import actionBuffer from './actionBuffer'
 import persistState from './persistState'
 import reducers from './stateManager'
 
@@ -11,7 +11,7 @@ const makeStore = (preloadedState = {}) => {
   // ======================================================
   // Middleware Configuration
   // ======================================================
-  const middleware = [thunk, createActionBuffer(REHYDRATE)]
+  const middleware = [thunk, actionBuffer(REHYDRATE)]
 
   // ======================================================
   // Store Enhancers
@@ -40,8 +40,8 @@ const makeStore = (preloadedState = {}) => {
 
   if (module.hot) {
     module.hot.accept('./stateManager', () => {
-      const reducers = require('./stateManager').default
-      store.replaceReducer(reducers)
+      const newReducers = require('./stateManager').default
+      store.replaceReducer(newReducers)
     })
   }
 

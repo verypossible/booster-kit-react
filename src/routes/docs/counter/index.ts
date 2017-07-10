@@ -12,7 +12,6 @@ export default [{
   routes: [{
     exact: true,
     id: 'counter-home',
-    path: '/',
     routeComponent: ConnectedCounter
   }]
 }]

@@ -45,7 +45,7 @@ const jestConfig = {
   verbose: true,
   collectCoverageFrom: ['**/src/**'],
   coverageDirectory: '<rootDir>/coverage',
-  coveragePathIgnorePatterns: ['/node_modules/'],
+  coveragePathIgnorePatterns: ['/node_modules/', '/*.d.ts/'],
   moduleNameMapper: moduleNameMaps,
   testPathIgnorePatterns: [
     '/blueprints/.*|\\.md$',

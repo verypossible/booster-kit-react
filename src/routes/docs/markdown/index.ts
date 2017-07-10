@@ -12,7 +12,6 @@ export default [{
   routes: [{
     exact: true,
     id: 'markdown-home',
-    path: '/',
     routeComponent: MarkdownHome
   }]
 }]

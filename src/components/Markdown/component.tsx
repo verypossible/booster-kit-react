@@ -1,5 +1,7 @@
 import * as React from 'react'
 
-const Markdown = () => <div>hi</div>
+import { Box } from 'atoms'
+
+const Markdown = () => <Box>hi</Box>
 
 export default Markdown
