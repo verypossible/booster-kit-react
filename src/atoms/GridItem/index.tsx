@@ -8,14 +8,14 @@ import atom, { css } from 'ui'
 const gridItemSettings = ({
   area,
   column: [ columnStart, columnEnd ],
-  row: [ rowStart, rowEnd ],
+  row,
   justifySelf,
   theme: { colors, paddings },
   inverse,
   padding
 }: GridItem) => css`
   ${columnStart && `grid-column: ${columnStart} / ${columnEnd};`}
-  ${rowStart && `grid-row: ${rowStart} / ${rowEnd};`}
+  ${row && `grid-row: ${row[0]} / ${row[1]};`}
   ${area && `grid-area: ${area};`}
   ${justifySelf && `justify-self: ${justifySelf};`}
   ${`background: ${inverse ? colors.primaryBackgroundInverted : colors.primaryBackground};`}
