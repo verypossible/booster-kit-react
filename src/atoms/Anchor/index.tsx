@@ -1,0 +1,58 @@
+import * as React from 'react'
+import atom from 'ui'
+
+import {
+  Link,
+  NavLink
+} from 'lib/router'
+
+const styles = ({ theme }: Anchor) => `
+  color: ${theme.colors.action}
+`
+
+const activeStyle = {
+  textDecoration: 'underline'
+}
+
+const Href = ({ children, ...props}) => React.createElement('a', { ...props }, children)
+
+const Anchor: React.SFC<Anchor> = ({
+  id,
+  children,
+  className,
+  external,
+  to,
+  navLink
+}) => {
+  const common = { className, id }
+
+  const linkProps = { to, ...common }
+
+  return (
+    (external && (
+      <Href
+        children={children}
+        href={to}
+        {...common}
+      />
+    )) ||
+    (navLink && (
+      <NavLink
+        activeStyle={activeStyle}
+        {...linkProps}
+      >
+        {children}
+      </NavLink>
+    )) || (
+      <Link
+        {...linkProps}
+      >
+        {children}
+      </Link>
+    )
+  )
+}
+
+export default atom(Anchor)`
+  ${styles}
+`

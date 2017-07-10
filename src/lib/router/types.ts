@@ -1,19 +1,5 @@
 import { StoreWithState } from '../types'
 
-export interface Match {
-  path?: string,
-  isExact?: boolean,
-  url?: string,
-  params?: object
-}
-
-export interface RouteConfig {
-  exact?: true,
-  id?: string,
-  path?: string,
-  routeComponent?: any
-}
-
 export interface RouteProps {
   path?: string,
   id?: string,

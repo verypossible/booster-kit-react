@@ -1,23 +1,19 @@
 import * as React from 'react'
 
-import { NavLink } from 'lib/router'
-
-import * as mark from './mark-color.png'
+import {
+  Anchor,
+  Box,
+  H1,
+  Icon
+} from 'atoms'
 
 const Header = () => (
-  <div id='header' className='container'>
-    <div className='header'>
-      <NavLink className='logo' to='/' activeClassName='activeRoute'>
-        <img src={mark} height='40' width='40' />
-      </NavLink>
-      <h1>Spartan Booster Kit</h1>
-    </div>
-    <div id='nav' className='links'>
-      <NavLink id='react' to='/react' className='link' activeClassName='activeRoute'>
-        React Web
-      </NavLink>
-    </div>
-  </div>
+  <Box id='header'>
+    <Anchor to='/' navLink>
+      <Icon icon='Trademark' />
+    </Anchor>
+    <H1>Spartan Booster Kit</H1>
+  </Box>
 )
 
 export default Header

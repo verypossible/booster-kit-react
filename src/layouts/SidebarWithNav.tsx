@@ -1,6 +1,7 @@
 import * as React from 'react'
 
-import GridItem from 'atoms/GridItem'
+import { Box } from 'atoms'
+
 import NavBar from 'components/NavBar'
 
 import TwoColumn from './TwoColumn'
@@ -27,12 +28,12 @@ const Layout: React.SFC<LayoutSidebarProps> = ({
   navItems = defaultNavItems
 }) => (
   <TwoColumn leftWidth={25}>
-    <GridItem column={[1, 1]} inverse>
+    <Box column={[1, 1]} inverse>
       <NavBar navItems={navItems} />
-    </GridItem>
-    <GridItem column={[2, 2]}>
+    </Box>
+    <Box column={[2, 2]}>
       {children}
-    </GridItem>
+    </Box>
   </TwoColumn>
 
 )

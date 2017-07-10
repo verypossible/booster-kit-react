@@ -1,9 +1,11 @@
 import * as React from 'react'
 
-import Box from 'atoms/Box'
-import Button from 'atoms/Button'
-import { H2 } from 'atoms/Headers'
-import Span from 'atoms/Span'
+import {
+  Box,
+  Button,
+  H2,
+  Span
+} from 'atoms'
 
 interface CounterProps {
   counter: number,

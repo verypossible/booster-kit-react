@@ -20,7 +20,7 @@ declare interface ThemeStatus {
 }
 
 declare interface ThemeInterface extends ThemeBreakpoints, ThemeColors, ThemeFont, ThemeGrid, // tslint:disable-line
- ThemeIcons, ThemePaddings, ThemeTransitions, Media {
+ ThemeIcons, ThemeLayout, ThemeTransitions, Media {
   status?: ThemeStatus
 }
 

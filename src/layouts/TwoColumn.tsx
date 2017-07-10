@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import GridContainer from 'atoms/GridContainer'
+import { Box } from 'atoms'
 
 interface TwoColumnProps {
   children?: any,
@@ -22,13 +22,15 @@ const TwoColumn: React.StatelessComponent<TwoColumnProps> = ({
     rowGutter
   }
   return (
-    <GridContainer
+    <Box
+      display='grid'
       columns={columns}
+      height='full'
       rows='auto auto'
       {...gutters}
     >
       {children}
-    </GridContainer>
+    </Box>
   )
 }
 

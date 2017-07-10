@@ -8,6 +8,7 @@ const flat = ({
   &:hover {
     color: ${fill ? theme.colors.action : '#FFF'};
     background-color: ${fill ? '#FFF' : theme.colors.action};
+    transition: ${theme.transitions.easeInOut300}
   }
 `
 
