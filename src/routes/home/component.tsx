@@ -17,7 +17,7 @@ const HomeView = () => (
       src={rocket}
     />
     <Paragraph>If you don't see an icon below, something is wrong with icon fonts...</Paragraph>
-    <Icon icon='Logo' status='alert' />
+    <Icon icon='Logo' status='ok' />
   </Box>
 )
 

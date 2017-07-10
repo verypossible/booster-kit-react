@@ -10,6 +10,8 @@ declare type Justify = 'start' | 'center' | 'between' | 'end'
 
 declare type TextAlign = 'left' | 'center' | 'right'
 
+declare type BoxTags = 'div' | 'span'
+
 interface Box extends Theme {
   alignContent?: AlignContent,
   alignItems?: AlignItems,
@@ -32,11 +34,12 @@ interface Box extends Theme {
   justifySelf?: Justify,
   margin?: ThemeSizeSelector,
   pad?: ThemeSizeSelector,
+  role?: string,
   row?: [string, string] | [number, number],
   rowGutter?: ThemeSizeSelector,
   rows?: string,
   spanColumn?: boolean,
-  tag?: string,
+  tag?: BoxTags,
   textAlign?: TextAlign,
   width?: ThemeSizeSelector | string
 }

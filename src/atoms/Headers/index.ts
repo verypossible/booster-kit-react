@@ -1,7 +1,8 @@
 import atom from 'ui'
 
-const base = ({ theme }: Header) => `
-  color: ${theme.colors.primaryColorInverted};
+const base = ({ theme, color, fontSize, inverse }: Header) => `
+  font-size: ${theme.font.size[fontSize] || `${fontSize}em`};
+  color: ${inverse ? theme.colors[`${color}Inverse`] : theme.colors[color]};
   font-family: ${theme.font.family.headings};
 `
 

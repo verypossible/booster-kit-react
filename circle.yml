@@ -1,6 +1,4 @@
 machine:
-  node:
-    version: 8.1.3
   environment:
     PATH: "${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin"
 
@@ -13,7 +11,7 @@ dependencies:
 test:
   override:
     - yarn run lint
-    - bash -e bin/runTests.sh
+    - yarn run test:ci
     - yarn run coverage
 
 deployment:

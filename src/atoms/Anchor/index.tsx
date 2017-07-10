@@ -6,8 +6,8 @@ import {
   NavLink
 } from 'lib/router'
 
-const styles = ({ theme }: Anchor) => `
-  color: ${theme.colors.action}
+const styles = ({ theme, color }: Anchor) => `
+  color: ${theme.colors[color] || color}
 `
 
 const activeStyle = {

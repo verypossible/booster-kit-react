@@ -9,12 +9,11 @@
     "node": ">=8.3.1"
   },
   "scripts": {
-    "build": "yarn run clean && yarn run init && bnr build",
-    "clean:project": "yarn cache clean && yarn install --force",
-    "clean": "rimraf build",
-    "deploy:prod": "bnr build && bnr publish:prod",
-    "deploy:test": "bnr build && bnr publish:test",
+    "build": "bnr build",
+    "clean": "yarn cache clean && yarn install --force",
+    "clear": "rimraf build",
     "init": "node scripts/init",
+    "jest": "yarn run init && jest --config jest.config.json --colors",
     "lint": "tslint -c tslint.json 'src/**/*.{ts,tsx}'",
     "preflight": "yarn run lint && yarn run test",
     "start": "bnr start",
@@ -22,12 +21,13 @@
     "storybook:start": "start-storybook -p 4003 -c .storybook",
     "test:watch": "bnr test --watch",
     "test": "bnr test",
+    "test:ci": "bash -e scripts/runTests.sh",
     "test:features": "bnr test:features",
     "test:specs": "bnr test:specs"
   },
   "betterScripts": {
     "build": {
-      "command": "webpack --config webpack/webpack.config --colors --progress --env.env=production",
+      "command": "yarn run clear && yarn run init && webpack --config webpack/webpack.config --colors --progress --env.env=production",
       "env": {
         "DEBUG": "app:*",
         "NODE_ENV": "production"
@@ -40,7 +40,7 @@
       }
     },
     "test": {
-      "command": "yarn run init && jest --config jest.config.json --colors",
+      "command": "yarn run jest",
       "env": {
         "NODE_ENV": "test",
         "DEBUG": "app:*",
@@ -50,7 +50,7 @@
       }
     },
     "test:specs": {
-      "command": "yarn run init && jest --config jest.config.json --colors",
+      "command": "yarn run jest",
       "env": {
         "NODE_ENV": "test",
         "DEBUG": "app:*",
@@ -58,7 +58,7 @@
       }
     },
     "test:features": {
-      "command": "yarn run init && jest --config jest.config.json --colors",
+      "command": "yarn run jest",
       "env": {
         "NODE_ENV": "test",
         "DEBUG": "app:*",

@@ -25,7 +25,7 @@ const TwoColumn: React.StatelessComponent<TwoColumnProps> = ({
     <Box
       display='grid'
       columns={columns}
-      height='full'
+      height='100vh'
       rows='auto auto'
       {...gutters}
     >
