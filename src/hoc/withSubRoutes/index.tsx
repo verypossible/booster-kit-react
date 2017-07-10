@@ -8,7 +8,6 @@ import WithSubRoutes from 'lib/router/WithSubRoutes'
 import { getDisplayName } from '../helpers'
 
 const getPath = (match: Match, path: string) => {
-  console.log(match, path)
   const isSubRouteIndex = !path
   return isSubRouteIndex ? match.path : `${match.path}${path}`
 }

@@ -13,8 +13,8 @@ export const KEY = 'counter'
 const COUNTER_INCREMENT = `${KEY}/COUNTER_INCREMENT`
 
 type Action = {
-  type: 'counter/COUNTER_INCREMENT',
-  payload?: CounterState
+  payload?: CounterState,
+  type: 'counter/COUNTER_INCREMENT'
 }
 
 const increment = (value: number = 1) => ({
