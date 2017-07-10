@@ -27,7 +27,7 @@ const Layout: React.SFC<LayoutSidebarProps> = ({
   navItems = defaultNavItems
 }) => (
   <TwoColumn leftWidth={25}>
-    <GridItem column={[1, 1]} inverse={true}>
+    <GridItem column={[1, 1]} inverse>
       <NavBar navItems={navItems} />
     </GridItem>
     <GridItem column={[2, 2]}>

@@ -1,61 +1,29 @@
-declare interface Breakpoints {
-  small?: number,
-  medium?: number,
-  large?: number
-}
-
-declare interface Colors {
-  [key: string]: string,
-  light?: string,
-  lightGray?: string,
-  darkGray?: string,
-  dark?: string,
-  action?: string,
-  backgroundLight?: string,
-  backgroundDark?: string
-}
-
-declare interface Status {
-  alert?: string,
-  ok?: string,
-  warning?: string
-}
-
-declare interface Padding {
+declare interface ThemeMinSizeOptions {
   small?: string,
   medium?: string,
-  large?: string,
-  xLarge?: string
+  large?: string
 }
 
-declare interface Fonts {
-  base?: string,
-  family?: string,
-  large?: string,
-  small?: string,
+declare type ThemeSizeSelector = 'small' | 'medium' | 'large' | 'xLarge' | 'xXLarge' | string
+
+declare interface ThemeSizeOptions extends ThemeMinSizeOptions {
   xLarge?: string,
   xSmall?: string,
   xXLarge?: string
 }
 
-declare interface ThemeInterface {
-  primaryColor?: string,
-  primaryColorInverted?: string,
-  primaryBackground?: string,
-  primaryBackgroundInverted?: string,
-  colors?: Colors,
-  status?: Status,
-  breakpoints?: Breakpoints
-  font?: Fonts,
-  pad?: Padding,
-  gutterColumn?: string,
-  gutterRow?: string,
-  headings?: {
-    family?: string
-  },
-  icon?: {
-    color?: string,
-    size?: string
-  },
-  transition?: string
+declare interface ThemeStatus {
+  [key: string]: string,
+  alert?: string,
+  ok?: string,
+  warning?: string
+}
+
+declare interface ThemeInterface extends ThemeBreakpoints, ThemeColors, ThemeFont, ThemeGrid, // tslint:disable-line
+ ThemeIcons, ThemePaddings, ThemeTransitions, Media {
+  status?: ThemeStatus
+}
+
+declare interface Theme {
+  theme?: ThemeInterface
 }

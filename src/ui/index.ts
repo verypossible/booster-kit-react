@@ -2,7 +2,6 @@ import * as styledComponents from 'styled-components'
 import { ThemedStyledComponentsModule, ThemedStyledProps } from 'styled-components'
 
 import renderGlobalStyles from './globals'
-import media from './media'
 import theme from './theme'
 
 const {
@@ -19,7 +18,6 @@ export {
   css,
   injectGlobal,
   keyframes,
-  media,
   renderGlobalStyles,
   theme,
   ThemeProvider

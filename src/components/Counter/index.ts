@@ -1,5 +1,5 @@
-import ConnectedCounter from './container'
 import Counter from './component'
+import ConnectedCounter from './container'
 
 export { ConnectedCounter }
 export default Counter

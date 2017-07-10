@@ -6,6 +6,7 @@ import config from '../config'
 import baseConfig from './webpack.base'
 import plugins from './plugins'
 import entry from './entry'
+import styles from './styles'
 
 const productionConfig = {
   entry: entry.production,
@@ -14,7 +15,10 @@ const productionConfig = {
     publicPath: '/'
   },
   devtool: 'source-map',
-  plugins: plugins.produciton
+  plugins: plugins.produciton,
+  module: {
+    rules: styles.production
+  }
 }
 
 export default merge(baseConfig, productionConfig)

@@ -4,19 +4,29 @@ import GridContainer from 'atoms/GridContainer'
 
 interface TwoColumnProps {
   children?: any,
-  gutters?: string,
+  rowGutter?: ThemeSizeSelector,
+  columnGutter?: ThemeSizeSelector,
   leftWidth?: number
 }
 
 const TwoColumn: React.StatelessComponent<TwoColumnProps> = ({
   children,
+  columnGutter,
   leftWidth = 50,
-  gutters
+  rowGutter
 }) => {
   const rightWidth = 100 - leftWidth
   const columns = `${leftWidth}% ${rightWidth}%`
+  const gutters = {
+    columnGutter,
+    rowGutter
+  }
   return (
-    <GridContainer columns={columns} rows='auto auto' gutters={gutters}>
+    <GridContainer
+      columns={columns}
+      rows='auto auto'
+      {...gutters}
+    >
       {children}
     </GridContainer>
   )

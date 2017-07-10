@@ -66,7 +66,7 @@ export default [{
 }, {
   test: /\.svg$/,
   loader: 'url-loader',
-  include: path.resolve(__dirname, '../src/app/styles/fonts'),
+  include: path.resolve(__dirname, '../src'),
   query: {
     prefix: 'fonts/',
     name: '[path][name].[ext]',

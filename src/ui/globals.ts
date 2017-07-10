@@ -1,10 +1,8 @@
-import icons from './fonts/icons'
 import { injectGlobal } from './index'
 import normalize from './normalize'
 
 export default () => injectGlobal`
   ${normalize}
-  ${icons}
 
   a {
     text-decoration: none;

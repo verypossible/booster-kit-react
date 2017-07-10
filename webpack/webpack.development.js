@@ -7,6 +7,7 @@ import baseConfig from './webpack.base.js'
 import devServer from './devServer'
 import plugins from './plugins'
 import entry from './entry'
+import styles from './styles'
 
 const devConfig = {
   entry: entry.development,
@@ -16,7 +17,10 @@ const devConfig = {
   },
   devtool: 'source-map',
   devServer,
-  plugins: plugins.development
+  plugins: plugins.development,
+  module: {
+    rules: styles.development
+  }
 }
 
 export default merge(baseConfig, devConfig)

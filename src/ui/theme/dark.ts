@@ -1,12 +1,11 @@
-import { colors } from '../variables'
-
+import colors from './colors'
 import common from './common'
 
 const dark = {
-  primaryColor: colors.dark,
-  primaryColorInverted: colors.light,
-  primaryBackground: colors.backgroundDark,
-  primaryBackgroundInverted: colors.backgroundLight,
+  colors: {
+    ...colors.common,
+    ...colors.theme.dark
+  },
   ...common
 }
 
