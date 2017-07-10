@@ -1,10 +1,11 @@
-import * as createActionBuffer from 'redux-action-buffer'
 import configureStore from 'redux-mock-store'
 import { REHYDRATE } from 'redux-persist/constants'
 import thunk from 'redux-thunk'
 
+import actionBuffer from 'state/actionBuffer'
+
 const middlewares = [
-  thunk, createActionBuffer(REHYDRATE)
+  thunk, actionBuffer(REHYDRATE)
 ]
 
 const mockStore = configureStore(middlewares)

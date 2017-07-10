@@ -1,8 +1,8 @@
 {
-  "name": "react-web-booster-kit",
+  "name": "very-react",
   "version": "2.0.0",
-  "homepage": "boosters.joinspartan.com",
-  "description": "Get started with React, Redux, and React-Router!",
+  "homepage": "react.verypossible.com",
+  "description": "Very's component library and react starter kit powered by React, Redux, React Router, and Styled Components",
   "main": "index.js",
   "private": "true",
   "engines": {
