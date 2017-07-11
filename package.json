@@ -45,7 +45,8 @@
         "NODE_ENV": "test",
         "DEBUG": "app:*",
         "TEST_FEATURES": true,
-        "TEST_SPECS": true
+        "TEST_SPECS": true,
+        "COVERAGE": false
       }
     },
     "test:specs": {
