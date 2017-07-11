@@ -40,11 +40,10 @@
       }
     },
     "test": {
-      "command": "yarn run jest",
+      "command": "yarn run jest --runInBand",
       "env": {
         "NODE_ENV": "test",
         "DEBUG": "app:*",
-        "COVERAGE": true,
         "TEST_FEATURES": true,
         "TEST_SPECS": true
       }
