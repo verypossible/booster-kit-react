@@ -19,7 +19,7 @@ describe('When visiting the site', () => {
 
   test('When I click increment, the count changes to 1', async function () {
     let page = visit('/docs/counter')
-    page.click('#counterIncrement')
+    page.click('#incrementCounter')
     let count = await page.evaluate(() => document.body.textContent)
       .end()
     expect(count).toContain(`Counter: 1`)

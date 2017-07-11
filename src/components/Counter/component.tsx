@@ -22,7 +22,7 @@ const Counter: React.SFC<CounterProps> = ({
     <H2>
       Counter: <Span color='lightGray'>{counter}</Span>
     </H2>
-    <Button id='counterIncrement' onClick={single}>
+    <Button id='incrementCounter' onClick={single}>
       Increment
     </Button>
     <Button onClick={double}>
