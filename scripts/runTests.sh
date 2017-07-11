@@ -10,7 +10,7 @@ php -S localhost:3001 -t build/ &
 APP_TEST_PID=$(echo $!)
 
 # Execute tests
-PORT=3001 CI=true yarn run test
+PORT=3001 CI=true yarn run test --runInBand
 
 # Kill the server
 kill $APP_TEST_PID

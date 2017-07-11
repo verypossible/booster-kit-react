@@ -16,7 +16,7 @@ const activeStyle = {
 
 const Href = ({ children, ...props}) => React.createElement('a', { ...props }, children)
 
-const Anchor: React.SFC<Anchor> = ({
+const GetAnchor: React.SFC<Anchor> = ({
   id,
   children,
   className,
@@ -53,6 +53,7 @@ const Anchor: React.SFC<Anchor> = ({
   )
 }
 
-export default atom(Anchor)`
+const Anchor = atom(GetAnchor)`
   ${styles}
 `
+export default Anchor

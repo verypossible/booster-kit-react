@@ -1,22 +1,19 @@
 import * as React from 'react'
 
-import EntryLayout from './layout'
-
-import { MatchRoutes, WithSubRoutes } from 'lib/router'
+import { withSubRoutes } from 'lib/router'
 import { StoreWithState } from 'lib/types'
 
+import EntryLayout from './layout'
 import routes from './routes'
 
 interface RoutesProps {
   store: StoreWithState
 }
 
+const AppEntry = withSubRoutes(EntryLayout)
+
 const Routes: React.SFC<RoutesProps> = ({ store }) => (
-  <EntryLayout>
-    <MatchRoutes>
-      {routes.map((route) => <WithSubRoutes key={route.id} store={store} {...route} />)}
-    </MatchRoutes>
-  </EntryLayout>
+  <AppEntry routes={routes} store={store} />
 )
 
 export default Routes

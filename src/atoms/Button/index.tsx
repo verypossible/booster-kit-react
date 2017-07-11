@@ -7,7 +7,7 @@ const selectButtonStyles = ({
   theme
 }: Button) => (theme[style] || buttonStyles.flat)
 
-export default atom.button`
+const Button = atom.button`
   ${selectButtonStyles}
   font-family: ${(props) => props.theme.font.family.text};
   border: 1px solid;
@@ -23,3 +23,4 @@ export default atom.button`
   white-space: nowrap;
   cursor: pointer;
 `
+export default Button

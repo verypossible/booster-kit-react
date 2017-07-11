@@ -1,17 +1,14 @@
 import { StoreWithState } from '../types'
 
-export interface RouteProps {
+export interface RouteConfig {
   path?: string,
   id?: string,
   exact?: boolean,
   strict?: boolean,
-  store?: StoreWithState,
-  routeComponent?: any,
-  matchPath?: string
+  routeComponent?: any
 }
 
-export interface MakeRoute extends RouteProps {
-  routes?: RouteProps[],
-  match?: Match,
-  location?: any
+export interface MakeRoute extends RouteConfig {
+  routes?: RouteConfig[],
+  store?: StoreWithState
 }

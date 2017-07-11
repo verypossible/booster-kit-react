@@ -2,6 +2,7 @@ import atom from 'ui'
 
 const styles = () => ``
 
-export default atom.img`
+const Image = atom.img`
   ${styles}
 `
+export default Image

@@ -1,20 +1,35 @@
 import * as React from 'react'
-import { Route } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 
-import { MakeRoute } from './types'
+import NotFound from 'components/NotFound'
 
-const WithSubRoutes: React.SFC<MakeRoute> = ({
-  store,
-  routeComponent: RouteComponent,
-  routes,
-  ...route
-}) => (
-  <Route
-    {...route}
-    render={({ ...props }) => (
-      <RouteComponent {...props} store={store} routes={routes} />
-    )}  // tslint:disable-line
-  />
-)
+import { getDisplayName } from 'hoc/helpers'
 
-export default WithSubRoutes
+const composedMatchSubRoutes = (WrappedComponent: React.SFC<any>) => {
+  const MatchRoutes: React.SFC<any> = ({ routes, store }) => {
+    return (
+      <WrappedComponent>
+        <Switch>
+          {routes.map(({
+            routeComponent: RouteComponent,
+            routes: subRoutes,
+            ...route
+          }) => (
+            <Route
+              key={route.id}
+              {...route}
+              children={(props) => <RouteComponent {...props} store={store} routes={subRoutes} />}
+            />
+          ))}
+          <Route path='*' render={({ location }) => <NotFound location={location} />} />
+        </Switch>
+      </WrappedComponent>
+    )
+  }
+
+  MatchRoutes.displayName = getDisplayName(WrappedComponent, 'matchSubRoutes')
+
+  return MatchRoutes
+}
+
+export default composedMatchSubRoutes

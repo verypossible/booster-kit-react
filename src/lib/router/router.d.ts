@@ -8,6 +8,7 @@ declare interface Location {
   search: string,
   hash: string,
   state: object
+  host: string
 }
 
 declare interface Match {

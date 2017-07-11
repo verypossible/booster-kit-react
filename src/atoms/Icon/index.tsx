@@ -19,11 +19,12 @@ const IconSet = {
   Trademark
 }
 
-const Icon: React.SFC<Icon> = ({ className, icon = 'Circle' }) => {
+const GetIcon: React.SFC<Icon> = ({ className, icon = 'Circle' }) => {
   const RenderIcon = IconSet[icon]
   return <RenderIcon className={className}/>
 }
 
-export default atom(Icon)`
+const Icon = atom(GetIcon)`
   ${styles}
 `
+export default Icon

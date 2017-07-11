@@ -4,9 +4,9 @@ import {
   Box
 } from 'atoms'
 
-const NotFound = () => (
+const NotFound: React.SFC<NotFound> = ({ location: { pathname } }) => (
   <Box>
-    Not Found
+    The content at {pathname} could not be found.
   </Box>
 )
 

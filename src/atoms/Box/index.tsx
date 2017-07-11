@@ -76,7 +76,7 @@ const styles = ({
   ${textAlign && `textAlign: ${textAlign};`}
 `
 
-export default ({
+const Box = ({
   children,
   tag = 'div',
   ...props
@@ -89,3 +89,5 @@ export default ({
   `
   return <BoxElement {...props}>{children}</BoxElement>
 }
+
+export default Box

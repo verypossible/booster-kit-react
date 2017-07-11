@@ -1,5 +1,5 @@
-import withSubRoutes from 'hoc/withSubRoutes'
 import SidebarWithNav from 'layouts/SidebarWithNav'
+import { withSubRoutes } from 'lib/router'
 
 import CounterRoutes from './counter'
 import MarkdownRoutes from './markdown'
@@ -14,8 +14,8 @@ export default [{
   routes: [{
     exact: true,
     id: 'docs-home',
-    routeComponent: DocHome,
-    strict: true
+    path: '/docs',
+    routeComponent: DocHome
   },
     ...CounterRoutes,
     ...MarkdownRoutes
