@@ -1,9 +1,11 @@
 declare type CounterState = number
 
 declare interface Counter {
-  counter: CounterState
+  counter: CounterState,
 }
 
 declare interface S {
-  readonly [counter: string]: CounterState
+  readonly counter: CounterState,
+  readonly form: any,
+  readonly apollo: any
 }

@@ -2,14 +2,15 @@ import { connect } from 'react-redux'
 
 import { compose } from 'lib/helpers'
 import { D } from 'lib/types'
-import { actions, selectors } from 'state/counter'
+import actions from 'state/actions'
+import selectors from 'state/selectors'
 
 import { mapActions, mapSelectors } from '../helpers'
 
-import withCounterHOC from './counterHOC'
+import withStateHOC from './stateHOC'
 
-export const wrapConnectCounter = ({
-  counterHOC = withCounterHOC
+export const wrapConnectState = ({
+  stateHOC = withStateHOC
 }: any = {}) => (
     mapCounterToProps: any,
     mapActionsToProps: any
@@ -25,8 +26,8 @@ export const wrapConnectCounter = ({
      makeMapStateToProps,
      mapDispatchToProps
    ),
-   counterHOC
+   stateHOC
   )
 }
 
-export default wrapConnectCounter()
+export default wrapConnectState()

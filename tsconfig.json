@@ -29,7 +29,8 @@
   ],
   "include": [
     "./src/**/*",
-    "./node_modules/redux-next/*.d.ts"
+    "./node_modules/redux-next/*.d.ts",
+    "./node_modules/apollo-client/*.d.ts"
   ],
   "exclude": [
     "**/*.spec.ts",

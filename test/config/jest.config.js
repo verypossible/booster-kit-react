@@ -24,7 +24,8 @@ const jestConfig = {
     __INTERCOM_ID__: false,
     __INTERCOM_SECRET__: false,
     __ROLLBAR_TOKEN__: false,
-    __COMMIT_HASH__: false
+    __COMMIT_HASH__: false,
+    __GRAPHQL_API__: false
   },
   moduleFileExtensions: [
     'js',

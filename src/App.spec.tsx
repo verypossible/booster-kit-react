@@ -9,7 +9,7 @@ describe('(Container) Root', () => {
   const wrapper = mount(<App store={store} />)
 
   test('Should render as a <Provider />.', () => {
-    const providerElement = wrapper.find('Provider')
+    const providerElement = wrapper.find('ApolloProvider')
 
     expect(providerElement.length).toBe(1)
     expect(providerElement.props().store).toEqual(store)

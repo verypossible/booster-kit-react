@@ -13,7 +13,12 @@ export default [{
 } ,{
   enforce: 'pre',
   test: /\.js$/,
+  exclude: /node_modules/,
   loader: 'source-map-loader'
+}, {
+  test: /\.(graphql|gql)$/,
+  exclude: /node_modules/,
+  loader: 'graphql-tag/loader',
 }, {
   test: /\.json$/,
   loader: 'json-loader'

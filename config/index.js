@@ -49,6 +49,11 @@ const config = {
   segment_prod : 'Qt0CVzWXKQzk4TTAm4QoR87mliiNRtsZ',
 
   // ----------------------------------
+  // Graphql
+  // ----------------------------------
+  graphql_server  : 'https://us-west-2.api.scaphold.io/graphql/very-marketing',
+
+  // ----------------------------------
   // Compiler Configuration
   // ----------------------------------
   compiler_options         : {
@@ -71,18 +76,19 @@ config.testServer = process.env.TEST_SERVER || `${config.server_url}`
 // N.B.: globals added here must _also_ be added to .eslintrc
 config.globals = {
   'process.env'  : {
-    'NODE_ENV' : JSON.stringify(config.env)
+    NODE_ENV : JSON.stringify(config.env)
   },
-  'NODE_ENV'     : config.env,
-  '__DEV__'      : config.env === 'development',
-  '__PROD__'     : config.env === 'production',
-  '__TEST__'     : config.env === 'test',
-  '__DEBUG__'    : config.env === 'development' && !argv.no_debug,
-  '__COVERAGE__' : !argv.watch && config.env === 'test',
-  '__PROTOCOL__' : config.server_protocol,
-  '__HOST__'     : config.server_host,
-  '__PORT__'     : config.server_port,
-  '__TEST_SERVER__' : config.test_server
+  NODE_ENV        : config.env,
+  __DEV__         : config.env === 'development',
+  __PROD__        : config.env === 'production',
+  __TEST__        : config.env === 'test',
+  __DEBUG__       : config.env === 'development' && !argv.no_debug,
+  __COVERAGE__    : !argv.watch && config.env === 'test',
+  __PROTOCOL__    : config.server_protocol,
+  __HOST__        : config.server_host,
+  __PORT__        : config.server_port,
+  __TEST_SERVER__ : config.test_server,
+  __GRAPHQL_API__ : JSON.stringify(config.graphql_server)
 }
 
 // ------------------------------------

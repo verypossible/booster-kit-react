@@ -1,7 +1,15 @@
 import * as React from 'react'
 
-import Markdown from 'components/Markdown'
+import withData from 'hoc/withData'
 
-const MarkdownHome = () => <Markdown />
+// import Markdown from 'components/Markdown'
 
-export default MarkdownHome
+const MarkdownHome: React.SFC<any> = (props) => (
+  <div>
+    {console.log(props)}
+  </div>
+)
+
+export default withData.query(
+  (queries) => queries.getAllPages
+)(MarkdownHome)

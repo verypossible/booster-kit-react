@@ -1,0 +1,8 @@
+mutation CreatePage($input: CreatePageInput!) {
+  createPage(input: $input) {
+    changedPage {
+      path
+      id
+    }
+  }
+}

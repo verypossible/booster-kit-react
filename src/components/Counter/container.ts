@@ -1,8 +1,8 @@
-import connectCounter from 'hoc/connectCounter'
+import connectState from 'hoc/connectState'
 
 import Counter from './component'
 
-export default connectCounter(
+export default connectState(
   (selectors: any) => ({
     counter: selectors.getCount
   }),

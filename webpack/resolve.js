@@ -11,6 +11,7 @@ export default {
     '.ts',
     '.tsx',
     '.graphql',
+    '.gql',
     '.md'
   ],
   modules: [

@@ -6,7 +6,7 @@ declare var __ROLLBAR_TOKEN__: string
 declare var __COMMIT_HASH__: string
 declare var __TEST__: boolean
 declare var __DEV__: boolean
-declare var feather: object
+declare var __GRAPHQL_API__: string
 
 /* Window Variables */
 declare interface Window {
@@ -22,6 +22,11 @@ declare interface ObjectConstructor {
 }
 
 /* Non-JS File Imports */
+declare module '*.gql' {
+    const value: any
+    export = value
+}
+
 declare module '*.png' {
     const value: string
     export = value
