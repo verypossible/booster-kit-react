@@ -1,5 +1,5 @@
 import { ConnectedCounter } from 'components/Counter'
-import { withSubRoutes } from 'lib/router'
+import withSubRoutes from 'hoc/withSubRoutes'
 
 import CounterLayout from './layout'
 

@@ -1,4 +1,4 @@
-import { withSubRoutes } from 'lib/router'
+import withSubRoutes from 'hoc/withSubRoutes'
 
 import MarkdownLayout from './layout'
 import MarkdownHome from './root'

@@ -1,5 +1,7 @@
 import * as React from 'react'
 
+import { Box } from 'atoms'
+
 interface MarkdownLayoutProps {
   children: React.SFC<any>
 }
@@ -7,9 +9,9 @@ interface MarkdownLayoutProps {
 const MarkdownLayout: React.SFC<MarkdownLayoutProps> = ({
   children
 }) => (
-  <div>
+  <Box tag='section'>
     {children}
-  </div>
+  </Box>
 )
 
 export default MarkdownLayout

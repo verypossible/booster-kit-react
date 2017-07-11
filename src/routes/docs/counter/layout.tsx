@@ -1,5 +1,7 @@
 import * as React from 'react'
 
+import { Box } from 'atoms'
+
 interface CounterLayoutProps {
   children: React.SFC<any>
 }
@@ -7,9 +9,9 @@ interface CounterLayoutProps {
 const CounterLayout: React.SFC<CounterLayoutProps> = ({
   children
 }) => (
-  <section>
+  <Box tag='section'>
     {children}
-  </section>
+  </Box>
 )
 
 export default CounterLayout

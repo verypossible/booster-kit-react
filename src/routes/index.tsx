@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { withSubRoutes } from 'lib/router'
+import withSubRoutes from 'hoc/withSubRoutes'
 import { StoreWithState } from 'lib/types'
 
 import EntryLayout from './layout'

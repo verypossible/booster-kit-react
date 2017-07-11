@@ -1,5 +1,5 @@
+import withSubRoutes from 'hoc/withSubRoutes'
 import SidebarWithNav from 'layouts/SidebarWithNav'
-import { withSubRoutes } from 'lib/router'
 
 import CounterRoutes from './counter'
 import MarkdownRoutes from './markdown'

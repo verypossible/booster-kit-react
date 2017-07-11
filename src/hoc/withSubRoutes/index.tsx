@@ -1,9 +1,9 @@
 import * as React from 'react'
-import { Route, Switch } from 'react-router-dom'
 
 import NotFound from 'components/NotFound'
+import { Route, Switch } from 'lib/router'
 
-import { getDisplayName } from 'hoc/helpers'
+import { getDisplayName } from '../helpers'
 
 const composedMatchSubRoutes = (WrappedComponent: React.SFC<any>) => {
   const MatchRoutes: React.SFC<any> = ({ routes, store }) => {
