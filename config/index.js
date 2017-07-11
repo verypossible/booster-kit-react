@@ -2,9 +2,7 @@
 import path from 'path'
 import _debug from 'debug'
 import { argv } from 'yargs'
-import ip from 'ip'
 
-const localip = ip.address()
 const debug = _debug('app:config')
 debug('Creating default configuration.')
 
@@ -20,17 +18,15 @@ const config = {
   // Project Structure
   // ----------------------------------
   path_base     : path.resolve(__dirname, '..'),
-  dir_client    : 'client',
-  dir_universal : 'universal',
-  dir_dist      : 'dist',
-  dir_server    : 'server',
+  dir_src       : 'src',
+  dir_build     : 'build',
   dir_test      : 'tests',
 
   // ----------------------------------
   // Server Configuration
   // ----------------------------------
   server_protocol    : process.env.PROTOCOL || 'http',
-  server_host        : process.env.HOST || localip,
+  server_host        : process.env.HOST || 'localhost',
   server_port        : process.env.PORT || 3000,
 
   // ----------------------------------
@@ -39,6 +35,18 @@ const config = {
   browser_sync_port        : 3010,
   browser_sync_ui_port     : 3011,
   browser_sync_open_window : false,
+
+  // ----------------------------------
+  // Rollbar Tokens
+  // ----------------------------------
+  rollbar_client  : 'bc54120a29d747309c1beeb8d2e024a1',
+  rollbar_server  : '85651afd5f674040bdd94969fa856680',
+
+  // ----------------------------------
+  // Analytics
+  // ----------------------------------
+  segment_dev  : 'QpF5Rgp3JayD8pwJ3uwlOAUKI95wWRvk',
+  segment_prod : 'Qt0CVzWXKQzk4TTAm4QoR87mliiNRtsZ',
 
   // ----------------------------------
   // Compiler Configuration
@@ -87,10 +95,8 @@ function base () {
 
 config.utils_paths = {
   base      : base,
-  client    : base.bind(null, config.dir_client),
-  dist      : base.bind(null, config.dir_dist),
-  server    : base.bind(null, config.dir_server),
-  universal : base.bind(null, config.dir_universal)
+  src       : base.bind(null, config.dir_src),
+  build     : base.bind(null, config.dir_build),
 }
 
 // ========================================================

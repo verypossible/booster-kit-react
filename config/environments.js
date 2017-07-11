@@ -1,13 +1,23 @@
-/*
-  As we are migrating to a more modular configuration,
-  we can still include overrides but shouldn't need to. Uncomment and add config overrides below
-*/
-export default {
-  // Development overrides
-  // development: (config) => ({}),
+const string = value => JSON.stringify(value)
 
-  // Production overrides
-  // production: (config) => ({}),
+export default {
+  development: (config) => ({
+    segment_token: string(config.segment_dev),
+    globals: {
+      ...config.globals,
+      __ROLLBAR_ENABLED__: false,
+      __ROLLBAR_TOKEN__: string(config.rollbar_client),
+    }
+  }),
+
+  production: (config) => ({
+    segment_token: string(config.segment_prod),
+    globals: {
+      ...config.globals,
+      __ROLLBAR_ENABLED__: true,
+      __ROLLBAR_TOKEN__: string(config.rollbar_client),
+    }
+  }),
 
   // Test overrides
   // test: (config) => ({})

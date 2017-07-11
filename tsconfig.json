@@ -1,0 +1,38 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": "./src",
+    "experimentalDecorators": true,
+    "jsx": "react",
+    "module": "commonjs",
+    "noImplicitAny": false,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "outDir": "./build/",
+    "paths": {
+      "atoms/*": ["atoms/*"],
+      "components/*": ["components/*"],
+      "hoc/*": ["hoc/*"],
+      "layouts/*": ["layouts/*"],
+      "lib/*": ["lib/*"],
+      "routes/*": ["routes/*"],
+      "state/*": ["state/*"],
+      "ui/*": ["ui/*"]
+    },
+    "sourceMap": true,
+    "target": "es6"
+  },
+  "files": [
+    "./declarations.d.ts",
+    "./src/**/*.d.ts"
+  ],
+  "include": [
+    "./src/**/*",
+    "./node_modules/redux-next/*.d.ts"
+  ],
+  "exclude": [
+    "**/*.spec.ts",
+    "**/*.spec.tsx"
+  ]
+}
