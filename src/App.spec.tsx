@@ -8,7 +8,7 @@ describe('(Container) Root', () => {
   const store = createStore({})
   const wrapper = mount(<App store={store} />)
 
-  test('Should render as a <Provider />.', () => {
+  test('Should render as a <ApolloProvider />.', () => {
     const providerElement = wrapper.find('ApolloProvider')
 
     expect(providerElement.length).toBe(1)

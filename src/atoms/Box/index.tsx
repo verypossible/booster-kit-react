@@ -16,7 +16,7 @@ const gridContainer = ({
   ${display === 'grid' &&
     ((rowGutter || columnGutter) &&
     `grid-gap: ${theme.grid.rowGutter[rowGutter]} ${theme.grid.columnGutter[columnGutter]};`)
-    || `grid-gap: ${theme.grid.rowGutter.medium} ${theme.grid.columnGutter.medium};`
+    || (display === 'grid' && `grid-gap: ${theme.grid.rowGutter.medium} ${theme.grid.columnGutter.medium};`)
   }
   ${rows && `grid-template-rows: ${rows};`}
   ${columns && `grid-template-columns: ${columns};`}

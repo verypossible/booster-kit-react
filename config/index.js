@@ -51,7 +51,7 @@ const config = {
   // ----------------------------------
   // Graphql
   // ----------------------------------
-  graphql_server  : 'https://us-west-2.api.scaphold.io/graphql/very-marketing',
+  graphql_server  : 'https://us-west-2.api.scaphold.io/graphql/very-react',
 
   // ----------------------------------
   // Compiler Configuration

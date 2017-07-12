@@ -19,7 +19,7 @@ const Button = atom.button`
   margin-right: 0.8em;
   text-align: center;
   text-decoration: none;
-  text-transform: ${(props: Button) => (props.text || 'uppercase')}
+  text-transform: ${(props: Button) => (props.text || 'uppercase')};
   white-space: nowrap;
   cursor: pointer;
 `

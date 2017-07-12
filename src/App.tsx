@@ -2,7 +2,7 @@ import * as React from 'react'
 import { ApolloProvider } from 'react-apollo'
 import { BrowserRouter } from 'react-router-dom'
 
-import { client } from './lib/graphql'
+import client from './lib/graphql'
 import { StoreWithState } from './lib/types'
 import Routes from './routes'
 

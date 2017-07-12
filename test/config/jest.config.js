@@ -25,7 +25,7 @@ const jestConfig = {
     __INTERCOM_SECRET__: false,
     __ROLLBAR_TOKEN__: false,
     __COMMIT_HASH__: false,
-    __GRAPHQL_API__: false
+    __GRAPHQL_API__: 'https://us-west-2.api.scaphold.io/graphql/very-react'
   },
   moduleFileExtensions: [
     'js',
@@ -46,7 +46,7 @@ const jestConfig = {
   verbose: true,
   collectCoverageFrom: ['**/src/**'],
   coverageDirectory: '<rootDir>/coverage',
-  coveragePathIgnorePatterns: ['/node_modules/', '^.*(d.ts?)'],
+  coveragePathIgnorePatterns: ['/node_modules/', '^.*(d.ts?)', '^.*(gql|md?)'],
   moduleNameMapper: moduleNameMaps,
   testPathIgnorePatterns: [
     '/blueprints/.*|\\.md$',

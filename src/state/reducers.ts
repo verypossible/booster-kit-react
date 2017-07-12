@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 import { reducer as formReducer } from 'redux-form'
 
-import { client } from 'lib/graphql'
+import client from 'lib/graphql'
 
 import * as counter from './counter'
 import * as lastAction from './lastAction'
