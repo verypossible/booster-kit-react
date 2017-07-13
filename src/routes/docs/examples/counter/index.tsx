@@ -7,12 +7,12 @@ const CounterRoutes = withSubRoutes(CounterLayout)
 
 export default [{
   id: 'route-counter',
-  path: '/docs/counter',
+  path: '/docs/examples/counter',
   routeComponent: CounterRoutes,
   routes: [{
     exact: true,
     id: 'counter-home',
-    path: '/docs/counter',
+    path: '/docs/examples/counter',
     routeComponent: ConnectedCounter
   }]
 }]

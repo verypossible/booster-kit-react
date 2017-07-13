@@ -2,11 +2,11 @@ import * as React from 'react'
 
 import { Box } from 'atoms'
 
-interface MarkdownLayoutProps {
+interface GraphqlLayoutProps {
   children: React.SFC<any>
 }
 
-const MarkdownLayout: React.SFC<MarkdownLayoutProps> = ({
+const GraphqlLayout: React.SFC<GraphqlLayoutProps> = ({
   children
 }) => (
   <Box tag='section'>
@@ -14,4 +14,4 @@ const MarkdownLayout: React.SFC<MarkdownLayoutProps> = ({
   </Box>
 )
 
-export default MarkdownLayout
+export default GraphqlLayout

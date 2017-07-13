@@ -6,9 +6,9 @@ import { Route, Switch } from 'lib/router'
 import { getDisplayName } from '../helpers'
 
 const composedMatchSubRoutes = (WrappedComponent: React.SFC<any>) => {
-  const MatchRoutes: React.SFC<any> = ({ routes, store }) => {
+  const MatchRoutes: React.SFC<any> = ({ routes, store, ...layoutProps }) => {
     return (
-      <WrappedComponent>
+      <WrappedComponent {...layoutProps}>
         <Switch>
           {routes.map(({
             routeComponent: RouteComponent,
