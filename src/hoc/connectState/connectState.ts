@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 
 import { compose } from 'lib/helpers'
-import { D } from 'lib/types'
+import { Dispatch } from 'lib/types'
 import actions from 'state/actions'
 import selectors from 'state/selectors'
 
@@ -9,17 +9,21 @@ import { mapActions, mapSelectors } from '../helpers'
 
 import withStateHOC from './stateHOC'
 
+interface Config {
+  stateHOC?: React.SFC<any>
+}
+
 export const wrapConnectState = ({
   stateHOC = withStateHOC
-}: any = {}) => (
-    mapCounterToProps: any,
+}: Config = {}) => (
+    mapStateToProps,
     mapActionsToProps: any
   ) => {
-  const mapDispatchToProps = (dispatch: D<S>, ownProps: object) => (
+  const mapDispatchToProps = (dispatch: Dispatch<State>, ownProps: object) => (
     mapActions(actions, mapActionsToProps, { dispatch, ownProps })
   )
 
-  const makeMapStateToProps = () => mapSelectors(selectors, mapCounterToProps)
+  const makeMapStateToProps = () => mapSelectors(selectors, mapStateToProps)
 
   return compose(
     connect(

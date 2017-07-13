@@ -1,15 +1,26 @@
-import { mutate, query } from 'lib/graphql'
+import {  graphql} from 'react-apollo'
 
-import withRequestHOC from './requestHOC'
+import {
+  mutate,
+  MutationTypes,
+  query,
+  QueryTypes
+} from 'lib/graphql'
 
-const withQueryWrapper = () => (selectQuery, config) => {
+const withQueryWrapper = () => (
+  selectQuery,
+  config?: object
+) => {
   const matchQuery = selectQuery(query)
-  return withRequestHOC(matchQuery, config)
+  return graphql<QueryTypes>(matchQuery, config)
 }
 
-const withMutationWrapper = () => (selectMutation, config) => {
+const withMutationWrapper = () => (
+  selectMutation,
+  config?: object
+) => {
   const matchMutation = selectMutation(mutate)
-  return withRequestHOC(matchMutation, config)
+  return graphql<MutationTypes>(matchMutation, config)
 }
 
 export default {

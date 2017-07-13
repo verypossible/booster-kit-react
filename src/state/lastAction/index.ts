@@ -2,12 +2,7 @@ import * as selectors from './selectors'
 
 const KEY: string = 'lastAction'
 
-type Action = {
-  payload?: any,
-  type: any
-}
-
-function reducer (_ = null, action: Action): S {
+function reducer (_ = null, action: LastAction): LastAction {
   return action
 }
 

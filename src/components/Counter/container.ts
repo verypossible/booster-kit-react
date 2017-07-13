@@ -3,7 +3,7 @@ import connectState from 'hoc/connectState'
 import Counter from './component'
 
 export default connectState(
-  (selectors: any) => ({
+  (selectors: Selectors) => ({
     counter: selectors.getCount
   }),
   (actions: any) => ({

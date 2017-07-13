@@ -1,14 +1,13 @@
 import atom from 'ui'
 
-import buttonStyles from './buttonStyles'
+import styles from './buttonStyles'
 
-const selectButtonStyles = ({
-  style = 'flat',
-  theme
-}: Button) => (theme[style] || buttonStyles.flat)
+const getButton = ({
+  type = 'flat'
+}: Button) => styles[type]
 
 const Button = atom.button`
-  ${selectButtonStyles}
+  ${getButton}
   font-family: ${(props) => props.theme.font.family.text};
   border: 1px solid;
   border-radius: 10px;

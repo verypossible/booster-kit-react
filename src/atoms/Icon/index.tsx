@@ -5,12 +5,13 @@ import atom from 'ui'
 
 import { Logo, Trademark } from './Brand'
 
-const styles = ({ color, status, theme }: Icon) => `
+const styles = ({ color, size, status, theme }: Icon) => `
   color: ${
     (status && theme.status[status]) ||
     color ||
     '#000'
-  }
+  };
+  width: ${theme.icons.size[size]}
 `
 
 const IconSet = {

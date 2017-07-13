@@ -2,13 +2,13 @@ import localForage from 'localforage'
 import { persistStore } from 'redux-persist'
 import MemoryStorage from 'redux-persist-memory-storage'
 
-import { StoreWithState } from 'lib/types'
+import { Store } from 'lib/types'
 
 const memoryStorage = new MemoryStorage()
-const reducersToPersist = []
+const reducersToPersist = ['counter']
 
 interface PersistState {
-  store: StoreWithState,
+  store: Store<{}>,
   callback?: () => any,
   purge?: boolean
 }

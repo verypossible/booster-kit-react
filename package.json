@@ -9,15 +9,16 @@
     "node": ">=8.3.1"
   },
   "scripts": {
-    "build": "bnr build",
+    "build": "yarn run graphql && bnr build",
     "clean": "yarn cache clean && yarn install --force",
     "clear": "rimraf build",
     "coverage": "CODECLIMATE_REPO_TOKEN=36bc060ce6f0aa2f739be4ae096f22356d8cf9fa6d15e5ca5ddfed318b5e6f85 codeclimate-test-reporter < coverage/lcov.info",
+    "graphql": "bnr graphql:schema && bnr graphql:types",
     "init": "node scripts/init",
     "jest": "yarn run init && jest --config jest.config.json --colors",
     "lint": "tslint -c tslint.json 'src/**/*.{ts,tsx}'",
     "preflight": "yarn run lint && yarn run test",
-    "start": "bnr start",
+    "start": "yarn run graphql && bnr start",
     "storybook:build": "build-storybook -c .storybook -0 .storybook-static",
     "storybook:start": "start-storybook -p 4003 -c .storybook",
     "test:watch": "bnr test --watch",
@@ -33,6 +34,12 @@
         "DEBUG": "app:*",
         "NODE_ENV": "production"
       }
+    },
+    "graphql:schema": {
+      "command": "apollo-codegen introspect-schema https://us-west-2.api.scaphold.io/graphql/very-react --output src/lib/graphql/schema.json"
+    },
+    "graphql:types": {
+      "command": "apollo-codegen generate **/*.gql --add-typename --schema src/lib/graphql/schema.json --target typescript --output src/lib/graphql/schema.ts"
     },
     "start": {
       "command": "webpack-dev-server --config webpack/webpack.config --env.env=development",
@@ -88,6 +95,7 @@
     "@types/webpack": "^3.0.1",
     "@types/webpack-env": "^1.13.0",
     "apollo-client": "^1.8.0",
+    "apollo-codegen": "^0.15.0",
     "axios": "^0.16.2",
     "babel-runtime": "^6.23.0",
     "codeclimate-test-reporter": "^0.5.0",

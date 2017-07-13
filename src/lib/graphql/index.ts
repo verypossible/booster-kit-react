@@ -1,7 +1,14 @@
 import client from './client'
-import * as mutate from './mutations'
-import * as query from './queries'
+import mutate, { Mutations, MutationTypes } from './mutations'
+import query, { Queries, QueryTypes } from './queries'
 
-export { mutate, query }
+export {
+  mutate,
+  Mutations,
+  MutationTypes,
+  query,
+  Queries,
+  QueryTypes
+}
 
 export default client

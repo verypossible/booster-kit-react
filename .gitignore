@@ -9,3 +9,5 @@ jest.config.json
 build
 .env
 .awcache/*
+
+src/lib/graphql/schema.*

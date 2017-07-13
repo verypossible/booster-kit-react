@@ -1,6 +1,6 @@
 const flat = ({
   theme,
-  fill = false
+  fill
 }: Button) => `
   color: ${fill ? '#FFF' : theme.colors.action};
   background-color: ${fill ? theme.colors.action : '#FFF'};
@@ -13,6 +13,13 @@ const flat = ({
   }
 `
 
+const notFlat = ({
+  fill
+}: Button) => `
+  color: ${fill ? 'green' : '#FFF'};
+`
+
 export default {
-  flat
+  flat,
+  notFlat
 }

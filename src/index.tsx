@@ -3,6 +3,7 @@ import * as ReactDOM from 'react-dom'
 import { AppContainer } from 'react-hot-loader'
 
 import App from './App'
+import { Store } from './lib/types'
 import createStore from './state/createStore'
 
 declare module 'react-hot-loader'
@@ -11,7 +12,7 @@ interface RequireImport {
   default: any
 }
 
-const store = createStore()
+const store: Store<{}> = createStore()
 
 const MOUNT_NODE = document.getElementById('root')
 

@@ -1,19 +1,24 @@
-import { D } from 'lib/types'
+import { Dispatch } from 'lib/types'
 
 export function getDisplayName (WrappedComponent: any, hocName: string) {
   const name = WrappedComponent.displayName || WrappedComponent.name || 'Component'
   return hocName ? `${hocName}(${name})` : name
 }
 
+type Props = object
+type OwnProps = object
+type Selector = (State, Props, OwnProps) => Selectors
+type GetSelectors = (Selectors) => Selector
+
 export function mapSelectors (
-  selectors: object,
-  getSelectors: any
+  selectors: Selectors,
+  getSelectors: GetSelectors
 ) {
-  const mapStateToProps = (state: S, props: object, ownProps: object) => {
-    const requestedSelectors = getSelectors(selectors)
+  const mapStateToProps = (state: State, props: Props, ownProps: OwnProps) => {
+    const requestedSelectors = getSelectors(selectors) // { counter: selectors.getCount }
     const entries = Object.entries(requestedSelectors)
     const selectorProps = {}
-    entries.map(([prop, selector]: [string, any]) => Object.assign(selectorProps, {
+    entries.map(([prop, selector]: [string, Selector]) => Object.assign(selectorProps, {
       [prop]: selector(state, props, ownProps)
     }))
     return {
@@ -27,7 +32,7 @@ export function mapSelectors (
 export const mapActions = (
   actions: object,
   getActions: any,
-  { dispatch, ownProps }: { dispatch: D<S>, ownProps: object }
+  { dispatch, ownProps }: { dispatch: Dispatch<State>, ownProps: object }
 ) => {
   const requestedActions = getActions(actions, ownProps)
   const entries = Object.entries(requestedActions)

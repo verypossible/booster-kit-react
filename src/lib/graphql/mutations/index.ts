@@ -1,5 +1,15 @@
+import {
+  CreatePageMutation
+} from '../schema'
+
 import * as createPage from './createPage.gql'
 
-export {
+export type MutationTypes = CreatePageMutation
+
+export interface Mutations {
+  createPage: CreatePageMutation
+}
+
+export default {
   createPage
 }

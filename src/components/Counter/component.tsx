@@ -1,5 +1,7 @@
 import * as React from 'react'
 
+import { Dispatch } from 'lib/types'
+
 import {
   Box,
   Button,
@@ -9,8 +11,8 @@ import {
 
 interface CounterProps {
   counter: number,
-  double: () => void,
-  single: () => void
+  double: Dispatch<CounterActions>,
+  single: Dispatch<CounterActions>
 }
 
 const Counter: React.SFC<CounterProps> = ({
@@ -22,7 +24,10 @@ const Counter: React.SFC<CounterProps> = ({
     <H2>
       Counter: <Span color='lightGray'>{counter}</Span>
     </H2>
-    <Button id='incrementCounter' onClick={single}>
+    <Button
+      id='incrementCounter'
+      onClick={single}
+    >
       Increment
     </Button>
     <Button onClick={double}>
