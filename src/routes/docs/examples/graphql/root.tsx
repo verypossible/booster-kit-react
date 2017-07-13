@@ -4,7 +4,7 @@ import withData, { Queries } from 'hoc/withData'
 
 const GraphqlHome: React.SFC<any> = ({ data }) => (
   <div>
-    {data && data.viewer && data.viewer.allPages.edges.map((page) => page.node.id)}
+    {data && data.viewer && data.viewer.allPages.edges.map((page) => page.node)}
   </div>
 )
 
