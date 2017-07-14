@@ -11,7 +11,7 @@ export default [{
   routeComponent: GraphqlRoutes,
   routes: [{
     exact: true,
-    id: 'markdown-home',
+    id: 'graphql-home',
     path: '/docs/examples/graphql',
     routeComponent: GraphqlHome
   }]

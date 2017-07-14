@@ -9,4 +9,5 @@ addMockFunctionsToSchema({
   schema: mockSchema
 })
 
+export { mocks }
 export default mockSchema

@@ -4,11 +4,7 @@ import {
 
 import * as createPage from './createPage.gql'
 
-export type MutationTypes = CreatePageMutation
-
-export interface Mutations {
-  createPage: CreatePageMutation
-}
+export type Mutations = CreatePageMutation   // & NewMutationA & NewMutationB
 
 export default {
   createPage

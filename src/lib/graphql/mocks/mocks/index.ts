@@ -1,5 +1,7 @@
-import getAllPagesMocks from './getAllPages'
+import viewer from './viewer'
 
 export default {
-  ...getAllPagesMocks
+  Query: () => ({
+    ...viewer
+  })
 }

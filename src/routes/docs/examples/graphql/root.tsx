@@ -1,17 +1,46 @@
 import * as React from 'react'
+import { compose, graphql } from 'react-apollo'
 
-import withData, { Queries } from 'hoc/withData'
+// Queries are the typings and query is an object with all queries
+import { Queries, query } from 'lib/graphql'
 
-const GraphqlHome: React.SFC<any> = ({ data }) => (
+// Declare props on the component
+interface Props {
+  pages: [{ node: { id: string, path: string }}]
+}
+
+// Stateless Functional Component To Render
+const GraphqlHome: React.SFC<Props> = ({ pages }) => (
   <div>
-    {data && data.viewer && data.viewer.allPages.edges.map((page) => page.node)}
+    ids: {pages.map((page) => page.node.id)}
+    paths: {pages.map((page) => page.node.path)}
   </div>
 )
-
 /*
-  We're using the withData HOC and importing the Queries interface
-    to assert the queries available to use.
+  Use compose to curry higher order components and pass the props to the wrapped component
+
+  Notice we are asserting the Query types and the Wrapped component prop types when we call
+  graphql. This allows us to have strict type checking against the generated types from the schema
+  and the defined types from the props.
+
+  const options = {
+    name: 'NewComponentName',
+    skip: boolean | (props) => !props.ready,
+    options: (props) => ({
+      pollInterval: 2000,
+      variables: { ... }
+      ...all options - http://dev.apollodata.com/react/api-queries.html#graphql-query-options
+    })
+  }
+  const query = graphql<QueryTypes, {}, WrapperPropTypes>(query, options)
+
+  graphql accepts several arguments in the options
 */
-export default withData.query(
-  (queries: Queries) => queries.getAllPages
-)(GraphqlHome)
+
+const enhance = compose(
+  graphql<Queries, {}, Props>(query.GetAllPages, {
+    props: ({ data }) => ({ pages: (data && data.viewer && data.viewer.allPages.edges) || [] })
+  })
+)
+
+export default enhance(GraphqlHome)

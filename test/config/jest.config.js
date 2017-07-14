@@ -6,8 +6,8 @@ const moduleNameMaps = {
 const jestConfig = {
   transform: {
     '^.+\\.js$': 'babel-jest',
-    "\\.(ts|tsx)$": "<rootDir>/node_modules/ts-jest/preprocessor.js",
-    '\\.(gql|graphql)$': '<rootDir>/test/config/transformGraphQL.js'
+    "\\.(ts|tsx)$": "./node_modules/ts-jest/preprocessor.js",
+    '\\.(gql|graphql)$': './test/config/transformGraphQL.js'
   },
   globals: {
     NODE_ENV: false,
@@ -20,6 +20,7 @@ const jestConfig = {
     __HOST__: false,
     __PORT__: false,
     __SEGMENT__: false,
+    __TEST__: true,
     __ROLLBAR_CLIENT__: false,
     __ROLLBAR_SERVER__: false,
     __ROLLBAR_ENABLED__: false,

@@ -5,7 +5,9 @@ import MemoryStorage from 'redux-persist-memory-storage'
 import { Store } from 'lib/types'
 
 const memoryStorage = new MemoryStorage()
-const reducersToPersist = ['counter']
+
+/* Add reducer keys to persist state for that key in IndexDB */
+const reducersToPersist = []
 
 interface PersistState {
   store: Store<{}>,

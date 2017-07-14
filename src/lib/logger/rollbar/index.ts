@@ -1,4 +1,4 @@
-import rollbar from './rollbar.umd.nojson.min'
+import * as rollbar from './rollbar.umd.nojson.min'
 
 export default rollbar.init({
   accessToken: __ROLLBAR_TOKEN__,

@@ -1,9 +1,11 @@
 import * as React from 'react'
 
+import { Box } from 'atoms'
+
 const ExamplesHome = () => (
-  <div>
+  <Box>
     Welcome To React
-  </div>
+  </Box>
 )
 
 export default ExamplesHome

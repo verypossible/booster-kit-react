@@ -3,7 +3,7 @@ import { ApolloProvider } from 'react-apollo'
 import { BrowserRouter } from 'react-router-dom'
 import { createStore } from 'redux'
 
-import client from 'lib/graphql'
+import client from 'lib/graphql/client'
 import reducers from 'state/stateManager'
 
 interface MockProps {

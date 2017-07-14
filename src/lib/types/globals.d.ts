@@ -22,11 +22,6 @@ declare interface ObjectConstructor {
 }
 
 /* Non-JS File Imports */
-declare module '*.gql' {
-    const value: any
-    export = value
-}
-
 declare module '*.png' {
     const value: string
     export = value

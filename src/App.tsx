@@ -2,12 +2,12 @@ import * as React from 'react'
 import { ApolloProvider } from 'react-apollo'
 import { BrowserRouter } from 'react-router-dom'
 
-import client from './lib/graphql'
-import { StoreWithState } from './lib/types'
+import client from './lib/graphql/client'
+import { Store } from './lib/types'
 import Routes from './routes'
 
 interface RootProps {
-  store: StoreWithState
+  store: Store<{}>
 }
 
 const Root: React.SFC<RootProps> = ({ store }) => {

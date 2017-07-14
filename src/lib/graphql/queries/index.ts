@@ -2,14 +2,10 @@ import {
   GetAllPagesQuery
 } from '../schema'
 
-import * as getAllPages from './getAllPages.gql'
+import * as GetAllPages from './GetAllPages.gql'
 
-export type QueryTypes = GetAllPagesQuery
-
-export interface Queries {
-  getAllPages: GetAllPagesQuery
-}
+export type Queries = GetAllPagesQuery  // & NewQueryA & NewQueryB
 
 export default {
-  getAllPages
+  GetAllPages
 }
