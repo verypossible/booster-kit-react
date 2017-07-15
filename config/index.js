@@ -54,6 +54,12 @@ const config = {
   graphql_server  : 'https://us-west-2.api.scaphold.io/graphql/very-react',
 
   // ----------------------------------
+  // Auth0
+  // ----------------------------------
+  auth_cid: 'YsM6qRbwxDUf9jySjt9vXTzjgvuRIKED',
+  auth_url: 'veryservices.auth0.com',
+
+  // ----------------------------------
   // Compiler Configuration
   // ----------------------------------
   compiler_options         : {
@@ -88,7 +94,9 @@ config.globals = {
   __HOST__        : config.server_host,
   __PORT__        : config.server_port,
   __TEST_SERVER__ : config.test_server,
-  __GRAPHQL_API__ : JSON.stringify(config.graphql_server)
+  __GRAPHQL_API__ : JSON.stringify(config.graphql_server),
+  __AUTH_CID__    : JSON.stringify(config.auth_cid),
+  __AUTH_URL__    : JSON.stringify(config.auth_url)
 }
 
 // ------------------------------------

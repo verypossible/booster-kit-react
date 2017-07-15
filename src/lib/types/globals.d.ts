@@ -7,6 +7,9 @@ declare var __COMMIT_HASH__: string
 declare var __TEST__: boolean
 declare var __DEV__: boolean
 declare var __GRAPHQL_API__: string
+declare var __AUTH_CID__: string
+declare var __AUTH_URL__: string
+declare var __AUTH_REDIRECT_URI__: string
 
 /* Window Variables */
 declare interface Window {

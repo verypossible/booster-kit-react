@@ -1,11 +1,7 @@
-import {
-  CreatePageMutation
-} from '../schema'
-
-import * as createPage from './createPage.gql'
-
-export type Mutations = CreatePageMutation   // & NewMutationA & NewMutationB
+import * as CreatePage from './CreatePage.gql'
+import * as LoginWithAuth0 from './LoginWithAuth0.gql'
 
 export default {
-  createPage
+  CreatePage,
+  LoginWithAuth0
 }

@@ -1,0 +1,9 @@
+mutation Login($token:LoginUserWithAuth0Input!) {
+  loginUserWithAuth0(input:$token) {
+    user {
+      id
+      username
+      createdAt
+    }
+  }
+}

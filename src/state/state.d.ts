@@ -2,7 +2,8 @@
   State shape. Each module declares its own shape.
 */
 declare interface State extends
-  CounterState {
+  CounterState,
+  LastActionState {
   readonly form: any,
   readonly apollo: any
 }
@@ -10,12 +11,12 @@ declare interface State extends
 /*
   Actions imported into /state/actions.ts. Module actions are located within the module.
 */
-declare type Actions = LastAction & CounterActions
+declare type Actions = LastAction & CounterActions & SessionActions
 
 /*
   Selectors imported into /state/selectors.ts. Module selectors are located within the module.
 */
-declare type Selectors = GetCount & ActionRehydrate
+declare type Selectors = GetCount & ActionRehydrate & GetSession & SessionExpired
 
 /*
   S = Selector

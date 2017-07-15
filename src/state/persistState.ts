@@ -7,7 +7,7 @@ import { Store } from 'lib/types'
 const memoryStorage = new MemoryStorage()
 
 /* Add reducer keys to persist state for that key in IndexDB */
-const reducersToPersist = []
+const reducersToPersist = ['session']
 
 interface PersistState {
   store: Store<{}>,

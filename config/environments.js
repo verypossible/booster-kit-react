@@ -7,6 +7,7 @@ export default {
       ...config.globals,
       __ROLLBAR_ENABLED__: false,
       __ROLLBAR_TOKEN__: string(config.rollbar_client),
+      __AUTH_REDIRECT_URI__: string(`${config.server_url}/callback`)
     }
   }),
 
@@ -16,6 +17,7 @@ export default {
       ...config.globals,
       __ROLLBAR_ENABLED__: true,
       __ROLLBAR_TOKEN__: string(config.rollbar_client),
+      __AUTH_REDIRECT_URI__: string(`${config.server_url}/callback`)
     }
   }),
 

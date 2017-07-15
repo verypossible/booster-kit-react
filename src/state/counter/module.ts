@@ -1,6 +1,4 @@
-import { ThunkAction } from 'redux-thunk'
-
-import { Dispatch } from 'lib/types'
+import { Dispatch, ThunkAction } from 'lib/types'
 
 // ------------------------------------
 // State Key

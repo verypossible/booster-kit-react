@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect'
 
-import { KEY } from './module'
+import { KEY } from './index'
 
 const getCounterFromState = (state: State) => state[KEY]
 

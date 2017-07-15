@@ -81,6 +81,9 @@
   "author": "Spartan (http://joinspartan.com)",
   "license": "MIT",
   "dependencies": {
+    "@types/auth0-js": "^8.6.2",
+    "@types/auth0-lock": "^10.16.0",
+    "@types/es6-promise": "^0.0.32",
     "@types/jest": "^20.0.2",
     "@types/react": "^15.0.38",
     "@types/react-dom": "^15.5.1",
@@ -96,6 +99,8 @@
     "@types/webpack-env": "^1.13.0",
     "apollo-client": "^1.8.0",
     "apollo-codegen": "^0.15.0",
+    "auth0-js": "^8.8.0",
+    "auth0-lock": "^10.18.0",
     "axios": "^0.16.2",
     "babel-runtime": "^6.23.0",
     "codeclimate-test-reporter": "^0.5.0",

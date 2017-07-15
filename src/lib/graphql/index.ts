@@ -1,9 +1,19 @@
-import mutate, { Mutations } from './mutations'
-import query, { Queries } from './queries'
+import mutate from './mutations'
+import query from './queries'
+
+import {
+  CreatePageMutation,
+  GetAllPagesQuery,
+  LoginUserWithAuth0Input
+} from './schema'
+
+export {
+  CreatePageMutation,
+  GetAllPagesQuery,
+  LoginUserWithAuth0Input
+}
 
 export {
   mutate,
-  Mutations,
-  query,
-  Queries
+  query
 }

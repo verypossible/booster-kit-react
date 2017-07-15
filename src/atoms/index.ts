@@ -11,6 +11,8 @@ import {
 } from './Headers'
 import Icon from './Icon'
 import Image from './Image'
+import Input from './Input'
+import Label from './Label'
 import Paragraph from './Paragraph'
 import Span from './Span'
 
@@ -26,6 +28,8 @@ export {
   H6,
   Icon,
   Image,
+  Input,
+  Label,
   Paragraph,
   Span
 }

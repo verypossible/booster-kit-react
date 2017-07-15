@@ -17,19 +17,22 @@ export const wrapConnectState = ({
   stateHOC = withStateHOC
 }: Config = {}) => (
     mapStateToProps,
-    mapActionsToProps: any
+    mapActionsToProps?: any
   ) => {
-  const mapDispatchToProps = (dispatch: Dispatch<State>, ownProps: object) => (
-    mapActions(actions, mapActionsToProps, { dispatch, ownProps })
-  )
-
   const makeMapStateToProps = () => mapSelectors(selectors, mapStateToProps)
 
+  let connectState = connect(makeMapStateToProps)
+
+  if (mapActionsToProps) {
+    const mapDispatchToProps = (dispatch: Dispatch<State>, ownProps: object) => (
+      mapActions(actions, mapActionsToProps, { dispatch, ownProps })
+    )
+
+    connectState = connect(makeMapStateToProps, mapDispatchToProps)
+  }
+
   return compose(
-    connect(
-     makeMapStateToProps,
-     mapDispatchToProps
-   ),
+   connectState,
    stateHOC
   )
 }
