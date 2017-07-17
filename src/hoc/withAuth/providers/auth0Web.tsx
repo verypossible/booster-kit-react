@@ -3,52 +3,37 @@ import * as React from 'react'
 
 import { getDisplayName } from 'hoc/helpers'
 import logger from 'lib/logger'
-import { Dispatch } from 'lib/types'
+
+import { Auth0Web } from './WebAuth'
 
 /*
   Documentation for using the Auth0 SDK for Web:
-    https://auth0.com/docs/libraries/lock/v10
+    https://auth0.com/docs/libraries/auth0js
 
-  Use this strategy if you don't care about controlling the user experience
-  and you don't have a lot of additional fields to collect during registration.
+  Use this recipe to strike a nice balance between complete control over the user experience,
+  with a minimum amount of manual configuration.
 */
-
-interface Auth0Web {
-  scope?: string,
-  responseMode?: string,
-  responseType?: string,
-  session: Session,
-  sessionError: (error: object) => Dispatch<SessionActions>,
-  startSession: (session: ActiveSession) => Dispatch<SessionActions>,
-  clearSession: Dispatch<SessionActions>,
-  location: {
-    hash?: string
-  },
-  loginUser: (idToken: string) => void,
-  history: {
-    replace: (params: {
-      pathname: string,
-      state?: object
-    }) => void
-  }
-}
 
 const withAuth0Web = () => (WrappedComponent: React.SFC<object>) => {
   const cid = __AUTH_CID__
   const url = __AUTH_URL__
   const WebAuth: React.SFC<Auth0Web> = ({
+    clearSession,
+    history,
+    location,
+    loginUser,
     responseType = 'token id_token',
     scope = 'openid profile',
     session,
     sessionError,
     startSession,
-    clearSession,
-    history,
-    location,
-    loginUser,
     ...props
   }) => {
-    /* Private Methods */
+    // ------------------------------------
+    // Private Methods
+    // ------------------------------------
+
+    /* Initialize a new Auth0 WebAuth Object */
     const auth0 = new Auth0JS.WebAuth({
       clientID: cid,
       domain: url,
@@ -57,9 +42,16 @@ const withAuth0Web = () => (WrappedComponent: React.SFC<object>) => {
       scope
     })
 
+    /* Navigate using React Router's History */
     const setLocation = (next) => history.replace(next)
+
+    /* When we should force renewal */
     const setExpiration = (expiresIn) => ((expiresIn * 1000) + new Date().getTime())
 
+    /* Error handler helper that dispatches the error to state, logs it to Rollbar, and redirects to the target
+        with the error message attached to the location state. This simplifies the logic for conditionally showing
+        errors as we can simply operate on the location state.
+     */
     const handleError = (error, reason) => {
       sessionError({ error })
       logger.log.error('Authorization Failure - Client Data', { error })
@@ -74,6 +66,10 @@ const withAuth0Web = () => (WrappedComponent: React.SFC<object>) => {
       })
     }
 
+    /* Takes the initial authResult and gets the user data from the targeted social service.
+       If successful, it dispatches the session data to state, calls the graphql mutation, and
+       redirects to the login page with a successful state set.
+    */
     const process = (authResult) => (
       authResult && authResult.accessToken && authResult.idToken &&
       auth0.client.userInfo(authResult.accessToken, (error, user) => {
@@ -90,6 +86,7 @@ const withAuth0Web = () => (WrappedComponent: React.SFC<object>) => {
         })
 
         loginUser(authResult.idToken)
+
         setLocation({
           pathname: '/login',
           state: {
@@ -99,6 +96,7 @@ const withAuth0Web = () => (WrappedComponent: React.SFC<object>) => {
       })
     )
 
+    /* A wrapped to handle errors with the initial authorize request */
     const handleAuthentication = () => {
       auth0.parseHash((err, authResult) => {
         process(authResult)
@@ -109,20 +107,35 @@ const withAuth0Web = () => (WrappedComponent: React.SFC<object>) => {
       })
     }
 
-    /* Public Methods */
+    // ------------------------------------
+    // Private Methods
+    // ------------------------------------
+
+    /* The entry point for processing authentication on those routes set as authorized Redirect URIs within
+       Auth0.
+    */
     const authenticate = () => {
-      /* Only call handle authentication if there is no session set */
-      if (!session && /access_token|id_token|error/.test(location.hash)) {
+      const matchingHash = /access_token|id_token|error/.test(location.hash)
+
+      if (!session && matchingHash) {
         handleAuthentication()
       }
     }
 
+    /* This initializes an authentication flow on the targeted connection. If all goes well,
+      it will automatically redirect to the __AUTH_REDIRECT_URI__ where authenticate() will take over.
+    */
     const authorizeSocial = ({ connection = 'google-oauth2' }) => auth0.authorize({ connection })
 
+    /* If you don't want to use Auth0's hosted auth page.
+      !Warning: This flow has not been thoroughly tested. Read the Auth0 docs to verify configuration
+
+    */
     const authorizeSocialWithPopup = () => auth0.popup.authorize({
       connection: 'google-oauth2'
     }, null)
 
+    /* Used in conjunction with popup auth flows - a simple helper to build a valid auth query / URL */
     const buildAuthorizeUrl = (state: string) => (
       auth0.client.buildAuthorizeUrl({
         redirectUri: __AUTH_REDIRECT_URI__,
@@ -130,6 +143,19 @@ const withAuth0Web = () => (WrappedComponent: React.SFC<object>) => {
       })
     )
 
+    /* Dispatches clearSession() tp clean out the session state, then logs out of Auth0 and redirects */
+    const logout = ({ returnTo = '/' }) => {
+      clearSession()
+
+      auth0.logout({
+        clientID: cid,
+        returnTo
+      })
+    }
+
+    /* A helper to renew auth Keys. If you aren't using Auth0's hosted login page, see the notes and warnings
+      on renewAuth()'s typings.
+    */
     const renewAuth = () => auth0.renewAuth({
       redirectUri: __AUTH_REDIRECT_URI_SILENT__,
       scope,
@@ -147,6 +173,7 @@ const withAuth0Web = () => (WrappedComponent: React.SFC<object>) => {
       authorizeSocial,
       authorizeSocialWithPopup,
       buildAuthorizeUrl,
+      logout,
       renewAuth
     }
 
