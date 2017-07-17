@@ -11,7 +11,7 @@ const getSession = createSelector(
 
 const sessionExpired = createSelector(
   [sessionState],
-  (session) => new Date().getTime() < session.expiresAt
+  (session) => session && new Date().getTime() < session.expiresAt
 )
 
 export {

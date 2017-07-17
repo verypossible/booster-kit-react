@@ -36,7 +36,8 @@ const base = [
     ...config.globals,
     __COMMIT_HASH__: commitHash
   }),
-  new HtmlWebpackPlugin(renderHtml('index.html')),
+  new HtmlWebpackPlugin(renderHtml('index')),
+  new HtmlWebpackPlugin(renderHtml('silent-callback')),
   new webpack.LoaderOptionsPlugin({
     minimize: true
   }),

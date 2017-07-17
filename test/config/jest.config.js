@@ -31,7 +31,8 @@ const jestConfig = {
     __GRAPHQL_API__: 'https://us-west-2.api.scaphold.io/graphql/very-react',
     __AUTH_CID__: false,
     __AUTH_URL__: false,
-    __AUTH_REDIRECT_URI__: false
+    __AUTH_REDIRECT_URI__: false,
+    __AUTH_REDIRECT_URI_SILENT__: false
   },
   moduleFileExtensions: [
     'js',

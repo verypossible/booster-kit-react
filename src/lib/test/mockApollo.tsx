@@ -15,11 +15,11 @@ import { Reducer } from 'redux'
 import { createStore } from 'redux'
 // import { RenderFunction } from '@storybook/react'
 
-import { Mutations, Queries } from 'lib/graphql'
+import { Graphql } from 'lib/graphql'
 import * as introspectionResult from 'lib/graphql/schema.json'
 import rootReducer from 'state/reducers'
 
-type MocksTypes = Mutations & Queries | object
+type MocksTypes = Graphql | object
 
 export function mockClient (mocks: MocksTypes): ApolloClient {
   const exSchema = buildClientSchema(introspectionResult.data)

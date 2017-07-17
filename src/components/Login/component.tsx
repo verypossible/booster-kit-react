@@ -1,16 +1,14 @@
 import * as React from 'react'
 
-import { Dispatch } from 'lib/types'
-
 import { Button } from 'atoms'
 
 interface LoginProps {
-  login: () => void,
+  authorizeSocial: () => void,
 }
 
-const Login: React.SFC<LoginProps> = ({ login }) => {
+const Login: React.SFC<LoginProps> = ({ authorizeSocial }) => {
   return (
-    <Button onClick={login}>
+    <Button onClick={authorizeSocial}>
       Login
     </Button>
   )

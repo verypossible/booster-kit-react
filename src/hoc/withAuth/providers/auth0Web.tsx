@@ -3,19 +3,7 @@ import * as React from 'react'
 
 import { getDisplayName } from 'hoc/helpers'
 import logger from 'lib/logger'
-import { Redirect } from 'lib/router'
 import { Dispatch } from 'lib/types'
-
-interface Auth0Web {
-  scope?: string,
-  responseMode?: string,
-  responseType?: string,
-  session: Session,
-  startSession: Dispatch<SessionActions>,
-  clearSession: Dispatch<SessionActions>,
-  location: object,
-  history: object
-}
 
 /*
   Documentation for using the Auth0 SDK for Web:
@@ -24,69 +12,142 @@ interface Auth0Web {
   Use this strategy if you don't care about controlling the user experience
   and you don't have a lot of additional fields to collect during registration.
 */
-const withAuth0Web = (WrappedComponent: React.SFC<object>) => {
+
+interface Auth0Web {
+  scope?: string,
+  responseMode?: string,
+  responseType?: string,
+  session: Session,
+  sessionError: (error: object) => Dispatch<SessionActions>,
+  startSession: (session: ActiveSession) => Dispatch<SessionActions>,
+  clearSession: Dispatch<SessionActions>,
+  location: {
+    hash?: string
+  },
+  loginUser: (idToken: string) => void,
+  history: {
+    replace: (params: {
+      pathname: string,
+      state?: object
+    }) => void
+  }
+}
+
+const withAuth0Web = () => (WrappedComponent: React.SFC<object>) => {
   const cid = __AUTH_CID__
   const url = __AUTH_URL__
   const WebAuth: React.SFC<Auth0Web> = ({
-    responseMode = 'form_post',
-    responseType = 'token',
+    responseType = 'token id_token',
     scope = 'openid profile',
     session,
+    sessionError,
     startSession,
     clearSession,
-    location,
     history,
+    location,
+    loginUser,
     ...props
   }) => {
+    /* Private Methods */
     const auth0 = new Auth0JS.WebAuth({
       clientID: cid,
       domain: url,
       redirectUri: __AUTH_REDIRECT_URI__,
-      responseMode,
       responseType,
       scope
     })
 
-    const login = ({ connection = 'google-oauth2' }) => auth0.authorize({ connection })
+    const setLocation = (next) => history.replace(next)
+    const setExpiration = (expiresIn) => ((expiresIn * 1000) + new Date().getTime())
 
-    const loginWithPopup = () => auth0.popup.authorize({
+    const handleError = (error, reason) => {
+      sessionError({ error })
+      logger.log.error('Authorization Failure - Client Data', { error })
+      setLocation({
+        pathname: '/login',
+        state: {
+          error: {
+            reason,
+            type: 'unauthorized'
+          }
+        }
+      })
+    }
+
+    const process = (authResult) => (
+      authResult && authResult.accessToken && authResult.idToken &&
+      auth0.client.userInfo(authResult.accessToken, (error, user) => {
+        if (error) {
+          handleError(error, 'We were unable to get your information from your SSO provider.')
+        }
+
+        startSession({
+          email: user.email,
+          expiresAt: setExpiration(authResult.expiresIn),
+          idToken: authResult.idToken,
+          name: user.name,
+          picture: user.picture
+        })
+
+        loginUser(authResult.idToken)
+        setLocation({
+          pathname: '/login',
+          state: {
+            authorized: true
+          }
+        })
+      })
+    )
+
+    const handleAuthentication = () => {
+      auth0.parseHash((err, authResult) => {
+        process(authResult)
+
+        if (err) {
+          handleError(err, 'We were unable to authorize with your SSO provider.')
+        }
+      })
+    }
+
+    /* Public Methods */
+    const authenticate = () => {
+      /* Only call handle authentication if there is no session set */
+      if (!session && /access_token|id_token|error/.test(location.hash)) {
+        handleAuthentication()
+      }
+    }
+
+    const authorizeSocial = ({ connection = 'google-oauth2' }) => auth0.authorize({ connection })
+
+    const authorizeSocialWithPopup = () => auth0.popup.authorize({
       connection: 'google-oauth2'
     }, null)
 
-    const authorizeUrl = (state: string) => (
+    const buildAuthorizeUrl = (state: string) => (
       auth0.client.buildAuthorizeUrl({
         redirectUri: __AUTH_REDIRECT_URI__,
         state
       })
     )
 
-    const handleAuthentication = () => {
-      auth0.parseHash((err, authResult) => {
-        if (authResult && authResult.accessToken && authResult.idToken) {
-          const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime())
-          auth0.client.userInfo(authResult.accessToken, (userErr, user) => {
-            logger.log.info('user error', { ...userErr })
-            // Now you have the user's information
-            logger.log.info('Auth Success', {
-              accessToken: authResult.accessToken,
-              expiresAt,
-              idToken: authResult.idToken,
-              ...user
-            })
-            return <Redirect to='/' />
-          })
-        } else if (err) {
-          logger.log.error('Auth Error', { error: err })
-          return <Redirect to='/' />
-        }
-      })
-    }
+    const renewAuth = () => auth0.renewAuth({
+      redirectUri: __AUTH_REDIRECT_URI_SILENT__,
+      scope,
+      usePostMessage: true
+    }, (err, authResult) => {
+      process(authResult)
+
+      if (err) {
+        handleError(err, 'We were unable to automatically renew your authorization token. Please login again.')
+      }
+    })
 
     const authProps = {
-      authorizeUrl,
-      handleAuthentication,
-      login,
-      loginWithPopup
+      authenticate,
+      authorizeSocial,
+      authorizeSocialWithPopup,
+      buildAuthorizeUrl,
+      renewAuth
     }
 
     return (

@@ -5,14 +5,19 @@ import { Route } from 'lib/router'
 
 import { Box } from 'atoms'
 
-const CallbackHandler = ({ handleAuthentication }) => {
-  handleAuthentication()
-  return (
-    <Box>
-      Authing...
-    </Box>
-  )
-}
+const CallbackHandler = ({ authenticate }) => (
+  <Route
+    path='/callback'
+    render={(props) => {
+      authenticate(props)
+      return (
+        <Box>
+          Authing...
+        </Box>
+      )
+    }}
+  />
+)
 
 const CallbackRoute = withAuth()(CallbackHandler)
 

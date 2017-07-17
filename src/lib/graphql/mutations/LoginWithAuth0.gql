@@ -1,5 +1,5 @@
-mutation Login($token:LoginUserWithAuth0Input!) {
-  loginUserWithAuth0(input:$token) {
+mutation Login($input:LoginUserWithAuth0Input!) {
+  loginUserWithAuth0(input:$input) {
     user {
       id
       username

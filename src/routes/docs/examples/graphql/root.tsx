@@ -2,7 +2,7 @@ import * as React from 'react'
 import { compose, graphql } from 'react-apollo'
 
 // Queries are the typings and query is an object with all queries
-import { Queries, query } from 'lib/graphql'
+import { GetAllPagesQuery, query } from 'lib/graphql'
 
 // Declare props on the component
 interface Props {
@@ -38,7 +38,7 @@ const GraphqlHome: React.SFC<Props> = ({ pages }) => (
 */
 
 const enhance = compose(
-  graphql<Queries, {}, Props>(query.GetAllPages, {
+  graphql<GetAllPagesQuery, {}, Props>(query.GetAllPages, {
     props: ({ data }) => ({ pages: (data && data.viewer && data.viewer.allPages.edges) || [] })
   })
 )

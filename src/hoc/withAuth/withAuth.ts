@@ -1,3 +1,6 @@
+import { graphql } from 'react-apollo'
+
+import { LoginUserWithAuth0Input, mutate } from 'lib/graphql'
 import { compose } from 'lib/helpers'
 import { withRouter } from 'lib/router'
 
@@ -5,17 +8,14 @@ import connectState from '../connectState'
 
 import providers from './providers'
 
-interface WithAuth {
-  provider: 'auth0Web' | 'auth0Lock'
-}
+type Provider = 'auth0Web' | 'auth0Lock'
 
-const withAuth = ({
+const withAuthWrapper = ({
   getProvider = providers
 } = {}) => ({
-  provider = 'auth0Web'
-}: WithAuth = {}) => {
+  provider = 'auth0Web' as Provider
+} = {}) => {
   const withAuthProvider = getProvider[provider]
-  console.log(withAuthProvider)
   return compose(
     withRouter,
     connectState(
@@ -25,11 +25,17 @@ const withAuth = ({
       }),
       (actions: Actions) => ({
         clearSession: actions.clearSession,
+        sessionError: actions.sessionError,
         startSession: actions.startSession
       })
     ),
-    withAuthProvider
+    graphql<LoginUserWithAuth0Input>(mutate.LoginWithAuth0, {
+      props: (props) => ({
+        loginUser: (idToken: string) => props.mutate({ variables: { input: { idToken }}})
+      })
+    }),
+    withAuthProvider()
   )
 }
 
-export default withAuth()
+export default withAuthWrapper()

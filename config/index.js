@@ -58,6 +58,7 @@ const config = {
   // ----------------------------------
   auth_cid: 'YsM6qRbwxDUf9jySjt9vXTzjgvuRIKED',
   auth_url: 'veryservices.auth0.com',
+  auth_redirectUri: '/callback',
 
   // ----------------------------------
   // Compiler Configuration
