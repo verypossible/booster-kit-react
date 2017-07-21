@@ -1,0 +1,14 @@
+query FindUsers($where: UserWhereArgs) {
+  viewer {
+    allUsers(where: $where) {
+      edges {
+        node {
+          id
+          username
+          googleUsername
+          githubUsername
+        }
+      }
+    }
+  }
+}

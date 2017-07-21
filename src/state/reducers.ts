@@ -12,7 +12,7 @@ export const makeRootReducer = combineReducers<State>({
   [counter.KEY]: counter.reducer,
   [lastAction.KEY]: lastAction.reducer,
   [session.KEY]: session.reducer,
-  apollo: client.reducer() as Reducer<ApolloStore>,
+  apollo: client().reducer() as Reducer<ApolloStore>,
   form: formReducer
 })
 

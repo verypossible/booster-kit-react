@@ -1,6 +1,16 @@
-interface Button extends Theme {
+declare interface ButtonStyles extends Theme {
   fill?: boolean,
-  style?: string,
   text?: string,
-  type?: string
+  type?: string,
+  background?: string,
+  color?: string
+}
+
+declare interface Button extends ButtonStyles {
+  children: any,
+  icon?: string,
+  iconColor?: string,
+  id?: string,
+  onClick?: any,
+  status?: ThemeStatusSelector,
 }

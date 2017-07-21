@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { ApolloProvider } from 'react-apollo'
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter, Route } from 'react-router-dom'
 
 import client from './lib/graphql/client'
 import { Store } from './lib/types'
@@ -12,11 +12,19 @@ interface RootProps {
 
 const Root: React.SFC<RootProps> = ({ store }) => {
   return (
-    <ApolloProvider store={store} client={client}>
-      <BrowserRouter>
-        <Routes store={store} />
-      </BrowserRouter>
-    </ApolloProvider>
+    <BrowserRouter>
+      <Route
+        path='/'
+        children={({ history }) => {
+          const apolloClient = client(history)
+          return (
+            <ApolloProvider store={store} client={apolloClient}>
+              <Routes store={store} />
+            </ApolloProvider>
+          )
+        }}
+      />
+    </BrowserRouter>
   )
 }
 

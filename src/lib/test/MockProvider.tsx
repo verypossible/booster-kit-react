@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { ApolloProvider } from 'react-apollo'
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter, Route } from 'react-router-dom'
 import { createStore } from 'redux'
 
 import client from 'lib/graphql/client'
@@ -14,13 +14,19 @@ interface MockProps {
 const WithProvider: React.SFC<MockProps> = ({ children, store }) => {
   const defaultStore = createStore(reducers())
   return (
-    <ApolloProvider client={client} store={store || defaultStore}>
-      <BrowserRouter>
-        <div>
-          {children}
-        </div>
-      </BrowserRouter>
-    </ApolloProvider>
+    <BrowserRouter>
+      <Route
+        path='/'
+        children={({ history }) => {
+          const apolloClient = client(history)
+          return (
+            <ApolloProvider store={store || defaultStore} client={apolloClient}>
+              {children}
+            </ApolloProvider>
+          )
+        }}
+      />
+    </BrowserRouter>
   )
 }
 

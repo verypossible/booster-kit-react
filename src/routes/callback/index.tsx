@@ -8,8 +8,8 @@ import { Box } from 'atoms'
 const CallbackHandler = ({ authenticate }) => (
   <Route
     path='/callback'
-    render={(props) => {
-      authenticate(props)
+    render={() => {
+      authenticate()
       return (
         <Box>
           Authing...

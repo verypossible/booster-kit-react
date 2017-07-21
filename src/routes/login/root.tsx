@@ -1,9 +1,9 @@
 import * as React from 'react'
 
-import Login from 'components/Login'
+import SocialLogin from 'components/SocialLogin'
 
 const LoginPage = () => (
-  <Login />
+  <SocialLogin />
 )
 
 export default LoginPage

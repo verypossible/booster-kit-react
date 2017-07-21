@@ -1,3 +1,4 @@
 declare interface Span extends Theme {
-  color?: string
+  color?: string,
+  status?: ThemeStatusSelector
 }

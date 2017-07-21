@@ -1,9 +1,8 @@
-mutation Login($input:LoginUserWithAuth0Input!) {
-  loginUserWithAuth0(input:$input) {
+mutation LoginWithAuth0($input:LoginUserWithAuth0Input!) {
+  loginUserWithAuth0(input: $input) {
     user {
       id
       username
-      createdAt
     }
   }
 }

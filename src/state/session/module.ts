@@ -11,21 +11,13 @@ const clearSession = () => ({
   type: CLEAR_SESSION
 })
 
-const SESSION_ERROR: string = `${KEY}/SESSION_ERROR`
-const sessionError = (payload: SessionError) => ({
-  payload,
-  type: SESSION_ERROR
-})
-
 export const actions = {
   clearSession,
-  sessionError,
   startSession
 }
 
 export const actionTypes = {
   CLEAR_SESSION,
-  SESSION_ERROR,
   START_SESSION
 }
 
@@ -36,7 +28,6 @@ export const reducer = (
   action: SessionActionHandlers
 ): Session => {
   switch (action.type) {
-    case SESSION_ERROR:
     case START_SESSION:
       return {
         ...action.payload

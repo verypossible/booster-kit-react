@@ -9,7 +9,7 @@ export default [{
     exclude: /node_modules/
   }, {
   test: /\.ts(x?)$/,
-  use: ['awesome-typescript-loader']
+  use: ['babel-loader', 'awesome-typescript-loader']
 } ,{
   enforce: 'pre',
   test: /\.js$/,
@@ -69,15 +69,15 @@ export default [{
     name: '[path][name].[ext]'
   }
 }, {
-  test: /\.svg$/,
-  loader: 'url-loader',
-  include: path.resolve(__dirname, '../src'),
-  query: {
-    prefix: 'fonts/',
-    name: '[path][name].[ext]',
-    limit: 10000,
-    mimetype: 'image/svg+xml'
-  }
+    test: /\.svg$/,
+    exclude: /node_modules/,
+    loader: 'svg-react-loader',
+    query: {
+        propsMap: {
+            fillRule: 'fill-rule'
+        },
+        xmlnsTest: /^xmlns.*$/
+    }
 }, {
   test: /\.(png|jpg|jpeg)$/,
   loader: 'url-loader',

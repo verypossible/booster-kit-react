@@ -1,26 +1,24 @@
 /* Actions */
 declare type SessionActionHandlers = {
   payload?: ActiveSession,
-  type: 'session/START_SESSION' | 'session/CLEAR_SESSION' | 'session/SESSION_ERROR'
+  type: 'session/START_SESSION' | 'session/CLEAR_SESSION'
 }
 
 declare interface SessionActions {
-  sessionError: (payload: SessionError) => SessionActionHandlers,
   startSession: (payload: ActiveSesion) => SessionActionHandlers,
   clearSession: () => SessionActionHandlers
 }
 
 /* State */
-declare interface SessionError {
-  error?: object
-}
-
-declare interface ActiveSession extends SessionError {
+declare interface ActiveSession {
+  avatar: string,
+  name?: string,
   email: string,
   expiresAt: number,
-  idToken: string,
+  id: string,
   name: string,
-  picture: string
+  token: string
+  username: string
 }
 
 declare type SessionPreloadedState = false

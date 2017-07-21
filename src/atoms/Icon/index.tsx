@@ -4,6 +4,7 @@ import * as Icons from 'react-feather'
 import atom from 'ui'
 
 import { Logo, Trademark } from './Brand'
+import Vendor from './Vendor'
 
 const styles = ({ color, size, status, theme }: Icon) => `
   color: ${
@@ -16,6 +17,7 @@ const styles = ({ color, size, status, theme }: Icon) => `
 
 const IconSet = {
   ...Icons,
+  ...Vendor,
   Logo,
   Trademark
 }
