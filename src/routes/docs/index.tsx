@@ -3,6 +3,7 @@ import SidebarWithNav from 'layouts/SidebarWithNav'
 
 import CounterRoutes from './counter'
 import MarkdownRoutes from './markdown'
+import CardRoutes from './card'
 import DocHome from './root'
 
 const DocRouteWithLayout = withSubRoutes(SidebarWithNav)
@@ -18,6 +19,7 @@ export default [{
     routeComponent: DocHome
   },
     ...CounterRoutes,
-    ...MarkdownRoutes
+    ...MarkdownRoutes,
+    ...CardRoutes
   ]
 }]

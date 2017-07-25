@@ -21,13 +21,18 @@ const defaultNavItems = [{
   id: 'markdownLink',
   text: 'Markdown',
   to: '/docs/markdown'
+}, {
+  className: 'link',
+  id: 'cardLink',
+  text: 'Card',
+  to: '/docs/card'
 }]
 
 const Layout: React.SFC<LayoutSidebarProps> = ({
   children,
   navItems = defaultNavItems
 }) => (
-  <TwoColumn leftWidth={25}>
+  <TwoColumn leftWidth={50}>
     <Box column={[1, 1]} inverse>
       <NavBar navItems={navItems} />
     </Box>

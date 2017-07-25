@@ -1,6 +1,8 @@
 import Anchor from './Anchor'
 import Box from './Box'
 import Button from './Button'
+import Quote from './Quote'
+import Cite from './Cite'
 import {
   H1,
   H2,
@@ -27,5 +29,7 @@ export {
   Icon,
   Image,
   Paragraph,
+  Quote,
+  Cite,
   Span
 }
