@@ -8,6 +8,7 @@ declare interface ButtonStyles extends Theme {
 
 declare interface Button extends ButtonStyles {
   children: any,
+  disabled?: boolean,
   icon?: string,
   iconColor?: string,
   id?: string,

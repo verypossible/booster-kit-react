@@ -31,9 +31,5 @@ declare interface SessionState {
 
 /* Selectors */
 declare interface GetSession {
-  getSession: SelectState<SessionState>,
-}
-
-declare interface SessionExpired {
-  sessionExpired: SelectState<SessionState>
+  getSession: SelectState<Session>,
 }

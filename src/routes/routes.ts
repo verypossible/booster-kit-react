@@ -2,10 +2,14 @@ import CallbackRoutes from './callback'
 import DocsRoutes from './docs'
 import HomeRoute from './home'
 import LoginRoute from './login'
+import SignupRoute from './signup'
 
-export default [
+const baseRoutes = [
   ...CallbackRoutes,
   ...HomeRoute,
   ...DocsRoutes,
-  ...LoginRoute
+  ...LoginRoute,
+  ...SignupRoute
 ]
+
+export default baseRoutes

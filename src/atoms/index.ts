@@ -1,6 +1,7 @@
 import Anchor from './Anchor'
 import Box from './Box'
 import Button from './Button'
+import Form from './Form'
 import {
   H1,
   H2,
@@ -11,8 +12,6 @@ import {
 } from './Headers'
 import Icon from './Icon'
 import Image from './Image'
-import Input from './Input'
-import Label from './Label'
 import Paragraph from './Paragraph'
 import Span from './Span'
 
@@ -20,6 +19,7 @@ export {
   Anchor,
   Box,
   Button,
+  Form,
   H1,
   H2,
   H3,
@@ -28,8 +28,6 @@ export {
   H6,
   Icon,
   Image,
-  Input,
-  Label,
   Paragraph,
   Span
 }
