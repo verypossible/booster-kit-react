@@ -29,10 +29,11 @@ const jestConfig = {
     __ROLLBAR_TOKEN__: false,
     __COMMIT_HASH__: false,
     __GRAPHQL_API__: 'https://us-west-2.api.scaphold.io/graphql/very-react',
-    __AUTH_CID__: false,
-    __AUTH_URL__: false,
-    __AUTH_REDIRECT_URI__: false,
-    __AUTH_REDIRECT_URI_SILENT__: false
+    __AUTH_CID__: 'YsM6qRbwxDUf9jySjt9vXTzjgvuRIKED',
+    __AUTH_URL__: 'veryservices.auth0.com',
+    __AUTH_REDIRECT_URI__: 'http://localhost:3000/callback',
+    __AUTH_REDIRECT_URI_SILENT__: 'http://localhost:3000/silent_callback',
+    window: true
   },
   moduleFileExtensions: [
     'js',

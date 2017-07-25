@@ -2,7 +2,8 @@ import * as React from 'react'
 import { compose, graphql } from 'react-apollo'
 
 // Queries are the typings and query is an object with all queries
-import { GetAllPagesQuery, query } from 'lib/graphql'
+import { query } from 'lib/graphql'
+import { GetAllPagesQuery } from 'lib/graphql/schema'
 
 // Declare props on the component
 interface Props {

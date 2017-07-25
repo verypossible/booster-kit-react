@@ -14,7 +14,7 @@ export interface Auth0Config {
 
 export interface AuthErrors {
   failedLogin: (params?: object) => string,
-  failedUpdate: (params: { email: string, providerName: string }) => string
+  failedUpdate: (params: { email: string }) => string
 }
 
 export interface AuthSetup {
@@ -31,55 +31,84 @@ export interface AuthConfig extends AuthSetup {
 }
 
 /* Handlers */
-export interface InitialAuthProps {
-  session: Session,
-  dispatch: Dispatch<Actions>,
-  clearSession: () => Dispatch<SessionActions>,
-  startSession: (payload: ActiveSession) => Dispatch<SessionActions>,
-  history: RouterHistory,
-  location: RouterLocation
+export interface AuthRouter {
+  history?: RouterHistory,
+  location?: RouterLocation,
+  match?: RouterMatch
 }
 
-export interface AuthData extends InitialAuthProps {
-  deleteUser: (input: Schema.DeleteUserInput) => Promise<Schema.DeleteUserMutation>
-  loginSocialUser: (input: Schema.LoginUserWithAuth0Input) => Promise<Schema.LoginWithAuth0Mutation>,
-  updateUser: (input: Schema.UpdateUserInput) => Promise<Schema.UpdateUserMutation>
+export interface AuthState {
+  session?: Session,
+  startSession?: (payload: ActiveSession) => Dispatch<SessionActions>,
+}
+
+type AuthResponse<I, R> = (input: I) => Promise<{data: R}>
+
+export interface InitialProps extends AuthState, AuthRouter {
+  deleteUser: AuthResponse<Schema.DeleteUserInput, Schema.DeleteUserMutation>
+  loginSocialUser: AuthResponse<Schema.LoginUserWithAuth0Input, Schema.LoginWithAuth0Mutation>,
+  updateUser: AuthResponse<Schema.UpdateUserInput, Schema.UpdateUserMutation>
 }
 
 type Provider = {
-  [key: string]: string,
-  provider?: string
+  [key: string]: string
 }
 
 type AuthError = boolean | string
 
-export interface AuthHelpers extends AuthData {
-  error: AuthError,
-  getProvider: (val: string, nameOnly?: boolean) => Provider,
-  hash: string,
-  logError: (err: { reason: string, error: object }) => void,
-  purgeSession: () => Dispatch<any>,
-  redirect: (opts: { pathname: string, state: object }) => ReplaceHistory,
-  shouldProcessAuth: boolean
+export interface UserFromToken {
+  /** The token parsed from the location.hash. This is used to make subsequent authenticated requests
+   *  to the GraphQL server via Apollo Client
+   */
+  idToken: string,
+
+  /** The user object retrieved from decoding the JWT token in location.hash */
+  userFromToken: {
+    user_id: string,
+    picture: string,
+    email: string,
+    exp: number,
+    name: string
+  }
 }
 
-export type UserFromToken = {
-  user_id: string,
-  picture: string,
-  email: string
-} | {}
+export interface AuthHelpers {
+  /** Error returned from location state and passed down as a prop to the wrapped component */
+  error: AuthError,
 
-export interface AuthSocial extends AuthHelpers {
-  userFromToken: UserFromToken
+  /** Parses the provider name from the userFromToken */
+  getProvider: (val: string | object, nameOnly?: boolean) => Provider,
+
+  /** Generic error logger that reports errors to rollbar */
+  logError: (err: { reason: string, error: object }) => void,
+
+  /** Purging the session will clear local storage and redirect the user */
+  purgeSession: () => void,
+
+  /** An interface for using history.replace(pathname, state) */
+  redirect: ({ pathname, state }: { pathname: string, state: object }) => void,
+
+  /** Tests the location.pathname against a regex that checks for hash keys used in auth callbacks */
+  shouldProcessAuth: boolean,
+
+  /* Parses a JWT token from the location.hash and decodes it */
+  getUserFromToken: () => Promise<UserFromToken>
+}
+
+export type WithAllProps = InitialProps & AuthHelpers
+
+export interface AuthResult {
+  /** If the promise chain fails, the error that was returned during the async auth flow */
+  error?: AuthError,
+
+  /** If the auth promise chain succeeds, the user returned from the server's updateUser mutation */
+  user?: Schema.UpdateUserInput
 }
 
 /* API */
-export interface AuthSocialAPI {
+export interface AuthSocialAPI extends AuthRouter {
   authenticate: () => void,
   error: AuthError,
-  location: RouterLocation,
-  history: RouterHistory,
-  match: RouterMatch,
   loginSocial: (connection?: 'google-oauth2' | 'github') => void,
   logoutSocial: () => void
 }

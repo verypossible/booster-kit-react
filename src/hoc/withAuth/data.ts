@@ -5,9 +5,9 @@ import { mutate } from 'lib/graphql'
 /* Typings */
 import * as Schema from 'lib/graphql/schema'
 
-import { InitialAuthProps } from './types'
+import { WithAllProps } from './types'
 
-export const loginSocial = graphql<Schema.LoginWithAuth0Mutation, {}, InitialAuthProps>(mutate.LoginWithAuth0, {
+export const loginSocial = graphql<Schema.LoginWithAuth0Mutation, {}, WithAllProps>(mutate.LoginWithAuth0, {
   props: (props) => ({
     loginSocialUser: ({ idToken }: Schema.LoginUserWithAuth0Input) => props.mutate({
       variables: { input: { idToken } }
@@ -15,15 +15,15 @@ export const loginSocial = graphql<Schema.LoginWithAuth0Mutation, {}, InitialAut
   })
 })
 
-export const updateUser = graphql<Schema.UpdateUserMutation, {}, InitialAuthProps>(mutate.UpdateUser, {
+export const updateUser = graphql<Schema.UpdateUserMutation, {}, WithAllProps>(mutate.UpdateUser, {
   props: (props) => ({
-    updateUser: (updatedUser: Schema.UpdateUserInput) => props.mutate({
-      variables: { input: { ...updatedUser } }
+    updateUser: ({ ...user }: Schema.UpdateUserInput) => props.mutate({
+      variables: { input: { ...user } }
     })
   })
 })
 
-export const createUser = graphql<Schema.CreateUserMutation, {}, InitialAuthProps>(mutate.CreateUser, {
+export const createUser = graphql<Schema.CreateUserMutation, {}, WithAllProps>(mutate.CreateUser, {
   props: (props) => ({
     createUser: (user: Schema.CreateUserInput) => props.mutate({
       variables: { input: { ...user } }
@@ -31,7 +31,7 @@ export const createUser = graphql<Schema.CreateUserMutation, {}, InitialAuthProp
   })
 })
 
-export const deleteUser = graphql<Schema.UpdateUserMutation, {}, InitialAuthProps>(mutate.DeleteUser, {
+export const deleteUser = graphql<Schema.UpdateUserMutation, {}, WithAllProps>(mutate.DeleteUser, {
   props: (props) => ({
     deleteUser: (id: Schema.DeleteUserInput) => props.mutate({
       variables: { input: { id } }
@@ -39,7 +39,7 @@ export const deleteUser = graphql<Schema.UpdateUserMutation, {}, InitialAuthProp
   })
 })
 
-export const login = graphql<Schema.LoginUserMutation, {}, InitialAuthProps>(mutate.LoginUser, {
+export const login = graphql<Schema.LoginUserMutation, {}, WithAllProps>(mutate.LoginUser, {
   props: (props) => ({
     loginUser: (credentials: Schema.LoginUserInput) => props.mutate({
       variables: { input: { ...credentials } }
@@ -47,7 +47,7 @@ export const login = graphql<Schema.LoginUserMutation, {}, InitialAuthProps>(mut
   })
 })
 
-export const forgotPassword = graphql<Schema.ForgotPasswordMutation, {}, InitialAuthProps>(mutate.ForgotPassword, {
+export const forgotPassword = graphql<Schema.ForgotPasswordMutation, {}, WithAllProps>(mutate.ForgotPassword, {
   props: (props) => ({
     forgotPassword: (newCredentials: Schema.UpdateUserInput) => props.mutate({
       variables: { input: { ...newCredentials } }

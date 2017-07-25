@@ -10,7 +10,7 @@ import { ApolloClient, ApolloProvider } from 'react-apollo'
 
 import { mockNetworkInterfaceWithSchema } from 'apollo-test-utils'
 import { buildClientSchema } from 'graphql'
-import { MemoryRouter } from 'react-router'
+import { MemoryRouter } from 'react-router-dom'
 import { Reducer } from 'redux'
 import { createStore } from 'redux'
 // import { RenderFunction } from '@storybook/react'
@@ -38,13 +38,26 @@ export function mockClient (mocks: MocksTypes): ApolloClient {
 export interface MockProviderOpts {
   /** Definition of graphql mocks for mock client */
   mocks?: MocksTypes
+
   /** Reducer function */
   reducer?: Reducer<State>
 
   /** Value to use as state. Alternatively use initState */
   state?: State
+
   /** A function to initialize the state. Passed the default state returned by the reducer. */
   initState?: (state: State) => State
+
+  /** Initialize the provider with route locations */
+  initLocation?: Array<{
+    pathname?: string,
+    search?: string,
+    hash?: string,
+    location?: string
+  } | string>
+
+  /** Set the starting route location from the array of initialized routes */
+  locationStart?: number
 }
 
 /** Create a fully initialized ApolloProvider with a mocked out graphql connection and arbitrary initial state. */
@@ -64,7 +77,7 @@ export function mockProvider (opts?: MockProviderOpts) {
     public static displayName = 'MockProvider'
     public render () {
       return (
-        <MemoryRouter>
+        <MemoryRouter initialEntries={opts.initLocation} initialIndex={opts.locationStart}>
           <ApolloProvider client={apollo} store={store}>
             {this.props.children}
           </ApolloProvider>

@@ -2,14 +2,11 @@ import purgeStorage from 'state/persistState'
 
 import createStore from 'state/createStore'
 
-export default function purgeState ({ action }) {
+export default function purgeState () {
   const store = createStore()
-  return (dispatch) => {
-    function callback () {
-      dispatch(action)
-      return location.reload()
-    }
-
-    return purgeStorage({ callback, purge: true, store })
+  function callback () {
+    return location.reload()
   }
+
+  return purgeStorage({ callback, purge: true, store })
 }

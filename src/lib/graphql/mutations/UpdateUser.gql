@@ -6,6 +6,8 @@ mutation UpdateUser($input: UpdateUserInput!) {
       email
       expiresAt
       username
+      githubUsername
+      googleUsername
     }
   }
 }

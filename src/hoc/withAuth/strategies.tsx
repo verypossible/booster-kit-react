@@ -6,57 +6,51 @@ import connectState from '../connectState'
 
 import authHelpers from './authHelpers'
 import * as queries from './data'
-import processCallback from './processCallback'
 import providerAuth0Web from './providerAuth0Web'
 import providerScaphold from './providerScaphold'
 
 const { loginSocial, login, createUser, deleteUser, updateUser, forgotPassword } = queries
 
-const withState = connectState(
-  (selectors: Selectors) => ({
-    session: selectors.getSession
-  }),
-  (actions: Actions) => ({
-    clearSession: actions.clearSession,
-    startSession: actions.startSession
-  })
+/** Shared HOCS all strategies depend upon */
+const common = (config) => compose(
+  withRouter,
+  connectState(
+    (selectors: Selectors) => ({
+      session: selectors.getSession
+    }),
+    (actions: Actions) => ({
+      startSession: actions.startSession
+    })
+  ),
+  updateUser,
+  deleteUser,
+  authHelpers(config)
+
 )
 
-/* chained HOCs for Social Auth */
+/** chained HOCs for Social Auth */
 export const social = (config) => compose(
-  withRouter,
-  withState,
+  common(config),
   loginSocial,
-  updateUser,
-  authHelpers(config),
-  processCallback,
-  deleteUser,
   providerAuth0Web(config)
 )
 
-/* chained HOCs for Scaphold Auth */
+/** chained HOCs for Scaphold Auth */
 export const scaphold = (config) => compose(
-  withRouter,
-  withState,
+  common(config),
   login,
   createUser,
-  updateUser,
   forgotPassword,
-  authHelpers(config),
   providerScaphold()
 )
 
+/** chained HOCs for Scaphold & Social Auth */
 export const all = (config) => compose(
-  withRouter,
-  withState,
+  common(config),
   login,
   loginSocial,
   createUser,
-  updateUser,
   forgotPassword,
-  authHelpers(config),
-  processCallback,
-  deleteUser,
   providerAuth0Web(config),
   providerScaphold()
 )

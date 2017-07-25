@@ -1,17 +1,32 @@
+import jwtDecode from 'jwt-decode'
 import * as React from 'react'
+import S from 'string'
 
 import { getDisplayName } from 'hoc/helpers'
 import purgeState from 'lib/helpers/purgeState'
 import logger from 'lib/logger'
 
-import { AuthConfig, InitialAuthProps } from './types'
+import { AuthConfig, AuthHelpers, InitialProps, UserFromToken } from './types'
+
+export const parseUserFromToken = (hash: string) => new Promise<UserFromToken>((resolve) => {
+  const idToken = S(hash).between('#id_token=', '&').s
+  const userFromToken = jwtDecode(idToken)
+  resolve({ idToken, userFromToken })
+})
+
+export const findProvider = (val, configuredProviders) => {
+  if (typeof val === 'string') {
+    const provider = configuredProviders.find((p) => val.includes(p))
+    return { [`${provider}Username`]: val }
+  }
+}
 
 const withAuthHelpers = ({
   configuredSocialProviders
-}: AuthConfig) => (WrappedComponent: React.SFC<object>) => {
-  const AuthHelpers: React.SFC<InitialAuthProps> = ({
-    dispatch,
-    clearSession,
+}: AuthConfig) => (
+  WrappedComponent: React.SFC<AuthHelpers>
+) => {
+  const mergeAuthHelpers: React.SFC<InitialProps> = ({
     history,
     location,
     ...props
@@ -27,33 +42,17 @@ const withAuthHelpers = ({
 
     const error = location.state && location.state.error
 
-    const hash = history.location.hash
+    const getUserFromToken = () => parseUserFromToken(history.location.hash)
+    const getProvider = (val) => findProvider(val, configuredSocialProviders)
 
-    const purgeSession = () => dispatch(purgeState({ action: clearSession }))
+    const purgeSession = () => purgeState()
 
     const shouldProcessAuth = /access_token|id_token|error/.test(history.location.hash)
-
-    const getProvider = (val: string, nameOnly?: boolean) => {
-      const validateProvider = (p) => val.includes(p)
-      const provider = configuredSocialProviders.find(validateProvider)
-      const socialProvider = provider && (
-        (nameOnly && provider) ||
-        `${provider}Username`
-      )
-
-      const key = socialProvider || 'email'
-
-      return nameOnly ? {
-        provider: key
-      } : {
-        [key]: val
-      }
-    }
 
     const authHelpers = {
       error,
       getProvider,
-      hash,
+      getUserFromToken,
       logError,
       purgeSession,
       redirect,
@@ -70,9 +69,9 @@ const withAuthHelpers = ({
     )
   }
 
-  AuthHelpers.displayName = getDisplayName(WrappedComponent, 'authHelpers')
+  mergeAuthHelpers.displayName = getDisplayName(WrappedComponent, 'authHelpers')
 
-  return AuthHelpers
+  return mergeAuthHelpers
 }
 
 export default withAuthHelpers
