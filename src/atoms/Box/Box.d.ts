@@ -10,9 +10,9 @@ declare type Justify = 'start' | 'center' | 'between' | 'end'
 
 declare type TextAlign = 'left' | 'center' | 'right'
 
-declare type BoxTags = 'div' | 'span'
+declare type BoxTags = 'div' | 'span' | 'section'
 
-interface Box extends Theme {
+interface Box {
   alignContent?: AlignContent,
   alignItems?: AlignItems,
   alignSelf?: AlignItems,
@@ -28,6 +28,7 @@ interface Box extends Theme {
   columns?: string,
   display?: Display,
   height?: ThemeLayoutSizeSelector | string,
+  id?: string,
   inverse?: boolean
   justifyContent?: AlignContent,
   justifyItems?: Justify,

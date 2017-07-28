@@ -11,12 +11,13 @@ declare interface SessionActions {
 
 /* State */
 declare interface ActiveSession {
-  avatar: string,
+  avatar?: string,
   name?: string,
   email: string,
-  expiresAt: number,
+  expiresAt?: number,
   id: string,
-  name: string,
+  name?: string,
+  sessionType: string,
   token: string
   username: string
 }

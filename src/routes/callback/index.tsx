@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import withAuth from 'hoc/withAuth'
+import { authWithSocial } from 'hoc/withAuth'
 import { Route } from 'lib/router'
 
 import { Box } from 'atoms'
@@ -19,7 +19,7 @@ const CallbackHandler = ({ authenticate }) => (
   />
 )
 
-const CallbackRoute = withAuth()(CallbackHandler)
+const CallbackRoute = authWithSocial()(CallbackHandler)
 
 export default [{
   id: 'root-callback',

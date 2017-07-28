@@ -12,7 +12,7 @@ const gridContainer = ({
   rowGutter,
   rows,
   theme
-}: Box) => css`
+}) => css`
   ${display === 'grid' &&
     ((rowGutter || columnGutter) &&
     `grid-gap: ${theme.grid.rowGutter[rowGutter]} ${theme.grid.columnGutter[columnGutter]};`)
@@ -29,7 +29,7 @@ const gridItem = ({
   area,
   column,
   row
-}: Box) => css`
+}) => css`
   ${column && `grid-column: ${column[0]} / ${column[1]};`}
   ${row && `grid-row: ${row[0]} / ${row[1]};`}
   ${area && `grid-area: ${area};`}
@@ -54,7 +54,7 @@ const layout = ({
   pad,
   theme,
   width
-}: Box) => css`
+}) => css`
   ${justifyItems && `justify-items: ${justifyItems};`}
   ${alignItems && `justify-items: ${alignItems};`}
   ${justifyContent && `justify-content: ${justifyContent};`}
@@ -71,22 +71,29 @@ const styles = ({
   inverse,
   textAlign,
   theme
-}: Box) => `
+}) => `
   ${(background || inverse) && `background-color: ${setBackground(background, inverse, theme.colors)};`},
   ${textAlign && `textAlign: ${textAlign};`}
 `
 
-const Box = ({
+const Box: React.SFC<Box> = ({
   children,
-  tag = 'div',
+  tag,
   ...props
 }) => {
-  const BoxElement = atom[tag]`
+  const BoxElement = atom.div`
     ${gridContainer}
     ${gridItem}
     ${layout}
     ${styles}
   `
+
+  if (tag) {
+    /** If a custom DOM tag is specified, this replaces the tag used with the value passed */
+    const BoxWithTag = BoxElement.withComponent(tag)
+    return <BoxWithTag {...props}>{children}</BoxWithTag>
+  }
+
   return <BoxElement {...props}>{children}</BoxElement>
 }
 

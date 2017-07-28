@@ -1,9 +1,13 @@
-import Auth0JS from 'auth0-js'
 import * as React from 'react'
 
 import { getDisplayName } from 'hoc/helpers'
 
-import { AuthConfig, AuthResult, AuthSocialAPI, WithAllProps } from './types'
+import {
+  AuthConfig,
+  AuthSocialProps,
+  AuthSocialResult,
+  AuthWithSocial
+} from '../types'
 
 /**
  *   Documentation for using the Auth0 SDK for Web:
@@ -13,74 +17,44 @@ import { AuthConfig, AuthResult, AuthSocialAPI, WithAllProps } from './types'
  *  with a minimum amount of manual configuration.
  */
 const authSocialWrapper = ({
-  auth0Config,
   callbackPath,
-  errors,
   redirectOnError,
   redirectOnSuccess
-}: AuthConfig) => (WrappedComponent: React.SFC<AuthSocialAPI>) => {
-  const WithAuthSocial: React.SFC<WithAllProps> = ({
+}: AuthConfig) => (WrappedComponent: React.SFC<AuthWithSocial>) => {
+  const WithAuthSocial: React.SFC<AuthSocialProps> = ({
+    authHelpers: {
+      errors, getProvider, getUserFromToken, handleLoginFailure, logError, redirect, shouldProcessAuth
+    },
     deleteUser,
-    getProvider,
-    getUserFromToken,
-    logError,
     loginSocialUser,
-    purgeSession,
-    redirect,
-    shouldProcessAuth,
-    startSession,
+    storeSession,
     updateUser,
     ...props
   }) => {
-    // ------------------------------------
-    // Private Methods
-    // ------------------------------------
-
-    /* Initialize a new Auth0 WebAuth Object */
-    const auth0 = new Auth0JS.WebAuth(auth0Config)
-
-    const handleLoginFailure = (error) => {
-      const reason = errors.failedLogin()
-      logError({ error, reason })
-      redirect({ pathname: redirectOnError, state: { error: reason } })
-    }
-
     /**
      * Logs the user in to the GraphQL Service with the user's idToken,
      * then sets the idToken in location state for Apollo Client to consume
      * for all future requests and returns the payload for updating the user.
      */
-    const loginUserWithSocial = ({ idToken, userFromToken }) => loginSocialUser({ idToken })
-      .then(
-        ({ data: { loginUserWithAuth0: { user: { id } } }}) => ({
-          id,
-          token: idToken,
-          userFromToken
-        }),
-        handleLoginFailure
-      )
+    const loginUserWithSocial = ({ idToken, user }) => loginSocialUser({ idToken })
+      .then(({ data: { loginUserWithAuth0: { user: { id, username } } }}) => ({
+        id,
+        idToken,
+        ...getProvider(username),
+        ...user
+      }))
+      .catch((error) => handleLoginFailure({ error, reason: errors.failedLogin() }))
 
-    const setGraphqlClientAuthToken = ({ id, token, userFromToken }) => {
+    const setGraphqlClientAuthToken = ({ idToken, ...user }) => {
       redirect({
         pathname: callbackPath,
-        state: { token }
+        state: { idToken }
       })
-      return { id, token, userFromToken }
-    }
 
-    const storeSession = ({ id, token, userFromToken: { picture, email, exp, name, user_id } }) => {
-      const updateUserPayload = {
-        avatar: picture,
-        email,
-        expiresAt: exp,
-        id,
-        name,
-        username: email,
-        ...getProvider(user_id)
+      return {
+        idToken,
+        user
       }
-
-      startSession({ token, ...updateUserPayload })
-      return updateUserPayload
     }
 
     /** Deletes the user immediately if the email is associated to another account */
@@ -103,13 +77,19 @@ const authSocialWrapper = ({
      *        read fields from any other user, so we rely on the server to tell us whether or not the email is
      *        unique, then remove the temporary account.
      */
-    const updateUserWithDataFromToken = (user) => updateUser(user)
+    const updateUserWithDataFromToken = ({ idToken, user }) => updateUser(user)
       .then(
-        ({ data }) => ({ user: data.updateUser.changedUser }),
+        ({ data: { updateUser: { changedUser: { username, expiresAt, id, email, avatar, name } }} }) => {
+          const newSession = { username, expiresAt, id, email, avatar, name, sessionType: 'social', token: idToken }
+          storeSession(newSession)
+          return {
+            user: newSession
+          }
+        },
         (error) => handleExistingUsers({ error, user })
       )
 
-    const handleAuthResult = (result: AuthResult) => {
+    const handleAuthResult = (result: AuthSocialResult) => {
       if (result) {
         redirect({
           pathname: !result.error ? redirectOnSuccess : redirectOnError,
@@ -125,34 +105,22 @@ const authSocialWrapper = ({
      *  Auth0.
      */
     const authenticate = () => {
-      if (shouldProcessAuth) {
+      if (shouldProcessAuth && !props.session) {
         getUserFromToken()
           .then(loginUserWithSocial)
           .then(setGraphqlClientAuthToken)
-          .then(storeSession)
           .then(updateUserWithDataFromToken)
           .then(handleAuthResult)
       }
     }
 
-    const loginSocial = (connection) => auth0.authorize({ connection })
-
-    const logoutSocial = () => {
-      auth0.logout({
-        clientID: __AUTH_CID__
-      })
-
-      purgeSession()
-    }
-
-    const socialAuthAPI = {
-      authenticate,
-      loginSocial,
-      logoutSocial
+    const passThroughProps = {
+      errors,
+      redirect
     }
 
     return (
-      <WrappedComponent {...socialAuthAPI} {...props} />
+      <WrappedComponent authenticate={authenticate} {...props} {...passThroughProps} />
     )
   }
 

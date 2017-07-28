@@ -33,7 +33,7 @@ const jestConfig = {
     __AUTH_URL__: 'veryservices.auth0.com',
     __AUTH_REDIRECT_URI__: 'http://localhost:3000/callback',
     __AUTH_REDIRECT_URI_SILENT__: 'http://localhost:3000/silent_callback',
-    window: true
+    __CLIENT_TOKEN__: false
   },
   moduleFileExtensions: [
     'js',

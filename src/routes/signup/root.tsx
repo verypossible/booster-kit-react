@@ -1,9 +1,14 @@
 import * as React from 'react'
 
-import SignUpForm from 'components/SignUpForm'
+import { Box } from 'atoms'
+
+import { SignUpForm, SocialLogin } from 'components/Authentication'
 
 const SignUp = () => (
-  <SignUpForm />
+  <Box>
+    <SignUpForm />
+    <SocialLogin />
+  </Box>
 )
 
 export default SignUp

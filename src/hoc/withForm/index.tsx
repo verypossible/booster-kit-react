@@ -4,31 +4,33 @@ import { compose } from 'lib/helpers'
 
 import { defaultHandleSubmit, defaultOnSuccess } from './defaultHandlers'
 import formHOC from './formHOC'
-import { FormConfig } from './types'
+import { onSubmitHandler } from './onSubmitHandler'
 
 const withFormWrapper = ({
   destroyOnUnmount = false,
   enableReinitialize = false,
   form = 'anonymousForm',
-  onSubmit = defaultHandleSubmit,
+  handleSubmit = defaultHandleSubmit,
   keepDirtyOnReinitialize = false,
   pure = true,
   onSuccess = defaultOnSuccess,
   submitButtonText = 'Submit'
-}: FormConfig = {}) => compose(
-  reduxForm({
-    destroyOnUnmount,
-    enableReinitialize,
-    form,
-    keepDirtyOnReinitialize,
-    onSubmit,
-    pure
-  }),
-  formHOC({
-    form,
-    onSuccess,
-    submitButtonText
-  })
-)
+}: FormConfig) => {
+  return compose(
+    reduxForm({
+      destroyOnUnmount,
+      enableReinitialize,
+      form,
+      keepDirtyOnReinitialize,
+      onSubmit: onSubmitHandler(handleSubmit),
+      pure
+    }),
+    formHOC({
+      form,
+      onSuccess,
+      submitButtonText
+    })
+  )
+}
 
 export default withFormWrapper

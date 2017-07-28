@@ -48,7 +48,15 @@ const network = (history: RouterHistory) => {
           .catch((err) => logger.log.error('Unable to get authentication token from localForage', { error: err }))
       }
 
-      if (token) {
+      const useClientToken = (
+        req.request.operationName === 'CreateUser'
+      )
+
+      if (useClientToken) {
+        req.options.headers.authorization = `Bearer ${__CLIENT_TOKEN__}`
+      }
+
+      if (!useClientToken && token) {
         req.options.headers.authorization = `Bearer ${token}`
       }
 

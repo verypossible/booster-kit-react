@@ -1,13 +1,14 @@
 mutation UpdateUser($input: UpdateUserInput!) {
   updateUser(input: $input) {
     changedUser {
-      id
       avatar
       email
       expiresAt
-      username
       githubUsername
       googleUsername
+      id
+      name
+      username
     }
   }
 }

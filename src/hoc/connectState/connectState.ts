@@ -13,7 +13,7 @@ interface Config {
   stateHOC?: React.SFC<any>
 }
 
-export const wrapConnectState = ({
+export const wrapConnectState = <OP extends {}>({
   stateHOC = withStateHOC
 }: Config = {}) => (
     mapStateToProps,
@@ -24,7 +24,7 @@ export const wrapConnectState = ({
   let connectState = connect(makeMapStateToProps)
 
   if (mapActionsToProps) {
-    const mapDispatchToProps = (dispatch: Dispatch<State>, ownProps: object) => (
+    const mapDispatchToProps = (dispatch: Dispatch<State>, ownProps: OP) => (
       mapActions(actions, mapActionsToProps, { dispatch, ownProps })
     )
 

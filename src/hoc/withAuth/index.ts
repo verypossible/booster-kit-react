@@ -1,38 +1,88 @@
-import * as strategies from './strategies'
-import * as WithAuth from './types'
+import {
+  AuthSocialProvider,
+  AuthWithServer,
+  AuthWithSocial,
+  LogoutWithSocial,
+  PublicAuthConfig,
+  VerifySocialSession
+} from './types'
 
-export const auth0Config = {
-  clientID: __AUTH_CID__,
-  domain: __AUTH_URL__,
-  redirectUri: __AUTH_REDIRECT_URI__,
-  responseType: 'id_token',
-  scope: 'openid profile offline_access'
-} as WithAuth.Auth0Config
+import connectState from 'hoc/connectState'
+import { compose } from 'lib/helpers'
+import { withRouter } from 'lib/router'
 
-export const errors = {
-  failedLogin: () => `We were unable to login you in.`,
-  failedUpdate: ({ email }) => (`
-    There is an existing account linked to ${email}.
+import helpers from './helpers'
+import * as queries from './queries'
+import serverAuth from './server'
+import { auth0Config, authProvider, socialAuth, socialLogout, socialSessionVerification } from './social'
 
-    Your account was created with either email/password or another social provider. Please login,
-    then link this social provider.
-  `)
-} as WithAuth.AuthErrors
+const { loginSocial, login, createUser, deleteUser, updateUser, forgotPassword } = queries
 
-const withAuthWrapper = ({
+/** Shared HOCS all strategies depend upon */
+const common = (config) => compose(
+  withRouter,
+  connectState(
+    (selectors: Selectors) => ({
+      session: selectors.getSession
+    }),
+    (actions: Actions) => ({
+      storeSession: actions.startSession
+    })
+  ),
+  helpers(config)
+)
+
+/** chained HOCs for initializing authentication with a social provider */
+export const authSocialProvider = compose(
+  withRouter,
+  authProvider({ auth0Config })
+)
+
+/** chained HOCs for terminating a session with a social provider */
+export const logoutWithSocial = compose(
+  socialLogout({ auth0Config })
+)
+
+/** chained HOCs for verifying a social session from state rehydration */
+export const verifySocialSession = ({
+  redirectOnError = '/login'
+}: PublicAuthConfig = {}) => compose(
+  common({ redirectOnError }),
+  loginSocial,
+  socialSessionVerification
+)
+
+/** chained HOCs for processing login / create with a social provider */
+export const authWithSocial = ({
   callbackPath = '/callback',
   redirectOnError = '/login',
-  redirectOnSuccess = '/profile',
-  strategy = 'social'
-}: WithAuth.AuthConfig = {}) => strategies[strategy]({
-  auth0Config,
-  callbackPath,
-  configuredSocialProviders: ['google', 'github'],
-  errors,
-  redirectOnError,
-  redirectOnSuccess,
-  strategy
-})
+  redirectOnSuccess = '/profile'
+}: PublicAuthConfig = {}) => compose(
+  common({ configuredSocialProviders: ['github', 'google'] }),
+  loginSocial,
+  updateUser,
+  deleteUser,
+  socialAuth({
+    auth0Config,
+    callbackPath,
+    redirectOnError,
+    redirectOnSuccess
+  })
+)
 
-export { WithAuth }
-export default withAuthWrapper
+/** chained HOCs for Scaphold Auth */
+export const authWithServer = ({
+  redirectOnError = '/login',
+  redirectOnSuccess = '/profile'
+}: PublicAuthConfig) => compose(
+  common({ redirectOnError, redirectOnSuccess }),
+  login,
+  createUser,
+  forgotPassword,
+  serverAuth({
+    redirectOnError,
+    redirectOnSuccess
+  })
+)
+
+export { AuthSocialProvider, AuthWithSocial, AuthWithServer, LogoutWithSocial, VerifySocialSession }

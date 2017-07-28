@@ -4,9 +4,7 @@ import * as React from 'react'
 import { mockProvider } from 'lib/test/mockApollo'
 import MockProvider from 'lib/test/MockProvider'
 
-import { auth0Config, errors } from './index'
-import { social } from './strategies'
-import { AuthSocialAPI } from './types'
+import { authWithSocial, AuthWithSocial } from '../index'
 
 // Bypassing auth0-js and returning the same location hash that would be returned at the specified callback URL
 const idToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImdhYmVAdmVyeXBvc3NpYmxlLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJuYW1lIjoiR2FiZSBXZWF2ZXIiLCJnaXZlbl9uYW1lIjoiR2FiZSIsImZhbWlseV9uYW1lIjoiV2VhdmVyIiwicGljdHVyZSI6Imh0dHBzOi8vbGg1Lmdvb2dsZXVzZXJjb250ZW50LmNvbS8tT2Y4UFBaRjFSVEkvQUFBQUFBQUFBQUkvQUFBQUFBQUFBSWcvN1U3WDE4OXBZSGsvcGhvdG8uanBnIiwiZ2VuZGVyIjoibWFsZSIsImxvY2FsZSI6ImVuIiwiY2xpZW50SUQiOiJZc002cVJid3hEVWY5anlTanQ5dlhUempndnVSSUtFRCIsInVwZGF0ZWRfYXQiOiIyMDE3LTA3LTI0VDIwOjM2OjAzLjAyMloiLCJ1c2VyX2lkIjoiZ29vZ2xlLW9hdXRoMnwxMDE4NDg5NTUwMjgyMzU2NjgzNDkiLCJuaWNrbmFtZSI6ImdhYmUiLCJpZGVudGl0aWVzIjpbeyJwcm92aWRlciI6Imdvb2dsZS1vYXV0aDIiLCJ1c2VyX2lkIjoiMTAxODQ4OTU1MDI4MjM1NjY4MzQ5IiwiY29ubmVjdGlvbiI6Imdvb2dsZS1vYXV0aDIiLCJpc1NvY2lhbCI6dHJ1ZX1dLCJjcmVhdGVkX2F0IjoiMjAxNy0wNy0xOFQwNTozNzozMC40NjhaIiwiaXNzIjoiaHR0cHM6Ly92ZXJ5c2VydmljZXMuYXV0aDAuY29tLyIsInN1YiI6Imdvb2dsZS1vYXV0aDJ8MTAxODQ4OTU1MDI4MjM1NjY4MzQ5IiwiYXVkIjoiWXNNNnFSYnd4RFVmOWp5U2p0OXZYVHpqZ3Z1UklLRUQiLCJleHAiOjE1MDA5NjQ1NjMsImlhdCI6MTUwMDkyODU2Mywibm9uY2UiOiJTRjhqZk0zTTl4YWVIaURodnpKQjEtRVNnVUdFQzBMNiJ9.DV4EyGR-M70BAPvUKz-fsU8OKWF4XRQSRaW8EfZMkiY' // tslint:disable-line
@@ -16,10 +14,8 @@ const hashWithToken = `#id_token=${idToken}&state=12345`
 
 /** A test config that matches the same shape as the withAuth() HOC accepts. */
 const config = {
-  auth0Config,
   callbackPath: '/callback',
   configuredSocialProviders: ['google', 'github'],
-  errors,
   redirectOnError: '/login',
   redirectOnSuccess: '/profile'
 }
@@ -29,8 +25,7 @@ const userFromUpdate = {
   avatar: 'https://lh5.googleusercontent.com/-Of8PPZF1RTI/AAAAAAAAAAI/AAAAAAAAAIg/7U7X189pYHk/photo.jpg',
   email: 'gabe@verypossible.com',
   expiresAt: 1500966581,
-  githubUsername: false,
-  googleUsername: 'google-oauth2|101848955028235668349',
+  id: '12345',
   name: 'Gabe Weaver',
   username: 'gabe@verypossible.com'
 }
@@ -42,7 +37,7 @@ const userFromLogin = {
 }
 
 /** There is type enforcement in tests too :) */
-interface WrappedComponentProps extends AuthSocialAPI {
+interface WrappedComponentProps extends AuthWithSocial {
   callback: (data: object) => void
 }
 
@@ -65,16 +60,13 @@ class WrappedComponent extends React.Component<WrappedComponentProps, {}> {
     this.callback()
     return (
       <div>
-        <button id='loginSocial' onClick={() => this.props.loginSocial('google-oauth2')}>
-          Login Social
-        </button>
         <span>{this.props.error}</span>
       </div>
     )
   }
 }
 
-const ProviderAuth0WebWithHelpers = social(config)(WrappedComponent)
+const ProviderAuth0WebWithHelpers = authWithSocial(config)(WrappedComponent)
 
 /** You can pass both location information and mock results to the mockProvider.
  *  Read more about mocking router data - https://goo.gl/EkBMk6
@@ -94,7 +86,9 @@ const mockApolloProvider = ({ loginResult, updateResult }) => mockProvider({
   locationStart: 0,
   mocks: {
     Mutation: () => ({
-      loginUserWithAuth0: () => loginResult,
+      loginUserWithAuth0: () => ({
+        user: () => loginResult
+      }),
       updateUser: () => ({
         changedUser: () => updateResult
       })
@@ -111,7 +105,7 @@ describe('(withAuth) providerAuth0Web', () => {
     )
 
     const apiKeys = [
-      'authenticate', 'loginSocial', 'logoutSocial', 'error', 'match', 'staticContext', 'session', 'history', 'location'
+      'authenticate', 'match', 'staticContext', 'session', 'history', 'location', 'errors', 'redirect'
     ]
     const targetProps = wrapper.find('WrappedComponent').props()
 
@@ -127,19 +121,18 @@ describe('(withAuth) providerAuth0Web', () => {
       done()
     }
 
-    const loginResult = {
-      user: userFromLogin
-    }
-
+    const loginResult = userFromLogin
     const updateResult = userFromUpdate
 
     const ApolloProvider = mockApolloProvider({ loginResult, updateResult })
 
-    mount(
+    const wrapper = mount(
       <ApolloProvider>
         <ProviderAuth0WebWithHelpers callback={callback} />
       </ApolloProvider>
     )
+
+    return wrapper
   })
 
   it('deletes the user and redirects to failure location when there is an existing user', (done) => {
@@ -163,10 +156,13 @@ describe('(withAuth) providerAuth0Web', () => {
 
     const ApolloProvider = mockApolloProvider({ loginResult, updateResult })
 
-    mount(
+    const wrapper = mount(
       <ApolloProvider>
         <ProviderAuth0WebWithHelpers callback={callback} />
       </ApolloProvider>
     )
+
+    console.log(wrapper.debug())
+    return wrapper
   })
 })

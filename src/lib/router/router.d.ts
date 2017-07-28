@@ -21,11 +21,15 @@ declare interface Match {
   params?: object
 }
 
-declare interface RouteConfig {
+declare interface Route {
   exact?: true,
   id?: string,
   path?: string,
-  routeComponent?: any
+  routeComponent?: any,
+}
+
+declare interface RouteConfig extends Route {
+  routes?: Route
 }
 
 declare type ReplaceHistory = (pathname: string, state: object) => void

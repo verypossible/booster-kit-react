@@ -9,7 +9,7 @@ import ReactIcon from './ReactIcon'
 import Redux from './Redux'
 import Scaphold from './Scaphold'
 import Typescript from './Typescript'
-import TypescriptIcon from './TypescriptIcon'
+import TypeScriptIcon from './TypeScriptIcon'
 
 const VendorIcons = {
   Apollo,
@@ -22,8 +22,8 @@ const VendorIcons = {
   ReactIcon,
   Redux,
   Scaphold,
-  Typescript,
-  TypescriptIcon
+  TypeScriptIcon,
+  Typescript
 }
 
 export default VendorIcons

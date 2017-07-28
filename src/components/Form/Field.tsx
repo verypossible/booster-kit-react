@@ -1,23 +1,23 @@
 import * as React from 'react'
 
-import { Box, Form, Icon, Span } from 'atoms'
+import { Form } from 'atoms'
+import FormError from './FormError'
 
 const { Input, Label } = Form
 
 const Field: React.SFC<FormField> = ({
-  input, label, placeholder, type, meta: { touched, error }, disabled
+  input, label, placeholder, type, meta: { touched, error }
 }) => (
-  <Box>
+  <div>
     <Label htmlFor={input.name}>{label}</Label>
     <Input
       {...input}
       id={input.name}
       placeholder={placeholder}
       type={type}
-      disabled={disabled}
     />
-    {touched && error && <Span><Icon status='warning' icon='AlertCircle' />{error}</Span>}
-  </Box>
+    {touched && error && <FormError error={error} />}
+  </div>
 )
 
 export default Field

@@ -1,19 +1,21 @@
 import * as React from 'react'
 
-import withSubRoutes from 'hoc/withSubRoutes'
-import { Store } from 'lib/types'
+import withSubRoutes, { RouteProps } from 'hoc/withSubRoutes'
 
+import initialize, { InitializeProps } from './initialize'
 import EntryLayout from './layout'
 import routes from './routes'
 
-interface RoutesProps {
-  store: Store<{}>
-}
+/** LayoutProps Shorthand */
+type LP = InitializeProps
 
-const AppEntry = withSubRoutes(EntryLayout)
+const AppEntry = withSubRoutes<LP>(EntryLayout)
 
-const Routes: React.SFC<RoutesProps> = ({ store }) => (
-  <AppEntry routes={routes} store={store} />
-)
+const layout = (props: LP) => ({
+  ...props
+})
+
+const Routes: React.SFC<RouteProps & LP> = ({ initialized, store }) =>
+  <AppEntry layout={layout({ initialized: true })} routes={routes} store={store} />
 
 export default Routes

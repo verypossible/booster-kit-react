@@ -4,19 +4,26 @@ import { Box } from 'atoms'
 import Header from 'components/Header'
 import { renderGlobalStyles, theme, ThemeProvider } from 'ui'
 
-interface LayoutCoreProps {
-  children: any
+import { InitializeProps } from './initialize'
+
+interface Props extends InitializeProps {
+  children: React.ReactNode
 }
 
-const LayoutCore: React.SFC<LayoutCoreProps> = ({ children }) => {
+/**
+ *  Render the static layout, then once initialized, render the routes.
+ */
+const LayoutCore: React.SFC<Props> = ({ children, initialized }) => {
   renderGlobalStyles()
   return (
     <ThemeProvider theme={theme.light}>
       <Box tag='section'>
           <Header />
-          <Box>
-            {children}
-          </Box>
+          {initialized && (
+            <Box>
+              {children}
+            </Box>
+          )}
       </Box>
     </ThemeProvider>
   )

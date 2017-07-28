@@ -11,6 +11,7 @@ declare var __AUTH_CID__: string
 declare var __AUTH_URL__: string
 declare var __AUTH_REDIRECT_URI__: string
 declare var __AUTH_REDIRECT_URI_SILENT__: string
+declare var __CLIENT_TOKEN__: string
 
 /* Window Variables */
 declare interface Window {

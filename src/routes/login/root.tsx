@@ -1,9 +1,14 @@
 import * as React from 'react'
 
-import SocialLogin from 'components/SocialLogin'
+import { Box } from 'atoms'
+
+import { LoginForm, SocialLogin } from 'components/Authentication'
 
 const LoginPage = () => (
-  <SocialLogin />
+  <Box>
+    <LoginForm />
+    <SocialLogin />
+  </Box>
 )
 
 export default LoginPage

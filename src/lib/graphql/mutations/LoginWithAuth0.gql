@@ -1,7 +1,13 @@
 mutation LoginWithAuth0($input:LoginUserWithAuth0Input!) {
   loginUserWithAuth0(input: $input) {
     user {
+      avatar
+      email
+      expiresAt
+      githubUsername
+      googleUsername
       id
+      name
       username
     }
   }

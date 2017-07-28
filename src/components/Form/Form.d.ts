@@ -1,15 +1,15 @@
 /** When we add more input component types, add them to the type field */
-declare interface CommonInputInterface {
+interface FormCommon {
   label?: string,
   placeholder?: string,
-  type: 'email' | 'password' | 'text'
+  type: string
 }
 
-declare interface FormInput extends CommonInputInterface {
+declare interface FormInput extends FormCommon {
   name: string
 }
 
-declare interface FormField extends CommonInputInterface {
+declare interface FormField extends FormCommon {
   input: {
     name: string
   },
@@ -20,4 +20,26 @@ declare interface FormField extends CommonInputInterface {
   disabled: boolean
 }
 
-declare type ReduxInput = React.SFC<FormInput> | React.ComponentClass<FormInput>
+declare interface FieldSetConfig {
+  fields: FormInput[]
+}
+
+declare type FormFieldSelector = React.SFC<FormInput> | React.ComponentClass<FormInput>
+
+declare interface FormProps {
+  children?: any,
+  formName: string,
+  handleSubmit: () => void,
+  pristine: boolean,
+  submitting: boolean,
+  submitText: string,
+  error: string
+}
+
+declare interface FormCompletedProps {
+  message?: string,
+  redirectTo?: {
+    pathname: string,
+    state?: object
+  }
+}

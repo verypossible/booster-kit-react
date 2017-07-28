@@ -1,6 +1,5 @@
 import * as React from 'react'
 
-import withAuth from 'hoc/withAuth'
 import { Route } from 'lib/router'
 
 import { Box } from 'atoms'
@@ -18,10 +17,8 @@ const Profile = () => (
   />
 )
 
-const ProfileRoute = withAuth()(Profile)
-
 export default [{
   id: 'root-profile',
   path: '/profile',
-  routeComponent: ProfileRoute
+  routeComponent: Profile
 }]
