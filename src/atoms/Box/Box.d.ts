@@ -12,7 +12,7 @@ declare type TextAlign = 'left' | 'center' | 'right'
 
 declare type BoxTags = 'div' | 'span' | 'section'
 
-interface Box {
+interface Box extends Theme {
   alignContent?: AlignContent,
   alignItems?: AlignItems,
   alignSelf?: AlignItems,
@@ -23,7 +23,7 @@ interface Box {
   background?: string,
   children?: any,
   className?: string,
-  column?: [string, string] | [number, number],
+  column?: any[],
   columnGutter?: ThemeSizeSelector,
   columns?: string,
   display?: Display,
@@ -36,9 +36,9 @@ interface Box {
   margin?: ThemeSizeSelector,
   pad?: ThemeSizeSelector,
   role?: string,
-  row?: [string, string] | [number, number],
+  row?: any[],
   rowGutter?: ThemeSizeSelector,
-  rows?: string,
+  rows?: any,
   spanColumn?: boolean,
   tag?: BoxTags,
   textAlign?: TextAlign,

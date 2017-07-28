@@ -5,4 +5,4 @@ export default [{
   id: 'root-index',
   path: '/',
   routeComponent: Home
-}]
+}] as RouteConfig[]

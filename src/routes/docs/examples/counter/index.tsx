@@ -15,4 +15,4 @@ export default [{
     path: '/docs/examples/counter',
     routeComponent: ConnectedCounter
   }]
-}]
+}] as RouteConfig[]

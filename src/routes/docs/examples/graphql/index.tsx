@@ -15,4 +15,4 @@ export default [{
     path: '/docs/examples/graphql',
     routeComponent: GraphqlHome
   }]
-}]
+}] as RouteConfig[]

@@ -10,16 +10,22 @@ declare interface SessionActions {
 }
 
 /* State */
-declare interface ActiveSession {
-  avatar?: string,
-  name?: string,
-  email: string,
-  expiresAt?: number,
+
+/** ActiveSession model mirrors the server's User type */
+declare interface ActiveSession extends SessionType {
+  avatar?: string | null,
+  email?: string | null,
+  githubUsername?: string | null,
+  googleUsername?: string | null,
   id: string,
-  name?: string,
-  sessionType: string,
+  name?: string | null,
+  username?: string,
+  createdAt?: string,
+  expiresAt?: number | null,
+  lastLogin?: string,
+  modifiedAt?: string,
   token: string
-  username: string
+  sessionType: string
 }
 
 declare type SessionPreloadedState = false

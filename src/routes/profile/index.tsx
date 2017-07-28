@@ -21,4 +21,4 @@ export default [{
   id: 'root-profile',
   path: '/profile',
   routeComponent: Profile
-}]
+}] as RouteConfig[]

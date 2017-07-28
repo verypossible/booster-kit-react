@@ -1,0 +1,9 @@
+fragment UserProfile on User {
+  avatar
+  email
+  githubUsername
+  googleUsername
+  id
+  name
+  username
+}

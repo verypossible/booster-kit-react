@@ -20,4 +20,4 @@ export default [{
     ...CounterRoutes,
     ...GraphqlRoutes
   ]
-}]
+}] as RouteConfig[]

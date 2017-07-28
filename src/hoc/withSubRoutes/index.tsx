@@ -12,7 +12,7 @@ export interface RouteProps {
 }
 
 export interface SubRoutes<LayoutProps> extends RouteProps {
-  layout: LayoutProps,
+  layout?: LayoutProps,
 }
 
 /**

@@ -7,20 +7,13 @@ import * as Schema from 'lib/graphql/schema'
 
 import { AuthServerProps, AuthSocialProps, WithRouter } from './types'
 
-const loginSocialResult = ({ data }) => {
-  const query = data && data.loginUserWithAuth0
-  const user = query && query.user
-  const { id, username } = user
-  return { id, username }
-}
-
 export const loginSocial = graphql<Schema.LoginWithAuth0Mutation, {}, WithRouter>(mutation.LoginWithAuth0, {
   alias: 'loginSocial',
   props: (props) => ({
-   loginSocialResult: props.data && props.data.loginUserWithAuth0 && props.data.loginUserWithAuth0.user,
     loginSocialUser: ({ idToken }: Schema.LoginUserWithAuth0Input) => props.mutate({
       variables: { input: { idToken } }
-    })
+    }).then(
+      ({ data }) => ({ ...data.loginUserWithAuth0.user }))
   })
 })
 
@@ -30,7 +23,9 @@ export const updateUser = graphql<Schema.UpdateUserMutation, {}, AuthServerProps
     props: (props) => ({
       updateUser: ({ ...user }: Schema.UpdateUserInput) => props.mutate({
         variables: { input: { ...user } }
-      })
+      }).then(
+        ({ data }) => ({ ...data.updateUser.changedUser })
+      )
     })
   }
 )
@@ -40,7 +35,9 @@ export const createUser = graphql<Schema.CreateUserMutation, {}, AuthServerProps
   props: (props) => ({
     createUser: (user: Schema.CreateUserInput) => props.mutate({
       variables: { input: { ...user } }
-    })
+    }).then(
+      ({ data: { createUser: { token, changedUser }} }) => ({ token, changedUser })
+    )
   })
 })
 
@@ -58,7 +55,9 @@ export const login = graphql<Schema.LoginUserMutation, {}, AuthServerProps>(muta
     alias: 'login',
     loginUser: (credentials: Schema.LoginUserInput) => props.mutate({
       variables: { input: { ...credentials } }
-    })
+    }).then(
+      ({ data: { loginUser: { token, user }} }) => ({ token, user })
+    )
   })
 })
 
@@ -67,6 +66,8 @@ export const forgotPassword = graphql<Schema.ForgotPasswordMutation, {}, AuthSer
   props: (props) => ({
     forgotPassword: (newCredentials: Schema.ChangeUserPasswordInput) => props.mutate({
       variables: { input: { ...newCredentials } }
-    })
+    }).then(
+      ({ data }) => ({ ...data.changeUserPassword.changedUser })
+    )
   })
 })

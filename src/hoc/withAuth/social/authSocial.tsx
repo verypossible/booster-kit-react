@@ -37,7 +37,7 @@ const authSocialWrapper = ({
      * for all future requests and returns the payload for updating the user.
      */
     const loginUserWithSocial = ({ idToken, user }) => loginSocialUser({ idToken })
-      .then(({ data: { loginUserWithAuth0: { user: { id, username } } }}) => ({
+      .then(({ id, username }) => ({
         id,
         idToken,
         ...getProvider(username),
@@ -79,8 +79,8 @@ const authSocialWrapper = ({
      */
     const updateUserWithDataFromToken = ({ idToken, user }) => updateUser(user)
       .then(
-        ({ data: { updateUser: { changedUser: { username, expiresAt, id, email, avatar, name } }} }) => {
-          const newSession = { username, expiresAt, id, email, avatar, name, sessionType: 'social', token: idToken }
+        (userFromUpdate) => {
+          const newSession = { ...userFromUpdate, sessionType: 'social', token: idToken }
           storeSession(newSession)
           return {
             user: newSession

@@ -3,6 +3,7 @@ import * as React from 'react'
 import connectState from 'hoc/connectState'
 import { verifySocialSession, VerifySocialSession } from 'hoc/withAuth'
 import { compose } from 'lib/helpers'
+import { withRouter } from 'lib/router'
 
 export interface InitializeProps {
   initialized: boolean
@@ -16,6 +17,11 @@ interface State {
   initialized: boolean
 }
 
+/**
+ *   Use this HOC to initialize the app before the routes are rendered.
+ *   You can do things like building routes, verifying the session, or
+ *   other async things that need to be done before the routes get rendered.
+ */
 const initializeRoutesWrapper = <OP extends {}>(
   WrappedComponent: React.SFC<OP & InitializeProps>
 ) => {
@@ -33,7 +39,9 @@ const initializeRoutesWrapper = <OP extends {}>(
       const uninitialized = !this.state.initialized
       const rehydratedSession = next.storedSession
       if (uninitialized && rehydratedSession) {
-        this.verifySocial(next.storedSession.payload.session)
+        const session = next.storedSession.payload.session
+        this.verifySocial(session)
+        this.anonymousSession(session)
       }
     }
 
@@ -48,10 +56,19 @@ const initializeRoutesWrapper = <OP extends {}>(
       }
     }
 
+    /**
+     *   If there is no stored session, go ahead and initialize the session.
+     */
+    public anonymousSession = (session: Session) => {
+      if (!session) {
+        this.initialize()
+      }
+    }
+
     public initialize = () => this.setState({ initialized: true })
 
     public render () {
-      return <WrappedComponent initialized={true} {...this.props} />
+      return <WrappedComponent initialized={this.state.initialized} {...this.props} />
     }
   }
 
@@ -69,4 +86,4 @@ const initializeRoutesWrapper = <OP extends {}>(
   return enhance(InitializeRoutes)
 }
 
-export default initializeRoutesWrapper
+export default withRouter(initializeRoutesWrapper)

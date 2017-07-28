@@ -12,7 +12,7 @@ const gridContainer = ({
   rowGutter,
   rows,
   theme
-}) => css`
+}: Box) => css`
   ${display === 'grid' &&
     ((rowGutter || columnGutter) &&
     `grid-gap: ${theme.grid.rowGutter[rowGutter]} ${theme.grid.columnGutter[columnGutter]};`)
@@ -29,7 +29,7 @@ const gridItem = ({
   area,
   column,
   row
-}) => css`
+}: Box) => css`
   ${column && `grid-column: ${column[0]} / ${column[1]};`}
   ${row && `grid-row: ${row[0]} / ${row[1]};`}
   ${area && `grid-area: ${area};`}
@@ -71,7 +71,7 @@ const styles = ({
   inverse,
   textAlign,
   theme
-}) => `
+}: Box) => `
   ${(background || inverse) && `background-color: ${setBackground(background, inverse, theme.colors)};`},
   ${textAlign && `textAlign: ${textAlign};`}
 `

@@ -19,6 +19,8 @@ import { Graphql } from 'lib/graphql'
 import * as introspectionResult from 'lib/graphql/schema.json'
 import rootReducer from 'state/reducers'
 
+import dateTimeResolver from './dateTimeResolver'
+
 type MocksTypes = Graphql | object
 
 export function mockClient (mocks: MocksTypes): ApolloClient {
@@ -64,7 +66,7 @@ export interface MockProviderOpts {
 export function mockProvider (opts?: MockProviderOpts) {
   if (!opts) { opts = {} }
 
-  const apollo = mockClient(opts.mocks || {})
+  const apollo = mockClient({ ...opts.mocks, ...dateTimeResolver } || {})
 
   const reducer = opts.reducer || rootReducer
 

@@ -5,4 +5,4 @@ export default [{
   id: 'login-index',
   path: '/login',
   routeComponent: LoginPage
-}]
+}] as RouteConfig[]

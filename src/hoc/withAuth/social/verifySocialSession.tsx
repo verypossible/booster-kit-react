@@ -22,8 +22,8 @@ const verifySocialSessionWrapper = (WrappedComponent: React.SFC<VerifySocialSess
     ...props
   }) => {
     const verifySocialSession = (idToken: string) => loginSocialUser({ idToken })
-      .then(({ data: { loginUserWithAuth0: { user: { avatar, email, id, name, username  } } }}) => {
-        const newSession = { avatar, email, id, name, username, sessionType: 'social', token: idToken }
+      .then((user) => {
+        const newSession = { ...user, sessionType: 'social', token: idToken }
         storeSession(newSession)
         return newSession
       })

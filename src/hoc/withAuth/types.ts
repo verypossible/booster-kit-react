@@ -41,21 +41,21 @@ interface AuthState {
 // Data
 // ------------------------------------
 /** A generic for graphql queries */
-type AuthResponse<I, R> = (input: I) => Promise<{data: R}>
+type AuthResponse<I, R> = (input: I) => Promise<R>
 
 interface CommonAuthData {
-  updateUser?: AuthResponse<Schema.UpdateUserInput, Schema.UpdateUserMutation>
+  updateUser?: AuthResponse<Schema.UpdateUserInput, ActiveSession>
 }
 
 interface ServerAuthData extends CommonAuthData {
-  createUser?: AuthResponse<Schema.CreateUserInput, Schema.CreateUserMutation>,
+  createUser?: AuthResponse<Schema.CreateUserInput, ActiveSession>,
   forgotPassword?: AuthResponse<Schema.ChangeUserPasswordInput, Schema.ForgotPasswordMutation>,
-  loginUser?: AuthResponse<Schema.LoginUserInput, Schema.LoginUserMutation>,
+  loginUser?: AuthResponse<Schema.LoginUserInput, ActiveSession>,
 
 }
 
 interface LoginSocialUser {
-  loginSocialUser?: AuthResponse<Schema.LoginUserWithAuth0Input, Schema.LoginWithAuth0Mutation>
+  loginSocialUser?: AuthResponse<Schema.LoginUserWithAuth0Input, Schema.UpdateUserInput>
 }
 
 interface SocialAuthData extends CommonAuthData, LoginSocialUser {
@@ -152,9 +152,9 @@ export interface AuthWithServer extends
   CommonAuthData,
   PublicAuthHelpers,
   PublicAuthConfig {
-  createAccount: (input: Schema.CreateUserInput) => Promise<{ token: string, username: string, id: string }>,
+  createAccount: (input: Schema.CreateUserInput) => Promise<ActiveSession>,
   errors: AuthErrors,
-  login: (input: Schema.LoginUserInput) => Promise<{ token: string }>,
+  login: (input: Schema.LoginUserInput) => Promise<ActiveSession>,
   logout: () => void,
   session: Session
 }

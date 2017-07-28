@@ -23,21 +23,16 @@ const withAuthScaphold = ({
     // Private
     // ------------------------------------
     const newSession = (user) => {
-      const { id, username, token } = user
-      storeSession({ email: username, id, token, username, sessionType: 'basic' })
+      storeSession({ ...user, sessionType: 'basic' })
       return user
     }
 
     // ------------------------------------
     // Public Methods
     // ------------------------------------
-    const createAccount = (input) => createUser(input).then(
-      ({ data: { createUser: { changedUser, token }}}) => newSession({ token, ...changedUser })
-    )
+    const createAccount = (input) => createUser(input).then(newSession)
 
-    const login = (input) => loginUser(input).then(
-      ({ data: { loginUser: { token, user }} }) => newSession({ token, ...user })
-    )
+    const login = (input) => loginUser(input).then(newSession)
 
     const logout = () => purgeSession()
 

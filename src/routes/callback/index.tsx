@@ -25,4 +25,4 @@ export default [{
   id: 'root-callback',
   path: '/callback',
   routeComponent: CallbackRoute
-}]
+}] as RouteConfig[]

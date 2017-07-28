@@ -5,4 +5,4 @@ export default [{
   id: 'signup-index',
   path: '/signup',
   routeComponent: SignUp
-}]
+}] as RouteConfig[]
