@@ -1,7 +1,7 @@
 const common = {
   action: 'rgb(8,130,218)',
-  backgroundDark: '#000',
-  backgroundLight: '#FFF',
+  backgroundDark: 'rgba(0,0,0,1)',
+  backgroundLight: 'rgba(255,255,255,1)',
   dark: '#333',
   darkGray: 'rgb(97,97,97)',
   light: '#FFF',

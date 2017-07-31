@@ -2,6 +2,7 @@ import Anchor from './Anchor'
 import Box from './Box'
 import Button from './Button'
 import Cite from './Cite'
+import Input from './Input'
 import Label from './Label'
 import Quote from './Quote'
 
@@ -30,6 +31,7 @@ export {
   H6,
   Icon,
   Image,
+  Input,
   Label,
   Paragraph,
   Quote,

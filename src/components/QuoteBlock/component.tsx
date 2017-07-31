@@ -12,7 +12,7 @@ import {
 } from 'atoms'
 
 const QuoteBlock = (props) => (
-  <Box tag='section'>
+  <Box tag='section' className='quoteSection'>
     <Quote>{props.quoteText}</Quote>
     <Cite>{props.citeText}</Cite>
   </Box>
