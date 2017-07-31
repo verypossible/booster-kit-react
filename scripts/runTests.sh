@@ -1,7 +1,7 @@
 # This script is used by CircleCI to execute automated tests.
 
 # Build all assets
-yarn run build
+yarn run graphql && yarn run build
 
 # Boot a static file server
 php -S localhost:3001 -t build/ &
