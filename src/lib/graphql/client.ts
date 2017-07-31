@@ -15,10 +15,13 @@ interface RouterHistory {
 
 type Token = false | string
 
+const clientUri = `https://${__GRAPHQL_API__}`
+const clientWs = `wss://${__GRAPHQL_API__}`
+
 const makeNetworkInterface = (history: RouterHistory) => {
   /* Set the network interface object */
   const networkInterface = createNetworkInterface({
-    uri: `https://${__GRAPHQL_API__}`
+    uri: clientUri
   })
 
   /* Apply auth middleware to the request / response cycle */
@@ -92,9 +95,7 @@ const client = (history?: RouterHistory) => {
     return initClient(history, makeNetworkInterface)
   }
 
-  const wsClient = new SubscriptionClient(`ws://${__GRAPHQL_API__}`, {
-    reconnect: true
-  })
+  const wsClient = new SubscriptionClient(clientWs)
 
   const networkInterfaceWithSubscriptions = (h: RouterHistory) => {
     const networkInterface = makeNetworkInterface(h)

@@ -3,18 +3,23 @@ machine:
     version: 8.1.3
   environment:
     PATH: "${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin"
+    CC_TEST_REPORTER_ID: 36bc060ce6f0aa2f739be4ae096f22356d8cf9fa6d15e5ca5ddfed318b5e6f85
 
 dependencies:
   override:
     - yarn
   cache_directories:
     - ~/.cache/yarn
+  post:
+    - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+    - chmod +x ./cc-test-reporter
 
 test:
+  pre:
+    - ./cc-test-reporter before-build
   override:
     - yarn run lint
-    - yarn run test:ci
-    - yarn run coverage
+    - yarn run test:ci; ./cc-test-reporter after-build --exit-code $?
 
 deployment:
   production:
