@@ -12,13 +12,12 @@ import { MemoryRouter } from 'react-router-dom'
 import { Reducer } from 'redux'
 import { createStore } from 'redux'
 
-import { Graphql } from 'lib/graphql'
-import * as introspectionResult from 'lib/graphql/schema.json'
+import * as introspectionResult from 'lib/graphql/serverSchema.json'
 import rootReducer from 'state/reducers'
 
 import dateTimeResolver from './dateTimeResolver'
 
-type MocksTypes = Graphql | object
+type MocksTypes = object
 
 export { MockList }
 

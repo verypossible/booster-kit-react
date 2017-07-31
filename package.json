@@ -36,7 +36,7 @@
       }
     },
     "graphql:schema": {
-      "command": "apollo-codegen introspect-schema https://us-west-2.api.scaphold.io/graphql/very-react --output src/lib/graphql/schema.json"
+      "command": "apollo-codegen introspect-schema https://us-west-2.api.scaphold.io/graphql/very-react --output src/lib/graphql/serverSchema.json"
     },
     "graphql:types": {
       "command": "apollo-codegen generate **/*.gql --add-typename --schema src/lib/graphql/schema.json --target typescript --output src/lib/graphql/schema.ts"
@@ -164,6 +164,7 @@
     "browser-sync": "^2.18.13",
     "browser-sync-webpack-plugin": "^1.2.0",
     "cheerio": "^1.0.0-rc.2",
+    "codeclimate-tslint": "^0.6.0",
     "compression-webpack-plugin": "^1.0.0",
     "connect-history-api-fallback": "^1.3.0",
     "copy-webpack-plugin": "^4.0.1",
