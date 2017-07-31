@@ -12,7 +12,7 @@ export interface Quote {
 }
 
 const QuoteBlock = ({ quote, citation }: Quote) => (
-  <Box>
+  <Box tag='section'>
     <Quote>{quote}</Quote>
     <Cite>{citation}</Cite>
   </Box>
