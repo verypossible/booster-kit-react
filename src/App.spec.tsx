@@ -4,6 +4,7 @@ import * as React from 'react'
 import createStore from 'state/createStore'
 
 import App from './App'
+
 describe('(Container) Root', () => {
   const store = createStore({})
   const wrapper = mount(<App store={store} />)

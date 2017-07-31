@@ -15,7 +15,7 @@ interface RouterHistory {
 
 type Token = false | string
 
-const network = (history: RouterHistory) => {
+const makeNetworkInterface = (history: RouterHistory) => {
   /* Set the network interface object */
   const networkInterface = createNetworkInterface({
     uri: `https://${__GRAPHQL_API__}`
@@ -30,6 +30,10 @@ const network = (history: RouterHistory) => {
 
       let token = false as Token
 
+      /**
+       *   We get the token from the location during login so we can skip the delay of the promise of
+       *   setting and then getting the token from local storage.
+       */
       const tokenFromLocation = (
         history.location.state && (history.location.state.idToken || history.location.state.token)
       )
@@ -38,6 +42,7 @@ const network = (history: RouterHistory) => {
         token = tokenFromLocation
       }
 
+      /** If the session has been rehydrated, get the token from storage */
       if (!token) {
         localForage.getItem('reduxPersist:session')
           .then((value: string) => {
@@ -49,6 +54,7 @@ const network = (history: RouterHistory) => {
           .catch((err) => logger.log.error('Unable to get authentication token from localForage', { error: err }))
       }
 
+      /** We want to restrict certain operations to the client token - specifically creating new users */
       const useClientToken = (
         req.request.operationName === 'CreateUser'
       )
@@ -65,27 +71,37 @@ const network = (history: RouterHistory) => {
     }
   }])
 
-  networkInterface.useAfter([{
-    applyAfterware (response, next) {
-      logger.log.info('Graphql Network Interface', response)
-      next()
-    }
-  }])
+  if (__DEBUG__) {
+    networkInterface.useAfter([{
+      applyAfterware (response, next) {
+        logger.log.info('Graphql Network Interface', response)
+        next()
+      }
+    }])
+  }
 
   return networkInterface
 }
 
-const wsClient = new SubscriptionClient(`ws://${__GRAPHQL_API__}`, {
-  reconnect: true
-})
+const initClient = (history, selectedNetworkInterface) =>
+  new ApolloClient({ networkInterface: selectedNetworkInterface(history) })
 
-const networkInterfaceWithSubscriptions = (history?: RouterHistory) => {
-  const networkInterface = network(history)
-  return addGraphQLSubscriptions(networkInterface, wsClient)
+const client = (history?: RouterHistory) => {
+  /** We can't use subscriptions under test as there is no native support for Websockets in the test env */
+  if (__TEST__) {
+    return initClient(history, makeNetworkInterface)
+  }
+
+  const wsClient = new SubscriptionClient(`ws://${__GRAPHQL_API__}`, {
+    reconnect: true
+  })
+
+  const networkInterfaceWithSubscriptions = (h: RouterHistory) => {
+    const networkInterface = makeNetworkInterface(h)
+    return addGraphQLSubscriptions(networkInterface, wsClient)
+  }
+
+  return initClient(history, networkInterfaceWithSubscriptions)
 }
-
-const client = (history?: RouterHistory) => new ApolloClient({
-  networkInterface: networkInterfaceWithSubscriptions(history)
-})
 
 export default client

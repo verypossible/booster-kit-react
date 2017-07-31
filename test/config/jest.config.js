@@ -28,7 +28,7 @@ const jestConfig = {
     __INTERCOM_SECRET__: false,
     __ROLLBAR_TOKEN__: false,
     __COMMIT_HASH__: false,
-    __GRAPHQL_API__: 'https://us-west-2.api.scaphold.io/graphql/very-react',
+    __GRAPHQL_API__: 'us-west-2.api.scaphold.io/graphql/very-react',
     __AUTH_CID__: 'YsM6qRbwxDUf9jySjt9vXTzjgvuRIKED',
     __AUTH_URL__: 'veryservices.auth0.com',
     __AUTH_REDIRECT_URI__: 'http://localhost:3000/callback',
