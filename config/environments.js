@@ -7,6 +7,8 @@ export default {
       ...config.globals,
       __ROLLBAR_ENABLED__: false,
       __ROLLBAR_TOKEN__: string(config.rollbar_client),
+      __AUTH_REDIRECT_URI__: string(`${config.server_url}${config.auth_redirectUri}`),
+      __AUTH_REDIRECT_URI_SILENT__: string(`${config.server_url}/silent-callback`)
     }
   }),
 
@@ -16,6 +18,8 @@ export default {
       ...config.globals,
       __ROLLBAR_ENABLED__: true,
       __ROLLBAR_TOKEN__: string(config.rollbar_client),
+      __AUTH_REDIRECT_URI__: string(`${config.server_url}${config.auth_redirectUri}`),
+      __AUTH_REDIRECT_URI_SILENT__: string(`${config.server_url}/silent-callback`)
     }
   }),
 

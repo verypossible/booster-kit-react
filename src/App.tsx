@@ -1,21 +1,31 @@
 import * as React from 'react'
-import { Provider } from 'react-redux'
-import { BrowserRouter } from 'react-router-dom'
+import { ApolloProvider } from 'react-apollo'
+import { BrowserRouter, Route } from 'react-router-dom'
 
-import { StoreWithState } from './lib/types'
+import client from './lib/graphql/client'
+import { Store } from './lib/types'
 import Routes from './routes'
+import routeConfig from './routes/routes'
 
 interface RootProps {
-  store: StoreWithState
+  store: Store<{}>
 }
 
 const Root: React.SFC<RootProps> = ({ store }) => {
   return (
-    <Provider store={store}>
-      <BrowserRouter>
-        <Routes store={store} />
-      </BrowserRouter>
-    </Provider>
+    <BrowserRouter>
+      <Route
+        path='/'
+        children={({ history }) => {
+          const apolloClient = client(history)
+          return (
+            <ApolloProvider store={store} client={apolloClient}>
+              <Routes routes={routeConfig} store={store} />
+            </ApolloProvider>
+          )
+        }}
+      />
+    </BrowserRouter>
   )
 }
 

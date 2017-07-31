@@ -1,0 +1,25 @@
+---
+engines:
+  duplication:
+    enabled: true
+    exclude_paths:
+      - "**/*.spec.*"
+      - "**/stories.jsx"
+    config:
+      languages:
+        javascript:
+          mass_threshold: 100
+  tslint:
+    enabled: true
+    channel: beta
+    config: tslint.json
+ratings:
+  paths:
+  - "**.ts"
+  - "**.tsx"
+exclude_paths:
+- "blueprints/"
+- "coverage/"
+- "build/"
+- "node_modules/"
+- "test/"

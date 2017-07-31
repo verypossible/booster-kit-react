@@ -1,4 +1,4 @@
-import { StoreWithState } from '../types'
+import { Store } from '../types'
 
 export interface RouteConfig {
   path?: string,
@@ -10,5 +10,5 @@ export interface RouteConfig {
 
 export interface MakeRoute extends RouteConfig {
   routes?: RouteConfig[],
-  store?: StoreWithState
+  store?: Store<{}>
 }

@@ -1,0 +1,11 @@
+#import '../fragments/UserMeta.gql'
+#import `../fragments/UserProfile.gql`
+
+mutation LoginWithAuth0($input:LoginUserWithAuth0Input!) {
+  loginUserWithAuth0(input: $input) {
+    user {
+      ...UserProfile
+      ...UserMeta
+    }
+  }
+}

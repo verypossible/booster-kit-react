@@ -4,7 +4,8 @@ import {
   Prompt,
   Redirect,
   Route,
-  Switch
+  Switch,
+  withRouter
 } from 'react-router-dom'
 
 export {
@@ -13,5 +14,6 @@ export {
   Prompt,
   Redirect,
   Route,
-  Switch
+  Switch,
+  withRouter
 }

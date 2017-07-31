@@ -1,6 +1,7 @@
 import Anchor from './Anchor'
 import Box from './Box'
 import Button from './Button'
+import Form from './Form'
 import {
   H1,
   H2,
@@ -18,6 +19,7 @@ export {
   Anchor,
   Box,
   Button,
+  Form,
   H1,
   H2,
   H3,

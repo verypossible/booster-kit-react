@@ -1,11 +1,10 @@
 import withSubRoutes from 'hoc/withSubRoutes'
-import SidebarWithNav from 'layouts/SidebarWithNav'
 
-import CounterRoutes from './counter'
-import MarkdownRoutes from './markdown'
+import ExamplesRoutes from './examples'
+import DocsLayout from './layout'
 import DocHome from './root'
 
-const DocRouteWithLayout = withSubRoutes(SidebarWithNav)
+const DocRouteWithLayout = withSubRoutes(DocsLayout)
 
 export default [{
   id: 'root-docs',
@@ -17,7 +16,6 @@ export default [{
     path: '/docs',
     routeComponent: DocHome
   },
-    ...CounterRoutes,
-    ...MarkdownRoutes
+    ...ExamplesRoutes
   ]
-}]
+}] as RouteConfig[]

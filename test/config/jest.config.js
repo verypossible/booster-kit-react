@@ -6,7 +6,8 @@ const moduleNameMaps = {
 const jestConfig = {
   transform: {
     '^.+\\.js$': 'babel-jest',
-    "\\.(ts|tsx)$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    "\\.(ts|tsx)$": "./node_modules/ts-jest/preprocessor.js",
+    '\\.(gql|graphql)$': './test/config/transformGraphQL.js'
   },
   globals: {
     NODE_ENV: false,
@@ -19,12 +20,20 @@ const jestConfig = {
     __HOST__: false,
     __PORT__: false,
     __SEGMENT__: false,
+    __TEST__: true,
     __ROLLBAR_CLIENT__: false,
     __ROLLBAR_SERVER__: false,
+    __ROLLBAR_ENABLED__: false,
     __INTERCOM_ID__: false,
     __INTERCOM_SECRET__: false,
     __ROLLBAR_TOKEN__: false,
-    __COMMIT_HASH__: false
+    __COMMIT_HASH__: false,
+    __GRAPHQL_API__: 'us-west-2.api.scaphold.io/graphql/very-react',
+    __AUTH_CID__: 'YsM6qRbwxDUf9jySjt9vXTzjgvuRIKED',
+    __AUTH_URL__: 'veryservices.auth0.com',
+    __AUTH_REDIRECT_URI__: 'http://localhost:3000/callback',
+    __AUTH_REDIRECT_URI_SILENT__: 'http://localhost:3000/silent_callback',
+    __CLIENT_TOKEN__: false
   },
   moduleFileExtensions: [
     'js',
@@ -45,7 +54,7 @@ const jestConfig = {
   verbose: true,
   collectCoverageFrom: ['**/src/**'],
   coverageDirectory: '<rootDir>/coverage',
-  coveragePathIgnorePatterns: ['/node_modules/', '^.*d.ts?'],
+  coveragePathIgnorePatterns: ['/node_modules/', '^.*(d.ts?)', '^.*(gql|md?)'],
   moduleNameMapper: moduleNameMaps,
   testPathIgnorePatterns: [
     '/blueprints/.*|\\.md$',

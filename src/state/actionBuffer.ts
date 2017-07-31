@@ -1,4 +1,4 @@
-const BUFFERED_ACTION_RETURN = 'redux-action-buffer: buffered action'
+const BUFFERED_ACTION_RETURN = 'buffer: buffered action'
 
 const setImmediate = (
   typeof global !== 'undefined' &&
@@ -40,7 +40,7 @@ export default function (breaker) {
           return result
         } else {
           queue.push(action)
-          // @TODO consider returning a dummy action, or maybe null for cleanliness
+          // consider returning a dummy action, or maybe null for cleanliness
           return BUFFERED_ACTION_RETURN
         }
       }

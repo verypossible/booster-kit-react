@@ -49,6 +49,19 @@ const config = {
   segment_prod : 'Qt0CVzWXKQzk4TTAm4QoR87mliiNRtsZ',
 
   // ----------------------------------
+  // Graphql
+  // ----------------------------------
+  graphql_server  : 'us-west-2.api.scaphold.io/graphql/very-react',
+  graphql_clientReadWrite : 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MDIzOTAzNDEsImlhdCI6MTUwMTA5NDM0MSwiYXVkIjoiYWM0YjhjMWEtZWNmNS00NmM0LWFiNDUtNzU2NmEzNzA4MGM1IiwiaXNzIjoiaHR0cHM6Ly9zY2FwaG9sZC5pbyIsInN1YiI6IjE0In0.QAQqOqVFZVzJlhm2y87bXHQomtUn12V2ZOI91I-W3qA',
+
+  // ----------------------------------
+  // Auth0
+  // ----------------------------------
+  auth_cid: 'YsM6qRbwxDUf9jySjt9vXTzjgvuRIKED',
+  auth_url: 'veryservices.auth0.com',
+  auth_redirectUri: '/callback',
+
+  // ----------------------------------
   // Compiler Configuration
   // ----------------------------------
   compiler_options         : {
@@ -71,18 +84,22 @@ config.testServer = process.env.TEST_SERVER || `${config.server_url}`
 // N.B.: globals added here must _also_ be added to .eslintrc
 config.globals = {
   'process.env'  : {
-    'NODE_ENV' : JSON.stringify(config.env)
+    NODE_ENV : JSON.stringify(config.env)
   },
-  'NODE_ENV'     : config.env,
-  '__DEV__'      : config.env === 'development',
-  '__PROD__'     : config.env === 'production',
-  '__TEST__'     : config.env === 'test',
-  '__DEBUG__'    : config.env === 'development' && !argv.no_debug,
-  '__COVERAGE__' : !argv.watch && config.env === 'test',
-  '__PROTOCOL__' : config.server_protocol,
-  '__HOST__'     : config.server_host,
-  '__PORT__'     : config.server_port,
-  '__TEST_SERVER__' : config.test_server
+  NODE_ENV        : config.env,
+  __DEV__         : config.env === 'development',
+  __PROD__        : config.env === 'production',
+  __TEST__        : config.env === 'test',
+  __DEBUG__       : config.env === 'development' && !argv.no_debug,
+  __COVERAGE__    : !argv.watch && config.env === 'test',
+  __PROTOCOL__    : config.server_protocol,
+  __HOST__        : config.server_host,
+  __PORT__        : config.server_port,
+  __TEST_SERVER__ : config.test_server,
+  __GRAPHQL_API__ : JSON.stringify(config.graphql_server),
+  __CLIENT_TOKEN__: JSON.stringify(config.graphql_clientReadWrite),
+  __AUTH_CID__    : JSON.stringify(config.auth_cid),
+  __AUTH_URL__    : JSON.stringify(config.auth_url)
 }
 
 // ------------------------------------

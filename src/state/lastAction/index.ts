@@ -1,5 +1,13 @@
-export const KEY: string = 'lastAction'
+import * as selectors from './selectors'
 
-export function reducer (_ = null, action) {
+const KEY: string = 'lastAction'
+
+function reducer (_ = null, action: LastAction): LastAction {
   return action
+}
+
+export {
+  KEY,
+  reducer,
+  selectors
 }

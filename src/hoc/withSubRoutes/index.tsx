@@ -2,13 +2,41 @@ import * as React from 'react'
 
 import NotFound from 'components/NotFound'
 import { Route, Switch } from 'lib/router'
+import { Store } from 'lib/types'
 
 import { getDisplayName } from '../helpers'
 
-const composedMatchSubRoutes = (WrappedComponent: React.SFC<any>) => {
-  const MatchRoutes: React.SFC<any> = ({ routes, store }) => {
+export interface RouteProps {
+  routes: RouteConfig[],
+  store: Store<{}>
+}
+
+export interface SubRoutes<LayoutProps> extends RouteProps {
+  layout?: LayoutProps,
+}
+
+/**
+ *  LP = LayoutProps
+ *
+ *  interface LP extends LayoutPropsInterfaceFromParent {
+ *    staticLayoutProp: string
+ *  }
+ *
+ *  const MakeRoutes = withSubRoutes<LP>(Layout)
+ *  const layout = (props: LP) => ({ ...props })
+ *
+ *  const RenderRoutes = ({ propA, propB, propC }) => (
+ *    <MakeRoutes propA={ propA } propB={ propB } layout={ layout({ propC, staticLayoutProp: 'red' }) } />
+ *  )
+ *
+ */
+
+const composedMatchSubRoutes = <LP extends {}>(
+  WrappedComponent: React.SFC<LP>
+) => {
+  const MatchRoutes: React.SFC<SubRoutes<LP>> = ({ routes, store, layout }) => {
     return (
-      <WrappedComponent>
+      <WrappedComponent {...layout}>
         <Switch>
           {routes.map(({
             routeComponent: RouteComponent,
@@ -18,7 +46,9 @@ const composedMatchSubRoutes = (WrappedComponent: React.SFC<any>) => {
             <Route
               key={route.id}
               {...route}
-              children={(props) => <RouteComponent {...props} store={store} routes={subRoutes} />}
+              children={({ ...routerProps }) => (
+                <RouteComponent {...routerProps} store={store} routes={subRoutes} />
+              )}
             />
           ))}
           <Route path='*' render={({ location }) => <NotFound location={location} />} />
@@ -27,7 +57,7 @@ const composedMatchSubRoutes = (WrappedComponent: React.SFC<any>) => {
     )
   }
 
-  MatchRoutes.displayName = getDisplayName(WrappedComponent, 'matchSubRoutes')
+  MatchRoutes.displayName = getDisplayName(WrappedComponent, 'subRoutes')
 
   return MatchRoutes
 }

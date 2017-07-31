@@ -12,8 +12,9 @@ declare interface ThemeSizeOptions extends ThemeMinSizeOptions {
   xXLarge?: string
 }
 
+declare type ThemeStatusSelector = 'alert' | 'ok' | 'warning'
+
 declare interface ThemeStatus {
-  [key: string]: string,
   alert?: string,
   ok?: string,
   warning?: string

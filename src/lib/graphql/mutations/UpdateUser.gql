@@ -1,0 +1,11 @@
+#import '../fragments/UserMeta.gql'
+#import '../fragments/UserProfile.gql'
+
+mutation UpdateUser($input: UpdateUserInput!) {
+  updateUser(input: $input) {
+    changedUser {
+      ...UserProfile,
+      ...UserMeta
+    }
+  }
+}

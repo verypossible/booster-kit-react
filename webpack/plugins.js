@@ -36,7 +36,8 @@ const base = [
     ...config.globals,
     __COMMIT_HASH__: commitHash
   }),
-  new HtmlWebpackPlugin(renderHtml('index.html')),
+  new HtmlWebpackPlugin(renderHtml('index')),
+  new HtmlWebpackPlugin(renderHtml('silent-callback')),
   new webpack.LoaderOptionsPlugin({
     minimize: true
   }),
@@ -60,17 +61,17 @@ const development = [
     debug: true
   }),
   new BrowserSyncPlugin({
-    open: config.browser_sync_open_window,
-    host: config.server_host,
-    port: config.browser_sync_port,
-    proxy: `${config.server_host}:${config.server_port}`,
-    ui: {
-      port: config.browser_sync_ui_port
-    },
     ghostMode: {
       clicks: true,
       forms: true,
       scroll: true
+    },
+    host: config.server_host,
+    open: config.browser_sync_open_window,
+    port: config.browser_sync_port,
+    proxy: `${config.server_host}:${config.server_port}`,
+    ui: {
+      port: config.browser_sync_ui_port
     }
   }, {
     reload: false
@@ -80,17 +81,18 @@ const development = [
 const production = [
   new CopyWebpackPlugin([{ from: '../src/static' }]),
   new webpack.optimize.UglifyJsPlugin({
-    sourceMap: true,
+    comments: true,
     compress: {
       unused: true,
       dead_code: true,
       warnings: false
-    }
+    },
+    sourceMap: true
   }),
   new ExtractTextPlugin({
-    filename: '[name].[contenthash].css',
-    disable: false,
     allChunks: true,
+    disable: false,
+    filename: '[name].[contenthash].css',
     ignoreOrder: true
   }),
   new webpack.IgnorePlugin(/^\.(feature|spec|stories)\\.(ts|tsx|js)$/),

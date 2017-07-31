@@ -2,13 +2,15 @@ import localForage from 'localforage'
 import { persistStore } from 'redux-persist'
 import MemoryStorage from 'redux-persist-memory-storage'
 
-import { StoreWithState } from 'lib/types'
+import { Store } from 'lib/types'
 
 const memoryStorage = new MemoryStorage()
-const reducersToPersist = []
+
+/* Add reducer keys to persist state for that key in IndexDB */
+const reducersToPersist = ['session']
 
 interface PersistState {
-  store: StoreWithState,
+  store: Store<{}>,
   callback?: () => any,
   purge?: boolean
 }

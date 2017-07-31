@@ -2,10 +2,13 @@
   "compilerOptions": {
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
     "baseUrl": "./src",
     "experimentalDecorators": true,
     "jsx": "react",
-    "module": "commonjs",
+    "lib": ["esnext", "dom"],
+    "module": "es6",
+    "moduleResolution": "node",
     "noImplicitAny": false,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
@@ -20,8 +23,11 @@
       "state/*": ["state/*"],
       "ui/*": ["ui/*"]
     },
+    "pretty": true,
     "sourceMap": true,
-    "target": "es6"
+    "target": "es6",
+    "removeComments": true,
+    "skipLibCheck": true
   },
   "files": [
     "./declarations.d.ts",
@@ -29,10 +35,10 @@
   ],
   "include": [
     "./src/**/*",
-    "./node_modules/redux-next/*.d.ts"
+    "./node_modules/redux-next/*.d.ts",
+    "./node_modules/apollo-client/*.d.ts"
   ],
   "exclude": [
-    "**/*.spec.ts",
-    "**/*.spec.tsx"
+    "node_modules"
   ]
 }

@@ -1,0 +1,7 @@
+fragment UserMeta on User {
+  createdAt
+  expiresAt
+  id
+  lastLogin
+  modifiedAt
+}

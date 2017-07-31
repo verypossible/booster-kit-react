@@ -10,7 +10,7 @@ const {
     injectGlobal,
     keyframes,
     ThemeProvider
-} = styledComponents as ThemedStyledComponentsModule<any> as ThemedStyledComponentsModule<ThemeInterface>
+} = styledComponents as ThemedStyledComponentsModule<ThemeInterface>
 
 export type ThemeProps<P> = ThemedStyledProps<P, ThemeInterface>
 

@@ -12,15 +12,13 @@ interface LayoutSidebarProps {
 }
 
 const defaultNavItems = [{
-  className: 'link',
   id: 'counterLink',
   text: 'Counter',
-  to: '/docs/counter'
+  to: '/docs/examples/counter'
 }, {
-  className: 'link',
-  id: 'markdownLink',
-  text: 'Markdown',
-  to: '/docs/markdown'
+  id: 'graphqlLink',
+  text: 'Graphql',
+  to: '/docs/examples/graphql'
 }]
 
 const Layout: React.SFC<LayoutSidebarProps> = ({

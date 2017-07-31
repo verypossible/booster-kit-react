@@ -2,12 +2,15 @@ declare interface ComposedRoute {
   route: RouteConfig
 }
 
-declare interface Location {
+declare interface RouterLocation {
   key?: string,
   pathname: string,
   search: string,
   hash: string,
-  state: object
+  state: {
+    error?: string,
+    user?: object
+  }
   host: string
 }
 
@@ -18,9 +21,22 @@ declare interface Match {
   params?: object
 }
 
-declare interface RouteConfig {
+declare interface Route {
   exact?: true,
   id?: string,
   path?: string,
-  routeComponent?: any
+  routeComponent?: ReactNode,
+}
+
+declare interface RouteConfig extends Route {
+  routes?: Route
+}
+
+declare type ReplaceHistory = (pathname: string, state: object) => void
+
+declare type RouterMatch = Match
+
+declare interface RouterHistory {
+  location: RouterLocation,
+  replace: ReplaceHistory
 }
