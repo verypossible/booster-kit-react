@@ -2,7 +2,6 @@ import withSubRoutes from 'hoc/withSubRoutes'
 import SidebarWithNav from 'layouts/SidebarWithNav'
 
 import CounterRoutes from './counter'
-import GraphqlRoutes from './graphql'
 import ExampleHome from './root'
 
 const ExampleRoutesWithLayout = withSubRoutes(SidebarWithNav)
@@ -17,7 +16,6 @@ export default [{
     path: '/docs',
     routeComponent: ExampleHome
   },
-    ...CounterRoutes,
-    ...GraphqlRoutes
+    ...CounterRoutes
   ]
 }] as RouteConfig[]

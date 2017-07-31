@@ -54,7 +54,7 @@ const layout = ({
   pad,
   theme,
   width
-}) => css`
+}: Box) => css`
   ${justifyItems && `justify-items: ${justifyItems};`}
   ${alignItems && `justify-items: ${alignItems};`}
   ${justifyContent && `justify-content: ${justifyContent};`}
