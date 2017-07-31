@@ -1,18 +1,18 @@
 import * as React from 'react'
 
 type props = {
-    quoteText:string,
-    citeText:string
+  quoteText: string,
+  citeText: string
 }
 
 import {
   Box,
-  Quote,
-  Cite
+  Cite,
+  Quote
 } from 'atoms'
 
 const QuoteBlock = (props) => (
-  <Box>
+  <Box tag='section'>
     <Quote>{props.quoteText}</Quote>
     <Cite>{props.citeText}</Cite>
   </Box>

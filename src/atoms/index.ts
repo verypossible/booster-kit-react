@@ -1,8 +1,10 @@
 import Anchor from './Anchor'
 import Box from './Box'
 import Button from './Button'
-import Quote from './Quote'
 import Cite from './Cite'
+import Label from './Label'
+import Quote from './Quote'
+
 import {
   H1,
   H2,
@@ -28,6 +30,7 @@ export {
   H6,
   Icon,
   Image,
+  Label,
   Paragraph,
   Quote,
   Cite,
