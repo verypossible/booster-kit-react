@@ -162,7 +162,6 @@ describe('(withAuth) providerAuth0Web', () => {
       </ApolloProvider>
     )
 
-    console.log(wrapper.debug())
     return wrapper
   })
 })

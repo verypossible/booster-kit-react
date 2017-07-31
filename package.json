@@ -106,7 +106,6 @@
     "codeclimate-test-reporter": "^0.5.0",
     "debug": "^2.6.8",
     "es6-promise": "^4.1.1",
-    "graphql-tag": "^2.4.2",
     "gsap": "^1.20.2",
     "hoist-non-react-statics": "^2.2.1",
     "jwt-decode": "^2.2.0",
@@ -132,7 +131,8 @@
     "reselect": "^3.0.1",
     "shortid": "^2.2.8",
     "string": "^3.3.3",
-    "styled-components": "^2.1.1"
+    "styled-components": "^2.1.1",
+    "subscriptions-transport-ws": "^0.8.1"
   },
   "devDependencies": {
     "@kadira/react-storybook-addon-info": "^3.4.0",

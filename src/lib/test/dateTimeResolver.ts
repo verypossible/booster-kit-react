@@ -1,6 +1,10 @@
 import { GraphQLScalarType } from 'graphql'
 import { Kind } from 'graphql/language'
 
+/**
+ *  DateTime types are not currently included in the graphql spec.
+ *  So, we need to write a customer scalar so our mocks will resolve the DateTime.
+ */
 export default {
   DateTime: () => new GraphQLScalarType({
     description: 'DateTime custom scalar type',

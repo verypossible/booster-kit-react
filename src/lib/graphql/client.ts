@@ -1,5 +1,6 @@
 import localForage from 'localforage'
 import { ApolloClient, createNetworkInterface } from 'react-apollo'
+import { addGraphQLSubscriptions, SubscriptionClient } from 'subscriptions-transport-ws'
 
 import logger from '../logger'
 
@@ -17,7 +18,7 @@ type Token = false | string
 const network = (history: RouterHistory) => {
   /* Set the network interface object */
   const networkInterface = createNetworkInterface({
-    uri: __GRAPHQL_API__
+    uri: `https://${__GRAPHQL_API__}`
   })
 
   /* Apply auth middleware to the request / response cycle */
@@ -74,8 +75,17 @@ const network = (history: RouterHistory) => {
   return networkInterface
 }
 
+const wsClient = new SubscriptionClient(`ws://${__GRAPHQL_API__}`, {
+  reconnect: true
+})
+
+const networkInterfaceWithSubscriptions = (history?: RouterHistory) => {
+  const networkInterface = network(history)
+  return addGraphQLSubscriptions(networkInterface, wsClient)
+}
+
 const client = (history?: RouterHistory) => new ApolloClient({
-  networkInterface: network(history)
+  networkInterface: networkInterfaceWithSubscriptions(history)
 })
 
 export default client

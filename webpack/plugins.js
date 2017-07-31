@@ -86,7 +86,7 @@ const production = [
       unused: true,
       dead_code: true,
       warnings: false
-    }
+    },
     sourceMap: true
   }),
   new ExtractTextPlugin({

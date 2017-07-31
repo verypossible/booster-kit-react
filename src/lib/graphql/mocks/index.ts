@@ -1,13 +1,7 @@
-import { addMockFunctionsToSchema } from 'graphql-tools'
+import viewer from './viewer'
 
-import mocks from './mocks'
-import { schema as mockSchema } from './schema'
-
-addMockFunctionsToSchema({
-  mocks,
-  preserveResolvers: false,
-  schema: mockSchema
-})
-
-export { mocks }
-export default mockSchema
+export const mocks = {
+  Query: () => ({
+    ...viewer
+  })
+}

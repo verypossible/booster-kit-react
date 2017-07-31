@@ -51,7 +51,7 @@ const config = {
   // ----------------------------------
   // Graphql
   // ----------------------------------
-  graphql_server  : 'https://us-west-2.api.scaphold.io/graphql/very-react',
+  graphql_server  : 'us-west-2.api.scaphold.io/graphql/very-react',
   graphql_clientReadWrite : 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MDIzOTAzNDEsImlhdCI6MTUwMTA5NDM0MSwiYXVkIjoiYWM0YjhjMWEtZWNmNS00NmM0LWFiNDUtNzU2NmEzNzA4MGM1IiwiaXNzIjoiaHR0cHM6Ly9zY2FwaG9sZC5pbyIsInN1YiI6IjE0In0.QAQqOqVFZVzJlhm2y87bXHQomtUn12V2ZOI91I-W3qA',
 
   // ----------------------------------
