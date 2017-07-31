@@ -1,4 +1,5 @@
 declare interface Quote extends Theme {
-  quoteText: string
+  children?: string
   color?: string
+  quoteText?: string
 }

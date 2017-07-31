@@ -23,7 +23,7 @@ const HomeView = () => (
     <Paragraph>If you don't see an icon below, something is wrong with icon fonts...</Paragraph>
     <Icon icon='Logo' status='ok' />
     <Card />
-    <QuoteBlock quoteText='Oh, Hiiiii, Mark' citeText='Tommy Wiseau' />
+    <QuoteBlock quote='Oh Hi Mark' citation='Tommy Wisseau' />
     <Input type='text' placeholder='Placeholder Text' />
   </Box>
 )

@@ -1,4 +1,5 @@
 declare interface Cite extends Theme {
-  citationText: string
+  children?: string
   color?: string
+  citationText?: string
 }
