@@ -24,7 +24,9 @@ export const reducer = (
 ): DocsState => {
   switch (action.type) {
     case LOAD_TYPES:
-      return action.payload
+      return [
+        ...action.payload
+      ]
 
     default:
       return state

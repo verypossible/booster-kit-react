@@ -1,16 +1,9 @@
 import path from 'path'
 
 export default [{
-    test: /\.jsx?$/,
-    use: ['babel-loader'],
-    include: [
-      path.resolve(__dirname, 'src')
-    ],
-    exclude: /node_modules/
-  }, {
   test: /\.ts(x?)$/,
   use: ['react-hot-loader/webpack', 'awesome-typescript-loader']
-} ,{
+}, {
   enforce: 'pre',
   test: /\.js$/,
   exclude: /node_modules/,

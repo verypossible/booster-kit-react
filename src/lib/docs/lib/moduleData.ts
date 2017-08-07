@@ -1,9 +1,8 @@
 import groupBy from 'lodash.groupBy'
 
 export async function groupModuleTypes (module) {
-  const combinedChildren = []
-  module.parts.map(({ children }) => {
-    children.map((child) => combinedChildren.push(child))
+  const combinedChildren = module.parts.map(({ children }) => {
+    children.map((child) => child)
   })
   const groupedTypes = groupBy(combinedChildren, (c) => c.kindString)
   return groupedTypes
@@ -22,9 +21,7 @@ export async function parseFunctionType (funcs) {
 
     const funcName = callSig.name
 
-    let params = {}
-
-    callSig.parameters.map((p) => {
+    const params = callSig.parameters.map((p) => {
       const declaration = p.type.declaration
       const args = p.name
 
@@ -37,7 +34,7 @@ export async function parseFunctionType (funcs) {
         return ({ name, type: type.name })
       })
 
-      params = {
+      return {
         args,
         params: paramTypes,
         sources

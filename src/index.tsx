@@ -28,10 +28,9 @@ ReactDOM.render(
 
 if (module.hot) {
   module.hot.accept('./App', () => {
-    const NextApp = require<RequireImport>('./App').default
     ReactDOM.render(
       <AppContainer>
-        <NextApp
+        <App
           store={store}
         />
       </AppContainer>,

@@ -4,10 +4,9 @@ import styled from 'styled-components'
 import Anchor from './Anchor'
 
 interface LinkItem {
-  to: string,
-  children?: React.ReactNode,
   navLink?: boolean,
-  text?: string
+  text: string,
+  to: string
 }
 
 interface Props {
@@ -15,6 +14,7 @@ interface Props {
 }
 
 const Styles = styled.div`
+  display: block;
   height: 100%;
 `
 

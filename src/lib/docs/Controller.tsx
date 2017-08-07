@@ -9,23 +9,18 @@ interface Props {
   loadTypes: () => void,
   match: RouterMatch
 }
-
-interface State {
-  view?: string
-}
-
+console.log('hi')
 class DocsController extends React.Component<Props, State>  {
   public componentWillMount () {
-    this.props.loadTypes()
+    if (!this.props.collections) {
+      console.log(this.props)
+      this.props.loadTypes()
+    }
   }
-
-  public navigate = (event) => this.setState({ view: event.target.value })
 
   public render () {
     return (
       <DocsWrapper
-        navigate={this.navigate}
-        view={this.state && this.state.view}
         {...this.props}
       />
     )
