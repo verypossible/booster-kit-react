@@ -18,7 +18,10 @@ declare interface Match {
   path?: string,
   isExact?: boolean,
   url?: string,
-  params?: object
+  params: {
+    collection?: string,
+    module?: string
+  }
 }
 
 declare interface Route {
@@ -26,6 +29,7 @@ declare interface Route {
   id?: string,
   path?: string,
   routeComponent?: ReactNode,
+  data?: object
 }
 
 declare interface RouteConfig extends Route {

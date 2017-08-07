@@ -8,6 +8,10 @@ import {
   withRouter
 } from 'react-router-dom'
 
+import WithSubRoutes, { SubRoutes } from './WithSubRoutes'
+
+export { SubRoutes }
+
 export {
   Link,
   NavLink,
@@ -15,5 +19,6 @@ export {
   Redirect,
   Route,
   Switch,
-  withRouter
+  withRouter,
+  WithSubRoutes
 }

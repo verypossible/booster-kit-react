@@ -68,12 +68,16 @@ const layout = ({
 
 const styles = ({
   background,
+  border,
+  color,
   inverse,
   textAlign,
   theme
 }: Box) => `
   ${(background || inverse) && `background-color: ${setBackground(background, inverse, theme.colors)};`},
   ${textAlign && `textAlign: ${textAlign};`}
+  ${border && `border: ${border};`}
+  ${color && `color: ${theme.colors[color] || color};`}
 `
 
 const Box: React.SFC<Box> = ({

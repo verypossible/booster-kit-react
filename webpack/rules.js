@@ -9,7 +9,7 @@ export default [{
     exclude: /node_modules/
   }, {
   test: /\.ts(x?)$/,
-  use: ['babel-loader', 'awesome-typescript-loader']
+  use: ['react-hot-loader/webpack', 'awesome-typescript-loader']
 } ,{
   enforce: 'pre',
   test: /\.js$/,

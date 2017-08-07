@@ -5,10 +5,12 @@ import {
   Box
 } from 'atoms'
 
-const NavBar: React.SFC<NavBar> = ({ navItems }) => (
+const NavBar: React.SFC<NavBar> = ({ color, navItems }) => (
   <Box>
     {navItems.map((item) => (
-      <Anchor key={item.id} id={item.id} to={item.to}>{item.text}</Anchor>
+      <Box key={item.id} display='grid'>
+        <Anchor color={color} id={item.id} to={item.to}>{item.text}</Anchor>
+      </Box>
     ))}
   </Box>
 )

@@ -11,22 +11,24 @@ interface RootProps {
   store: Store<{}>
 }
 
-const Root: React.SFC<RootProps> = ({ store }) => {
-  return (
-    <BrowserRouter>
-      <Route
-        path='/'
-        children={({ history }) => {
-          const apolloClient = client(history)
-          return (
-            <ApolloProvider store={store} client={apolloClient}>
-              <Routes routes={routeConfig} store={store} />
-            </ApolloProvider>
-          )
-        }}
-      />
-    </BrowserRouter>
-  )
+class Root extends React.Component<RootProps, {}> {
+  public render () {
+    return (
+      <BrowserRouter>
+        <Route
+          path='/'
+          children={({ history }) => {
+            const apolloClient = client(history)
+            return (
+              <ApolloProvider store={this.props.store} client={apolloClient}>
+                <Routes routes={routeConfig} store={this.props.store} />
+              </ApolloProvider>
+            )
+          }}
+        />
+      </BrowserRouter>
+    )
+  }
 }
 
 export default Root

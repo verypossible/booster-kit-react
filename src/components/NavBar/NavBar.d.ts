@@ -6,5 +6,6 @@ declare interface NavItem {
 }
 
 declare interface NavBar {
+  color: string,
   navItems: NavItem[]
 }

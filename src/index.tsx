@@ -17,22 +17,25 @@ const store: Store<{}> = createStore()
 
 const MOUNT_NODE = document.getElementById('root')
 
-const render = (Component: React.SFC<any>) => {
-  ReactDOM.render(
-    <AppContainer>
-      <Component
-        store={store}
-      />
-    </AppContainer>,
-    MOUNT_NODE
-  )
-}
-
-render(App)
+ReactDOM.render(
+  <AppContainer>
+    <App
+      store={store}
+    />
+  </AppContainer>,
+  MOUNT_NODE
+)
 
 if (module.hot) {
   module.hot.accept('./App', () => {
     const NextApp = require<RequireImport>('./App').default
-    render(NextApp)
+    ReactDOM.render(
+      <AppContainer>
+        <NextApp
+          store={store}
+        />
+      </AppContainer>,
+      MOUNT_NODE
+    )
   })
 }

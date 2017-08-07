@@ -1,17 +1,15 @@
-import CallbackRoutes from './callback'
-import DocsRoutes from './docs'
-import HomeRoute from './home'
-import LoginRoute from './login'
-import ProfileRoute from './profile'
-import SignupRoute from './signup'
+import callbackRoutes from './callback'
+import homeRoute from './home'
+import loginRoute from './login'
+import profileRoute from './profile'
+import signupRoute from './signup'
 
-const baseRoutes = [
-  ...CallbackRoutes,
-  ...DocsRoutes,
-  ...HomeRoute,
-  ...LoginRoute,
-  ...ProfileRoute,
-  ...SignupRoute
+const routes = [
+  ...callbackRoutes,
+  ...homeRoute,
+  ...loginRoute,
+  ...profileRoute,
+  ...signupRoute
 ]
 
-export default baseRoutes
+export default routes

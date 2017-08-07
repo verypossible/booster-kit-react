@@ -1,9 +1,5 @@
 import * as React from 'react'
 
-const DocsHome = () => (
-  <div>
-    Welcome To React
-  </div>
-)
+const DocsHome = () => <div>docs</div>
 
 export default DocsHome

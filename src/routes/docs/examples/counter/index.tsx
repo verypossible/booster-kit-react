@@ -3,7 +3,7 @@ import withSubRoutes from 'hoc/withSubRoutes'
 
 import CounterLayout from './layout'
 
-const CounterRoutes = withSubRoutes(CounterLayout)
+const CounterRoutes = withSubRoutes()(CounterLayout)
 
 export default [{
   id: 'route-counter',

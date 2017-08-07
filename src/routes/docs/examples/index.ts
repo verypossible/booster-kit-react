@@ -4,7 +4,7 @@ import SidebarWithNav from 'layouts/SidebarWithNav'
 import CounterRoutes from './counter'
 import ExampleHome from './root'
 
-const ExampleRoutesWithLayout = withSubRoutes(SidebarWithNav)
+const ExampleRoutesWithLayout = withSubRoutes()(SidebarWithNav)
 
 export default [{
   id: 'root-docs',

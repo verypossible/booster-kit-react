@@ -16,10 +16,7 @@ const LayoutCore: React.SFC<Props> = ({ children }) => {
   return (
     <ThemeProvider theme={theme.light}>
       <Box tag='section'>
-        <Header />
-        <Box>
-          {children}
-        </Box>
+        {children}
       </Box>
     </ThemeProvider>
   )

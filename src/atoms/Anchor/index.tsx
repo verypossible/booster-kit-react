@@ -6,17 +6,12 @@ import {
   NavLink
 } from 'lib/router'
 
-const styles = ({ theme, color }: Anchor) => `
-  color: ${theme.colors[color] || color}
-`
+import { activeStyle, styles  } from './styles'
+import { AnchorProps, AnchorStyles } from './types'
 
-const activeStyle = {
-  textDecoration: 'underline'
-}
+const Href = ({ children, ...props }) => React.createElement('a', { ...props }, children)
 
-const Href = ({ children, ...props}) => React.createElement('a', { ...props }, children)
-
-const GetAnchor: React.SFC<Anchor> = ({
+const MakeAnchor: React.SFC<AnchorProps> = ({
   id,
   children,
   className,
@@ -53,7 +48,8 @@ const GetAnchor: React.SFC<Anchor> = ({
   )
 }
 
-const Anchor = atom(GetAnchor)`
+const Anchor = atom(MakeAnchor)`
   ${styles}
 `
+export { AnchorProps, AnchorStyles }
 export default Anchor

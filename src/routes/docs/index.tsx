@@ -1,21 +1,8 @@
-import withSubRoutes from 'hoc/withSubRoutes'
+import * as React from 'react'
 
-import ExamplesRoutes from './examples'
-import DocsLayout from './layout'
-import DocHome from './root'
+import { DocsContainer } from 'lib/docs'
+import { Route } from 'lib/router'
 
-const DocRouteWithLayout = withSubRoutes(DocsLayout)
+const DocsRoutes = (props) => <Route path='/docs' component={DocsContainer} {...props} />
 
-export default [{
-  id: 'root-docs',
-  path: '/docs',
-  routeComponent: DocRouteWithLayout,
-  routes: [{
-    exact: true,
-    id: 'docs-home',
-    path: '/docs',
-    routeComponent: DocHome
-  },
-    ...ExamplesRoutes
-  ]
-}] as RouteConfig[]
+export default DocsRoutes

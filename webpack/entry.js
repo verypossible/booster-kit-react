@@ -1,16 +1,12 @@
 import config from '../config'
 
-const APP_ENTRY_PATHS = [
-  'react-hot-loader/patch',
-  '../src/index.tsx'
-]
-
-const hmrPaths = [`webpack-dev-server/client?${config.server_url}`,
-'webpack/hot/only-dev-server']
+const APP = '../src/index.tsx'
+const HMR = 'react-hot-loader/patch'
 
 const base = {
   vendor: [
     'babel-polyfill',
+    HMR,
     'react',
     'react-redux',
     'react-router',
@@ -19,11 +15,12 @@ const base = {
 }
 
 const development = {
-  app: APP_ENTRY_PATHS.concat(hmrPaths)
+  app: [HMR, `webpack-dev-server/client?${config.server_url}`,
+  'webpack/hot/only-dev-server', APP]
 }
 
 const production = {
-  app: APP_ENTRY_PATHS
+  app: [HMR, APP]
 }
 
 export default {

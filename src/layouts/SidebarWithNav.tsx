@@ -26,8 +26,8 @@ const Layout: React.SFC<LayoutSidebarProps> = ({
   navItems = defaultNavItems
 }) => (
   <TwoColumn leftWidth={25}>
-    <Box column={[1, 1]} inverse>
-      <NavBar navItems={navItems} />
+    <Box column={[1, 1]} height='100vh' inverse>
+      <NavBar color='primaryColor' navItems={navItems} />
     </Box>
     <Box column={[2, 2]}>
       {children}
