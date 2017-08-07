@@ -1,33 +1,31 @@
 import config from '../config'
 
-const APP_ENTRY_PATHS = [
-  'react-hot-loader/patch',
-  '../src/index.tsx'
+const SOURCE = '../src/index.tsx'
+
+const HMR_PATCH = 'react-hot-loader/patch'
+
+const vendor = [
+  'babel-polyfill',
+  'react',
+  'react-redux',
+  'react-router',
+  'redux'
 ]
 
-const hmrPaths = [`webpack-dev-server/client?${config.server_url}`,
-'webpack/hot/only-dev-server']
-
-const base = {
-  vendor: [
-    'babel-polyfill',
-    'react',
-    'react-redux',
-    'react-router',
-    'redux'
-  ]
-}
 
 const development = {
-  app: APP_ENTRY_PATHS.concat(hmrPaths)
+  app: [HMR_PATCH, `webpack-dev-server/client?${config.server_url}`, 'webpack/hot/only-dev-server', SOURCE],
+  vendor
 }
 
 const production = {
-  app: APP_ENTRY_PATHS
+  app: [HMR_PATCH, SOURCE],
+  vendor
 }
 
-export default {
-  base,
+const entry = {
   development,
   production
 }
+
+export default entry

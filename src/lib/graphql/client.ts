@@ -1,6 +1,11 @@
 import localForage from 'localforage'
 import { ApolloClient, createNetworkInterface } from 'react-apollo'
+
+/* For Subscriptions
 import { addGraphQLSubscriptions, SubscriptionClient } from 'subscriptions-transport-ws'
+
+const clientWs = `wss://${__GRAPHQL_API__}`
+*/
 
 import logger from '../logger'
 
@@ -16,7 +21,6 @@ interface RouterHistory {
 type Token = false | string
 
 const clientUri = `https://${__GRAPHQL_API__}`
-const clientWs = `wss://${__GRAPHQL_API__}`
 
 const makeNetworkInterface = (history: RouterHistory) => {
   /* Set the network interface object */
@@ -95,14 +99,15 @@ const client = (history?: RouterHistory) => {
     return initClient(history, makeNetworkInterface)
   }
 
-  const wsClient = new SubscriptionClient(clientWs)
+  /** Use this network interface in initClient when using subscriptions */
+  // const wsClient = new SubscriptionClient(clientWs)
+  //
+  // const networkInterfaceWithSubscriptions = (h: RouterHistory) => {
+  //   const networkInterface = makeNetworkInterface(h)
+  //   return addGraphQLSubscriptions(networkInterface, wsClient)
+  // }
 
-  const networkInterfaceWithSubscriptions = (h: RouterHistory) => {
-    const networkInterface = makeNetworkInterface(h)
-    return addGraphQLSubscriptions(networkInterface, wsClient)
-  }
-
-  return initClient(history, networkInterfaceWithSubscriptions)
+  return initClient(history, makeNetworkInterface)
 }
 
 export default client

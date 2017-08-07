@@ -12,3 +12,5 @@ build
 
 src/lib/graphql/schema.*
 srclib/graphql/serverSchema.*
+typedocs/*
+typedocs.json

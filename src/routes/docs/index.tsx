@@ -1,11 +1,9 @@
 import withSubRoutes from 'hoc/withSubRoutes'
+import { DocsEntry } from 'lib/docs'
 
 import ExamplesRoutes from './examples'
 import DocsLayout from './layout'
-import DocHome from './root'
-
 const DocRouteWithLayout = withSubRoutes(DocsLayout)
-
 export default [{
   id: 'root-docs',
   path: '/docs',
@@ -14,7 +12,7 @@ export default [{
     exact: true,
     id: 'docs-home',
     path: '/docs',
-    routeComponent: DocHome
+    routeComponent: DocsEntry
   },
     ...ExamplesRoutes
   ]

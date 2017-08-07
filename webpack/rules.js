@@ -1,15 +1,10 @@
 import path from 'path'
 
 export default [{
-    test: /\.jsx?$/,
-    use: ['babel-loader'],
-    include: [
-      path.resolve(__dirname, 'src')
-    ],
-    exclude: /node_modules/
-  }, {
-  test: /\.ts(x?)$/,
-  use: ['babel-loader', 'awesome-typescript-loader']
+  test: /\.tsx?$/,
+  use: ['react-hot-loader/webpack', 'awesome-typescript-loader'],
+  exclude: path.resolve(__dirname, 'node_modules'),
+  include: path.resolve(__dirname, '../src')
 } ,{
   enforce: 'pre',
   test: /\.js$/,
@@ -19,9 +14,6 @@ export default [{
   test: /\.(graphql|gql)$/,
   exclude: /node_modules/,
   loader: 'graphql-tag/loader',
-}, {
-  test: /\.json$/,
-  loader: 'json-loader'
 }, {
   test: /\.md(\?(.+))?$/,
   loader: path.join(__dirname, 'markdownLoader')

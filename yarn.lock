@@ -5643,6 +5643,10 @@ lodash.foreach@^4.2.0, lodash.foreach@^4.3.0:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/lodash.foreach/-/lodash.foreach-4.5.0.tgz#1a6a35eace401280c7f06dddec35165ab27e3e53"
 
+lodash.groupby@^4.6.0:
+  version "4.6.0"
+  resolved "https://registry.yarnpkg.com/lodash.groupby/-/lodash.groupby-4.6.0.tgz#0b08a1dcf68397c397855c3239783832df7403d1"
+
 lodash.isarguments@^3.0.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/lodash.isarguments/-/lodash.isarguments-3.1.0.tgz#2f573d85c6a24289ff00663b491c1d338ff3458a"
@@ -5914,7 +5918,7 @@ markdown-to-react-components@^0.2.1:
     he "^1.1.0"
     marked "^0.3.3"
 
-marked@^0.3.3, marked@^0.3.6:
+marked@0.3.6, marked@^0.3.3, marked@^0.3.6:
   version "0.3.6"
   resolved "https://registry.yarnpkg.com/marked/-/marked-0.3.6.tgz#b2c6c618fccece4ef86c4fc6cb8a7cbf5aeda8d7"
 
@@ -9038,6 +9042,17 @@ type-is@~1.6.15:
 typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
+
+typedocs@^0.6.3:
+  version "0.6.3"
+  resolved "https://registry.yarnpkg.com/typedocs/-/typedocs-0.6.3.tgz#756f4ba21c3006fe5e3935edc05606be74e63734"
+  dependencies:
+    marked "0.3.6"
+    typescript "2.0.3"
+
+typescript@2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.0.3.tgz#33dec9eae86b8eee327dd419ca050c853cabd514"
 
 typescript@^2.1.6:
   version "2.4.1"

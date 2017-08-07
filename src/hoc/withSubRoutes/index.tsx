@@ -32,7 +32,7 @@ export interface SubRoutes<LayoutProps> extends RouteProps {
  */
 
 const composedMatchSubRoutes = <LP extends {}>(
-  WrappedComponent: React.SFC<LP>
+  WrappedComponent: React.SFC<LP> | React.ComponentClass<LP>
 ) => {
   const MatchRoutes: React.SFC<SubRoutes<LP>> = ({ routes, store, layout }) => {
     return (
