@@ -1,14 +1,18 @@
 import groupBy from 'lodash.groupby'
 import S from 'string'
 
-import { DocsCollections } from './types'
+import { actions } from '../module'
+import { DocsCollections } from '../types'
 
 async function cleanTypes (data) {
-  const cleaned = data.children
+  return data.children
     .filter(({ originalName }) => !originalName.includes('.spec'))
-    .map((r) => Object.assign(r, { originalName: S(r.originalName).between('src/', '.').s }))
+    .map((r) => {
+      const clone = Object.assign({}, r)
+      clone.originalName = S(r.originalName).between('src/', '.').s
+      return clone
+    })
     .filter(({ originalName }) => originalName.includes('/'))
-  return cleaned
 }
 
 const findModuleParts = (module, types) => types.filter(({ originalName }) => originalName.includes(module))
@@ -40,4 +44,11 @@ async function getCollections (data): Promise<DocsCollections> {
   return buildCollections(typeCollections)
 }
 
-export default getCollections
+/** Thunk action */
+const loadCollections = (types) =>
+  (dispatch) => getCollections(types.module)
+    .then((collections) => {
+      return dispatch(actions.loadCollections(collections))
+    })
+
+export default loadCollections

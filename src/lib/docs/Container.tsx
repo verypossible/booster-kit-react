@@ -1,22 +1,33 @@
 import * as React from 'react'
-import { connect } from 'react-redux'
-import { Dispatch } from 'redux'
 
-import DocsEntry from './Entry'
-import { actions, KEY } from './module'
+import { connectDocs } from './module'
+import { DocsEntry } from './routes'
+import { ConnectProps } from './types'
 
-interface Props {
-  loadData: Dispatch<any>,
-  types: any
-}
+class DocsContainer extends React.Component<ConnectProps> {
+  public componentWillMount () {
+    const { docs: { types }, loadData } = this.props
+    loadData(types)
+  }
 
-class DocsContainer extends React.Component<Props, {}> {
+  public primaryNav = () => {
+    const { docs } = this.props
+    const collections = docs.collections
+    return collections && collections.map(({ collection }) => ({
+      id: `docs-${collection}`,
+      text: collection,
+      to: `/docs/${collection}`
+    }))
+  }
+
   public render () {
-    return <DocsEntry {...this.props} />
+    return (
+      <DocsEntry
+        primaryNav={this.primaryNav()}
+        {...this.props}
+      />
+    )
   }
 }
 
-export default connect(
-  (state) => ({ types: state[KEY].types }),
-  (dispatch) => ({ loadData: (payload) => dispatch(actions.loadTypes(payload))})
-)(DocsContainer)
+export default connectDocs(DocsContainer)

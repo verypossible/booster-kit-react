@@ -1,4 +1,4 @@
-import DocsEntry from './Container'
+import DocsEntry from './container'
 import { actions, actionTypes, KEY, reducer } from './module'
 
 export {

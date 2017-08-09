@@ -9,17 +9,14 @@ interface Props {
 }
 
 /**
- *  Render the static layout, then once initialized, render the routes.
+ *  Render the static layout
  */
 const LayoutCore: React.SFC<Props> = ({ children }) => {
   renderGlobalStyles()
   return (
     <ThemeProvider theme={theme.light}>
       <Box tag='section'>
-        <Header />
-        <Box>
-          {children}
-        </Box>
+        {children}
       </Box>
     </ThemeProvider>
   )

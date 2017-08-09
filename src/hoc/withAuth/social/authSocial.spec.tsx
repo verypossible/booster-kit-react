@@ -108,9 +108,10 @@ describe('(withAuth) providerAuth0Web', () => {
       'authenticate', 'match', 'staticContext', 'session', 'history', 'location', 'errors', 'redirect'
     ]
     const targetProps = wrapper.find('WrappedComponent').props()
-
-    expect(Object.keys(targetProps)).toEqual(apiKeys)
-    expect(targetProps.error).toBeFalsy()
+    setImmediate(() => {
+      expect(Object.keys(targetProps)).toEqual(apiKeys)
+      expect(targetProps.error).toBeFalsy()
+    })
   })
 
   it('authenticates a new user when there is an id token in the location hash and redirects on success', (done) => {

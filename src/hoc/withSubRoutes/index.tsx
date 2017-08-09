@@ -8,7 +8,8 @@ import { getDisplayName } from '../helpers'
 
 export interface RouteProps {
   routes: RouteConfig[],
-  store: Store<{}>
+  store: Store<{}>,
+  component?: React.ComponentClass<{}>
 }
 
 export interface SubRoutes<LayoutProps> extends RouteProps {
