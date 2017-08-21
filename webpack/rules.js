@@ -1,8 +1,17 @@
 import path from 'path'
 
+import babelConfig from './babelCOnfig'
+
 export default [{
   test: /\.tsx?$/,
-  use: ['react-hot-loader/webpack', 'awesome-typescript-loader'],
+  use: [{
+    loader: 'react-hot-loader/webpack'
+  }, {
+    loader: 'babel-loader',
+    options: babelConfig
+  }, {
+    loader: 'awesome-typescript-loader'
+  }],
   exclude: path.resolve(__dirname, 'node_modules'),
   include: path.resolve(__dirname, '../src')
 } ,{

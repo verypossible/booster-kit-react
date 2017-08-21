@@ -1,6 +1,5 @@
-declare interface Anchor extends Theme {
+export interface AnchorProps {
   children?: any,
-  className?: string,
   color?: string,
   external?: boolean,
   id?: string,

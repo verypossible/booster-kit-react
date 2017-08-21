@@ -1,12 +1,6 @@
-/* tslint:disable:ban-types */
-export function compose (...funcs: Function[]) {
-  if (funcs.length === 0) {
-    return (arg: () => void) => arg
-  }
+import compose from './compose'
+import errorBoundary from './errorBoundary'
+import getDisplayName from './getDisplayName'
+import markdown from './markdown'
 
-  if (funcs.length === 1) {
-    return funcs[0]
-  }
-
-  return funcs.reduce((a, b) => (...args: Function[]) => a(b(...args)))
-}
+export { compose, errorBoundary, getDisplayName, markdown }

@@ -1,7 +1,6 @@
 import * as React from 'react'
 
 import { Box } from 'atoms'
-import Header from 'components/Header'
 import { renderGlobalStyles, theme, ThemeProvider } from 'ui'
 
 interface Props {

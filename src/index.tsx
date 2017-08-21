@@ -3,7 +3,7 @@ import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import { AppContainer } from 'react-hot-loader'
 
-import App from './App'
+import App, { AppProps } from './App'
 import { Store } from './lib/types'
 import createStore from './state/createStore'
 
@@ -11,7 +11,7 @@ const store: Store<{}> = createStore()
 
 const MOUNT_NODE = document.getElementById('root')
 
-const render = (Component: React.SFC<any>) => {
+const render = (Component: React.SFC<AppProps>) => {
   ReactDOM.render(
     <AppContainer>
       <Component
@@ -25,8 +25,5 @@ const render = (Component: React.SFC<any>) => {
 render(App)
 
 if (module.hot) {
-  module.hot.accept('./App', () => {
-    const NextApp = require('./App').default
-    render(NextApp)
-  })
+  module.hot.accept('./App', () => render(App))
 }

@@ -1,7 +1,7 @@
-import { Trademark } from './assets/Logo'
+import logo from './assets/logo.svg'
 
 const config = {
-  logo: Trademark,
+  logo,
   projectName: 'Very React'
 }
 

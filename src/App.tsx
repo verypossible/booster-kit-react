@@ -7,26 +7,24 @@ import { Store } from './lib/types'
 import Routes from './routes'
 import routeConfig from './routes/routes'
 
-interface RootProps {
+export interface AppProps {
   store: Store<{}>
 }
 
-const Root: React.SFC<RootProps> = ({ store }) => {
-  return (
-    <BrowserRouter>
-      <Route
-        path='/'
-        children={({ history }) => {
-          const apolloClient = client(history)
-          return (
-            <ApolloProvider store={store} client={apolloClient}>
-              <Routes routes={routeConfig} store={store} />
-            </ApolloProvider>
-          )
-        }}
-      />
-    </BrowserRouter>
-  )
-}
+const App: React.SFC<AppProps> = ({ store }) => (
+  <BrowserRouter>
+    <Route
+      path='/'
+      children={({ history }) => {
+        const apolloClient = client(history)
+        return (
+          <ApolloProvider store={store} client={apolloClient}>
+            <Routes routes={routeConfig} store={store} />
+          </ApolloProvider>
+        )
+      }}
+    />
+  </BrowserRouter>
+)
 
-export default Root
+export default App

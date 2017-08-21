@@ -3,30 +3,32 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { Dispatch } from 'redux'
 
-import loadCollections from '../data/loadCollections'
 import { compose } from '../helpers'
-import { DocsActions, DocsState } from '../types'
+import { ConnectProps, DocsActions, DocsHistory, DocsMatch, DocsState, Selectors } from '../types'
 
-import { KEY } from './index'
-import docsSelectors from './selectors'
+import loadCollections from './loadCollections'
+import selectors from './selectors'
 
-const connectDocs = <OP extends {}>(
-  WrappedComponent: React.SFC<OP> | React.ComponentClass<OP>
+const connectDocs = ({ selector }) => <OP extends {}>(
+  WrappedComponent: React.SFC<OP & ConnectProps> | React.ComponentClass<OP & ConnectProps>
 ) => {
+  const WithDocs = (props) => <WrappedComponent {...props} />
+
   const makeMapStateToProps = () => {
-    const mapStateToProps = (state: DocsState, props, ownProps) => docsSelectors(state, props, ownProps)
+    const mapStateToProps = (
+      state: DocsState, props: DocsHistory & DocsMatch, ownProps: Selectors
+    ) => selectors[selector](state, props, ownProps)
     return mapStateToProps
   }
 
-  const mapDispatchToProps = (dispatch: Dispatch<DocsActions>) => ({
-    loadData: (payload) => dispatch(loadCollections(payload))
-  })
-
-  const WithDocs = (props) => <WrappedComponent {...props} />
-
   return compose(
     withRouter,
-    connect(makeMapStateToProps, mapDispatchToProps)
+    connect(
+      makeMapStateToProps,
+      (dispatch: Dispatch<DocsActions>) => ({
+        loadData: (payload) => dispatch(loadCollections(payload))
+      })
+    )
   )(WithDocs)
 }
 

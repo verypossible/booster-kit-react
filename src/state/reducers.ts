@@ -2,14 +2,14 @@ import { Store as ApolloStore } from 'apollo-client/store'
 import { combineReducers, Reducer } from 'redux'
 import { reducer as formReducer } from 'redux-form'
 
-import client from 'lib/graphql/client'
 import * as docs from 'lib/docs'
+import client from 'lib/graphql/client'
 
 import * as counter from './counter'
 import * as lastAction from './lastAction'
 import * as session from './session'
 
-export const makeRootReducer = combineReducers<State>({
+const reducers = combineReducers<State>({
   [counter.KEY]: counter.reducer,
   [docs.KEY]: docs.reducer,
   [lastAction.KEY]: lastAction.reducer,
@@ -18,4 +18,4 @@ export const makeRootReducer = combineReducers<State>({
   form: formReducer
 })
 
-export default makeRootReducer
+export default reducers

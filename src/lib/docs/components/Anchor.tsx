@@ -13,17 +13,12 @@ interface Styles {
   color?: string
 }
 
-const RouterLink = ({ text, ...props }: Props) =>
+const Anchor: React.SFC<Props & Styles> = ({ navLink, text, ...props }) => (
+  (navLink && <NavLink {...props}>{text}</NavLink>) ||
   <Link {...props}>{text}</Link>
-
-const RouterNavLink = ({ text, ...props }: Props) =>
-  <NavLink {...props}>{text}</NavLink>
-
-const Anchor: React.SFC<Props & Styles> = ({ navLink, ...props }) => (
-  (navLink && <RouterNavLink {...props} />) ||
-  <RouterLink {...props} />
 )
 
 export default styled(Anchor)`
   color: ${(props) => props.color || 'black' };
+  font-family: Roboto, sans-serif;
 `

@@ -1,18 +1,18 @@
-declare type AlignItems = 'start' | 'end' | 'center' | 'stretch'
+type AlignItems = 'start' | 'end' | 'center' | 'stretch'
 
-declare type AlignContent = 'start' | 'end' | 'center' | 'stretch' | 'space-around' | 'space-between' | 'space-evenly'
+type AlignContent = 'start' | 'end' | 'center' | 'stretch' | 'space-around' | 'space-between' | 'space-evenly'
 
-declare type AutoFlow = 'row' | 'column' | 'row dense' | 'column dense'
+type AutoFlow = 'row' | 'column' | 'row dense' | 'column dense'
 
-declare type Display = 'none' | 'inline' | 'inline-block' | 'block' | 'grid' | 'subGrid' | 'flex'
+type Display = 'none' | 'inline' | 'inline-block' | 'block' | 'grid' | 'subGrid' | 'flex'
 
-declare type Justify = 'start' | 'center' | 'between' | 'end'
+type Justify = 'start' | 'center' | 'between' | 'end'
 
-declare type TextAlign = 'left' | 'center' | 'right'
+type TextAlign = 'left' | 'center' | 'right'
 
-declare type BoxTags = 'div' | 'span' | 'section'
+type BoxTags = 'div' | 'span' | 'section'
 
-interface Box extends Theme {
+export interface BoxProps extends Theme {
   alignContent?: AlignContent,
   alignItems?: AlignItems,
   alignSelf?: AlignItems,

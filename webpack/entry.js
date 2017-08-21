@@ -14,7 +14,7 @@ const vendor = [
 
 
 const development = {
-  app: [HMR_PATCH, `webpack-dev-server/client?${config.server_url}`, 'webpack/hot/only-dev-server', SOURCE],
+  app: ['babel-polyfill', HMR_PATCH, `webpack-dev-server/client?${config.server_url}`, 'webpack/hot/only-dev-server', SOURCE],
   vendor
 }
 
