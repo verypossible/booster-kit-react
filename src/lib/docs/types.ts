@@ -9,7 +9,10 @@ export interface DocsMatch {
     url?: string,
     params?: {
       collection?: string,
-      module?: string
+      module?: string,
+      static?: string,
+      staticCollection?: string,
+      staticItem?: string
     }
   }
 }
@@ -22,20 +25,36 @@ export interface DocsHistory {
 }
 
 /** Actions */
-export interface DocsActionHandlers {
-  payload: DocsCollections,
-  type: 'types/LOAD_COLLECTIONS'
+export interface Markdown {
+  path: string,
+  param: string,
+  files?: Markdown[],
+  title: string,
+  content: string
 }
 
+type Action<P, T> = {
+  payload: P,
+  type: T
+}
+
+type LoadCollections = Action<DocsCollections, 'docs/LOAD_COLLECTIONS'>
+type LoadMarkdown = Action<Markdown[], 'docs/LOAD_MARKDOWN'>
+type UpdateMarkdown = Action<Markdown, 'docs/UPDATE_MARKDOWN'>
+
+export type DocsActionHandlers = LoadCollections & LoadMarkdown & UpdateMarkdown
+
 export interface DocsActions {
-  loadData?: (payload: DataJSON) => ThunkAction<Promise<DocsCollections>, {}, {}>
+  loadData?: (payload: DataJSON) => ThunkAction<Promise<DocsCollections>, {}, {}>,
+  loadMarkdown?: () => ThunkAction<Promise<Markdown[]>, {}, {}>
 }
 
 export type Data = () => DataJSON
 
 export interface DocsState {
-  types: DataJSON,
   collections: DocsCollections | boolean
+  markdown?: Markdown[],
+  types: DataJSON,
 }
 
 /** Selectors */
@@ -127,11 +146,14 @@ export type ParsedTypes = ParsedType[]
 export interface Selectors {
   activeCollection?: DocsCollection,
   activeModule?: DocsModule,
+  activeStaticCollection?: Markdown,
   collectionsNav?: NavItem[],
   collectionModulesNav?: NavItem[],
   docs?: DocsState,
   privateModuleParts?: ParsedTypes,
-  publicModuleParts?: ParsedTypes
+  publicModuleParts?: ParsedTypes,
+  staticCollectionNav?: NavItem[],
+  staticDocsNav?: NavItem[]
 }
 
 export type ConnectProps = Selectors & DocsActions & DocsMatch & DocsHistory

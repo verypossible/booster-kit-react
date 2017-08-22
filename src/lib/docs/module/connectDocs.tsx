@@ -7,6 +7,7 @@ import { compose } from '../helpers'
 import { ConnectProps, DocsActions, DocsHistory, DocsMatch, DocsState, Selectors } from '../types'
 
 import loadCollections from './loadCollections'
+import loadMarkdown from './loadMarkdown'
 import selectors from './selectors'
 
 const connectDocs = ({ selector }) => <OP extends {}>(
@@ -26,7 +27,8 @@ const connectDocs = ({ selector }) => <OP extends {}>(
     connect(
       makeMapStateToProps,
       (dispatch: Dispatch<DocsActions>) => ({
-        loadData: (payload) => dispatch(loadCollections(payload))
+        loadData: (payload) => dispatch(loadCollections(payload)),
+        loadMarkdown: () => dispatch(loadMarkdown())
       })
     )
   )(WithDocs)

@@ -4,7 +4,7 @@ import { Box } from 'atoms'
 
 const ExamplesHome = () => (
   <Box>
-    Welcome To React
+    hello examples
   </Box>
 )
 

@@ -26,4 +26,6 @@ export const Nav = styled.div`
   background: black;
   color: white;
   grid-area: nav;
+  min-height: 100vh;
+  height: 100%;
 `

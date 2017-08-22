@@ -9,13 +9,16 @@ interface Props {
 }
 
 const UtilityWrapper = styled.div`
-  height: 100px;
+  height: 50px;
   width: 100%;
-  grid-area: utility;
   display: grid;
   grid-template-columns: 33% 34% 33%;
   grid-template-areas:
-    "utilLeft utilMid utilRight"
+    "utilLeft utilMid utilRight";
+  align-content: center;
+  position: fixed;
+  bottom: 0;
+  background: white;
 `
 
 const UtilityLeft = styled.div`

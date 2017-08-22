@@ -1,6 +1,5 @@
-// import data from '../data/dataSubscriber'
 import typesJSON from '../typedocs.json'
-import { DocsActionHandlers, DocsCollections, DocsState } from '../types'
+import { DocsActionHandlers, DocsCollections, DocsState, Markdown } from '../types'
 
 /** Namespace */
 const KEY = 'docs'
@@ -12,12 +11,28 @@ const loadCollections = (payload: DocsCollections) => ({
   type: LOAD_COLLECTIONS
 }) as DocsActionHandlers
 
+const LOAD_MARKDOWN = `${KEY}/LOAD_MARKDOWN`
+const loadMarkdown = (payload: Markdown[]) => ({
+  payload,
+  type: LOAD_MARKDOWN
+})
+
+const UPDATE_MARKDOWN = `${KEY}/UPDATE_MARKDOWN`
+const updateMarkdown = (payload: Markdown) => ({
+  payload,
+  type: UPDATE_MARKDOWN
+})
+
 const actions = {
-  loadCollections
+  loadCollections,
+  loadMarkdown,
+  updateMarkdown
 }
 
 const actionTypes = {
-  LOAD_COLLECTIONS
+  LOAD_COLLECTIONS,
+  LOAD_MARKDOWN,
+  UPDATE_MARKDOWN
 }
 
 /** State */
@@ -37,6 +52,20 @@ function reducer (
         collections: [
           ...action.payload
         ]
+      }
+
+    case LOAD_MARKDOWN:
+      return {
+        ...state,
+        markdown: action.payload
+      }
+
+    case UPDATE_MARKDOWN:
+      return {
+        ...state,
+        markdown: state.markdown.map((staticDoc) => (
+          (staticDoc.path === action.payload.path) ? action.payload : staticDoc)
+        )
       }
 
     default:

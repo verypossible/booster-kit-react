@@ -8,9 +8,13 @@ import { ConnectProps } from './types'
 
 class Docs extends React.Component<ConnectProps> {
   public componentWillMount () {
-    const { docs: { collections, types }, loadData } = this.props
+    const { docs: { collections, markdown, types }, loadData, loadMarkdown } = this.props
     if (!collections) {
       loadData(types)
+    }
+
+    if (!markdown) {
+      loadMarkdown()
     }
   }
 

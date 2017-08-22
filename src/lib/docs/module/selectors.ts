@@ -1,4 +1,5 @@
 import { createSelector, createStructuredSelector } from 'reselect'
+import S from 'string'
 
 import { DocsState, Selectors } from '../types'
 
@@ -29,7 +30,7 @@ const collectionModulesNav = createSelector(
     return current && current.modules.map(({ name }) => ({
       id: `${KEY}-${active}-${name}`,
       text: name,
-      to: `/docs/${active}/${name}`
+      to: `${match.url}/${name}`
     }))
   }
 )
@@ -65,6 +66,50 @@ const privateModuleParts = createSelector(
     .map((part) => parse(part, module.parts))
 )
 
+/** Static Markdown Docs */
+const staticDocsNav = createSelector(
+  [docsState, routerMatch],
+  (state, match) => {
+    return state.markdown && state.markdown.map((directory) => ({
+      id: directory.id,
+      text: directory.title,
+      to: `${match.path}/${directory.param}`
+    }))
+  }
+)
+
+const staticCollections = createSelector(
+  [docsState, routerMatch],
+  (state, match) => state.markdown && state.markdown.find((d) => d.param === match.params.static)
+)
+
+const staticCollectionNav = createSelector(
+  [staticCollections, routerMatch],
+  (collections, match) => collections && collections.files.map((collection) => ({
+    id: collection.id,
+    text: collection.title,
+    to: `${match.url}/${collection.param}`
+  }))
+)
+
+const activeStaticCollection = createSelector(
+  [docsState, routerMatch],
+  (state, match) => (
+    state.markdown &&
+    match.params.staticItem &&
+    state.markdown.find((d) => d.param === match.params.staticItem)
+  )
+)
+
+const staticCollectionItemNav = createSelector(
+  [activeStaticCollection, routerMatch],
+  (staticCollection, match) => staticCollection && staticCollection.files.map((item) => ({
+    id: item.id,
+    text: item.title,
+    to: `${match.url}/${item.param}`
+  }))
+)
+
 /** Root state selector */
 const docs = createSelector(
   [docsState],
@@ -85,6 +130,12 @@ const modules = createStructuredSelector({
   publicModuleParts
 })
 
-const selectors = { collections, modules }
+const statics = createStructuredSelector({
+  activeStaticCollection,
+  staticCollectionNav,
+  staticDocsNav
+})
+
+const selectors = { collections, modules, statics }
 
 export default selectors
