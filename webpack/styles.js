@@ -1,12 +1,12 @@
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
 
 const style = 'style-loader'
-const css = 'typings-for-css-modules-loader'
+const css = 'css-loader'
 
 const cssOptions = [{
   loader: css,
   query: {
-    modules: true
+    modules: false
   }
 }]
 

@@ -7,8 +7,10 @@ import { Store } from 'lib/types'
 import { getDisplayName } from '../helpers'
 
 export interface RouteProps {
+  children?: React.ReactNode,
   routes: RouteConfig[],
-  store: Store<{}>
+  store: Store<{}>,
+  component?: React.ComponentClass<any> | React.SFC<any> | React.Component<any>
 }
 
 export interface SubRoutes<LayoutProps> extends RouteProps {
@@ -32,9 +34,9 @@ export interface SubRoutes<LayoutProps> extends RouteProps {
  */
 
 const composedMatchSubRoutes = <LP extends {}>(
-  WrappedComponent: React.SFC<LP>
+  WrappedComponent: React.SFC<LP> | React.ComponentClass<LP>
 ) => {
-  const MatchRoutes: React.SFC<SubRoutes<LP>> = ({ routes, store, layout }) => {
+  const MatchRoutes: React.SFC<SubRoutes<LP>> = ({ children, routes, store, layout }) => {
     return (
       <WrappedComponent {...layout}>
         <Switch>
@@ -51,6 +53,7 @@ const composedMatchSubRoutes = <LP extends {}>(
               )}
             />
           ))}
+          {children}
           <Route path='*' render={({ location }) => <NotFound location={location} />} />
         </Switch>
       </WrappedComponent>

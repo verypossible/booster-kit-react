@@ -25,7 +25,8 @@ declare interface Route {
   exact?: true,
   id?: string,
   path?: string,
-  routeComponent?: ReactNode,
+  routeComponent?: any,
+  component?: any,
 }
 
 declare interface RouteConfig extends Route {

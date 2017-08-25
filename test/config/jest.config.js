@@ -1,12 +1,12 @@
 /* eslint-disbale */
 const moduleNameMaps = {
-  '^.+\\.(md|jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2)$': '<rootDir>/test/__mocks__/fileMock.js',
+  '^.+\\.(md|jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2)$': '<rootDir>/test/__mocks__/fileMock.js'
 }
 
 const jestConfig = {
   transform: {
     '^.+\\.js$': 'babel-jest',
-    "\\.(ts|tsx)$": "./node_modules/ts-jest/preprocessor.js",
+    '\\.(ts|tsx)$': './node_modules/ts-jest/preprocessor.js',
     '\\.(gql|graphql)$': './test/config/transformGraphQL.js'
   },
   globals: {
@@ -58,8 +58,9 @@ const jestConfig = {
   moduleNameMapper: moduleNameMaps,
   testPathIgnorePatterns: [
     '/blueprints/.*|\\.md$',
-    '(\\stories.jsx?)'
+    '(\\stories.tsx?)'
   ],
+  setupFiles: ['./test/config/requestAnimationPolyfill.js'],
   setupTestFrameworkScriptFile: './node_modules/jest-enzyme/lib/index.js'
 }
 

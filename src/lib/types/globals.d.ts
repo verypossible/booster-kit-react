@@ -32,10 +32,10 @@ declare module '*.png' {
     export = value
 }
 
-declare module '*.md' {
-    const value: any
-    export = value
-}
+// declare module '*.md' {
+//     const value: any
+//     export = value
+// }
 
 declare module '*.svg' {
     const value: any
