@@ -1,26 +1,33 @@
 const flat = ({
   background,
-  theme,
+  color,
+  theme: { colors, transitions },
   fill
-}: Button) => `
-  color: ${fill ? '#FFF' : theme.colors.action};
-  background-color: ${fill ? (background || theme.colors.action) : '#FFF'};
-  border-color: ${theme.colors.action};
-
-  &:hover {
-    color: ${fill ? theme.colors.action : '#FFF'};
-    background-color: ${fill ? '#FFF' : (background || theme.colors.action)};
-    transition: ${theme.transitions.easeInOut300}
-  }
-
-  > svg {
-    color: ${fill ? '#FFF' : theme.colors.action};
+}: Button) => {
+  const matchBg = background || colors[color] || color
+  const matchColor = colors[color] || color
+  const setColor = invert => !invert ? (fill ? '#FFF' : matchColor) : (fill ? matchColor : '#FFF')
+  const setBg = invert => !invert ? (fill ? matchBg : '#FFF') : (fill ? '#FFF' : matchBg)
+  return `
+    color: ${setColor()};
+    background-color: ${setBg()};
+    border-color: ${setColor()};
 
     &:hover {
-      color: ${fill ? theme.colors.action : '#FFF'};
+      color: ${setColor(true)};
+      background-color: ${setBg(true)};
+      transition: ${transitions.easeInOut300}
     }
-  }
-`
+
+    > svg {
+      color: ${setColor()};
+
+      &:hover {
+        color: ${setColor(true)};
+      }
+    }
+  `
+}
 
 const social = ({
   background = '#000',

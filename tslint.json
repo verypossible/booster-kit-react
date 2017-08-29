@@ -14,7 +14,8 @@
       "space-before-function-paren": [true, "always"],
       "jsx-no-multiline-js": false,
       "jsx-no-lambda": false,
-      "jsx-boolean-value": ["never"]
+      "jsx-boolean-value": ["never"],
+      "arrow-parens": [true, "ban-single-arg-parens"]
     },
     "rulesDirectory": []
 }

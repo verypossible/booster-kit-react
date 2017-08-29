@@ -20,9 +20,7 @@ class Docs extends React.Component<ConnectProps> {
   }
 
   public render () {
-    return (
-      <Route path='/docs' component={Routes} />
-    )
+    return <Routes />
   }
 }
 

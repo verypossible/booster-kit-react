@@ -14,7 +14,7 @@
       "Dom.Iterable",
       "ScriptHost"
     ],
-    "module": "es6",
+    "module": "esnext",
     "moduleResolution": "node",
     "noImplicitAny": false,
     "noUnusedLocals": true,

@@ -4,9 +4,9 @@ import { ExternalMarkdown } from '../components'
 import { connectDocs } from '../data'
 import { ConnectProps } from '../types'
 
-const Part: React.SFC<ConnectProps> = ({ activePart, match }) =>
-  !activePart ? null : (
-    (match.params.collection !== 'module' && <ExternalMarkdown markdown={activePart.content} />) ||
+const Part: React.SFC<ConnectProps> = ({ content, match }) =>
+  !content ? null : (
+    (match.params.collection !== 'module' && <ExternalMarkdown markdown={content} />) ||
     (<div>hello {match.params.part}</div>)
   )
 

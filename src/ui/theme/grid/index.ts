@@ -1,4 +1,4 @@
-const gutterSizes = {
+const gap = {
   large: '1.2em',
   medium: '1em',
   small: '0.8em',
@@ -7,6 +7,5 @@ const gutterSizes = {
 }
 
 export default {
-  columnGutter: gutterSizes,
-  rowGutter: gutterSizes
+  gap
 }

@@ -1,23 +1,57 @@
+import { Link } from 'lib/router'
 import * as React from 'react'
 
 import {
   Box,
+  Button,
   Icon,
-  Image,
-  Paragraph
+  Span
 } from 'atoms'
 
-import * as rocket from './rocket.png'
+import renderIcons from './renderIcons'
+
+const layout = {
+  columns: 'left 1 / right 3'
+}
+
+const Links = () => (
+  <Box row='middle' justify='end'>
+    <Link to='docs'>
+      <Button color='primaryInverse'>
+        Docs
+      </Button>
+    </Link>
+  </Box>
+)
+
+const Logos = () => (
+  <Box
+    row='middle'
+    autoFlow='row'
+    align='center'
+    columns='repeat(auto-fit, minmax(100px, 1fr))'
+    justify='center'
+    rows='100px / 100px / 100px'
+  >
+    {renderIcons}
+  </Box>
+)
+
+const Footer = () => (
+  <Box row='bottom' grid>
+      <Icon icon='Logo' color='primary' size='5em' />
+  </Box>
+)
 
 const HomeView = () => (
-  <Box>
-    <Image
-      alt='To infinity and beyond!'
-      className='logo'
-      src={rocket}
-    />
-    <Paragraph>If you don't see an icon below, something is wrong with icon fonts...</Paragraph>
-    <Icon icon='Logo' status='ok' />
+  <Box height='100vh' columns='left 1 / right 3'>
+    <Box column='left' justify='center' background='backgroundInverse' rows='top / middle / bottom'>
+      <Links />
+      <Footer />
+    </Box>
+    <Box column='right' rows='top / middle / bottom'>
+      <Logos />
+    </Box>
   </Box>
 )
 

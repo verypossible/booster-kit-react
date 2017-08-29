@@ -11,7 +11,8 @@ interface Props extends DocsHistory {
   children?: React.ReactNode,
   className?: string,
   color?: string,
-  to?: GoTo
+  swapIcon?: boolean,
+  to?: GoTo,
 }
 
 const icon = {
@@ -24,17 +25,34 @@ const Button: React.SFC<Props> = ({
   className,
   color,
   to = 'back',
-  history: { goBack, goForward }
-}) => (
-  <button className={className} onClick={() => to === 'back' ? goBack() : goForward()}>
-    {children || <Icon color={color} icon={icon[to]} size='small' margin='0' />}
-  </button>
-)
+  history: { goBack, goForward },
+  swapIcon
+}) => {
+  const RenderIcon = <Icon color={color} icon={icon[to]} size='small' margin='0' />
+  return (
+    <button className={className} onClick={() => to === 'back' ? goBack() : goForward()}>
+      {!swapIcon && <span>{children}</span>}{!swapIcon && RenderIcon}
+      {swapIcon && RenderIcon}{swapIcon && <span>{children}</span>}
+    </button>
+  )
+}
 
 const Navigate = styled(Button)`
+  display: flex;
+  align-items: center;
   background: none;
   fill: none;
   border: none;
+  width: 50px;
+
+  > span {
+    margin-left: 1em;
+    float: left;
+  }
+
+  > i {
+    float: left;
+  }
 `
 
 export default Navigate

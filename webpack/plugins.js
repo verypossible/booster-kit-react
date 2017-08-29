@@ -92,7 +92,7 @@ const production = [
   new ExtractTextPlugin({
     allChunks: true,
     disable: false,
-    filename: '[name].[contenthash].css',
+    filename: '[name].[hash].css',
     ignoreOrder: true
   }),
   new webpack.IgnorePlugin(/^\.(feature|spec|stories)\\.(ts|tsx|js)$/),

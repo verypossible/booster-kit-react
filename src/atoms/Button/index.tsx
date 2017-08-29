@@ -2,6 +2,7 @@ import * as React from 'react'
 
 import atom from 'ui'
 
+import Anchor from '../Anchor'
 import Icon from '../Icon'
 import Span from '../Span'
 
@@ -13,7 +14,7 @@ const getButton = ({
 
 const ButtonElement = atom.button`
   ${getButton}
-  font-family: ${(props) => props.theme.font.family.text};
+  font-family: ${props => props.theme.font.family.text};
   border: 1px solid;
   font-size: 1em;
   line-height: 2em;
@@ -25,6 +26,10 @@ const ButtonElement = atom.button`
   text-transform: ${(props: Button) => (props.text || 'none')};
   white-space: nowrap;
   cursor: pointer;
+
+  ${Anchor}:hover & {
+    color: white;
+  }
 
   > span {
     width: 3rem;

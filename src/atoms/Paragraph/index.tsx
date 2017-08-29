@@ -1,15 +1,20 @@
 import * as React from 'react'
+
 import atom from 'ui'
 
-import { ParagraphProps } from './Props'
+export interface Props extends Theme {
+  className?: string,
+  color?: string,
+  invert?: boolean
+}
 
-const styles = ({ color, theme, invert }: ParagraphProps) => `
-  color: ${color || (!invert && theme.colors.primaryColor) || (invert && theme.colors.primaryColorInverted) || '#000'}
+const styles = ({ color, theme, invert }: Props) => `
+  color: ${color || (!invert && theme.colors.primary) || (invert && theme.colors.primaryInverse) || '#000'}
 `
 
-const Component: React.SFC<ParagraphProps> = ({ children, className }) => <p className={className}>{children}</p>
+const P: React.SFC<Props> = ({ children, className }) => <p className={className}>{children}</p>
 
-const Paragraph = atom(Component)`
+const Paragraph = atom(P)`
   ${styles}
 `
 

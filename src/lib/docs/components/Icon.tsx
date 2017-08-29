@@ -21,7 +21,7 @@ const IconSet = {
 const GetIcon: React.SFC<Props> = ({ icon, className }) => {
   const RenderIcon = IconSet[icon]
   return (
-    <RenderIcon className={className} />
+    <i><RenderIcon className={className} /></i>
   )
 }
 

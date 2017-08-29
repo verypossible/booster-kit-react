@@ -16,16 +16,16 @@ const status = {
 
 const theme = {
   dark: {
-    primaryBackground: common.backgroundDark,
-    primaryBackgroundInverted: common.backgroundLight,
-    primaryColor: common.dark,
-    primaryColorInverted: common.light
+    background: common.backgroundDark,
+    backgroundInverse: common.backgroundLight,
+    primary: common.dark,
+    primaryInverse: common.light
   },
   light: {
-    primaryBackground: common.backgroundLight,
-    primaryBackgroundInverted: common.backgroundDark,
-    primaryColor: common.light,
-    primaryColorInverted: common.dark
+    background: common.backgroundLight,
+    backgroundInverse: common.backgroundDark,
+    primary: common.light,
+    primaryInverse: common.dark
   }
 }
 

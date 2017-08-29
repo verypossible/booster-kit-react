@@ -11,6 +11,7 @@ export default {
     'react'
   ],
   plugins: [
+    'styled-components',
     'transform-decorators-legacy',
     'react-hot-loader/babel',
     'syntax-dynamic-import',

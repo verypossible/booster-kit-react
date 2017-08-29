@@ -13,8 +13,10 @@ interface MergedProps extends Theme {
 }
 
 /** Maps props to styles */
-const styles = ({ theme, color }: AnchorProps & MergedProps) => `
-  color: ${theme.colors[color] || color}
+const styles = ({ theme, color, hover }: AnchorProps & MergedProps) => `
+  color: ${theme.colors[color] || color};
+  text-decoration: none;
+  font-family: Helvetica;
 `
 
 const activeStyle = {

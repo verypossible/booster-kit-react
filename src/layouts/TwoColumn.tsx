@@ -4,30 +4,23 @@ import { Box } from 'atoms'
 
 interface TwoColumnProps {
   children?: any,
-  rowGutter?: ThemeSizeSelector,
-  columnGutter?: ThemeSizeSelector,
+  gap: string,
   leftWidth?: number
 }
 
 const TwoColumn: React.StatelessComponent<TwoColumnProps> = ({
   children,
-  columnGutter,
-  leftWidth = 50,
-  rowGutter
+  gap,
+  leftWidth = 50
 }) => {
   const rightWidth = 100 - leftWidth
   const columns = `${leftWidth}% ${rightWidth}%`
-  const gutters = {
-    columnGutter,
-    rowGutter
-  }
   return (
     <Box
-      display='grid'
       columns={columns}
       height='100vh'
       rows='auto auto'
-      {...gutters}
+      gap={gap}
     >
       {children}
     </Box>

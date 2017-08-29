@@ -11,6 +11,7 @@ import styles from './styles'
 const productionConfig = {
   entry: entry.production,
   output: {
+    chunkFilename: `[name].[hash].js`,
     filename: `[name].[chunkhash].js`,
     publicPath: '/'
   },

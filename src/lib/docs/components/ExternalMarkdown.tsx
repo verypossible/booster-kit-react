@@ -13,5 +13,16 @@ const Markdown: React.SFC<Props> = ({ className, markdown }) => (
 )
 
 export default styled(Markdown)`
-  color: black;
+  width: 100%;
+  height: 100%;
+  p {
+    margin-bottom: 0.5em;
+  }
+  pre > code {
+    display: block;
+    background-color: rgb(45, 45, 45);
+    color: white;
+    padding: 1em;
+  }
+
 `

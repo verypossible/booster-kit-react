@@ -8,9 +8,9 @@ declare interface ThemeColors {
     darkGray?: string,
     light?: string,
     lightGray?: string,
-    primaryBackground?: string,
-    primaryBackgroundInverted?: string,
-    primaryColor?: string,
-    primaryColorInverted?: string
+    background?: string,
+    backgroundInverse?: string,
+    primary?: string,
+    primaryInverse?: string
   }
 }

@@ -1,18 +1,28 @@
 import * as React from 'react'
 import * as Icons from 'react-feather'
 
-import atom from 'ui'
+import atom, { css } from 'ui'
+import { layout } from 'ui/helpers'
 
 import { Logo, Trademark } from './Brand'
 import Vendor from './Vendor'
 
-const styles = ({ color, size, status, theme }: Icon) => `
-  color: ${
-    (status && theme.status[status]) ||
-    color ||
-    '#000'
-  };
-  width: ${theme.icons.size[size]}
+interface Icon extends Theme {
+  area?: string,
+  color?: string,
+  icon?: string,
+  className?: string,
+  size?: ThemeSizeSelector,
+  status?: ThemeStatusSelector
+}
+
+const styles = ({ area, color, size, status, theme }: Icon) => css`
+  display: block;
+  color: ${status && theme.status[status] || theme.colors[color] || color || '#000'};
+  width: ${theme.icons.size[size] || size};
+  ${area && `
+    grid-area: ${area};
+  `}
 `
 
 const IconSet = {

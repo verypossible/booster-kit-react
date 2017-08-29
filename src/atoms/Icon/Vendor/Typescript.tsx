@@ -1,7 +1,7 @@
 /* tslint:disable:max-line-length */
 import * as React from 'react'
 
-export default function TypeScriptIcon ({ className }: Icon) {
+export default function TypeScript ({ className }: Icon) {
   return (
     <svg fill='currentColor' className={className} viewBox='0 0 24 24'>
       <g>

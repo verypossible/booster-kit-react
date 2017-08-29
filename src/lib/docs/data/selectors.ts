@@ -24,7 +24,7 @@ const selectState = createSelector(
       case match.params.collection === 'modules':
         return state.modules
 
-      case match.params.collection:
+      case match.params.collection !== 'modules':
         return state.markdown
 
       default:
@@ -71,24 +71,22 @@ const activeSubItem = createSelector(
  * Navigation Selectors
  */
 
+const navItem = (parent, name, path) => ({
+  id: `${KEY}-${parent}-${name}`,
+  text: name,
+  to: `${path}/${name}`
+})
+
 /** Creates a list of collections nav from modules state */
 const modulesNav = createSelector(
   [docsState, routerMatch],
-  (state, match) => state.modules && state.modules.map(({ name }) => ({
-    id: `${KEY}-collection-${name}`,
-    text: name,
-    to: `${match.path}/${name}`
-  }))
+  (state, match) => state.modules && state.modules.map(({ name }) => navItem('collection', name, match.path))
 )
 
 /** Creates nav items collections from markdown state */
 const markdownNav = createSelector(
   [docsState, routerMatch],
-  (state, match) => state.markdown && state.markdown.map(({ name }) => ({
-    id: `${KEY}-collection-${name}`,
-    text: name,
-    to: `${match.path}/${name}`
-  }))
+  (state, match) => state.markdown && state.markdown.map(({ name }) => navItem('collection', name, match.path))
 )
 
 /** Creates a unified collections nav from modules and markdown */
@@ -100,43 +98,35 @@ const collectionsNav = createSelector(
 /** Creates a list of nav items for all parts within an active collection */
 const partsNav = createSelector(
   [activeCollection, routerMatch],
-  (collection, match) => collection && collection.children.map(({ name }) => ({
-    id: `${KEY}-part-${name}`,
-    text: name,
-    to: `${match.url}/${name}`
-  }))
+  (collection, match) =>
+    collection && collection.children.map(({ name }) => navItem(match.params.collection, name, match.url))
 )
 
 /** Creates a list of nav items for all items within an active part */
 const itemsNav = createSelector(
   [activePart, routerMatch],
-  (part, match) => part && part.children.map(({ name }) => ({
-    id: `${KEY}-item-${name}`,
-    text: name,
-    to: `${match.url}/${name}`
-  }))
+  (part, match) => part && part.children.map(({ name }) =>
+    navItem(match.params.part, name, match.url))
 )
 
 /**
  * Sub Item selectors
  *
  */
-const isPublic = (subItem, { params }) => (
-  subItem.sources.some((s) => s.fileName.toLowerCase().includes(`${params.part}/${params.item}/index`)
-  && (subItem.flags.isExported === true))
-)
+const isPublic = (subItem) => subItem.flags && subItem.flags.isExported === true
+const isModule = ({ params }) => params.collection === 'modules'
 
 const publicSubItems = createSelector(
   [activeItem, routerMatch],
-  (current, match) => current && current.children
-    .filter((subItem) => isPublic(subItem, match))
+  (current, match) => isModule(match) && current && current.children
+    .filter((subItem) => isPublic(subItem))
     .map((subItem) => parse(subItem, current.children))
 )
 
 const privateSubItems = createSelector(
   [activeItem, routerMatch],
-  (current, match) => current && current.children
-    .filter((subItem) => !isPublic(subItem, match))
+  (current, match) => isModule(match) && current && current.children
+    .filter((subItem) => !isPublic(subItem))
     .map((subItem) => parse(subItem, current.children))
 )
 

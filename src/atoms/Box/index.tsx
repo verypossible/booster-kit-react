@@ -1,80 +1,44 @@
 import * as React from 'react'
 
 import atom, { css } from 'ui'
+import {
+  gridContainer,
+  GridContainer,
+  gridItem,
+  GridItem,
+  layout,
+  Layout
+  TextAlign
+} from 'ui/helpers'
 
-import { BoxProps } from './BoxProps'
+type BoxTags = 'div' | 'span' | 'section'
 
-const gridContainer = ({
-  autoColumns,
-  autoFlow,
-  autoRows,
-  columnGutter,
-  columns,
-  display,
-  rowGutter,
-  rows,
-  theme
-}: BoxProps) => css`
-  ${display === 'grid' &&
-    ((rowGutter || columnGutter) &&
-    `grid-gap: ${theme.grid.rowGutter[rowGutter]} ${theme.grid.columnGutter[columnGutter]};`)
-    || (display === 'grid' && `grid-gap: ${theme.grid.rowGutter.medium} ${theme.grid.columnGutter.medium};`)
-  }
-  ${rows && `grid-template-rows: ${rows};`}
-  ${columns && `grid-template-columns: ${columns};`}
-  ${autoRows && `grid-auto-rows: ${autoRows};`}
-  ${autoColumns && `grid-auto-columns: ${autoColumns};`}
-  ${autoFlow && `grid-auto-flow: ${autoFlow};`}
-`
-
-const gridItem = ({
-  area,
-  column,
-  row
-}: BoxProps) => css`
-  ${column && `grid-column: ${column[0]} / ${column[1]};`}
-  ${row && `grid-row: ${row[0]} / ${row[1]};`}
-  ${area && `grid-area: ${area};`}
-`
+interface BoxProps extends GridContainer, GridItem, Layout  {
+  background?: string,
+  children?: any,
+  className?: string,
+  id?: string,
+  inverse?: boolean
+  role?: string,
+  tag?: BoxTags,
+  textAlign?: TextAlign
+}
 
 const setBackground = (background, inverse, colors) => `
   ${
     colors[background] ||
-    (inverse && colors.primaryBackgroundInverted) ||
-    colors.primaryBackground
+    (inverse && colors.backgroundInverse) ||
+    colors.background
   }
 `
 
-const layout = ({
-  alignContent,
-  alignItems,
-  display,
-  height,
-  justifyContent,
-  justifyItems,
-  margin,
-  pad,
-  theme,
-  width
-}: BoxProps) => css`
-  ${justifyItems && `justify-items: ${justifyItems};`}
-  ${alignItems && `justify-items: ${alignItems};`}
-  ${justifyContent && `justify-content: ${justifyContent};`}
-  ${alignContent && `justify-content: ${alignContent};`}
-  ${display && `display: ${display};`}
-  ${pad && `padding: ${theme.layout.pad[pad] || pad};`}
-  ${margin && `margin: ${theme.layout.margin[margin] || margin};`}
-  ${height && `height: ${theme.layout.height[height] || height};`}
-  ${width && `width: ${theme.layout.width[width] || width};`}
-`
-
-const styles = ({
+const boxStyles = ({
   background,
   inverse,
   textAlign,
-  theme
+  theme: { colors }
 }: BoxProps) => `
-  ${(background || inverse) && `background-color: ${setBackground(background, inverse, theme.colors)};`},
+  ${(background || inverse) && `background-color: ${setBackground(background, inverse, colors)};`},
   ${textAlign && `textAlign: ${textAlign};`}
 `
 
@@ -87,7 +51,7 @@ const Box: React.SFC<BoxProps> = ({
     ${gridContainer}
     ${gridItem}
     ${layout}
-    ${styles}
+    ${boxStyles}
   `
 
   if (tag) {
