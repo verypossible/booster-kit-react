@@ -9,13 +9,13 @@ const flat = ({
   const setColor = invert => !invert ? (fill ? '#FFF' : matchColor) : (fill ? matchColor : '#FFF')
   const setBg = invert => !invert ? (fill ? matchBg : '#FFF') : (fill ? '#FFF' : matchBg)
   return `
-    color: ${setColor()};
-    background-color: ${setBg()};
+    color: ${setColor(true)};
+    background-color: ${setBg(true)};
     border-color: ${setColor()};
 
     &:hover {
-      color: ${setColor(true)};
-      background-color: ${setBg(true)};
+      color: ${setColor()};
+      background-color: ${setBg()};
       transition: ${transitions.easeInOut300}
     }
 

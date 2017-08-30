@@ -1,16 +1,30 @@
-import atom from 'ui'
+import atom, { css } from 'ui'
+import { layout, Layout } from 'ui/helpers'
 
-const base = ({ area, margin, pad, theme, color, status }: Span) => `
-  ${area && `
-    grid-area: ${area};
-  `}
+interface Font {
+  size: string,
+  weight: string
+}
+
+declare interface Span extends Layout {
+  alignVertical?: string,
+  color?: string,
+  font?: Font,
+  line?: string,
+  status?: ThemeStatusSelector
+}
+
+const styles = ({ alignVertical, font, line, theme, color, status }: Span) => css`
   color: ${theme.colors[color] || theme.status[status] || color || '#000'};
   font-family: Helvetica;
-  margin: ${theme.layout.margin[margin] || margin || 0};
-  padding: ${theme.layout.pad[pad] || pad || 0};
+  font-size: ${font && theme.font.size[font.size] || font && font.size || '1em'};
+  font-weight: ${font && font.weight || 'normal'};
+  ${alignVertical && `align-vertical: ${alignVertical};`}
+  ${line && `line-height: ${line};`}
 `
 
 const Span = atom.span`
-  ${base}
+  ${layout}
+  ${styles}
 `
 export default Span

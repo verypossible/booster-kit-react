@@ -37,7 +37,7 @@ const LinkBar: React.SFC<Props> = ({
   nav
 }) => (
   <Links gridArea={gridArea}>
-    {links && links.map((link) => (
+    {links && links.map(link => (
       <Link inline={inline} key={link.text}>
         <Anchor color={color} {...link} navLink={nav} />
       </Link>

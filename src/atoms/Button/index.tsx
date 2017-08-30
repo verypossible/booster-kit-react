@@ -20,7 +20,6 @@ const ButtonElement = atom.button`
   line-height: 2em;
   min-width: 120px;
   padding: 0.8em 1.5em;
-  margin-right: 0.8em;
   text-align: center;
   text-decoration: none;
   text-transform: ${(props: Button) => (props.text || 'none')};

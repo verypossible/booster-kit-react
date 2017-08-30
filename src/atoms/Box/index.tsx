@@ -20,6 +20,7 @@ interface BoxProps extends GridContainer, GridItem, Layout  {
   id?: string,
   inverse?: boolean
   role?: string,
+  round?: string,
   tag?: BoxTags,
   textAlign?: TextAlign
 }
@@ -28,16 +29,18 @@ const setBackground = (background, inverse, colors) => `
   ${
     colors[background] ||
     (inverse && colors.backgroundInverse) ||
-    colors.background
+    background
   }
 `
 
 const boxStyles = ({
   background,
   inverse,
+  round,
   textAlign,
   theme: { colors }
-}: BoxProps) => `
+}: BoxProps) => css`
+  ${round && `border-radius: ${round};`}
   ${(background || inverse) && `background-color: ${setBackground(background, inverse, colors)};`},
   ${textAlign && `textAlign: ${textAlign};`}
 `

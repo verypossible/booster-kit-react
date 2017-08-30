@@ -58,14 +58,18 @@ export const buildTrack = track => {
 export const buildTrackItem = trackItem => {
   const span = S(trackItem).include('/')
   if (span) {
-    const trackItems = S(trackitem)
+    const trackParts = S(trackItem)
       .split('/')
       .map(s => s.trim())
 
-    const [start, end] = trackItems
-    const formatStart = S(start).include('-start') ? start : `${start}-start`
-    const formatEnd = S(end).include('-end') ? end : `${end}-end`
-    return `${formatStart} / ${formatEnd}`
+    const formatStart = start => S(start).include('-start') ? start : `${start}-start`
+    const formatEnd = end => S(end).include('-end') ? end : `${end}-end`
+    const [rowStart, columnStart, rowEnd, columnEnd] = trackParts
+    return {
+      column: `${formatStart(columnStart)} / ${formatEnd(columnEnd)}`,
+      row: `${formatStart(rowStart)} /  ${formatEnd(rowEnd)}`
+
+    }
   }
 
   return `${trackItem}-start`
@@ -76,7 +80,7 @@ export const buildGap = (gap, theme) => {
     return theme.grid.gap.medium
   }
 
-  const rowsAndColums = S(gap).include('/')
+  const rowsAndColumns = S(gap).include('/')
   if (rowsAndColumns) {
     const gaps = S(gap)
       .split('/')

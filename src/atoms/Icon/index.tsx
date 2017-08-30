@@ -2,42 +2,41 @@ import * as React from 'react'
 import * as Icons from 'react-feather'
 
 import atom, { css } from 'ui'
-import { layout } from 'ui/helpers'
+import { layout, Layout } from 'ui/helpers'
 
 import { Logo, Trademark } from './Brand'
+import { CustomCircle } from './CustomCircle'
 import Vendor from './Vendor'
 
-interface Icon extends Theme {
-  area?: string,
+interface Icon extends Layout {
   color?: string,
+  fill?: string,
   icon?: string,
   className?: string,
   size?: ThemeSizeSelector,
   status?: ThemeStatusSelector
 }
 
-const styles = ({ area, color, size, status, theme }: Icon) => css`
-  display: block;
-  color: ${status && theme.status[status] || theme.colors[color] || color || '#000'};
-  width: ${theme.icons.size[size] || size};
-  ${area && `
-    grid-area: ${area};
-  `}
+const styles = ({ area, color, display, margin, pad, size, status, theme }: Icon) => css`
+  color: ${status && theme.status[status] || theme.colors[color] || color || theme.colors.primary};
 `
 
 const IconSet = {
-  ...Icons,
-  ...Vendor,
+  CustomCircle,
   Logo,
-  Trademark
+  Trademark,
+  ...Icons,
+  ...Vendor
 }
 
-const GetIcon: React.SFC<Icon> = ({ className, icon = 'Circle' }) => {
+const GetIcon: React.SFC<Icon> = ({ className, color, fill, icon = 'Circle' }) => {
   const RenderIcon = IconSet[icon]
-  return <RenderIcon className={className}/>
+  const svgProps = { color, fill, className }
+  return <RenderIcon {...svgProps} />
 }
 
 const Icon = atom(GetIcon)`
+  ${layout}
   ${styles}
 `
 export default Icon

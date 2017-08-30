@@ -7,9 +7,11 @@ const spacing = {
 }
 
 const sizes = {
-  full: '100%',
-  half: '50%',
-  quarter: `25%`
+  '1/2': '50%',
+  '1/4': '25%',
+  '3/4': '75%',
+  'full': '100%',
+  'fullvh': '100vh'
 }
 
 export default {

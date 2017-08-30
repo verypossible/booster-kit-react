@@ -2,20 +2,19 @@ import { Link } from 'lib/router'
 import * as React from 'react'
 
 import {
+  Anchor,
   Box,
   Button,
   Icon,
+  Paragraph,
   Span
 } from 'atoms'
 
-import renderIcons from './renderIcons'
+import renderIcons from './RenderIcons'
+import Terminal from './Terminal'
 
-const layout = {
-  columns: 'left 1 / right 3'
-}
-
-const Links = () => (
-  <Box row='middle' justify='end'>
+const Nav = () => (
+  <Box area='leftMiddle'>
     <Link to='docs'>
       <Button color='primaryInverse'>
         Docs
@@ -24,33 +23,53 @@ const Links = () => (
   </Box>
 )
 
-const Logos = () => (
+const LogoGrid = () => (
   <Box
-    row='middle'
+    area='rightBottom'
     autoFlow='row'
     align='center'
-    columns='repeat(auto-fit, minmax(100px, 1fr))'
+    columns='repeat(auto-fit, minmax(50px, 1fr))'
     justify='center'
     rows='100px / 100px / 100px'
+    pad='large'
   >
+    <Span color='#CCC'>Powered By</Span>
     {renderIcons}
   </Box>
 )
 
-const Footer = () => (
-  <Box row='bottom' grid>
-      <Icon icon='Logo' color='primary' size='5em' />
+const LeftHeader = () => (
+  <Box area='leftTop' align='end' justify='center' grid>
+    <Icon icon='Trademark' color='primary' width='3' align='end' />
+    <Paragraph color='primary'>Learn The Framework</Paragraph>
+  </Box>
+)
+
+const RightHeader = () => (
+  <Box area='rightTop' alignContent='start' justify='end' margin={{ right: 'medium' }} grid>
+    <Anchor
+      to='https://github.com/verypossible/booster-kit-react'
+      color='primaryInverse'
+      margin='small'
+      display='flex'
+      height='full'
+      align='center'
+    >
+      view on <Icon icon='Github' color='primaryInverse' width='xXLarge' margin={{ left: 'medium' }} />
+    </Anchor>
   </Box>
 )
 
 const HomeView = () => (
-  <Box height='100vh' columns='left 1 / right 3'>
-    <Box column='left' justify='center' background='backgroundInverse' rows='top / middle / bottom'>
-      <Links />
-      <Footer />
+  <Box height='fullvh' columns='left 1 / right 3'>
+    <Box area='left' justify='center' background='backgroundInverse' rows='leftTop / leftMiddle / leftBottom'>
+      <LeftHeader />
+      <Nav />
     </Box>
-    <Box column='right' rows='top / middle / bottom'>
-      <Logos />
+    <Box area='left' rows='rightTop / rightMiddle / rightBottom'>
+      <RightHeader />
+      <Terminal />
+      <LogoGrid />
     </Box>
   </Box>
 )

@@ -9,7 +9,8 @@ export interface Props extends Theme {
 }
 
 const styles = ({ color, theme, invert }: Props) => `
-  color: ${color || (!invert && theme.colors.primary) || (invert && theme.colors.primaryInverse) || '#000'}
+  color: ${(!invert && theme.colors.primary) || (invert && theme.colors.primaryInverse) || color || '#000'};
+  font-family: Helvetica;
 `
 
 const P: React.SFC<Props> = ({ children, className }) => <p className={className}>{children}</p>
