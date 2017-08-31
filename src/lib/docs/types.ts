@@ -24,9 +24,16 @@ export interface DocsHistory {
 }
 
 /** Actions */
+export interface DocsModules {
+  children: DocsModules[],
+  id?: string,
+  name: string,
+  path?: string
+}
+
 export interface Markdown {
+  id: string,
   path: string,
-  param: string,
   children?: Markdown[],
   title: string,
   content: string
@@ -74,18 +81,6 @@ export interface DataJSON {
   }
   name?: string
 }
-
-export interface Module {
-  name: string,
-  children: object
-}
-
-export interface DocsModule {
-  name: string,
-  children: Module[]
-}
-
-export type DocsModules = DocsModule[]
 
 interface Source {
   fileName: string,
@@ -141,7 +136,7 @@ export interface ParsedType extends BaseType {
 
 export type ParsedTypes = ParsedType[]
 
-export type SelectorData = DocsModule & Markdown
+export type SelectorData = DocsModules & Markdown
 
 export interface Selectors {
   activeCollection?: SelectorData,
@@ -151,7 +146,8 @@ export interface Selectors {
   docs?: DocsState,
   activeItem?: SelectorData,
   privateSubItems?: ParsedTypes,
-  publicSubItems?: ParsedTypes
+  publicSubItems?: ParsedTypes,
+  content?: string
 }
 
 export type ConnectProps = Selectors & DocsActions & DocsMatch & DocsHistory

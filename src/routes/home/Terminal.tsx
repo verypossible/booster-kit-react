@@ -17,19 +17,12 @@ const TaskBar = atom.div`
 const icon = {
   icon: 'CustomCircle',
   margin: { top: '0.3', left: '0.5'},
+  noFlex: true,
   width: '1'
 }
 
 const Terminal = () => (
-  <Box
-    justifySelf='center'
-    alignSelf='center'
-    area='rightMiddle'
-    background='rgb(45, 45, 45)'
-    width='3/4'
-    height='300px'
-    round='5px'
-  >
+  <Box area={{ col: 'rightMiddle' }} background='rgb(45, 45, 45)' width='3/4' height='15' round='0.5' noFlex>
     <TaskBar>
       <Icon fill='#FF6152' {...icon} />
       <Icon fill='#FFC400' {...icon} />

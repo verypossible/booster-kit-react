@@ -14,7 +14,7 @@ const icons = {
 }
 
 const renderIcons = Object.entries(icons).map(([icon, [color, width, to]]) => (
-  <Box key={icon} pad='xLarge' justify='center' align='center'>
+  <Box key={icon} pad='xLarge' height='4'>
     <Anchor to={to}>
        <Icon icon={icon} color={color} width={width} />
     </Anchor>

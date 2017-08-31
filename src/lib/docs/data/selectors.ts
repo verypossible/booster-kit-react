@@ -1,6 +1,6 @@
 import { createSelector, createStructuredSelector } from 'reselect'
 
-import { DocsState, Selectors } from '../types'
+import { DocsState } from '../types'
 
 import parse from './parser'
 import { KEY } from './state'
@@ -113,27 +113,27 @@ const itemsNav = createSelector(
  * Sub Item selectors
  *
  */
-const isPublic = (subItem) => subItem.flags && subItem.flags.isExported === true
+const isPublic = subItem => subItem.flags && subItem.flags.isExported === true
 const isModule = ({ params }) => params.collection === 'modules'
 
 const publicSubItems = createSelector(
   [activeItem, routerMatch],
   (current, match) => isModule(match) && current && current.children
-    .filter((subItem) => isPublic(subItem))
-    .map((subItem) => parse(subItem, current.children))
+    .filter(subItem => isPublic(subItem))
+    .map(subItem => parse(subItem, current.children))
 )
 
 const privateSubItems = createSelector(
   [activeItem, routerMatch],
   (current, match) => isModule(match) && current && current.children
-    .filter((subItem) => !isPublic(subItem))
-    .map((subItem) => parse(subItem, current.children))
+    .filter(subItem => !isPublic(subItem))
+    .map(subItem => parse(subItem, current.children))
 )
 
 /** Root state selector */
 const docsSelectors = createSelector(
   [docsState],
-  (state) => state
+  state => state
 )
 
 /**

@@ -3,8 +3,6 @@ import Helmet from 'react-helmet'
 
 import { Layout } from '../components'
 
-import { DocsState } from '../types'
-
 import Main from './Main'
 import Sidebar from './Sidebar'
 

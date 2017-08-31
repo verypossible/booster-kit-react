@@ -5,7 +5,7 @@ import { DocsModules } from '../types'
 
 import { actions } from './state'
 
-function getParams (path) {
+const getParams = path => {
   const parts = path.replace(/^\//, '').split('/')
   const [ collection, part, item, subItem, deep ] = parts
   switch (parts.length) {
@@ -24,21 +24,21 @@ function getParams (path) {
   }
 }
 
-const cleanCollections = (data) => data.children
+const cleanCollections = data => data.children
   .filter(({ originalName }) => !originalName.includes('.spec'))
-  .map((r) => {
+  .map(r => {
     const clone = Object.assign({}, r)
     clone.originalName = S(r.originalName).between('/src/', '.').s.toLowerCase()
     clone.name = S(r.name).between('"', '"').s
     return clone
   })
-  .map((c) => ({ params: getParams(c.originalName), ...c }))
+  .map(c => ({ params: getParams(c.originalName), ...c }))
 
-const groupCollections = (collections) => groupBy(collections, (c) => c.params.collection)
+const groupCollections = collections => groupBy(collections, c => c.params.collection)
 
 const groupParts = ([name, parts]) =>
   parts[0].params.part && ({
-    children: groupBy(parts, (p) => p.params.part),
+    children: groupBy(parts, p => p.params.part),
     name
   }) || ({
     children: parts,
@@ -46,11 +46,11 @@ const groupParts = ([name, parts]) =>
   })
 
 const mergeChildren = ([ item, ...items ]) =>  (
-  item.children && item.children.concat(...items.map((i) => i.children))
+  item.children && item.children.concat(...items.map(i => i.children))
   || item.children
 )
 
-const mergeItems = (children) => Object.entries(children).map(
+const mergeItems = children => Object.entries(children).map(
   ([part, items]) => ({
     children: mergeChildren(items),
     name: part
@@ -82,9 +82,9 @@ async function getModules (data): Promise<DocsModules> {
 }
 
 /** Thunk action */
-const loadModules = (types) =>
-  (dispatch) => getModules(types)
-    .then((modules) => {
+const loadModules = types =>
+  dispatch => getModules(types)
+    .then(modules => {
       return dispatch(actions.loadModules(modules))
     })
 

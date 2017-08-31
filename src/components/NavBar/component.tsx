@@ -4,23 +4,23 @@ import {
   Anchor,
   Box
 } from 'atoms'
+import { BoxProps } from 'atoms/Box'
 
-interface NavItem {
-  id?: string,
-  to?: string,
-  className?: string,
-  text?: string
+export interface NavItem {
+  id: string,
+  to: string,
+  text: string
 }
 
-interface NavBar {
+export interface NavBar {
   navItems: NavItem[],
-  layout: any
+  box?: BoxProps
 }
 
-const NavBar: React.SFC<NavBar> = ({ navItems, layout }) => (
-  <Box {...layout}>
+const NavBar: React.SFC<NavBar> = ({ navItems, box }) => (
+  <Box {...box}>
     {navItems.map(item => (
-      <Anchor key={item.id} id={item.id} {...item}>{item.text}</Anchor>
+      <Anchor key={item.id} {...item}>{item.text}</Anchor>
     ))}
   </Box>
 )

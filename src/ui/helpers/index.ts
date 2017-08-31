@@ -1,33 +1,15 @@
-import {
-  AlignContent,
-  AlignItems,
-  AutoFlow,
-  Display,
-  Justify,
-  TextAlign
-} from './cssTypes'
+import border from './border'
 import fontFace from './fontFace'
-import gridContainer, { GridContainer } from './gridContainer'
-import gridItem, { GridItem } from './gridItem'
-import layout, { Layout } from './layout'
+import gridHelpers from './gridHelpers'
+import hasUnit from './hasUnit'
+import setBackground from './setBackground'
+import setDisplay from './setDisplay'
 
-/** Types */
 export {
-  AlignContent,
-  AlignItems,
-  AutoFlow,
-  Display,
-  GridContainer,
-  GridItem,
-  Justify,
-  Layout,
-  TextAlign
-}
-
-/** Helpers */
-export {
+  border,
   fontFace,
-  gridContainer,
-  gridItem,
-  layout
+  gridHelpers,
+  hasUnit,
+  setBackground,
+  setDisplay
 }

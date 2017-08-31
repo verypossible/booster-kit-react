@@ -1,48 +1,28 @@
 import * as React from 'react'
 
 import atom, { css } from 'ui'
-import {
-  gridContainer,
-  GridContainer,
-  gridItem,
-  GridItem,
-  layout,
-  Layout
-  TextAlign
-} from 'ui/helpers'
+import { setBackground, setDisplay } from 'ui/helpers'
+import * as setProps from 'ui/props'
+import { Common, Flex, Grid, Spacing } from 'ui/props/types'
 
-type BoxTags = 'div' | 'span' | 'section'
+type BoxTags = 'div' | 'span' | 'section' | 'nav'
 
-interface BoxProps extends GridContainer, GridItem, Layout  {
-  background?: string,
+export interface BoxProps extends Common, Flex, Grid, Spacing  {
   children?: any,
   className?: string,
   id?: string,
-  inverse?: boolean
   role?: string,
-  round?: string,
-  tag?: BoxTags,
-  textAlign?: TextAlign
+  tag?: BoxTags
 }
 
-const setBackground = (background, inverse, colors) => `
-  ${
-    colors[background] ||
-    (inverse && colors.backgroundInverse) ||
-    background
-  }
-`
-
-const boxStyles = ({
-  background,
-  inverse,
-  round,
-  textAlign,
-  theme: { colors }
-}: BoxProps) => css`
-  ${round && `border-radius: ${round};`}
-  ${(background || inverse) && `background-color: ${setBackground(background, inverse, colors)};`},
-  ${textAlign && `textAlign: ${textAlign};`}
+const BoxElement = atom.div.attrs({
+  bgColor: props => setBackground(props),
+  display: props => setDisplay(props)
+})`
+  ${setProps.common}
+  ${setProps.flex}
+  ${setProps.grid}
+  ${setProps.spacing}
 `
 
 const Box: React.SFC<BoxProps> = ({
@@ -50,20 +30,10 @@ const Box: React.SFC<BoxProps> = ({
   tag,
   ...props
 }) => {
-  const BoxElement = atom.div`
-    ${gridContainer}
-    ${gridItem}
-    ${layout}
-    ${boxStyles}
-  `
+  const BoxWithTag = BoxElement.withComponent(tag)
+  const RenderBox = !tag ? BoxElement : BoxWithTag
 
-  if (tag) {
-    /** If a custom DOM tag is specified, this replaces the tag used with the value passed */
-    const BoxWithTag = BoxElement.withComponent(tag)
-    return <BoxWithTag {...props}>{children}</BoxWithTag>
-  }
-
-  return <BoxElement {...props}>{children}</BoxElement>
+  return <RenderBox {...props}>{children}</RenderBox>
 }
 
 export default Box

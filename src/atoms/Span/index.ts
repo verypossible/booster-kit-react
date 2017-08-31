@@ -1,12 +1,13 @@
 import atom, { css } from 'ui'
-import { layout, Layout } from 'ui/helpers'
+import * as setProps from 'ui/props'
+import { Common, Spacing } from 'ui/props/types'
 
 interface Font {
   size: string,
   weight: string
 }
 
-declare interface Span extends Layout {
+declare interface Span extends Common, Spacing {
   alignVertical?: string,
   color?: string,
   font?: Font,

@@ -13,28 +13,29 @@ const getValue = (value, units) => {
   }
 }
 
-const autoTrack = name => /^px|em|rem|%|vh|vmin/.test(name)
+const autoTrack = name => /px|em|rem|%|vh|vmin/.test(name)
 
 const valueAccumulator = (parts, units, length) => {
   let prevName
   const result = (name, val) => !autoTrack(name) ? [val] : [name]
   return parts.reduce((acc, [name, value], index) => {
     const base = val => `[${prevName}-end ${name}-start] ${getValue(val, units)}`
-    if (index === 0) {
-      const first = result(name, `[${name}-start] ${getValue(value, units)}`)
-      prevName = name
-      return acc.concat(first)
+    switch (true) {
+      case autoTrack(name):
+        return acc.concat([name])
+      case index === 0:
+        const first = result(name, `[${name}-start] ${getValue(value, units)}`)
+        prevName = name
+        return acc.concat(first)
+      case index === (length - 1):
+        const last = result(name, `${base(value)} [${name}-end]`)
+        prevName = name
+        return acc.concat(last)
+      default:
+        const middle = result(name, base(value))
+        prevName = name
+        return acc.concat(middle)
     }
-
-    if (index === (length - 1)) {
-      const last = result(name, `${base(value)} [${name}-end]`)
-      prevName = name
-      return acc.concat(last)
-    }
-
-    const middle = result(name, base(value))
-    prevName = name
-    return acc.concat([middle])
   }, [])
 }
 
@@ -58,18 +59,14 @@ export const buildTrack = track => {
 export const buildTrackItem = trackItem => {
   const span = S(trackItem).include('/')
   if (span) {
-    const trackParts = S(trackItem)
+    const trackItems = S(trackItem)
       .split('/')
       .map(s => s.trim())
 
-    const formatStart = start => S(start).include('-start') ? start : `${start}-start`
-    const formatEnd = end => S(end).include('-end') ? end : `${end}-end`
-    const [rowStart, columnStart, rowEnd, columnEnd] = trackParts
-    return {
-      column: `${formatStart(columnStart)} / ${formatEnd(columnEnd)}`,
-      row: `${formatStart(rowStart)} /  ${formatEnd(rowEnd)}`
-
-    }
+    const [start, end] = trackItems
+    const formatStart = S(start).include('-start') ? start : `${start}-start`
+    const formatEnd = S(end).include('-end') ? end : `${end}-end`
+    return `${formatStart} / ${formatEnd}`
   }
 
   return `${trackItem}-start`

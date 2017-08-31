@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { Route } from 'react-router-dom'
 
 import { connectDocs } from './data'
 import { compose, errorBoundary } from './helpers'

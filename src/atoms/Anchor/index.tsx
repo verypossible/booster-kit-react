@@ -1,6 +1,8 @@
 import * as React from 'react'
-import atom from 'ui'
-import { layout, Layout } from 'ui/helpers'
+import atom, { css } from 'ui'
+import { border as makeBorder, setDisplay } from 'ui/helpers'
+import * as setProps from 'ui/props'
+import { Common, Spacing } from 'ui/props/types'
 
 import {
   Link,
@@ -9,33 +11,34 @@ import {
 
 import { AnchorProps } from './AnchorProps'
 
-interface MergedProps extends Layout {
+interface MergedProps {
   className?: string
 }
 
-const makeBorder = border => {
-  if (typeof border === 'object') {
-    return Object.entries(border).map(([key, value]) => `border-${key}: ${value};`).join(' ')
-  }
-  return border
+export interface AnchorProps extends MergedProps, Common {
+  alignVertical?: string,
+  border?: string,
+  children?: any,
+  color?: string,
+  inline?: boolean,
+  id?: string,
+  navLink?: boolean,
+  to: string | object,
+  type?: string
 }
 
 /** Maps props to styles */
-const styles = ({ alignVertical, border, color, theme}: AnchorProps & MergedProps) => `
+const anchorStyles = ({ alignVertical, border, color, theme }: AnchorProps) => css`
   color: ${theme.colors[color] || color};
   text-decoration: none;
   font-family: Helvetica;
   ${alignVertical && `vertical-align: ${alignVertical};`}
   ${border && makeBorder(border)}
-
 `
 
 const activeStyle = {
   textDecoration: 'underline'
 }
-
-/** Creates a naked anchor element */
-const Href = ({ children, ...props}) => React.createElement('a', { ...props }, children)
 
 /** Selects which type of anchor to use based on props */
 const GetAnchor: React.SFC<AnchorProps> = ({
@@ -44,35 +47,19 @@ const GetAnchor: React.SFC<AnchorProps> = ({
   className,
   to,
   navLink
-}: AnchorProps & MergedProps) => {
-  const common = { className, id }
+}: AnchorProps) => {
   const external = to && typeof to === 'string' && to.includes('http')
+  const shared = { className, id }
+  const linkProps = { to, ...shared }
 
-  const linkProps = { to, ...common }
+  const Naked = React.createElement('a', { href: to, target: '_blank', ...shared }, children)
+  const Nav = React.createElement(NavLink, { activeStyle, ...linkProps }, children)
+  const RouterLink = React.createElement(Link, { ...linkProps }, children)
 
   return (
-    (external && (
-      <Href
-        children={children}
-        href={to}
-        target='_blank'
-        {...common}
-      />
-    )) ||
-    (navLink && (
-      <NavLink
-        activeStyle={activeStyle}
-        {...linkProps}
-      >
-        {children}
-      </NavLink>
-    )) || (
-      <Link
-        {...linkProps}
-      >
-        {children}
-      </Link>
-    )
+    external && Naked ||
+    navLink && Nav ||
+    RouterLink
   )
 }
 
@@ -81,8 +68,11 @@ const GetAnchor: React.SFC<AnchorProps> = ({
  * It can also be wrapped with a `<NavLink>` if the `navLink` prop is true
  * or a naked `<a>` element if the `external` prop is true.
  */
-const Anchor = atom(GetAnchor)`
-  ${layout}
-  ${styles}
+const Anchor = atom(GetAnchor).attrs({
+  display: props => setDisplay(props)
+})`
+  ${setProps.common}
+  ${setProps.spacing}
+  ${anchorStyles}
 `
 export default Anchor

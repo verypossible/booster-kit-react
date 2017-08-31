@@ -1,4 +1,4 @@
-declare type ThemeLayoutSizeSelector = 'full' | 'half' | 'quarter'
+declare type ThemeLayoutSizeSelector = '1/2' | '1/4' | '3/4' | 'full' | 'fullvh'
 
 declare interface ThemeLayoutSizes {
   full?: string,

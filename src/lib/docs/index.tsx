@@ -11,8 +11,7 @@ class AsyncDocs extends React.Component<any, State> {
   public static displayName = 'Docs'
   public componentWillMount () {
      import(/* webpackChunkName: "docs" */ './container')
-      .then((docs) => this.setState({ docs: docs.default }))
-      .catch((err) => console.error(err))
+      .then(docs => this.setState({ docs: docs.default }))
   }
 
   public render () {

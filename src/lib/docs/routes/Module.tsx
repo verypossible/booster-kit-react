@@ -5,10 +5,9 @@ import styled from 'styled-components'
 import { LinkBar } from '../components'
 import { H1, H2 } from '../components/Headers'
 import ItemDetail, { ModuleUsage } from '../components/Module'
-import { connectDocs } from '../data'
 import { ConnectProps } from '../types'
 
-const moduleNav = (url) => [{
+const moduleNav = url => [{
   id: `${url}-root`,
   text: 'Usage',
   to: `${url}`

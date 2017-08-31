@@ -9,12 +9,14 @@ import {
   Paragraph,
   Span
 } from 'atoms'
+import AutoColumnGrid from 'layouts/AutoColumnGrid'
+import TwoColumn from 'layouts/TwoColumn'
 
 import renderIcons from './RenderIcons'
 import Terminal from './Terminal'
 
 const Nav = () => (
-  <Box area='leftMiddle'>
+  <Box area={{ col: 'leftBottom' }} justifySelf='center'>
     <Link to='docs'>
       <Button color='primaryInverse'>
         Docs
@@ -24,34 +26,25 @@ const Nav = () => (
 )
 
 const LogoGrid = () => (
-  <Box
-    area='rightBottom'
-    autoFlow='row'
-    align='center'
-    columns='repeat(auto-fit, minmax(50px, 1fr))'
-    justify='center'
-    rows='100px / 100px / 100px'
-    pad='large'
-  >
+  <AutoColumnGrid area={{ col: 'rightBottom' }} align='center' justify='center' rows='100px 100px 100px'>
     <Span color='#CCC'>Powered By</Span>
     {renderIcons}
-  </Box>
+  </AutoColumnGrid>
 )
 
 const LeftHeader = () => (
-  <Box area='leftTop' align='end' justify='center' grid>
-    <Icon icon='Trademark' color='primary' width='3' align='end' />
+  <Box area={{ col: 'leftTop' }} align='end' justify='center' grid>
+    <Icon icon='Trademark' color='primary' width='3' />
     <Paragraph color='primary'>Learn The Framework</Paragraph>
   </Box>
 )
 
 const RightHeader = () => (
-  <Box area='rightTop' alignContent='start' justify='end' margin={{ right: 'medium' }} grid>
+  <Box area={{ col: 'rightTop' }} align='end' margin={{ right: 'medium' }} grid>
     <Anchor
       to='https://github.com/verypossible/booster-kit-react'
       color='primaryInverse'
       margin='small'
-      display='flex'
       height='full'
       align='center'
     >
@@ -61,17 +54,21 @@ const RightHeader = () => (
 )
 
 const HomeView = () => (
-  <Box height='fullvh' columns='left 1 / right 3'>
-    <Box area='left' justify='center' background='backgroundInverse' rows='leftTop / leftMiddle / leftBottom'>
+  <TwoColumn split='1/4' height='fullvh' width='100%'>
+    <Box
+      area={{ col: 'left' }}
+      background='backgroundInverse'
+      rows='leftTop / leftMiddle / leftBottom'
+    >
       <LeftHeader />
       <Nav />
     </Box>
-    <Box area='left' rows='rightTop / rightMiddle / rightBottom'>
+    <Box area={{ col: 'right' }} rows='rightTop / rightMiddle / rightBottom'>
       <RightHeader />
       <Terminal />
       <LogoGrid />
     </Box>
-  </Box>
+  </TwoColumn>
 )
 
 export default HomeView

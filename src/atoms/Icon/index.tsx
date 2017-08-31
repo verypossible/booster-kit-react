@@ -2,18 +2,18 @@ import * as React from 'react'
 import * as Icons from 'react-feather'
 
 import atom, { css } from 'ui'
-import { layout, Layout } from 'ui/helpers'
+import * as setProps from 'ui/props'
+import { Common } from 'ui/props/types'
 
 import { Logo, Trademark } from './Brand'
 import { CustomCircle } from './CustomCircle'
 import Vendor from './Vendor'
 
-interface Icon extends Layout {
+interface Icon extends Common {
   color?: string,
   fill?: string,
   icon?: string,
   className?: string,
-  size?: ThemeSizeSelector,
   status?: ThemeStatusSelector
 }
 
@@ -36,7 +36,7 @@ const GetIcon: React.SFC<Icon> = ({ className, color, fill, icon = 'Circle' }) =
 }
 
 const Icon = atom(GetIcon)`
-  ${layout}
+  ${setProps.common}
   ${styles}
 `
 export default Icon
