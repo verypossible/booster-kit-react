@@ -1,8 +1,10 @@
+import highlight from './highlight'
 import { injectGlobal } from './index'
 import normalize from './normalize'
 
 export default () => injectGlobal`
   ${normalize}
+  ${highlight}
 
   a {
     text-decoration: none;

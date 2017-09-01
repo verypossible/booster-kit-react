@@ -53,17 +53,10 @@ function reducer (
       }
 
     case LOAD_MARKDOWN:
-      return {
-        ...state,
-        markdown: action.payload
-      }
-
     case UPDATE_MARKDOWN:
       return {
         ...state,
-        markdown: state.markdown.map((staticDoc) => (
-          (staticDoc.path === action.payload.path) ? action.payload : staticDoc)
-        )
+        markdown: action.payload
       }
 
     default:

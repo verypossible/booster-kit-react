@@ -12,7 +12,7 @@ const productionConfig = {
   entry: entry.production,
   output: {
     chunkFilename: `[name].[hash].js`,
-    filename: `[name].[chunkhash].js`,
+    filename: `[name].[hash].js`,
     publicPath: '/'
   },
   devtool: 'source-map',

@@ -5,13 +5,13 @@ import { markdownLoader } from '../helpers'
 
 import { actions } from './state'
 
-const directories = (files) => files.map((f) => f.path.replace(/^\//, '').split('/'))
+const directories = files => files.map(f => f.path.replace(/^\//, '').split('/'))
 
 function buildDirectories (parsedFiles) {
   const buildTree = (children, oldPath) => (
-    Object.entries(groupBy(children, (f) => f.shift()))
+    Object.entries(groupBy(children, f => f.shift()))
       .map(([path, files]) => {
-        const validFiles = files.filter((f) => f.length !== 0)
+        const validFiles = files.filter(f => f.length !== 0)
         const currentFile = `${oldPath}/${path}`
         const baseObj = { path: currentFile }
 
@@ -52,7 +52,7 @@ export function parseMarkdown (name: string, content: string) {
                 .strip('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '-')
                 .splitRight('/')
 
-  const pathSlugs = sanitizedPath.map((part) => S(part).dasherize().chompLeft('-').s)
+  const pathSlugs = sanitizedPath.map(part => S(part).dasherize().chompLeft('-').s)
   const path = pathSlugs.join('/')
   return {
     content: `<markdown>${content}</markdown>`,
@@ -64,16 +64,24 @@ export function parseMarkdown (name: string, content: string) {
 }
 
 const getStaticDocs = () => {
-  return (dispatch) => {
+  return dispatch => {
     const payload = []
     function subscribeToFile (name, content, isReload) {
-      const getData = parseMarkdown(name, content)
+      const parsedData = parseMarkdown(name, content)
 
       if (isReload) {
-        return dispatch(actions.updateMarkdown(getData))
+        const updatedPayload = payload.reduce((acc, curr) => {
+          if (curr.path === parsedData.path) {
+            return [...acc, ...parsedData]
+          }
+          return [...acc, ...curr]
+        })
+
+        const updatedDirectories = buildDirectories(updatedPayload)
+        return dispatch(actions.updateMarkdown(updatedDirectories))
       }
 
-      return payload.push(getData)
+      return payload.push(parsedData)
     }
 
     markdownLoader(subscribeToFile)

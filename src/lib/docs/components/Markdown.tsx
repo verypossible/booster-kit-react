@@ -1,5 +1,3 @@
-import 'prismjs/themes/prism-tomorrow.css'
-
 import markdownIt from 'markdown-it'
 import Prism from 'prismjs'
 import * as React from 'react'

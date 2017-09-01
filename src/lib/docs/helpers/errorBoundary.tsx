@@ -6,13 +6,13 @@ interface State {
   hasError?: boolean
 }
 
-const errorWrapper = (WrappedComponent) => {
+const errorWrapper = WrappedComponent => {
   class ErrorBoundary extends React.Component<any, State> {
     public static displayName = getDisplayName(WrappedComponent, 'errorBoundary')
 
-    public componentDidCatch () {
-      this.setState({ hasError: true })
-    }
+    // public componentDidCatch () {
+    //   this.setState({ hasError: true })
+    // }
 
     public render () {
       if (this.state && this.state.hasError) {

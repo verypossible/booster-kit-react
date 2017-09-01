@@ -2,8 +2,6 @@ import Prism from 'prismjs'
 import * as React from 'react'
 import styled from 'styled-components'
 
-import 'prismjs/themes/prism-tomorrow.css'
-
 interface StyleProps {
   area?: string
 }

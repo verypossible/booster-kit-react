@@ -26,6 +26,9 @@ export default {
     },
     development: {
       plugins: devPlugins
+    },
+    test: {
+      plugins: ['dynamic-import-node']
     }
   }
 }

@@ -16,7 +16,7 @@ const AppEntry = withSubRoutes<LP>(EntryLayout)
 
 const Routes: React.SFC<SubRoutes<LP>> = ({ routes, store }) => (
   <AppEntry routes={routes} store={store}>
-    <Docs />
+    {__DEV__ && <Docs />}
   </AppEntry >
 )
 

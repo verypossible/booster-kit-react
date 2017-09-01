@@ -1,5 +1,3 @@
-import 'prismjs/themes/prism-tomorrow.css'
-
 import * as React from 'react'
 import styled from 'styled-components'
 

@@ -1,13 +1,14 @@
 import markdownIt from 'markdown-it'
 import Prism from 'prismjs'
 
-const aliases = {
-  'js': 'jsx',
-  'html': 'markup',
-  'sh': 'bash'
-}
-
 const highlight = (str, lang) => {
+  const aliases = {
+    js: 'jsx',
+    html: 'markup',
+    sh: 'bash'
+  }
+
+
   if (!lang) {
     return str
   }

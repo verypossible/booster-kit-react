@@ -6,6 +6,7 @@ const moduleNameMaps = {
 const jestConfig = {
   transform: {
     '^.+\\.js$': 'babel-jest',
+    '^.+\\.js$': './test/config/jsPreprocessor.js',
     '\\.(ts|tsx)$': './node_modules/ts-jest/preprocessor.js',
     '\\.(gql|graphql)$': './test/config/transformGraphQL.js'
   },
@@ -33,7 +34,10 @@ const jestConfig = {
     __AUTH_URL__: 'veryservices.auth0.com',
     __AUTH_REDIRECT_URI__: 'http://localhost:3000/callback',
     __AUTH_REDIRECT_URI_SILENT__: 'http://localhost:3000/silent_callback',
-    __CLIENT_TOKEN__: false
+    __CLIENT_TOKEN__: false,
+    'test-jest': {
+      useBabelrc: true
+    }
   },
   moduleFileExtensions: [
     'js',
