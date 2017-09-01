@@ -16,13 +16,13 @@ const TaskBar = atom.div`
 
 const icon = {
   icon: 'CustomCircle',
-  margin: { top: '0.3', left: '0.5'},
+  margin: '0.3 0 0 0.5',
   noFlex: true,
   width: '1'
 }
 
 const Terminal = () => (
-  <Box area={{ col: 'rightMiddle' }} background='rgb(45, 45, 45)' width='3/4' height='15' round='0.5' noFlex>
+  <Box background='rgb(45, 45, 45)' height='15' width='3/4' margin='0 auto' round='0.5' noFlex>
     <TaskBar>
       <Icon fill='#FF6152' {...icon} />
       <Icon fill='#FFC400' {...icon} />

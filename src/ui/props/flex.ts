@@ -1,39 +1,41 @@
 import { css } from '../index'
 
-export type FlexDirection = 'row' | 'row-reverse' | 'column' | 'column-reverse'
-
-export type FlexWrap = 'nowrap' | 'wrap' | 'wrap-reverse'
-
-export type FlexDirectionWrap = 'row nowrap' | 'column wrap' | 'column-reverse wrap reverse'
-
-export type FlexFlow = FlexDirection & FlexWrap & FlexDirectionWrap
+type FlexFlow = (
+  'row' |
+  'row-reverse' |
+  'column' |
+  'column-reverse' |
+  'nowrap' |
+  'wrap' |
+  'wrap-reverse' |
+  'row nowrap' |
+  'column wrap' |
+  'column-reverse wrap reverse'
+)
 
 export interface Flex {
   basis?: string,
-  direction?: FlexDirection,
+  direction?: string,
   flow?: FlexFlow,
   grow?: string,
   order?: string,
-  shrink?: string,
-  wrap?: FlexWrap
+  shrink?: string
 }
 
-const flex = ({
+const flexProps = ({
   basis,
   direction,
   flow,
   grow,
   order,
-  shrink,
-  wrap
+  shrink
 }: Flex) => css`
   ${basis && `flex-basis: ${basis};`}
   ${direction && `flex-direction: ${direction};`}
-  ${grow && `flex-grow: {grow};`}
-  ${flow && `flex-flow: ${flow || 'row'};`}
+  ${grow && `flex-grow: ${grow};`}
+  ${flow && `flex-flow: ${flow};`}
   ${order && `flex-order: ${order};`}
   ${shrink && `flex-shrink: ${shrink};`}
-  ${wrap && `flex-wrap: ${wrap};`}
 `
 
-export default flex
+export default flexProps

@@ -4,13 +4,13 @@ import * as React from 'react'
 
 import atom from 'ui'
 
-interface Props {
+interface Props extends Theme {
   className?: string,
   markdown: string
 }
 
 const Markdown: React.SFC<Props> = ({ className, markdown }) => (
-  <div className={className} key={name} dangerouslySetInnerHTML={{ __html: markdown }} />
+  <div className={className} dangerouslySetInnerHTML={{ __html: markdown }} />
 )
 
 export default atom(Markdown)`

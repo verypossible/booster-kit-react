@@ -18,14 +18,14 @@ const theme = {
   dark: {
     background: common.backgroundDark,
     backgroundInverse: common.backgroundLight,
-    primary: common.dark,
-    primaryInverse: common.light
+    primary: common.light,
+    primaryInverse: common.dark
   },
   light: {
     background: common.backgroundLight,
     backgroundInverse: common.backgroundDark,
-    primary: common.light,
-    primaryInverse: common.dark
+    primary: common.dark,
+    primaryInverse: common.light
   }
 }
 

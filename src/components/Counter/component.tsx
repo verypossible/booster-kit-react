@@ -5,7 +5,7 @@ import { Dispatch } from 'lib/types'
 import {
   Box,
   Button,
-  H2,
+  Header,
   Span
 } from 'atoms'
 
@@ -21,9 +21,9 @@ const Counter: React.SFC<CounterProps> = ({
   single
 }) => (
   <Box>
-    <H2>
+    <Header tag='h2'>
       Counter: <Span id='count' color='lightGray'>{counter}</Span>
-    </H2>
+    </Header>
     <Button
       id='incrementCounter'
       onClick={single}

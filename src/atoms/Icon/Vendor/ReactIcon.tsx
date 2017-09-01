@@ -1,6 +1,8 @@
 /* tslint:disable:max-line-length */
 import * as React from 'react'
 
+import { Icon } from '../index'
+
 export default function ReactIcon ({ className }: Icon) {
   return (
     <svg fill='currentColor' className={className} viewBox='0 0 16 16' clipRule='evenodd' strokeLinejoin='round' strokeMiterlimit='1.414'>

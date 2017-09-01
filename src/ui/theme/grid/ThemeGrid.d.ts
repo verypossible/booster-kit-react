@@ -1,5 +1,5 @@
 declare interface ThemeGrid {
   grid?: {
-    gap: ThemeSizeOptions
+    gap?: ThemeSizeOptions
   }
 }

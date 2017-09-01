@@ -1,6 +1,13 @@
 export default {
   family: {
-    headings: 'Helvetica Neue',
+    headings: {
+      h1: 'Helvetica Neue',
+      h2: 'Helvetica Neue',
+      h3: 'Helvetica Neue',
+      h4: 'Helvetica Neue',
+      h5: 'Helvetica Neue',
+      h6: 'Helvetica Neue'
+    },
     text: `
     -apple-system,
     BlinkMacSystemFont,

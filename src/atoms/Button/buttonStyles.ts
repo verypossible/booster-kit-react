@@ -1,13 +1,21 @@
+import { ButtonProps } from './ButtonProps'
+
 const flat = ({
   background,
   color,
-  theme: { colors, transitions },
+  invert,
+  theme,
   fill
-}: Button) => {
-  const matchBg = background || colors[color] || color
-  const matchColor = colors[color] || color
-  const setColor = invert => !invert ? (fill ? '#FFF' : matchColor) : (fill ? matchColor : '#FFF')
-  const setBg = invert => !invert ? (fill ? matchBg : '#FFF') : (fill ? '#FFF' : matchBg)
+}: ButtonProps): string => {
+  const matchBg = !invert && theme.colors.background || invert && theme.colors.backgroundInverse || background
+  const matchColor = (
+    theme.colors[color] ||
+    color ||
+    invert && theme.colors.primary ||
+    !invert && theme.colors.primaryInverse
+  )
+  const setColor = (swap?: boolean) => !swap ? (fill ? '#FFF' : matchColor) : (fill ? matchColor : '#FFF')
+  const setBg = (swap?: boolean) => !swap ? (fill ? matchBg : '#FFF') : (fill ? '#FFF' : matchBg)
   return `
     color: ${setColor(true)};
     background-color: ${setBg(true)};
@@ -16,7 +24,7 @@ const flat = ({
     &:hover {
       color: ${setColor()};
       background-color: ${setBg()};
-      transition: ${transitions.easeInOut300}
+      transition: ${theme.transitions.easeInOut300}
     }
 
     > svg {
@@ -32,7 +40,7 @@ const flat = ({
 const social = ({
   background = '#000',
   color = '#FFF'
-}: Button) => `
+}: ButtonProps): string => `
   color: ${color};
   background-color: ${background};
 `

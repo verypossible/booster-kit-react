@@ -1,13 +1,12 @@
 import * as React from 'react'
 
-import atom, { css } from 'ui'
-import { setBackground, setDisplay } from 'ui/helpers'
+import atom from 'ui'
 import * as setProps from 'ui/props'
-import { Common, Flex, Grid, Spacing } from 'ui/props/types'
+import { BgColor, Color, Common, Flex, Grid, Spacing } from 'ui/props/types'
 
 type BoxTags = 'div' | 'span' | 'section' | 'nav'
 
-export interface BoxProps extends Common, Flex, Grid, Spacing  {
+export interface BoxProps extends BgColor, Color, Common, Grid, Flex, Spacing  {
   children?: any,
   className?: string,
   id?: string,
@@ -15,25 +14,23 @@ export interface BoxProps extends Common, Flex, Grid, Spacing  {
   tag?: BoxTags
 }
 
-const BoxElement = atom.div.attrs({
-  bgColor: props => setBackground(props),
-  display: props => setDisplay(props)
-})`
+const BoxElement: React.SFC<BoxProps> = ({
+  children,
+  className
+}) => <div className={className}>{children}</div>
+
+const Box = atom(BoxElement)`
+  ${setProps.bgColor}
+  ${setProps.color}
   ${setProps.common}
   ${setProps.flex}
   ${setProps.grid}
   ${setProps.spacing}
 `
 
-const Box: React.SFC<BoxProps> = ({
-  children,
-  tag,
-  ...props
-}) => {
-  const BoxWithTag = BoxElement.withComponent(tag)
-  const RenderBox = !tag ? BoxElement : BoxWithTag
-
-  return <RenderBox {...props}>{children}</RenderBox>
+const BoxWithTag = ({ tag, ...props }) => {
+  const El = Box.withComponent(tag)
+  return <El {...props} />
 }
 
-export default Box
+export default props => !props.tag ? <Box {...props} /> : <BoxWithTag {...props} />

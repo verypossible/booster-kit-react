@@ -1,6 +1,8 @@
 /* tslint:disable:max-line-length */
 import * as React from 'react'
 
+import { Icon } from '../index'
+
 export default function Apollo ({ className }: Icon) {
   return (
     <svg className={className} id='Layer_1' viewBox='0 0 807.682 331.561' enableBackground='new 0 0 807.682 331.561'>

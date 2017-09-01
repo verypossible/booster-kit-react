@@ -3,19 +3,18 @@ import * as React from 'react'
 import { Box } from 'atoms'
 import { BoxProps } from 'atoms/Box'
 
-interface AutoGridProps {
-  direction?: 'row' | 'column',
+interface AutoGridProps extends BoxProps {
   minBoxSize?: string
 }
 
-const AutoColumnGrid: React.SFC<BoxProps> = ({
+const AutoColumnGrid: React.SFC<AutoGridProps> = ({
   children,
-  direction = 'row',
-  minBoxSize = '6'
+  autoFlow = 'row',
+  minBoxSize = '6',
   ...props
 }) => (
   <Box
-    autoFlow={direction}
+    autoFlow={autoFlow}
     columns={`repeat(auto-fill, minmax(${minBoxSize}em, 1fr))`}
     {...props}
   >

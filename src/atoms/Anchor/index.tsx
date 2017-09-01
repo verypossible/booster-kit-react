@@ -1,26 +1,19 @@
 import * as React from 'react'
 import atom, { css } from 'ui'
-import { border as makeBorder, setDisplay } from 'ui/helpers'
+import { border as makeBorder } from 'ui/helpers'
 import * as setProps from 'ui/props'
-import { Common, Spacing } from 'ui/props/types'
+import { Color, Common, Font, Spacing } from 'ui/props/types'
 
 import {
   Link,
   NavLink
 } from 'lib/router'
 
-import { AnchorProps } from './AnchorProps'
-
-interface MergedProps {
-  className?: string
-}
-
-export interface AnchorProps extends MergedProps, Common {
+export interface AnchorProps extends Color, Common, Font, Spacing {
   alignVertical?: string,
   border?: string,
   children?: any,
-  color?: string,
-  inline?: boolean,
+  className?: string,
   id?: string,
   navLink?: boolean,
   to: string | object,
@@ -28,10 +21,8 @@ export interface AnchorProps extends MergedProps, Common {
 }
 
 /** Maps props to styles */
-const anchorStyles = ({ alignVertical, border, color, theme }: AnchorProps) => css`
-  color: ${theme.colors[color] || color};
+const anchorStyles = ({ alignVertical, border }: AnchorProps) => css`
   text-decoration: none;
-  font-family: Helvetica;
   ${alignVertical && `vertical-align: ${alignVertical};`}
   ${border && makeBorder(border)}
 `
@@ -53,13 +44,11 @@ const GetAnchor: React.SFC<AnchorProps> = ({
   const linkProps = { to, ...shared }
 
   const Naked = React.createElement('a', { href: to, target: '_blank', ...shared }, children)
-  const Nav = React.createElement(NavLink, { activeStyle, ...linkProps }, children)
-  const RouterLink = React.createElement(Link, { ...linkProps }, children)
 
   return (
     external && Naked ||
-    navLink && Nav ||
-    RouterLink
+    navLink && <NavLink {...linkProps} activeStyle={activeStyle}>{children}</NavLink> ||
+    <Link {...linkProps}>{children}</Link>
   )
 }
 
@@ -68,10 +57,10 @@ const GetAnchor: React.SFC<AnchorProps> = ({
  * It can also be wrapped with a `<NavLink>` if the `navLink` prop is true
  * or a naked `<a>` element if the `external` prop is true.
  */
-const Anchor = atom(GetAnchor).attrs({
-  display: props => setDisplay(props)
-})`
+const Anchor = atom(GetAnchor)`
+  ${setProps.color}
   ${setProps.common}
+  ${setProps.font}
   ${setProps.spacing}
   ${anchorStyles}
 `

@@ -1,5 +1,3 @@
-import withSubRoutes from 'hoc/withSubRoutes'
-
 import BoxLayout from './layout'
 
 export default [{

@@ -2,24 +2,24 @@ import * as styledComponents from 'styled-components'
 import { ThemedStyledComponentsModule, ThemedStyledProps } from 'styled-components'
 
 import renderGlobalStyles from './globals'
-import theme from './theme'
+import themes from './theme'
 
 const {
-    default: styled,
-    css,
-    injectGlobal,
-    keyframes,
-    ThemeProvider
+  default: styled,
+  css,
+  injectGlobal,
+  keyframes,
+  ThemeProvider
 } = styledComponents as ThemedStyledComponentsModule<ThemeInterface>
 
-export type ThemeProps<P> = ThemedStyledProps<P, ThemeInterface>
+export type WithTheme<P> = ThemedStyledProps<P, ThemeInterface>
 
 export {
   css,
   injectGlobal,
   keyframes,
   renderGlobalStyles,
-  theme,
+  themes,
   ThemeProvider
 }
 

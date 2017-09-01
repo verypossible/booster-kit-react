@@ -1,17 +1,16 @@
-declare interface ButtonStyles extends Theme {
-  fill?: boolean,
-  text?: string,
-  type?: string,
+export interface ButtonProps extends Theme {
   background?: string,
-  color?: string
-}
-
-declare interface Button extends ButtonStyles {
   children: any,
+  className?: string,
+  color?: string,
   disabled?: boolean,
+  fill?: boolean,
   icon?: string,
   iconColor?: string,
   id?: string,
+  invert?: boolean,
   onClick?: any,
   status?: ThemeStatusSelector,
+  text?: string,
+  type?: string
 }

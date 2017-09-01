@@ -16,9 +16,9 @@ import renderIcons from './RenderIcons'
 import Terminal from './Terminal'
 
 const Nav = () => (
-  <Box area={{ col: 'leftBottom' }} justifySelf='center'>
+  <Box justify='center' align='center'>
     <Link to='docs'>
-      <Button color='primaryInverse'>
+      <Button invert>
         Docs
       </Button>
     </Link>
@@ -26,44 +26,41 @@ const Nav = () => (
 )
 
 const LogoGrid = () => (
-  <AutoColumnGrid area={{ col: 'rightBottom' }} align='center' justify='center' rows='100px 100px 100px'>
-    <Span color='#CCC'>Powered By</Span>
+  <AutoColumnGrid alignItems='center' justifyItems='center' rows='100px 100px 100px'>
+    <Span color='lightGray' noFlex>Powered By</Span>
     {renderIcons}
   </AutoColumnGrid>
 )
 
 const LeftHeader = () => (
-  <Box area={{ col: 'leftTop' }} align='end' justify='center' grid>
-    <Icon icon='Trademark' color='primary' width='3' />
-    <Paragraph color='primary'>Learn The Framework</Paragraph>
+  <Box justifyContent='center' justify='end' alignItems='center' flow='column wrap'>
+    <Icon icon='Trademark' width='3' height='3' invert/>
+    <Paragraph invert>Learn The Framework</Paragraph>
   </Box>
 )
 
 const RightHeader = () => (
-  <Box area={{ col: 'rightTop' }} align='end' margin={{ right: 'medium' }} grid>
+  <Box justify='end' pad='0 medium 0 0'>
     <Anchor
       to='https://github.com/verypossible/booster-kit-react'
-      color='primaryInverse'
-      margin='small'
-      height='full'
-      align='center'
+      alignSelf='start'
+      justify='end'
+      height='1/2'
+      invert
     >
-      view on <Icon icon='Github' color='primaryInverse' width='xXLarge' margin={{ left: 'medium' }} />
+      <Span alignItems='center' justify='end'>view on</Span>
+      <Icon icon='Github' width='xXLarge' margin='0 0 0 medium' />
     </Anchor>
   </Box>
 )
 
 const HomeView = () => (
-  <TwoColumn split='1/4' height='fullvh' width='100%'>
-    <Box
-      area={{ col: 'left' }}
-      background='backgroundInverse'
-      rows='leftTop / leftMiddle / leftBottom'
-    >
+  <TwoColumn split='1/4' height='fullvh' width='full'>
+    <Box rows='leftTop / leftMiddle / leftBottom' invertBg>
       <LeftHeader />
       <Nav />
     </Box>
-    <Box area={{ col: 'right' }} rows='rightTop / rightMiddle / rightBottom'>
+    <Box rows='rightTop / rightMiddle / rightBottom' pad='medium medium 0'>
       <RightHeader />
       <Terminal />
       <LogoGrid />

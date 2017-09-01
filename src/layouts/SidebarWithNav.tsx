@@ -6,6 +6,12 @@ import NavBar from 'components/NavBar'
 
 import TwoColumn from './TwoColumn'
 
+interface NavItem {
+  id: string,
+  text: any,
+  to: string
+}
+
 interface LayoutSidebarProps {
   children?: any
   navItems?: NavItem[]

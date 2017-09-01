@@ -1,15 +1,15 @@
 import border from './border'
 import fontFace from './fontFace'
+import getDisplay from './getDisplay'
 import gridHelpers from './gridHelpers'
 import hasUnit from './hasUnit'
-import setBackground from './setBackground'
-import setDisplay from './setDisplay'
+import setUnit from './setUnit'
 
 export {
   border,
   fontFace,
+  getDisplay,
   gridHelpers,
   hasUnit,
-  setBackground,
-  setDisplay
+  setUnit
 }

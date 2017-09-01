@@ -1,6 +1,8 @@
 /* tslint:disable:max-line-length */
 import * as React from 'react'
 
+import { Icon } from '../index'
+
 export default function Auth0 ({ className }: Icon) {
   return (
     <svg color='currentColor' viewBox='0 0 16 16' className={className}>

@@ -1,4 +1,8 @@
+import { getDisplay, setUnit } from '../helpers'
+import { SetDisplay } from '../helpers/getDisplay'
 import { css } from '../index'
+
+import { Display } from './common'
 
 interface SizeObject {
   bottom?: string,
@@ -7,64 +11,63 @@ interface SizeObject {
   top?: string
 }
 
-export type Justify = 'start' | 'center' | 'between' | 'end'
+export type Justify = 'space-around' | 'space-between' | 'space-evenly'
 
 export type TextAlign = 'left' | 'center' | 'right'
 
-export type AlignItems = 'start' | 'end' | 'center' | 'stretch'
+export type Align = (
+  'start' |
+  'end' |
+  'center' |
+  'stretch' |
+  'auto' |
+  'normal' |
+  'baseline' |
+  'first baseline' |
+  'last baseline'
+)
 
-export type AlignContent = 'start' | 'end' | 'center' | 'stretch' | 'space-around' | 'space-between' | 'space-evenly'
-
-export interface Spacing extends Theme {
-  align?: AlignItems,
-  alignContent?: AlignContent,
-  alignSelf?: AlignItems,
-  justify?: Justify,
-  justifyContent?: AlignContent,
-  justifySelf?: Justify,
+export interface Spacing extends SetDisplay, Theme {
+  align?: Align | Justify,
+  alignItems?: Align,
+  alignSelf?: Align,
+  display?: Display,
+  justify?: Align | Justify,
+  justifyItems?: Align,
+  justifySelf?: Align,
   margin?: ThemeSizeSelector | SizeObject,
   pad?: ThemeSizeSelector | SizeObject,
-  prefix: 'default' | 'flex' | 'grid',
   textAlign?: TextAlign
-}
-
-const setUnit = (value, theme) => {
-  if (typeof value === 'object') {
-    const set = v => v && theme[v] || v && `${v}em` || '0'
-    return (
-      `${set(value.top)} ${set(value.right)} ${set(value.bottom)} ${set(value.left)}`
-    ))
-  }
-
-  return theme[value] || `${value}em`
 }
 
 const formats = {
   default: val => val,
-  flex: val => val !== 'center' ? `flex-{val}` : val,
+  flex: val => val !== 'center' ? `flex-${val}` : val,
   grid: val => val
 }
 
 const spacing = ({
   align,
-  alignContent,
+  alignItems,
   alignSelf,
+  display,
   justify,
-  justifyContent,
+  justifyItems,
   justifySelf,
   margin,
   pad,
-  prefix,
   textAlign,
-  theme
+  theme,
+  ...props
 }: Spacing) => {
-  const format = formats[prefix]
+  const useDisplay = display || getDisplay(props)
+  const format = formats[useDisplay] || formats.default
   return css`
-    ${justify && `justify-items: ${format(justify)};`}
-    ${justifyContent && `justify-content: ${format(justifyContent)};`}
+    ${justifyItems && `justify-items: ${format(justifyItems)};`}
+    ${justify && `justify-content: ${format(justify)};`}
     ${justifySelf && `justify-self: ${format(justifySelf)};`}
-    ${align && `align-items: ${format(align)};`}
-    ${alignContent && `align-content: ${format(alignContent)};`}
+    ${alignItems && `align-items: ${format(alignItems)};`}
+    ${align && `align-content: ${format(align)};`}
     ${alignSelf && `align-self: ${format(alignSelf)};`}
     ${pad && `padding: ${setUnit(pad, theme.layout.pad)};`}
     ${margin && `margin: ${setUnit(margin, theme.layout.margin)};`}

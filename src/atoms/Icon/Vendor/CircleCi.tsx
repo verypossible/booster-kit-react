@@ -1,6 +1,8 @@
 /* tslint:disable:max-line-length */
 import * as React from 'react'
 
+import { Icon } from '../index'
+
 export default function CircleCi ({ className }: Icon) {
   return (
     <svg fill='currentColor' className={className} viewBox='0 0 16 16'>

@@ -3,6 +3,7 @@ import * as React from 'react'
 import { Box } from 'atoms'
 import { BoxProps } from 'atoms/Box'
 
+/** Accepts these plus any BoxProp */
 interface TwoColumnProps extends BoxProps {
   children?: any,
   split: '1/2' | '1/3' | '1/4' | '2/3' | '3/4'
@@ -17,12 +18,11 @@ const configCols = {
   '3/4': 'left 3 / right 1'
 }
 
-const TwoColumn: React.StatelessComponent<TwoColumnProps> = ({ children, split, ...props }) => {
-  return (
-    <Box columns={configCols[split] || split} {...props} >
-      {children}
-    </Box>
-  )
-}
+/** Renders a two column grid. Rows are auto unless a `rows` prop is passed in. */
+const TwoColumn: React.StatelessComponent<TwoColumnProps> = ({ children, split, ...props }) => (
+  <Box columns={configCols[split] || split} {...props} >
+    {children}
+  </Box>
+)
 
 export default TwoColumn

@@ -33,9 +33,9 @@ const sizes = {
 
 const Icon = styled(GetIcon)`
   display: block;
-  margin: ${(props) => props.margin || '2em auto'};
-  padding: ${(props) => props.padding || '0'};
-  height: ${(props) => sizes[props.size] || sizes.small};
-  color: ${(props) => props.color || 'white'};
+  margin: ${props => props.margin || '2em auto'};
+  padding: ${props => props.padding || '0'};
+  height: ${props => sizes[props.size] || sizes.small};
+  color: ${props => props.color || 'white'};
 `
 export default Icon

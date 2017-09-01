@@ -1,14 +1,16 @@
-interface FontSizeConfig extends ThemeSizeOptions {
-  [key: string]: string
-}
-
 declare interface ThemeFont {
   font?: {
     family?: {
-      [key: string]: string,
-      headings?: string,
+      headings?: {
+        h1?: string,
+        h2?: string,
+        h3?: string,
+        h4?: string,
+        h5?: string,
+        h6?: string
+      },
       text?: string
     },
-    size?: FontSizeConfig
+    size?: ThemeSizeOptions
   }
 }

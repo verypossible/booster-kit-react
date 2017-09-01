@@ -1,6 +1,8 @@
 /* tslint:disable:max-line-length */
 import * as React from 'react'
 
+import { Icon } from './index'
+
 export function CustomCircle ({ color, fill, ...props }: Icon) {
   return (
     <svg

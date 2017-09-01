@@ -1,6 +1,8 @@
 /* tslint:disable:max-line-length */
 import * as React from 'react'
 
+import { Icon } from '../index'
+
 export default function TypeScriptIcon ({ className }: Icon) {
   return (
     <svg viewBox='0 0 630 630' className={className}>

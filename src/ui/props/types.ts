@@ -1,19 +1,20 @@
+import { BgColor } from './bgColor'
+import { Color } from './color'
 import { Common, Display } from './common'
-import { Flex, FlexDirection, FlexDirectionWrap, FlexFlow, FlexWrap } from './flex'
+import { Flex } from './flex'
+import { Font } from './font'
 import { AutoFlow, Grid } from './grid'
-import { AlignContent, AlignItems, Justify, Spacing, TextAlign } from './spacing'
+import { Align, Justify, Spacing, TextAlign } from './spacing'
 
 export {
-  AlignContent,
-  AlignItems,
+  Align,
   AutoFlow,
+  BgColor,
+  Color,
   Common,
   Display,
   Flex,
-  FlexDirection,
-  FlexDirectionWrap,
-  FlexFlow,
-  FlexWrap,
+  Font,
   Grid,
   Justify,
   Spacing,

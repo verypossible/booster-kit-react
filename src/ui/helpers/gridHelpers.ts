@@ -7,7 +7,7 @@ const getValue = (value, units) => {
     case S(value).isNumeric():
       return `${Math.round((value / units) * 100)}%`
     case !S(value).isNumeric():
-      return value
+      return `${value}`
     default:
       return null
   }
@@ -39,7 +39,7 @@ const valueAccumulator = (parts, units, length) => {
   }, [])
 }
 
-export const buildTrack = track => {
+export const buildTrack = (track: string): string => {
   const parts = track.includes('(') ? track : S(track)
     .split('/')
     .map(p => p.trim().split(' '))
@@ -50,7 +50,7 @@ export const buildTrack = track => {
       return percentBasedSize ? S(a[1]).toInteger() + S(b[1]).toInteger() : false
     })
 
-    return valueAccumulator(parts, units, parts.length).join(' ')
+    return `${valueAccumulator(parts, units, parts.length).join(' ')}`
   }
 
   return parts
@@ -72,7 +72,7 @@ export const buildTrackItem = trackItem => {
   return `${trackItem}-start`
 }
 
-export const buildGap = (gap, theme) => {
+export const buildGap = (gap: string, theme: ThemeInterface): string => {
   if (!gap) {
     return theme.grid.gap.medium
   }

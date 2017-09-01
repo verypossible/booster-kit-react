@@ -1,25 +1,20 @@
 import * as React from 'react'
 import * as Icons from 'react-feather'
 
-import atom, { css } from 'ui'
+import atom from 'ui'
 import * as setProps from 'ui/props'
-import { Common } from 'ui/props/types'
+import { Color, Common, Spacing } from 'ui/props/types'
 
 import { Logo, Trademark } from './Brand'
 import { CustomCircle } from './CustomCircle'
 import Vendor from './Vendor'
 
-interface Icon extends Common {
-  color?: string,
+export interface Icon extends Color, Common, Spacing {
   fill?: string,
   icon?: string,
   className?: string,
-  status?: ThemeStatusSelector
+  size?: string
 }
-
-const styles = ({ area, color, display, margin, pad, size, status, theme }: Icon) => css`
-  color: ${status && theme.status[status] || theme.colors[color] || color || theme.colors.primary};
-`
 
 const IconSet = {
   CustomCircle,
@@ -35,8 +30,11 @@ const GetIcon: React.SFC<Icon> = ({ className, color, fill, icon = 'Circle' }) =
   return <RenderIcon {...svgProps} />
 }
 
-const Icon = atom(GetIcon)`
+const Icon = atom(GetIcon).attrs({
+  width: (props: Icon) => (props.size || props.width)
+})`
+  ${setProps.color}
   ${setProps.common}
-  ${styles}
+  ${setProps.spacing}
 `
 export default Icon

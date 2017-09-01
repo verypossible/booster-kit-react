@@ -2,6 +2,14 @@ import * as React from 'react'
 
 import atom from 'ui'
 
+interface Props {
+  align?: string,
+  area?: string,
+  color?: string,
+  height?: string,
+  justify?: string
+}
+
 const Grid = atom.div`
   display: grid;
   grid-template-columns: [left-start] 25% [left-end right-start] 75% [right-end];
@@ -13,19 +21,19 @@ const Grid = atom.div`
 
 const Box = atom.div`
   display: grid;
-  area: ${props => props.area};
+  area: ${(props: Props) => props.area};
   grid-template-rows: [top-start] auto [top-end middle-start] auto [middle-end bottom-start] auto [bottom-end];
   grid-tempalte-columns: auto;
-  background-color: ${props => props.color};
-  height: ${props => props.height || '100vh'};
+  background-color: ${(props: Props) => props.color};
+  height: ${(props: Props) => props.height || '100vh'};
   grid-gap: 0.5em;
   width: 100%;
   padding: 0.5em;
 `
 const SubGridItem = atom.div`
   display: flex;
-  justify-content: ${props => props.justify};
-  align-content: ${props => props.align};
+  justify-content: ${(props: Props) => props.justify};
+  align-content: ${(props: Props) => props.align};
   background-color: #000;
   height: 100%;
   width: 100%;
