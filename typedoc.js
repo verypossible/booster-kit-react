@@ -6,7 +6,7 @@ module.exports = {
   hideGenerator: true,
   name: 'Very React',
   gitRevision: true,
-  json: './src/lib/docs/typedocs.json',
+  json: './typedocs.json',
   exclude: '*.spec',
   stripInternal: 'false'
 }

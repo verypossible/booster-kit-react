@@ -1,4 +1,4 @@
-import Auth0JS from 'auth0-js'
+import * as Auth0JS from 'auth0-js'
 import * as React from 'react'
 
 import { getDisplayName } from 'hoc/helpers'
@@ -15,7 +15,7 @@ import { AuthConfig, AuthSocialProvider, WithRouter } from '../types'
 const authProviderWrapper = ({
   auth0Config
 }: AuthConfig) => (WrappedComponent: React.SFC<AuthSocialProvider>) => {
-  const AuthProvider: React.SFC<WithRouter> = (props) => {
+  const AuthProvider: React.SFC<WithRouter> = props => {
     /* Initialize a new Auth0 WebAuth Object */
     const auth0 = new Auth0JS.WebAuth(auth0Config)
 

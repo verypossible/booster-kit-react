@@ -1,6 +1,6 @@
 import * as faker from 'faker'
 import { MockList } from 'graphql-tools'
-import S from 'string'
+import * as S from 'string'
 
 const mockPages = () => {
   const id = faker.random.alphaNumeric(15)

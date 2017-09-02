@@ -1,5 +1,5 @@
-import groupBy from 'lodash.groupby'
-import S from 'string'
+import * as groupBy from 'lodash.groupby'
+import * as S from 'string'
 
 import { DocsModules } from '../types'
 

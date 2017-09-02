@@ -1,5 +1,5 @@
-import groupBy from 'lodash.groupby'
-import S from 'string'
+import * as groupBy from 'lodash.groupby'
+import * as S from 'string'
 
 import { markdownLoader } from '../helpers'
 
@@ -55,7 +55,7 @@ export function parseMarkdown (name: string, content: string) {
   const pathSlugs = sanitizedPath.map(part => S(part).dasherize().chompLeft('-').s)
   const path = pathSlugs.join('/')
   return {
-    content: `<markdown>${content}</markdown>`,
+    content,
     id: `#docs-${path}`,
     name: S(pathSlugs.slice(-1)[0]).s,
     path,
@@ -63,19 +63,17 @@ export function parseMarkdown (name: string, content: string) {
   }
 }
 
-const getStaticDocs = () => {
+export const getStaticDocs = contextLoader => {
   return dispatch => {
     const payload = []
     function subscribeToFile (name, content, isReload) {
+      console.log(content, 'CONTENT')
       const parsedData = parseMarkdown(name, content)
 
       if (isReload) {
-        const updatedPayload = payload.reduce((acc, curr) => {
-          if (curr.path === parsedData.path) {
-            return [...acc, ...parsedData]
-          }
-          return [...acc, ...curr]
-        })
+        const updatedPayload = payload.reduce((acc, curr) => (
+          curr.path === parsedData.path && acc.concat([parsedData]) || acc.concat([curr])
+        ), [])
 
         const updatedDirectories = buildDirectories(updatedPayload)
         return dispatch(actions.updateMarkdown(updatedDirectories))
@@ -84,10 +82,10 @@ const getStaticDocs = () => {
       return payload.push(parsedData)
     }
 
-    markdownLoader(subscribeToFile)
+    contextLoader(subscribeToFile)
     const formattedFiles = buildDirectories(payload)
     return dispatch(actions.loadMarkdown(formattedFiles))
   }
 }
 
-export default getStaticDocs
+export default () => getStaticDocs(markdownLoader)

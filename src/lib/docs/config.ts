@@ -1,4 +1,4 @@
-import logo from './assets/logo.svg'
+import * as logo from './assets/logo.svg'
 
 const config = {
   logo,

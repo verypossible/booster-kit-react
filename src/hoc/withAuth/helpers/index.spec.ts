@@ -2,7 +2,7 @@ import { findProvider, parseUserFromToken } from './index'
 
 describe('(withAuth) AuthHelpers', () => {
   const configuredSocialProviders = ['github', 'google']
-  const provider = (val) => findProvider(val, configuredSocialProviders)
+  const provider = val => findProvider(val, configuredSocialProviders)
 
   /**
    *  If you change the data structured returned from parseUserFromToken, generate a new token for testing
@@ -19,7 +19,7 @@ describe('(withAuth) AuthHelpers', () => {
     name: 'John Doe'
   }
 
-  it('findProvider returns the correct social provider from the userFromToken username', () => {
+  test('findProvider returns the correct social provider from the userFromToken username', () => {
     const githubUsername = 'github|1234'
     const googleUsername = 'google-auth2|1234'
 
@@ -27,9 +27,9 @@ describe('(withAuth) AuthHelpers', () => {
     expect(provider(googleUsername)).toEqual({ googleUsername })
   })
 
-  it('parseUserFromToken promise decodes the jwt decode and returns a userFromToken object', () => {
+  test('parseUserFromToken promise decodes the jwt decode and returns a userFromToken object', () => {
     expect.assertions(1)
     return parseUserFromToken(hashWithToken)
-      .then((res) => expect(res).toEqual({ idToken, user, username }))
+      .then(res => expect(res).toEqual({ idToken, user, username }))
   })
 })

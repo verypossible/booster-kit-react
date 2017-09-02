@@ -1,5 +1,5 @@
 import * as React from 'react'
-import S from 'string'
+import * as S from 'string'
 import styled from 'styled-components'
 
 // import Anchor from './Anchor'

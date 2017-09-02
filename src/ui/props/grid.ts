@@ -1,6 +1,8 @@
 import { css } from '../index'
 
-import { buildGap, buildTrack, buildTrackItem } from '../helpers/gridHelpers'
+import { gridHelpers } from '../helpers'
+
+const { buildGap, buildTrack, buildTrackItem } = gridHelpers
 
 interface Area {
   [key: string]: string

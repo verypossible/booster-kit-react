@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "allowJs": true,
-    "allowSyntheticDefaultImports": true,
+    "allowSyntheticDefaultImports": false,
     "forceConsistentCasingInFileNames": true,
     "baseUrl": "./src",
     "experimentalDecorators": true,
@@ -27,9 +27,7 @@
     "skipLibCheck": true
   },
   "include": [
-    "./src/**/*",
-    "./node_modules/redux-next/*.d.ts",
-    "./node_modules/apollo-client/*.d.ts"
+    "./src/**/*"
   ],
   "exclude": [
     "node_modules"

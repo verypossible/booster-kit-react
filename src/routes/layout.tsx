@@ -10,8 +10,8 @@ interface Props {
 /**
  *  Render the static layout
  */
+renderGlobalStyles()
 const LayoutCore: React.SFC<Props> = ({ children }) => {
-  renderGlobalStyles()
   const theme = themes.light
   return (
     <ThemeProvider theme={theme}>

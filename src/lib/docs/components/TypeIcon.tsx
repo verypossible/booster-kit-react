@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import icons from '../assets/icons.png'
+import * as icons from '../assets/icons.png'
 
 interface Props {
   dataIcon: string

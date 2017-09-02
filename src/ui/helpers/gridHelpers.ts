@@ -1,4 +1,4 @@
-import S from 'string'
+import * as S from 'string'
 
 const getValue = (value, units) => {
   switch (true) {
@@ -39,7 +39,7 @@ const valueAccumulator = (parts, units, length) => {
   }, [])
 }
 
-export const buildTrack = (track: string): string => {
+const buildTrack = (track: string): string => {
   const parts = track.includes('(') ? track : S(track)
     .split('/')
     .map(p => p.trim().split(' '))
@@ -56,7 +56,7 @@ export const buildTrack = (track: string): string => {
   return parts
 }
 
-export const buildTrackItem = trackItem => {
+const buildTrackItem = trackItem => {
   const span = S(trackItem).include('/')
   if (span) {
     const trackItems = S(trackItem)
@@ -72,7 +72,7 @@ export const buildTrackItem = trackItem => {
   return `${trackItem}-start`
 }
 
-export const buildGap = (gap: string, theme: ThemeInterface): string => {
+const buildGap = (gap: string, theme: ThemeInterface): string => {
   if (!gap) {
     return theme.grid.gap.medium
   }
@@ -91,3 +91,11 @@ export const buildGap = (gap: string, theme: ThemeInterface): string => {
 
   return `${theme.grid.gap[gap] || gap}`
 }
+
+const gridHelpers = {
+  buildGap,
+  buildTrack,
+  buildTrackItem
+}
+
+export default gridHelpers

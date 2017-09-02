@@ -4,7 +4,7 @@ import atom from 'ui'
 
 import { Box, Icon, Markdown } from 'atoms'
 
-import code from './code.md'
+import * as code from './code.md'
 
 const TaskBar = atom.div`
   display: inline-block;

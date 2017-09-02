@@ -1,6 +1,6 @@
-import jwtDecode from 'jwt-decode'
+import * as jwtDecode from 'jwt-decode'
 import * as React from 'react'
-import S from 'string'
+import * as S from 'string'
 
 import { getDisplayName } from 'hoc/helpers'
 import purgeState from 'lib/helpers/purgeState'
@@ -8,14 +8,14 @@ import logger from 'lib/logger'
 
 import { AuthConfig, AuthErrors, AuthHelpers, CommonProps, UserFromToken } from '../types'
 
-export const findProvider = (val, configuredProviders) => {
+const findProvider = (val, configuredProviders) => {
   if (typeof val === 'string') {
-    const provider = configuredProviders.find((p) => val.includes(p))
+    const provider = configuredProviders.find(p => val.includes(p))
     return { [`${provider}Username`]: val }
   }
 }
 
-export const errors = {
+const errors = {
   failedLogin: () => `We were unable to login you in.`,
   failedSignup: () => 'Ruh Roh. We ran into some trouble trying to create your account.',
   failedUpdate: ({ email }) => (`
@@ -27,7 +27,7 @@ export const errors = {
   tokenExpired: () => 'It looks like your session expired. Please login to start a new session.'
 } as AuthErrors
 
-export const parseUserFromToken = (hash: string) => new Promise<UserFromToken>((resolve) => {
+const parseUserFromToken = (hash: string) => new Promise<UserFromToken>(resolve => {
   const idToken = S(hash).between('#id_token=', '&').s
   const userFromToken = jwtDecode(idToken)
   const { picture, email, exp, name, user_id } = userFromToken
@@ -59,7 +59,7 @@ const withAuthHelpers = ({
     // ------------------------------------
     const redirect = ({ pathname, state }) => history.replace(pathname, state)
 
-    const logError = (err) => {
+    const logError = err => {
       logger.log.error(err.reason, { ...err.error })
     }
 
@@ -67,13 +67,13 @@ const withAuthHelpers = ({
 
     const purgeSession = () => purgeState()
 
-    const getProvider = (val) => findProvider(val, configuredSocialProviders)
+    const getProvider = val => findProvider(val, configuredSocialProviders)
 
     const getUserFromToken = () => parseUserFromToken(history.location.hash)
 
     const shouldProcessAuth = /access_token|id_token|error/.test(history.location.hash)
 
-    const handleLoginFailure = (err) => {
+    const handleLoginFailure = err => {
       logError({ error: err.error, reason: err.reason })
       redirect({ pathname: redirectOnError, state: { error: err.reason } })
     }
@@ -105,4 +105,5 @@ const withAuthHelpers = ({
   return mergeAuthHelpers
 }
 
+export { errors, findProvider, parseUserFromToken }
 export default withAuthHelpers

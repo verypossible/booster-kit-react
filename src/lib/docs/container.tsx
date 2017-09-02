@@ -1,9 +1,10 @@
 import * as React from 'react'
 
+import * as typesJSON from '../../../typedocs.json'
+
 import { connectDocs } from './data'
 import { compose, errorBoundary } from './helpers'
 import Routes from './routes'
-import typesJSON from './typedocs.json'
 import { ConnectProps } from './types'
 
 class Docs extends React.Component<ConnectProps> {

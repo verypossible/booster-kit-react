@@ -1,3 +1,4 @@
+/* istanbul ignore next */
 type Context = any
 
 const context: Context = require.context('../../../../docs', true, /\.md$/)

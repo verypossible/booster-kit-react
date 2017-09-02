@@ -1,4 +1,4 @@
-import S from 'string'
+import * as S from 'string'
 
 import hasUnit from './hasUnit'
 

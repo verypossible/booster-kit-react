@@ -1,9 +1,8 @@
 import stateManager from 'redux-persist-state-manager'
-
 import reducers from './reducers'
 
 const stateMigrations = {
-  1: (state) => state
+  1: state => state
 }
 
 const VERSION = 1

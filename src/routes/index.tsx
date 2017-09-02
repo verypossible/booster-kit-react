@@ -9,14 +9,13 @@ import EntryLayout from './layout'
 type LP = any
 
 const AppEntry = withSubRoutes<LP>(EntryLayout)
-
 // const layout = (props: LP) => ({
 //   ...props
 // })
 
 const Routes: React.SFC<SubRoutes<LP>> = ({ routes, store }) => (
   <AppEntry routes={routes} store={store}>
-    {__DEV__ && <Docs />}
+    {__DEV__  && <Docs />}
   </AppEntry >
 )
 

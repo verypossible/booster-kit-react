@@ -1,4 +1,4 @@
-import localForage from 'localforage'
+import * as localForage from 'localforage'
 import { ApolloClient, createNetworkInterface } from 'react-apollo'
 
 /* For Subscriptions
@@ -58,7 +58,7 @@ const makeNetworkInterface = (history: RouterHistory) => {
               token = session.idToken
             }
           })
-          .catch((err) => logger.log.error('Unable to get authentication token from localForage', { error: err }))
+          .catch(err => logger.log.error('Unable to get authentication token from localForage', { error: err }))
       }
 
       /** We want to restrict certain operations to the client token - specifically creating new users */
@@ -90,13 +90,14 @@ const makeNetworkInterface = (history: RouterHistory) => {
   return networkInterface
 }
 
-const initClient = (history, selectedNetworkInterface) =>
-  new ApolloClient({ networkInterface: selectedNetworkInterface(history) })
+const initClient = networkInterface =>
+  new ApolloClient({ networkInterface })
 
 const client = (history?: RouterHistory) => {
+  const networkInterface = makeNetworkInterface(history)
   /** We can't use subscriptions under test as there is no native support for Websockets in the test env */
   if (__TEST__) {
-    return initClient(history, makeNetworkInterface)
+    return initClient(networkInterface)
   }
 
   /** Use this network interface in initClient when using subscriptions */
@@ -107,7 +108,7 @@ const client = (history?: RouterHistory) => {
   //   return addGraphQLSubscriptions(networkInterface, wsClient)
   // }
 
-  return initClient(history, makeNetworkInterface)
+  return initClient(networkInterface)
 }
 
 export default client

@@ -7,11 +7,16 @@ interface State {
   docs: any
 }
 
+async function getDocs () {
+  const Docs = await import(/* webpackChunkName: "docs" */ './container')
+  return Docs.default
+}
+
 class AsyncDocs extends React.Component<any, State> {
   public static displayName = 'Docs'
   public componentWillMount () {
-     import(/* webpackChunkName: "docs" */ './container')
-      .then(docs => this.setState({ docs: docs.default }))
+    getDocs()
+      .then(docs => this.setState({ docs }))
   }
 
   public render () {

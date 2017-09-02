@@ -22,12 +22,12 @@ const verifySocialSessionWrapper = (WrappedComponent: React.SFC<VerifySocialSess
     ...props
   }) => {
     const verifySocialSession = (idToken: string) => loginSocialUser({ idToken })
-      .then((user) => {
+      .then(user => {
         const newSession = { ...user, sessionType: 'social', token: idToken }
         storeSession(newSession)
         return newSession
       })
-      .catch((error) => handleLoginFailure({ error, reason: errors.tokenExpired() }))
+      .catch(error => handleLoginFailure({ error, reason: errors.tokenExpired() }))
 
     return (
       <WrappedComponent verifySocialSession={verifySocialSession} {...props} />

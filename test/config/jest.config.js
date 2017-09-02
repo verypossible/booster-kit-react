@@ -1,6 +1,7 @@
 /* eslint-disbale */
 const moduleNameMaps = {
-  '^.+\\.(md|jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2)$': '<rootDir>/test/__mocks__/fileMock.js'
+  '^.+\\.(md|jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2)$': '<rootDir>/test/__mocks__/fileMock.js',
+  markdownLoader: '<rootDir>/test/__mocks__/markdownLoader.js',
 }
 
 const jestConfig = {
@@ -34,10 +35,7 @@ const jestConfig = {
     __AUTH_URL__: 'veryservices.auth0.com',
     __AUTH_REDIRECT_URI__: 'http://localhost:3000/callback',
     __AUTH_REDIRECT_URI_SILENT__: 'http://localhost:3000/silent_callback',
-    __CLIENT_TOKEN__: false,
-    'test-jest': {
-      useBabelrc: true
-    }
+    __CLIENT_TOKEN__: false
   },
   moduleFileExtensions: [
     'js',
