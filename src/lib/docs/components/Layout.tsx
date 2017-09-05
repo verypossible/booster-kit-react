@@ -10,6 +10,8 @@ export const Content = styled.div`
   overflow: scroll;
   padding-right: 4em;
   width: 100%;
+  height: 100%;
+  justify-content: stretch;
 `
 
 export const Grid = styled.section`

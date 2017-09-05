@@ -28,9 +28,12 @@ const Box = atom(BoxElement)`
   ${setProps.spacing}
 `
 
-const BoxWithTag = ({ tag, ...props }) => {
+const BoxWithTag: React.SFC<BoxProps> = ({
+  tag = 'div',
+  ...props
+}) => {
   const El = Box.withComponent(tag)
   return <El {...props} />
 }
 
-export default props => !props.tag ? <Box {...props} /> : <BoxWithTag {...props} />
+export default (props: BoxProps) => !props.tag ? <Box {...props} /> : <BoxWithTag {...props} />

@@ -15,14 +15,10 @@ function buildDirectories (parsedFiles) {
         const currentFile = `${oldPath}/${path}`
         const baseObj = { path: currentFile }
 
-        function matchData (obj) {
-          return obj.id === `#docs-${currentFile}`
-        }
+        const matchData = obj => obj.id === `#docs-${currentFile}`
 
         const file = parsedFiles.find(matchData)
-        const addToParent = (
-          Object.assign({}, baseObj, { ...file })
-        )
+        const addToParent = Object.assign({}, baseObj, { ...file })
 
         if (validFiles.length === 0) {
           return addToParent
@@ -63,29 +59,26 @@ export function parseMarkdown (name: string, content: string) {
   }
 }
 
-export const getStaticDocs = contextLoader => {
-  return dispatch => {
-    const payload = []
-    function subscribeToFile (name, content, isReload) {
-      console.log(content, 'CONTENT')
-      const parsedData = parseMarkdown(name, content)
+export const getStaticDocs = loader => dispatch => {
+  const payload = []
+  function subscribeToFile (name, content, isReload) {
+    const parsedData = parseMarkdown(name, content)
 
-      if (isReload) {
-        const updatedPayload = payload.reduce((acc, curr) => (
-          curr.path === parsedData.path && acc.concat([parsedData]) || acc.concat([curr])
-        ), [])
+    if (isReload) {
+      const updatedPayload = payload.reduce((acc, curr) => (
+        curr.path === parsedData.path && acc.concat([parsedData]) || acc.concat([curr])
+      ), [])
 
-        const updatedDirectories = buildDirectories(updatedPayload)
-        return dispatch(actions.updateMarkdown(updatedDirectories))
-      }
-
-      return payload.push(parsedData)
+      const updatedDirectories = buildDirectories(updatedPayload)
+      return dispatch(actions.updateMarkdown(updatedDirectories))
     }
 
-    contextLoader(subscribeToFile)
-    const formattedFiles = buildDirectories(payload)
-    return dispatch(actions.loadMarkdown(formattedFiles))
+    return payload.push(parsedData)
   }
+
+  loader(subscribeToFile)
+  const formattedFiles = buildDirectories(payload)
+  return dispatch(actions.loadMarkdown(formattedFiles))
 }
 
 export default () => getStaticDocs(markdownLoader)

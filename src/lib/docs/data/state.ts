@@ -47,9 +47,7 @@ function reducer (
     case LOAD_MODULES:
       return {
         ...state,
-        modules: [
-          ...action.payload
-        ]
+        modules: [action.payload]
       }
 
     case LOAD_MARKDOWN:

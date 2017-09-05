@@ -13,8 +13,7 @@ import selectors from './selectors'
 const connectDocs = ({ selector }) => <OP extends {}>(
   WrappedComponent: React.SFC<OP & ConnectProps> | React.ComponentClass<OP & ConnectProps>
 ) => {
-  const WithDocs = (props) => <WrappedComponent {...props} />
-
+  const WithDocs = props => <WrappedComponent {...props} />
   const makeMapStateToProps = () => {
     const mapStateToProps = (
       state: DocsState, props: DocsHistory & DocsMatch, ownProps: Selectors
@@ -28,7 +27,7 @@ const connectDocs = ({ selector }) => <OP extends {}>(
       makeMapStateToProps,
       (dispatch: Dispatch<DocsActions>) => ({
         loadMarkdown: () => dispatch(loadMarkdown()),
-        loadModules: (modules) => dispatch(loadModules(modules))
+        loadModules: modules => dispatch(loadModules(modules))
       })
     )
   )(WithDocs)

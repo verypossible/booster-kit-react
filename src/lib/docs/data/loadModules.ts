@@ -36,35 +36,34 @@ const cleanCollections = data => data.children
 
 const groupCollections = collections => groupBy(collections, c => c.params.collection)
 
-const groupParts = ([name, parts]) =>
-  parts[0].params.part && ({
-    children: groupBy(parts, p => p.params.part),
-    name
-  }) || ({
-    children: parts,
-    name
-  })
+const groupParts = ([name, parts]) => parts[0].params.part && ({
+  children: groupBy(parts, p => p.params.part),
+  name
+}) || ({
+  children: parts,
+  name,
+  title: name
+})
 
 const mergeChildren = ([ item, ...items ]) =>  (
   item.children && item.children.concat(...items.map(i => i.children))
   || item.children
 )
 
-const mergeItems = children => Object.entries(children).map(
-  ([part, items]) => ({
+const mergeItems = children => Object.entries(children)
+  .map(([part, items]) => ({
     children: mergeChildren(items),
-    name: part
-  })
-)
+    name: part,
+    title: part
+  }))
 
-const cleanParts = ({ name, children }) =>
-  !Array.isArray(children) && ({
-    children: mergeItems(children),
-    name
-  }) || ({
-    children,
-    name
-  })
+const cleanParts = ({ name, children }) => !Array.isArray(children) && ({
+  children: mergeItems(children),
+  name
+}) || ({
+  children,
+  name
+})
 
 async function getModules (data): Promise<DocsModules> {
   const collections = cleanCollections(data)
@@ -77,15 +76,13 @@ async function getModules (data): Promise<DocsModules> {
     children,
     id: '#docs-/modules',
     name: 'modules',
-    path: '/modules'
+    path: '/modules',
+    title: 'Modules'
   }
 }
 
 /** Thunk action */
-const loadModules = types =>
-  dispatch => getModules(types)
-    .then(modules => {
-      return dispatch(actions.loadModules(modules))
-    })
+const loadModules = types => dispatch => getModules(types)
+  .then(modules => dispatch(actions.loadModules(modules)))
 
 export default loadModules

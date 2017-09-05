@@ -28,7 +28,8 @@ export interface DocsModules {
   children: DocsModules[],
   id?: string,
   name: string,
-  path?: string
+  path?: string,
+  title?: string
 }
 
 export interface Markdown {

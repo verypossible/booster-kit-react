@@ -16,7 +16,7 @@ const getDisplay = ({
   inlineBlock,
   noFlex,
   rows
-}: SetDisplay) => {
+}: SetDisplay = {}) => {
   const isGrid = rows || columns || grid
   const isFlex = !(rows || columns || grid || inline || inlineBlock || block) && !noFlex
   return (

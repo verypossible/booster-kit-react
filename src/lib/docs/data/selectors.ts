@@ -1,5 +1,6 @@
 import { createSelector, createStructuredSelector } from 'reselect'
 
+import config from '../config'
 import { DocsState } from '../types'
 
 import parse from './parser'
@@ -41,72 +42,87 @@ const selectState = createSelector(
  */
 
  /** Match helper for finding a state object based on a route param */
-const findActive = (state, active) => state && active && state.find(({ name }) => name === active)
+const findActive = (state, active) =>
+  state && active && state.find(({ name }) => name === active)
 
 /** Selects the active collection based on the route's `collection` param */
 const activeCollection = createSelector(
   [selectState, routerMatch],
-  (state, match) => state && findActive(state, match.params.collection)
+  (state, match) =>
+    state && findActive(state, match.params.collection)
 )
 
 /** Selects the active part from the active collection based on the route's `part` param */
 const activePart = createSelector(
   [activeCollection, routerMatch],
-  (collection, match) => collection && findActive(collection.children, match.params.part)
+  (collection, match) =>
+    collection && findActive(collection.children, match.params.part)
 )
 
 /** Selects the active item from the active part based on the route's `item` param */
 const activeItem = createSelector(
   [activePart, routerMatch],
-  (part, match) => part && findActive(part.children, match.params.item)
+  (part, match) =>
+    part && findActive(part.children, match.params.item)
 )
 
 /** Selects the active subItem from the active item based on the route's `subItem` param */
 const activeSubItem = createSelector(
   [activeItem, routerMatch],
-  (current, match) => current && findActive(current.children, match.params.subItem)
+  (current, match) =>
+    current && findActive(current.children, match.params.subItem)
 )
 
 /**
  * Navigation Selectors
  */
-
-const navItem = (parent, name, path) => ({
-  id: `${KEY}-${parent}-${name}`,
-  text: name,
-  to: `${path}/${name}`
+const navItem = (parent: string, data: any, path?: string) => ({
+  id: `${KEY}-${parent}-${data.name}`,
+  text: data.title || data.name,
+  to: `${config.basePath}/${path}`
 })
 
 /** Creates a list of collections nav from modules state */
 const modulesNav = createSelector(
-  [docsState, routerMatch],
-  (state, match) => state.modules && state.modules.map(({ name }) => navItem('collection', name, match.path))
+  [docsState],
+  state =>
+    state.modules && state.modules.map(data => navItem('collection', data, data.name))
 )
 
 /** Creates nav items collections from markdown state */
 const markdownNav = createSelector(
-  [docsState, routerMatch],
-  (state, match) => state.markdown && state.markdown.map(({ name }) => navItem('collection', name, match.path))
+  [docsState],
+  state =>
+    state.markdown && state.markdown.map(data => navItem('collection', data, data.name))
 )
 
 /** Creates a unified collections nav from modules and markdown */
 const collectionsNav = createSelector(
   [markdownNav, modulesNav],
-  (markdown, modules) => markdown && modules && [...markdown, ...modules]
+  (markdown, modules) =>
+    markdown && modules && [...markdown, ...modules]
 )
 
 /** Creates a list of nav items for all parts within an active collection */
 const partsNav = createSelector(
-  [activeCollection, routerMatch],
-  (collection, match) =>
-    collection && collection.children.map(({ name }) => navItem(match.params.collection, name, match.url))
+  [activeCollection, collectionsNav, routerMatch],
+  (collection, collectionNav, match) => (
+    collection &&
+    collection.children ?
+    collection.children.map(
+      data => navItem(match.params.collection, data, `${match.params.collection}/${data.name}`)
+    ) : collectionNav
+  )
 )
 
 /** Creates a list of nav items for all items within an active part */
 const itemsNav = createSelector(
   [activePart, routerMatch],
-  (part, match) => part && part.children.map(({ name }) =>
-    navItem(match.params.part, name, match.url))
+  (part, match) =>
+    part && part.children.map(
+      data =>
+        navItem(match.params.part, data, `${match.params.collection}/${match.params.part}/${data.name}`)
+    )
 )
 
 /**

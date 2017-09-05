@@ -6,7 +6,7 @@
   "main": "index.js",
   "private": "true",
   "engines": {
-    "node": ">=8.3.1"
+    "node": ">=8.4.0"
   },
   "scripts": {
     "build": "yarn run graphql && bnr build",
@@ -14,7 +14,7 @@
     "clear": "rimraf build",
     "coverage": "CODECLIMATE_REPO_TOKEN=36bc060ce6f0aa2f739be4ae096f22356d8cf9fa6d15e5ca5ddfed318b5e6f85 codeclimate-test-reporter < coverage/lcov.info",
     "docs": "typedoc --options typedoc.js",
-    "graphql": "bnr graphql:schema && bnr graphql:types",
+    "graphql": "bash -e scripts/graphql.sh",
     "init": "node scripts/init",
     "jest": "yarn run init && jest --config jest.config.json --colors",
     "lint": "tslint -c tslint.json 'src/**/*.{ts,tsx}'",
@@ -35,12 +35,6 @@
         "DEBUG": "app:*",
         "NODE_ENV": "production"
       }
-    },
-    "graphql:schema": {
-      "command": "apollo-codegen introspect-schema https://us-west-2.api.scaphold.io/graphql/very-react --output src/lib/graphql/serverSchema.json"
-    },
-    "graphql:types": {
-      "command": "apollo-codegen generate **/*.gql --add-typename --schema src/lib/graphql/serverSchema.json --target typescript --output src/lib/graphql/schema.ts"
     },
     "start": {
       "command": "webpack-dev-server --config webpack/webpack.config --env.env=development",
@@ -176,7 +170,7 @@
     "file-loader": "^0.11.2",
     "fs-extra": "^4.0.1",
     "git-revision-webpack-plugin": "^2.5.1",
-    "graphql": "10.0.3",
+    "graphql": "0.10.3",
     "graphql-tools": "^1.2.2",
     "highlight.js": "^9.12.0",
     "html-webpack-plugin": "^2.30.1",
@@ -198,6 +192,7 @@
     "rimraf": "^2.6.1",
     "rollbar-sourcemap-webpack-plugin": "^2.2.0",
     "source-map-loader": "^0.2.1",
+    "storm-react-diagrams": "^2.5.2",
     "storybook-addon-specifications": "^2.1.1",
     "style-loader": "^0.18.2",
     "svg-react-loader": "^0.4.5",

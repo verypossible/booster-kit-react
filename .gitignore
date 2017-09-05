@@ -14,3 +14,4 @@ src/lib/graphql/schema.*
 src/lib/graphql/serverSchema.*
 typedocs/*
 typedocs.json
+schema.json

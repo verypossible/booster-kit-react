@@ -7,6 +7,9 @@ export default [{
   use: [{
     loader: 'react-hot-loader/webpack'
   }, {
+    loader: 'babel-loader',
+    options: babelConfig
+  }, {
     loader: 'awesome-typescript-loader'
   }],
   exclude: path.resolve(__dirname, 'node_modules'),

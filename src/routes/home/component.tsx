@@ -33,7 +33,7 @@ const LogoGrid = () => (
 )
 
 const LeftHeader = () => (
-  <Box justifyContent='center' justify='end' alignItems='center' flow='column wrap'>
+  <Box justify='end' alignItems='center' flow='column wrap'>
     <Icon icon='Trademark' width='3' height='3' invert/>
     <Paragraph invert>Learn The Framework</Paragraph>
   </Box>

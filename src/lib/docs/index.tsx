@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { Route } from 'react-router-dom'
 
+import config from './config'
 import { actions, actionTypes, KEY, reducer } from './data'
 
 interface State {
@@ -20,7 +21,7 @@ class AsyncDocs extends React.Component<any, State> {
   }
 
   public render () {
-    return <Route path='/docs' component={this.state && this.state.docs} />
+    return <Route path={config.basePath} component={this.state && this.state.docs} />
   }
 }
 
