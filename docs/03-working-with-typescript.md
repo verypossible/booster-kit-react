@@ -55,7 +55,7 @@ const Component: React.SFC<Props> = (props) => ( ... )
 ## Globals and declaration files
 Types can be global or local. To set a global type, create a new file with a `.d.ts` extension. The type definitions will be automatically picked up by the compiler and made available to any other file within the `/src` directory.
 
-Just like when writing standard JavaScript, globals should be used sparingly because the reserver the namespace across the entire app.
+Just like when writing standard JavaScript, globals should be used sparingly because they reserve the namespace across the entire app.
 
 Examples of where we're currently applying global namespaces within the app:
 * State - We want to define the state of the shape. It should not change and should only be defined in one place, so declaring it makes sense.

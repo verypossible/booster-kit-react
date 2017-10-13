@@ -1,4 +1,3 @@
-import * as React from 'react'
 import * as SRD from 'storm-react-diagrams'
 import { AtomNodeWidgetFactory } from './AtomNodeWidget'
 

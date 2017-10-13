@@ -9,7 +9,7 @@ import { AuthServerProps, AuthSocialProps, WithRouter } from './types'
 
 export const loginSocial = graphql<Schema.LoginWithAuth0Mutation, {}, WithRouter>(mutation.LoginWithAuth0, {
   alias: 'loginSocial',
-  props: (props) => ({
+  props: props => ({
     loginSocialUser: ({ idToken }: Schema.LoginUserWithAuth0Input) => props.mutate({
       variables: { input: { idToken } }
     }).then(
@@ -20,7 +20,7 @@ export const loginSocial = graphql<Schema.LoginWithAuth0Mutation, {}, WithRouter
 export const updateUser = graphql<Schema.UpdateUserMutation, {}, AuthServerProps | AuthSocialProps>(
     mutation.UpdateUser, {
     alias: 'updateUser',
-    props: (props) => ({
+    props: props => ({
       updateUser: ({ ...user }: Schema.UpdateUserInput) => props.mutate({
         variables: { input: { ...user } }
       }).then(
@@ -32,7 +32,7 @@ export const updateUser = graphql<Schema.UpdateUserMutation, {}, AuthServerProps
 
 export const createUser = graphql<Schema.CreateUserMutation, {}, AuthServerProps>(mutation.CreateUser, {
   alias: 'createUser',
-  props: (props) => ({
+  props: props => ({
     createUser: (user: Schema.CreateUserInput) => props.mutate({
       variables: { input: { ...user } }
     }).then(

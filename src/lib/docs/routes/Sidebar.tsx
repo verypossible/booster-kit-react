@@ -13,12 +13,14 @@ const enhance = connectDocs({ selector: 'docs' })
 
 const Sidebar: React.SFC<ConnectProps> = () => (
   <Layout.Nav>
-    <Link to='/docs'><Icon icon='ProjectLogo' size='small' /></Link>
-      <Switch>
-        <Route path='/docs/:collection/:part' component={enhance(Items)} />
-        <Route path='/docs/:collection' component={enhance(Parts)} />
-        <Route path='/docs' component={enhance(Collections)} />
-      </Switch>
+    <Link to='/docs'>
+      <Icon icon='ProjectLogo' size='small' />
+    </Link>
+    <Switch>
+      <Route path='/docs/:collection/:part' component={enhance(Items)} />
+      <Route path='/docs/:collection' component={enhance(Parts)} />
+      <Route path='/docs' component={enhance(Collections)} />
+    </Switch>
   </Layout.Nav>
 )
 

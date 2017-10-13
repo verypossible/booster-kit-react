@@ -9,17 +9,16 @@
     "node": ">=8.4.0"
   },
   "scripts": {
-    "build": "yarn run graphql && bnr build",
+    "build": "bash -e scripts/build.sh",
     "clean": "yarn cache clean && yarn install --force",
     "clear": "rimraf build",
-    "coverage": "CODECLIMATE_REPO_TOKEN=36bc060ce6f0aa2f739be4ae096f22356d8cf9fa6d15e5ca5ddfed318b5e6f85 codeclimate-test-reporter < coverage/lcov.info",
     "docs": "typedoc --options typedoc.js",
     "graphql": "bash -e scripts/graphql.sh",
     "init": "node scripts/init",
     "jest": "yarn run init && jest --config jest.config.json --colors",
     "lint": "tslint -c tslint.json 'src/**/*.{ts,tsx}'",
     "preflight": "yarn run lint && yarn run test",
-    "start": "yarn run graphql && bnr start",
+    "start": "bash -e scripts/start.sh",
     "storybook:build": "build-storybook -c .storybook -0 .storybook-static",
     "storybook:start": "start-storybook -p 4003 -c .storybook",
     "test:watch": "bnr test --watch",
@@ -30,7 +29,7 @@
   },
   "betterScripts": {
     "build": {
-      "command": "yarn run clear && yarn run init && webpack --config webpack/webpack.config -p --colors --progress --env.env=production",
+      "command": "webpack --config webpack/webpack.config -p --colors --progress --env.env=production",
       "env": {
         "DEBUG": "app:*",
         "NODE_ENV": "production"

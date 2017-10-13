@@ -48,7 +48,7 @@ const ModuleWrapper: React.SFC<ConnectProps> = ({
           render={() => (
             <div>
               <H2>Usage</H2>
-              {publicSubItems && publicSubItems.map((part) => {
+              {publicSubItems && publicSubItems.map(part => {
                 return <ModuleUsage key={part.name} importLoc={`${params.part}/${params.item}`} {...part} />
               })}
             </div>
@@ -60,7 +60,7 @@ const ModuleWrapper: React.SFC<ConnectProps> = ({
           render={() => (
             <div>
               <H2>Internals</H2>
-              {privateSubItems && privateSubItems.map((part) => {
+              {privateSubItems && privateSubItems.map(part => {
                 return <ItemDetail key={part.name} {...part} />
               })}
             </div>
