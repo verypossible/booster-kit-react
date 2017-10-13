@@ -12,7 +12,7 @@ import {
 import AutoColumnGrid from 'layouts/AutoColumnGrid'
 import TwoColumn from 'layouts/TwoColumn'
 
-import renderIcons from './RenderIcons'
+import renderIcons from './renderIcons'
 import Terminal from './Terminal'
 
 const Nav = () => (

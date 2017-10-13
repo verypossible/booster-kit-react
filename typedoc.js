@@ -1,7 +1,7 @@
 module.exports = {
   mode: 'modules',
   out: 'typedocs',
-  target: 'es6',
+  target: 'es5',
   ignoreCompilerErrors: true,
   hideGenerator: true,
   name: 'Very React',
