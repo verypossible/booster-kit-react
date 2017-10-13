@@ -6,14 +6,16 @@ import { createStore } from 'redux'
 import client from 'lib/graphql/client'
 import reducers from 'state/stateManager'
 
+interface MockLocation {
+  pathname: string,
+  search?: string,
+  hash?: string,
+  state?: string
+}
+
 interface MockProps {
   children?: any,
-  initLocation?: Array<{
-    pathname: string,
-    search?: string,
-    hash?: string,
-    state?: string
-  } | string>,
+  initLocation?: MockLocation[] | string[],
   locationStart?: number,
   store?: any
 }
@@ -24,7 +26,7 @@ const WithProvider: React.SFC<MockProps> = ({
   initLocation = ['/'],
   locationStart = 0
 }) => {
-  const defaultStore = createStore(reducers())
+  const defaultStore = createStore(reducers)
   return (
     <MemoryRouter initialEntries={initLocation} initialIndex={locationStart}>
       <Route

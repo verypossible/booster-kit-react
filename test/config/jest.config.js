@@ -1,12 +1,14 @@
 /* eslint-disbale */
 const moduleNameMaps = {
   '^.+\\.(md|jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2)$': '<rootDir>/test/__mocks__/fileMock.js',
+  markdownLoader: '<rootDir>/test/__mocks__/markdownLoader.js',
 }
 
 const jestConfig = {
   transform: {
     '^.+\\.js$': 'babel-jest',
-    "\\.(ts|tsx)$": "./node_modules/ts-jest/preprocessor.js",
+    '^.+\\.js$': './test/config/jsPreprocessor.js',
+    '\\.(ts|tsx)$': './node_modules/ts-jest/preprocessor.js',
     '\\.(gql|graphql)$': './test/config/transformGraphQL.js'
   },
   globals: {
@@ -54,12 +56,13 @@ const jestConfig = {
   verbose: true,
   collectCoverageFrom: ['**/src/**'],
   coverageDirectory: '<rootDir>/coverage',
-  coveragePathIgnorePatterns: ['/node_modules/', '^.*(d.ts?)', '^.*(gql|md?)'],
+  coveragePathIgnorePatterns: ['/node_modules/', '^.*(d.ts?)', '^.*(gql|md?)', '/docs/'],
   moduleNameMapper: moduleNameMaps,
   testPathIgnorePatterns: [
     '/blueprints/.*|\\.md$',
-    '(\\stories.jsx?)'
+    '(\\stories.tsx?)'
   ],
+  setupFiles: ['./test/config/requestAnimationPolyfill.js'],
   setupTestFrameworkScriptFile: './node_modules/jest-enzyme/lib/index.js'
 }
 

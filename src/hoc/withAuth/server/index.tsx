@@ -22,7 +22,7 @@ const withAuthScaphold = ({
     // ------------------------------------
     // Private
     // ------------------------------------
-    const newSession = (user) => {
+    const newSession = user => {
       storeSession({ ...user, sessionType: 'basic' })
       return user
     }
@@ -30,15 +30,15 @@ const withAuthScaphold = ({
     // ------------------------------------
     // Public Methods
     // ------------------------------------
-    const createAccount = (input) => createUser(input).then(newSession)
+    const createAccount = input => createUser(input).then(newSession)
 
-    const login = (input) => loginUser(input).then(newSession)
+    const login = input => loginUser(input).then(newSession)
 
     const logout = () => purgeSession()
 
-    const updatePassword = (input) => updateUser(input)
+    const updatePassword = input => updateUser(input)
 
-    const recoverAccount = (input) => forgotPassword(input)
+    const recoverAccount = input => forgotPassword(input)
 
     const authProps = {
       createAccount,

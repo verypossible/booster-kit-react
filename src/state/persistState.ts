@@ -1,4 +1,4 @@
-import localForage from 'localforage'
+import * as localForage from 'localforage'
 import { persistStore } from 'redux-persist'
 import MemoryStorage from 'redux-persist-memory-storage'
 

@@ -1,16 +1,16 @@
 import stateManager from 'redux-persist-state-manager'
-
 import reducers from './reducers'
 
 const stateMigrations = {
-  1: () => ({}),
-  2: (state) => state
+  1: state => state
 }
 
-const VERSION = 2
+const VERSION = 1
 
-export default () => stateManager(
+const stateWithMigrations = stateManager(
   reducers,
   { version: VERSION },
   stateMigrations
 )
+
+export default stateWithMigrations

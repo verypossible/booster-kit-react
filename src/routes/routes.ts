@@ -1,5 +1,5 @@
 import CallbackRoutes from './callback'
-import DocsRoutes from './docs'
+import ExampleRoutes from './examples'
 import HomeRoute from './home'
 import LoginRoute from './login'
 import ProfileRoute from './profile'
@@ -7,7 +7,7 @@ import SignupRoute from './signup'
 
 const baseRoutes = [
   ...CallbackRoutes,
-  ...DocsRoutes,
+  ...ExampleRoutes,
   ...HomeRoute,
   ...LoginRoute,
   ...ProfileRoute,

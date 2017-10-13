@@ -1,6 +1,6 @@
 machine:
   node:
-    version: 8.1.3
+    version: 8.4.0
   environment:
     PATH: "${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin"
     CC_TEST_REPORTER_ID: 36bc060ce6f0aa2f739be4ae096f22356d8cf9fa6d15e5ca5ddfed318b5e6f85

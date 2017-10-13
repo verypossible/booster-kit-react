@@ -11,4 +11,7 @@ build
 .awcache/*
 
 src/lib/graphql/schema.*
-srclib/graphql/serverSchema.*
+src/lib/graphql/serverSchema.*
+typedocs/*
+typedocs.json
+schema.json

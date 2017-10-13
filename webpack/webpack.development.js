@@ -12,6 +12,7 @@ import styles from './styles'
 const devConfig = {
   entry: entry.development,
   output: {
+    chunkFilename: `[name].[hash].js`,
     filename: `[name].[hash].js`,
     publicPath: `${config.server_url}/`
   },

@@ -28,7 +28,7 @@ const makeStore = (preloadedState = {}) => {
   // Store Instantiation and HMR Setup
   // ======================================================
   const store = createStore(
-    reducers(),
+    reducers,
     preloadedState,
     compose(
       applyMiddleware(...middleware),
@@ -39,10 +39,7 @@ const makeStore = (preloadedState = {}) => {
   persistState({ store })
 
   if (module.hot) {
-    module.hot.accept('./stateManager', () => {
-      const newReducers = require('./stateManager').default
-      store.replaceReducer(newReducers)
-    })
+    module.hot.accept('./stateManager', () => store.replaceReducer(reducers))
   }
 
   return store

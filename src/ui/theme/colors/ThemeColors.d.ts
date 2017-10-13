@@ -1,6 +1,20 @@
+/** Used to match string key when passing in a color prop */
+declare type ThemeColorSelector = (
+  'action' |
+  'backgroundDark' |
+  'backgroundLight' |
+  'dark' |
+  'darkGray' |
+  'light' |
+  'lightGray' |
+  'background' |
+  'backgroundInverse' |
+  'primary' |
+  'primaryInverse'
+)
+
 declare interface ThemeColors {
   colors?: {
-    [key: string]: string,
     action?: string,
     backgroundDark?: string
     backgroundLight?: string,
@@ -8,9 +22,9 @@ declare interface ThemeColors {
     darkGray?: string,
     light?: string,
     lightGray?: string,
-    primaryBackground?: string,
-    primaryBackgroundInverted?: string,
-    primaryColor?: string,
-    primaryColorInverted?: string
+    background?: string,
+    backgroundInverse?: string,
+    primary?: string,
+    primaryInverse?: string
   }
 }

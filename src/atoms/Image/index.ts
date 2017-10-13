@@ -1,6 +1,8 @@
 import atom from 'ui'
 
-const styles = () => ``
+const styles = () => `
+  border: none;
+`
 
 const Image = atom.img`
   ${styles}

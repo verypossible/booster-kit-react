@@ -1,6 +1,11 @@
-import localForage from 'localforage'
+import * as localForage from 'localforage'
 import { ApolloClient, createNetworkInterface } from 'react-apollo'
+
+/* For Subscriptions
 import { addGraphQLSubscriptions, SubscriptionClient } from 'subscriptions-transport-ws'
+
+const clientWs = `wss://${__GRAPHQL_API__}`
+*/
 
 import logger from '../logger'
 
@@ -16,7 +21,6 @@ interface RouterHistory {
 type Token = false | string
 
 const clientUri = `https://${__GRAPHQL_API__}`
-const clientWs = `wss://${__GRAPHQL_API__}`
 
 const makeNetworkInterface = (history: RouterHistory) => {
   /* Set the network interface object */
@@ -54,7 +58,7 @@ const makeNetworkInterface = (history: RouterHistory) => {
               token = session.idToken
             }
           })
-          .catch((err) => logger.log.error('Unable to get authentication token from localForage', { error: err }))
+          .catch(err => logger.log.error('Unable to get authentication token from localForage', { error: err }))
       }
 
       /** We want to restrict certain operations to the client token - specifically creating new users */
@@ -86,23 +90,25 @@ const makeNetworkInterface = (history: RouterHistory) => {
   return networkInterface
 }
 
-const initClient = (history, selectedNetworkInterface) =>
-  new ApolloClient({ networkInterface: selectedNetworkInterface(history) })
+const initClient = networkInterface =>
+  new ApolloClient({ networkInterface })
 
 const client = (history?: RouterHistory) => {
+  const networkInterface = makeNetworkInterface(history)
   /** We can't use subscriptions under test as there is no native support for Websockets in the test env */
   if (__TEST__) {
-    return initClient(history, makeNetworkInterface)
+    return initClient(networkInterface)
   }
 
-  const wsClient = new SubscriptionClient(clientWs)
+  /** Use this network interface in initClient when using subscriptions */
+  // const wsClient = new SubscriptionClient(clientWs)
+  //
+  // const networkInterfaceWithSubscriptions = (h: RouterHistory) => {
+  //   const networkInterface = makeNetworkInterface(h)
+  //   return addGraphQLSubscriptions(networkInterface, wsClient)
+  // }
 
-  const networkInterfaceWithSubscriptions = (h: RouterHistory) => {
-    const networkInterface = makeNetworkInterface(h)
-    return addGraphQLSubscriptions(networkInterface, wsClient)
-  }
-
-  return initClient(history, networkInterfaceWithSubscriptions)
+  return initClient(networkInterface)
 }
 
 export default client

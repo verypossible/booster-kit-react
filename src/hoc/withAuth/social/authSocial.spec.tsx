@@ -1,24 +1,19 @@
 import { mount } from 'enzyme'
 import * as React from 'react'
 
-import { mockProvider } from 'lib/test/mockApollo'
-import MockProvider from 'lib/test/MockProvider'
+import mockApollo from 'lib/test/mockApollo'
+import Provider from 'lib/test/MockProvider'
 
-import { authWithSocial, AuthWithSocial } from '../index'
+import { authWithSocial } from '../index'
+import { AuthWithSocial } from '../types'
+
+const { mockProvider } = mockApollo
 
 // Bypassing auth0-js and returning the same location hash that would be returned at the specified callback URL
 const idToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImdhYmVAdmVyeXBvc3NpYmxlLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJuYW1lIjoiR2FiZSBXZWF2ZXIiLCJnaXZlbl9uYW1lIjoiR2FiZSIsImZhbWlseV9uYW1lIjoiV2VhdmVyIiwicGljdHVyZSI6Imh0dHBzOi8vbGg1Lmdvb2dsZXVzZXJjb250ZW50LmNvbS8tT2Y4UFBaRjFSVEkvQUFBQUFBQUFBQUkvQUFBQUFBQUFBSWcvN1U3WDE4OXBZSGsvcGhvdG8uanBnIiwiZ2VuZGVyIjoibWFsZSIsImxvY2FsZSI6ImVuIiwiY2xpZW50SUQiOiJZc002cVJid3hEVWY5anlTanQ5dlhUempndnVSSUtFRCIsInVwZGF0ZWRfYXQiOiIyMDE3LTA3LTI0VDIwOjM2OjAzLjAyMloiLCJ1c2VyX2lkIjoiZ29vZ2xlLW9hdXRoMnwxMDE4NDg5NTUwMjgyMzU2NjgzNDkiLCJuaWNrbmFtZSI6ImdhYmUiLCJpZGVudGl0aWVzIjpbeyJwcm92aWRlciI6Imdvb2dsZS1vYXV0aDIiLCJ1c2VyX2lkIjoiMTAxODQ4OTU1MDI4MjM1NjY4MzQ5IiwiY29ubmVjdGlvbiI6Imdvb2dsZS1vYXV0aDIiLCJpc1NvY2lhbCI6dHJ1ZX1dLCJjcmVhdGVkX2F0IjoiMjAxNy0wNy0xOFQwNTozNzozMC40NjhaIiwiaXNzIjoiaHR0cHM6Ly92ZXJ5c2VydmljZXMuYXV0aDAuY29tLyIsInN1YiI6Imdvb2dsZS1vYXV0aDJ8MTAxODQ4OTU1MDI4MjM1NjY4MzQ5IiwiYXVkIjoiWXNNNnFSYnd4RFVmOWp5U2p0OXZYVHpqZ3Z1UklLRUQiLCJleHAiOjE1MDA5NjQ1NjMsImlhdCI6MTUwMDkyODU2Mywibm9uY2UiOiJTRjhqZk0zTTl4YWVIaURodnpKQjEtRVNnVUdFQzBMNiJ9.DV4EyGR-M70BAPvUKz-fsU8OKWF4XRQSRaW8EfZMkiY' // tslint:disable-line
 
 /** Mocking the full location hash to verify the authHelpers are working down stream */
 const hashWithToken = `#id_token=${idToken}&state=12345`
-
-/** A test config that matches the same shape as the withAuth() HOC accepts. */
-const config = {
-  callbackPath: '/callback',
-  configuredSocialProviders: ['google', 'github'],
-  redirectOnError: '/login',
-  redirectOnSuccess: '/profile'
-}
 
 /** Expected results once the token is decoded, the user is logged in, and the update mutation is successful. */
 const userFromUpdate = {
@@ -66,6 +61,14 @@ class WrappedComponent extends React.Component<WrappedComponentProps, {}> {
   }
 }
 
+/** A test config that matches the same shape as the withAuth() HOC accepts. */
+const config = {
+  callbackPath: '/callback',
+  configuredSocialProviders: ['google', 'github'],
+  redirectOnError: '/login',
+  redirectOnSuccess: '/profile'
+}
+
 const ProviderAuth0WebWithHelpers = authWithSocial(config)(WrappedComponent)
 
 /** You can pass both location information and mock results to the mockProvider.
@@ -97,25 +100,26 @@ const mockApolloProvider = ({ loginResult, updateResult }) => mockProvider({
 })
 
 describe('(withAuth) providerAuth0Web', () => {
-  it('it exposes the social auth API via the injected props', () => {
+  test('it exposes the social auth API via the injected props', () => {
     const wrapper = mount(
-      <MockProvider>
+      <Provider>
         <ProviderAuth0WebWithHelpers />
-      </MockProvider>
+      </Provider>
     )
 
     const apiKeys = [
       'authenticate', 'match', 'staticContext', 'session', 'history', 'location', 'errors', 'redirect'
     ]
     const targetProps = wrapper.find('WrappedComponent').props()
-
-    expect(Object.keys(targetProps)).toEqual(apiKeys)
-    expect(targetProps.error).toBeFalsy()
+    setImmediate(() => {
+      expect(Object.keys(targetProps)).toEqual(apiKeys)
+      expect(targetProps.error).toBeFalsy()
+    })
   })
 
-  it('authenticates a new user when there is an id token in the location hash and redirects on success', (done) => {
+  test('authenticates a new user when there is an id token in the location hash and redirects on success', done => {
     expect.assertions(2)
-    const callback = (location) => {
+    const callback = location => {
       expect(location.pathname).toEqual(config.redirectOnSuccess)
       expect(location.state.user.username).toEqual(userFromUpdate.username)
       done()
@@ -135,9 +139,9 @@ describe('(withAuth) providerAuth0Web', () => {
     return wrapper
   })
 
-  it('deletes the user and redirects to failure location when there is an existing user', (done) => {
+  test('deletes the user and redirects to failure location when there is an existing user', done => {
     expect.assertions(3)
-    const callback = (location) => {
+    const callback = location => {
       expect(location.pathname).toEqual(config.redirectOnError)
       expect(location.pathname).not.toBe(config.redirectOnSuccess)
       expect(location.state.error).toContain(

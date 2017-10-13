@@ -6,6 +6,5 @@ module.exports = function({ env }) {
   if (env === 'production') {
     return webpackProdConfig
   }
-
   return webpackDevConfig
 }

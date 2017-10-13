@@ -1,31 +1,46 @@
+import { ButtonProps } from './ButtonProps'
+
 const flat = ({
   background,
+  color,
+  invert,
   theme,
   fill
-}: Button) => `
-  color: ${fill ? '#FFF' : theme.colors.action};
-  background-color: ${fill ? (background || theme.colors.action) : '#FFF'};
-  border-color: ${theme.colors.action};
-
-  &:hover {
-    color: ${fill ? theme.colors.action : '#FFF'};
-    background-color: ${fill ? '#FFF' : (background || theme.colors.action)};
-    transition: ${theme.transitions.easeInOut300}
-  }
-
-  > svg {
-    color: ${fill ? '#FFF' : theme.colors.action};
+}: ButtonProps): string => {
+  const matchBg = !invert && theme.colors.background || invert && theme.colors.backgroundInverse || background
+  const matchColor = (
+    theme.colors[color] ||
+    color ||
+    invert && theme.colors.primary ||
+    !invert && theme.colors.primaryInverse
+  )
+  const setColor = (swap?: boolean) => !swap ? (fill ? '#FFF' : matchColor) : (fill ? matchColor : '#FFF')
+  const setBg = (swap?: boolean) => !swap ? (fill ? matchBg : '#FFF') : (fill ? '#FFF' : matchBg)
+  return `
+    color: ${setColor(true)};
+    background-color: ${setBg(true)};
+    border-color: ${setColor()};
 
     &:hover {
-      color: ${fill ? theme.colors.action : '#FFF'};
+      color: ${setColor()};
+      background-color: ${setBg()};
+      transition: ${theme.transitions.easeInOut300}
     }
-  }
-`
+
+    > svg {
+      color: ${setColor()};
+
+      &:hover {
+        color: ${setColor(true)};
+      }
+    }
+  `
+}
 
 const social = ({
   background = '#000',
   color = '#FFF'
-}: Button) => `
+}: ButtonProps): string => `
   color: ${color};
   background-color: ${background};
 `

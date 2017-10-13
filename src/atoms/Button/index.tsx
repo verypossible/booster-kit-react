@@ -5,24 +5,37 @@ import atom from 'ui'
 import Icon from '../Icon'
 import Span from '../Span'
 
-import styles from './buttonStyles'
+import { ButtonProps } from './ButtonProps'
+import buttonTypes from './buttonStyles'
 
 const getButton = ({
   type = 'flat'
-}: Button) => styles[type]
+}: ButtonProps) => buttonTypes[type]
 
-const ButtonElement = atom.button`
+const ButtonElement: React.SFC<ButtonProps> = ({
+  children, icon, status, iconColor, className
+}) => (
+  <button className={className}>
+    {icon && (
+      <Span>
+        <Icon status={status} color={iconColor} icon={icon} />
+      </Span>
+    )}
+    {children}
+  </button>
+)
+
+const Button = atom(ButtonElement)`
   ${getButton}
-  font-family: ${(props) => props.theme.font.family.text};
+  font-family: ${(props: ButtonProps) => props.theme.font.family.text};
   border: 1px solid;
   font-size: 1em;
   line-height: 2em;
   min-width: 120px;
   padding: 0.8em 1.5em;
-  margin-right: 0.8em;
   text-align: center;
   text-decoration: none;
-  text-transform: ${(props: Button) => (props.text || 'none')};
+  text-transform: ${(props: ButtonProps) => (props.text || 'none')};
   white-space: nowrap;
   cursor: pointer;
 
@@ -41,21 +54,5 @@ const ButtonElement = atom.button`
     }
   }
 `
-
-const Button: React.SFC<Button> = ({
-  children, icon, status, iconColor, ...props
-}) => {
-  const WithIcon = (
-    <Span>
-      <Icon status={status} color={iconColor} icon={icon} />
-    </Span>
-  )
-
-  return (
-    <ButtonElement {...props}>
-      {icon && WithIcon}{children}
-    </ButtonElement>
-  )
-}
 
 export default Button

@@ -19,7 +19,7 @@ import { auth0Config, authProvider, socialAuth, socialLogout, socialSessionVerif
 const { loginSocial, login, createUser, deleteUser, updateUser, forgotPassword } = queries
 
 /** Shared HOCS all strategies depend upon */
-const common = (config) => compose(
+const common = config => compose(
   withRouter,
   connectState(
     (selectors: Selectors) => ({

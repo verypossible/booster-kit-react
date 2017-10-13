@@ -51,7 +51,8 @@ const base = [
     test: /\.js$|\.css$|\.png$|\.jpg$|\.md$|\.html$/,
     threshold: 10240,
     minRatio: 0.8
-  })
+  }),
+  new webpack.optimize.AggressiveMergingPlugin()
 ]
 
 const development = [
@@ -92,7 +93,7 @@ const production = [
   new ExtractTextPlugin({
     allChunks: true,
     disable: false,
-    filename: '[name].[contenthash].css',
+    filename: '[name].[hash].css',
     ignoreOrder: true
   }),
   new webpack.IgnorePlugin(/^\.(feature|spec|stories)\\.(ts|tsx|js)$/),

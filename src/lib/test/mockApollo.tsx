@@ -12,16 +12,16 @@ import { MemoryRouter } from 'react-router-dom'
 import { Reducer } from 'redux'
 import { createStore } from 'redux'
 
-import * as introspectionResult from 'lib/graphql/serverSchema.json'
 import rootReducer from 'state/reducers'
+
+import * as introspectionResult from '../graphql/serverSchema.json'
 
 import dateTimeResolver from './dateTimeResolver'
 
 type MocksTypes = object
 
 export { MockList }
-
-export function mockClient (mocks: MocksTypes): ApolloClient {
+function mockClient (mocks: MocksTypes): ApolloClient {
   const exSchema = buildClientSchema(introspectionResult.data)
   addMockFunctionsToSchema({
     mocks: mocks as any,
@@ -61,7 +61,7 @@ export interface MockProviderOpts {
 }
 
 /** Create a fully initialized ApolloProvider with a mocked out graphql connection and arbitrary initial state. */
-export function mockProvider (opts?: MockProviderOpts) {
+function mockProvider (opts?: MockProviderOpts) {
   if (!opts) { opts = {} }
 
   /** This is where you can pass in custom Scalars / resolvers for the mocks... e.g. DateTime */
@@ -87,6 +87,14 @@ export function mockProvider (opts?: MockProviderOpts) {
     }
   }
 }
+
+const mockApollo = {
+  mockClient,
+  mockProvider
+}
+
+export { mockClient, mockProvider }
+export default mockApollo
 
 // ...If we end up using Storybooks
 //

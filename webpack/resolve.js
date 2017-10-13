@@ -1,3 +1,5 @@
+import path from 'path'
+
 import config from '../config'
 
 const paths = config.utils_paths
@@ -15,7 +17,8 @@ export default {
     '.md'
   ],
   modules: [
-    '../src',
+    path.resolve(__dirname, '../src'),
+    path.resolve(__dirname, '../docs'),
     'node_modules'
   ]
 }

@@ -6,6 +6,12 @@ import NavBar from 'components/NavBar'
 
 import TwoColumn from './TwoColumn'
 
+interface NavItem {
+  id: string,
+  text: any,
+  to: string
+}
+
 interface LayoutSidebarProps {
   children?: any
   navItems?: NavItem[]
@@ -25,11 +31,11 @@ const Layout: React.SFC<LayoutSidebarProps> = ({
   children,
   navItems = defaultNavItems
 }) => (
-  <TwoColumn leftWidth={25}>
-    <Box column={[1, 1]} inverse>
+  <TwoColumn split='1/4' height='fullvh'>
+    <Box area={{ col: 'left' }} inverse>
       <NavBar navItems={navItems} />
     </Box>
-    <Box column={[2, 2]}>
+    <Box area={{ col: 'right' }}>
       {children}
     </Box>
   </TwoColumn>
