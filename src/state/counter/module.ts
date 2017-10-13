@@ -16,7 +16,7 @@ const increment = (value: number = 1) => ({
 })
 
 const doubleAsync = (): ThunkAction<Promise<string>, State, null> =>
-  (dispatch: Dispatch<State>, getState: () => State) => new Promise((resolve) => {
+  (dispatch: Dispatch<State>, getState: () => State) => new Promise(resolve => {
   setTimeout(() => {
     dispatch(increment(getState().counter))
     resolve()

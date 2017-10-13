@@ -13,7 +13,7 @@ const StyleSource = styled.div`
 `
 
 const Sources = ({ area, sources }) => (
-  <StyleSource area={area}>loc: {sources.map((s) => `${s.fileName}:${s.line}`)}</StyleSource>
+  <StyleSource area={area}>loc: {sources.map(s => `${s.fileName}:${s.line}`)}</StyleSource>
 )
 
 export default Sources

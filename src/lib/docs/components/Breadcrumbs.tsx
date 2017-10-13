@@ -18,7 +18,7 @@ const MakeBreadcrumbs: React.SFC<Props> = ({ className, location }) => {
   const crumbs = S(location.pathname).splitRight('/')
   return (
     <div className={className}>
-      {crumbs.map((c) => (
+      {crumbs.map(c => (
         <Crumb>
           {c}
         </Crumb>

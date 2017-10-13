@@ -43,7 +43,7 @@ export const createUser = graphql<Schema.CreateUserMutation, {}, AuthServerProps
 
 export const deleteUser = graphql<Schema.UpdateUserMutation, {}, AuthSocialProps>(mutation.DeleteUser, {
   alias: 'deleteUser',
-  props: (props) => ({
+  props: props => ({
     deleteUser: (id: Schema.DeleteUserInput) => props.mutate({
       variables: { input: { id } }
     })
@@ -51,7 +51,7 @@ export const deleteUser = graphql<Schema.UpdateUserMutation, {}, AuthSocialProps
 })
 
 export const login = graphql<Schema.LoginUserMutation, {}, AuthServerProps>(mutation.LoginUser, {
-  props: (props) => ({
+  props: props => ({
     alias: 'login',
     loginUser: (credentials: Schema.LoginUserInput) => props.mutate({
       variables: { input: { ...credentials } }
@@ -63,7 +63,7 @@ export const login = graphql<Schema.LoginUserMutation, {}, AuthServerProps>(muta
 
 export const forgotPassword = graphql<Schema.ForgotPasswordMutation, {}, AuthServerProps>(mutation.ForgotPassword, {
   alias: 'forgotPassword',
-  props: (props) => ({
+  props: props => ({
     forgotPassword: (newCredentials: Schema.ChangeUserPasswordInput) => props.mutate({
       variables: { input: { ...newCredentials } }
     }).then(

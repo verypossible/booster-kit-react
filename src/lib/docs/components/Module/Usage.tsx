@@ -14,7 +14,7 @@ interface Props extends ParsedType {
 
 const wrapper = (name, params, children, loc) => {
   const propName = `${name.toLowerCase()}Props`
-  const makeProps = params.map((p) => {
+  const makeProps = params.map(p => {
     const type = p.isOptional ? `${p.name}` : `${p.name} [r]`
     return `${type}: ${p.type}`
   })
@@ -30,7 +30,7 @@ const wrapper = (name, params, children, loc) => {
     /** [r] denotes required prop */
 
     const ${propName} = {
-     ${makeProps.map((p) => p).join(`,
+     ${makeProps.map(p => p).join(`,
      `)}
     }
 
@@ -50,7 +50,7 @@ const ModuleUsage: React.SFC<Props> = ({
   meta,
   name
 }) => {
-  const acceptsChildren = meta.params && meta.params.find((p) => p.name === 'children')
+  const acceptsChildren = meta.params && meta.params.find(p => p.name === 'children')
   const renderExample = !meta.params ? '' : wrapper(name, meta.params, acceptsChildren, importLoc)
   return (
     <Layout>

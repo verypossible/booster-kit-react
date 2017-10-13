@@ -32,10 +32,10 @@ const applyAlignment = ({ justifyItems }: Props) => justifyItems && `
 `
 
 const ItemRow = styled(Component)`
-  grid-area: ${(props) => props.area};
-  color: ${(props) => props.color || 'black'};
-  padding: ${(props) => props.padding || '0'};
-  background: ${(props) => props.background || 'none'};
+  grid-area: ${props => props.area};
+  color: ${props => props.color || 'black'};
+  padding: ${props => props.padding || '0'};
+  background: ${props => props.background || 'none'};
   height: 100%;
   width: 100%;
   ${applyBorder}

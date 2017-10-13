@@ -5,7 +5,7 @@ import FieldSelector from './FieldSelector'
 
 const RenderFieldSet: React.SFC<FieldSetConfig> = ({ fields }) => (
   <FieldSet>
-    {fields.map((input) => <FieldSelector key={input.name} {...input} />)}
+    {fields.map(input => <FieldSelector key={input.name} {...input} />)}
   </FieldSet>
 )
 

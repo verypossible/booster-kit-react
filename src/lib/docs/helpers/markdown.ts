@@ -5,7 +5,7 @@ export default (markup: string) => {
   marked.setOptions({
     breaks: true,
     gfm: true,
-    hightlight: (code) => Prism.highlight(code, Prism.languages.javascript),
+    hightlight: code => Prism.highlight(code, Prism.languages.javascript),
     pedantic: false,
     renderer: new marked.Renderer(),
     sanitize: false,

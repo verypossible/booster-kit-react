@@ -21,7 +21,6 @@ import dateTimeResolver from './dateTimeResolver'
 type MocksTypes = object
 
 export { MockList }
-console.log(introspectionResult)
 function mockClient (mocks: MocksTypes): ApolloClient {
   const exSchema = buildClientSchema(introspectionResult.data)
   addMockFunctionsToSchema({

@@ -12,7 +12,7 @@ function parseFunction ({
   const returnTypes = type && type.typeArguments
   const returns = {
     name: signature.type.name,
-    types: returnTypes && returnTypes.map((t) => (
+    types: returnTypes && returnTypes.map(t => (
       ((t.declaration && t.declaration.kindString === 'Type literal') && 'object') ||
       t.name
     )).join(', ')
@@ -30,7 +30,7 @@ function parseFunction ({
     }
   }
 
-  const functionArguments = signature.parameters.map((param) => `${param.name}: ${argType(param)}`).join(', ')
+  const functionArguments = signature.parameters.map(param => `${param.name}: ${argType(param)}`).join(', ')
 
   const method = `${name} (${functionArguments}): ${returns.name}`
   const makeSignature = !returns.types ? method

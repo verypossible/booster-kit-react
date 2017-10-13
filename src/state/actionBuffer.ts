@@ -16,12 +16,12 @@ export default function (breaker) {
   if (breakerType === 'string' || breakerType === 'symbol') {
     const actionType = breaker
 
-    breaker = (action) => action.type === actionType
+    breaker = action => action.type === actionType
   }
 
   return () => {
-    return (next) => {
-      return (action) => {
+    return next => {
+      return action => {
         // console.log('next', next, action)
         if (!active) {
           return next(action)
@@ -32,7 +32,7 @@ export default function (breaker) {
           const result = next(action)
           setImmediate(() => {
             const queueResults = []
-            queue.forEach((queuedAction) => {
+            queue.forEach(queuedAction => {
               const queuedActionResult = next(queuedAction)
               queueResults.push(queuedActionResult)
             })

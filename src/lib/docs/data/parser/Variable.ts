@@ -5,7 +5,7 @@ function parseVariable ({
   parts,
   makeParams
 }): Meta {
-  const signature = `${name}: ${type.name}${'&#60;'}${type.typeArguments.map((a) =>
+  const signature = `${name}: ${type.name}${'&#60;'}${type.typeArguments.map(a =>
     a.name)}${'&#62;'} = ${defaultValue}`
   const params = makeParams(type, parts)
 

@@ -19,6 +19,6 @@ const Anchor: React.SFC<Props & Styles> = ({ navLink, text, ...props }) => (
 )
 
 export default styled(Anchor)`
-  color: ${(props) => props.color || 'black' };
+  color: ${props => props.color || 'black' };
   font-family: Roboto, sans-serif;
 `

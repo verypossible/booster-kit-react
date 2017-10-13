@@ -43,7 +43,7 @@ const authSocialWrapper = ({
         ...getProvider(username),
         ...user
       }))
-      .catch((error) => handleLoginFailure({ error, reason: errors.failedLogin() }))
+      .catch(error => handleLoginFailure({ error, reason: errors.failedLogin() }))
 
     const setGraphqlClientAuthToken = ({ idToken, ...user }) => {
       redirect({
@@ -79,14 +79,14 @@ const authSocialWrapper = ({
      */
     const updateUserWithDataFromToken = ({ idToken, user }) => updateUser(user)
       .then(
-        (userFromUpdate) => {
+        userFromUpdate => {
           const newSession = { ...userFromUpdate, sessionType: 'social', token: idToken }
           storeSession(newSession)
           return {
             user: newSession
           }
         },
-        (error) => handleExistingUsers({ error, user })
+        error => handleExistingUsers({ error, user })
       )
 
     const handleAuthResult = (result: AuthSocialResult) => {

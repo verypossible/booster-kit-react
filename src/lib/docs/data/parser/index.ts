@@ -4,7 +4,7 @@ import func from './Function'
 import makeParams from './makeParams'
 import variable from './Variable'
 
-export const formatSource = (s) => `${s.fileName}:${s.line}`
+export const formatSource = s => `${s.fileName}:${s.line}`
 
 function metaData (args): Meta {
   switch (args.currentPart.kindString) {

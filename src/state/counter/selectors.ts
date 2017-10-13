@@ -6,7 +6,7 @@ const getCounterFromState = (state: State) => state[KEY]
 
 const getCount = createSelector(
   [getCounterFromState],
-  (counter) => counter
+  counter => counter
 )
 
 export {

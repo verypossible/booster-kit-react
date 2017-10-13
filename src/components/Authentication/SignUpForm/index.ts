@@ -14,7 +14,7 @@ export const handleSubmit: HandleSubmit<AuthForm, AuthWithServer, AuthFormError>
     .then(
       ({ token, ...user }) =>
         redirect({ pathname: redirectOnSuccess, state: { token, user }}),
-      (error) => submitError({
+      error => submitError({
         errors: { _error: errors.failedSignup() },
         response: error
       })

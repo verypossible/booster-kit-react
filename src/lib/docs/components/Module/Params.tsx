@@ -55,7 +55,7 @@ const Params = ({ params }) => {
       <Label area='label2'>type</Label>
       <Label area='label3'>required</Label>
       <Label area='label4'>source</Label>
-      {params.map((p) => <Param key={p.name} name={p.name} type={p.type} />)}
+      {params.map(p => <Param key={p.name} name={p.name} type={p.type} />)}
     </ParamsLayout>
   )
 }
