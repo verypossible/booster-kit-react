@@ -5,21 +5,21 @@ import { Dispatch } from 'lib/types'
 // Static Config
 // ------------------------------------
 export interface Auth0Config {
-  clientID: string,
-  domain: string,
-  redirectUri: string,
-  responseType: string,
+  clientID: string
+  domain: string
+  redirectUri: string
+  responseType: string
   scope: string
 }
 
 export interface PublicAuthConfig {
-  callbackPath?: string,
-  redirectOnError?: string,
-  redirectOnSuccess?: string,
+  callbackPath?: string
+  redirectOnError?: string
+  redirectOnSuccess?: string
 }
 
 export interface AuthConfig extends PublicAuthConfig {
-  auth0Config?: Auth0Config,
+  auth0Config?: Auth0Config
   configuredSocialProviders?: string[]
 }
 
@@ -27,14 +27,14 @@ export interface AuthConfig extends PublicAuthConfig {
 // Router & Connect Props
 // ------------------------------------
 export interface WithRouter {
-  history?: RouterHistory,
-  location?: RouterLocation,
+  history?: RouterHistory
+  location?: RouterLocation
   match?: RouterMatch
 }
 
 interface AuthState {
-  session: Session,
-  storeSession?: (payload: ActiveSession) => Dispatch<SessionActions>,
+  session: Session
+  storeSession?: (payload: ActiveSession) => Dispatch<SessionActions>
 }
 
 // ------------------------------------
@@ -48,14 +48,19 @@ interface CommonAuthData {
 }
 
 interface ServerAuthData extends CommonAuthData {
-  createUser?: AuthResponse<Schema.CreateUserInput, ActiveSession>,
-  forgotPassword?: AuthResponse<Schema.ChangeUserPasswordInput, Schema.ForgotPasswordMutation>,
-  loginUser?: AuthResponse<Schema.LoginUserInput, ActiveSession>,
-
+  createUser?: AuthResponse<Schema.CreateUserInput, ActiveSession>
+  forgotPassword?: AuthResponse<
+    Schema.ChangeUserPasswordInput,
+    Schema.ForgotPasswordMutation
+  >
+  loginUser?: AuthResponse<Schema.LoginUserInput, ActiveSession>
 }
 
 interface LoginSocialUser {
-  loginSocialUser?: AuthResponse<Schema.LoginUserWithAuth0Input, Schema.UpdateUserInput>
+  loginSocialUser?: AuthResponse<
+    Schema.LoginUserWithAuth0Input,
+    Schema.UpdateUserInput
+  >
 }
 
 interface SocialAuthData extends CommonAuthData, LoginSocialUser {
@@ -73,44 +78,44 @@ type AuthError = boolean | string
 
 /** The user object retrieved from decoding the JWT token in location.hash */
 export interface UserFromToken {
-  idToken: string,
+  idToken: string
   user: {
-    avatar: string,
-    email: string,
-    expiresAt: number,
+    avatar: string
+    email: string
+    expiresAt: number
     name: string
-  },
+  }
   username: string
 }
 
 export interface AuthErrors {
-  failedLogin: (data?: object) => string,
-  failedSignup: (data?: object) => string,
-  failedUpdate: (data: { email: string }) => string,
+  failedLogin: (data?: object) => string
+  failedSignup: (data?: object) => string
+  failedUpdate: (data: { email: string }) => string
   tokenExpired: (data?: object) => string
 }
 
 interface PublicAuthHelpers {
-  error?: AuthError,
-  errors?: AuthErrors,
-  redirect?: ({ pathname, state }: { pathname: string, state: object }) => void
+  error?: AuthError
+  errors?: AuthErrors
+  redirect?: ({ pathname, state }: { pathname: string; state: object }) => void
 }
 
 interface AllAuthHelpers extends PublicAuthHelpers {
-  getProvider?: (val: string | object, nameOnly?: boolean) => Provider,
-  handleLoginFailure?: (error: object) => void,
-  logError?: (err: { reason: string, error: object }) => void,
-  purgeSession?: () => void,
-  shouldProcessAuth?: boolean,
+  getProvider?: (val: string | object, nameOnly?: boolean) => Provider
+  handleLoginFailure?: (error: object) => void
+  logError?: (err: { reason: string; error: object }) => void
+  purgeSession?: () => void
+  shouldProcessAuth?: boolean
   getUserFromToken?: () => Promise<UserFromToken>
 }
 
-export interface AuthHelpers  {
+export interface AuthHelpers {
   authHelpers: AllAuthHelpers
 }
 
 export interface AuthSocialResult {
-  error?: AuthError,
+  error?: AuthError
   user?: Schema.UpdateUserInput
 }
 
@@ -127,7 +132,7 @@ export type VerifySocialSessionProps = CommonProps & LoginSocialUser
 // Public Social API
 // ------------------------------------
 export interface AuthWithSocial extends WithRouter, PublicAuthHelpers {
-  authenticate: () => void,
+  authenticate: () => void
   session: Session
 }
 
@@ -136,25 +141,25 @@ export interface LogoutWithSocial {
 }
 
 export interface AuthSocialProvider {
-  error: AuthError,
-  authProvider: (connection?: 'google-oauth2' | 'github') => void,
+  error: AuthError
+  authProvider: (connection?: 'google-oauth2' | 'github') => void
 }
 
-export interface VerifySocialSession  {
+export interface VerifySocialSession {
   verifySocialSession: (idToken: string) => Promise<void | ActiveSession>
 }
 
 // ------------------------------------
 // Public Scaphold API
 // ------------------------------------
-export interface AuthWithServer extends
-  WithRouter,
-  CommonAuthData,
-  PublicAuthHelpers,
-  PublicAuthConfig {
-  createAccount: (input: Schema.CreateUserInput) => Promise<ActiveSession>,
-  errors: AuthErrors,
-  login: (input: Schema.LoginUserInput) => Promise<ActiveSession>,
-  logout: () => void,
+export interface AuthWithServer
+  extends WithRouter,
+    CommonAuthData,
+    PublicAuthHelpers,
+    PublicAuthConfig {
+  createAccount: (input: Schema.CreateUserInput) => Promise<ActiveSession>
+  errors: AuthErrors
+  login: (input: Schema.LoginUserInput) => Promise<ActiveSession>
+  logout: () => void
   session: Session
 }

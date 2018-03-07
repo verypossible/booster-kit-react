@@ -1,0 +1,42 @@
+defaultSeverity: error
+extends:
+  - tslint:recommended
+  - tslint-react
+linterOptions:
+  exclude:
+    - ./webpack/
+rules:
+  semicolon:
+    options:
+      - true
+      - never
+  trailing-comma:
+    options:
+      - true
+      -
+        multiline: never
+        singeline: never
+  quotemark:
+    options:
+      - true
+      - single
+      - jsx-double
+      - avoid-escape
+  interface-over-type-literal: false
+  space-before-function-paren:
+    options:
+      - true
+      - always
+  jsx-no-multine: false
+  jsx-no-lambda: false
+  jsx-curly-spacing:
+    options:
+      - never
+  jsx-no-multiline-js: false
+  jsx-boolean-value:
+    options:
+      - never
+  arrow-parens:
+    options:
+      - true
+      - ban-single-arg-parens

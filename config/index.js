@@ -10,49 +10,50 @@ debug('Creating default configuration.')
 // Default Configuration
 // ========================================================
 const config = {
-  env    : process.env.NODE_ENV || 'development',
+  env: process.env.NODE_ENV || 'development',
 
-  app_name : 'reactBoosterKit',
+  app_name: 'reactBoosterKit',
 
   // ----------------------------------
   // Project Structure
   // ----------------------------------
-  path_base     : path.resolve(__dirname, '..'),
-  dir_src       : 'src',
-  dir_build     : 'build',
-  dir_test      : 'tests',
+  path_base: path.resolve(__dirname, '..'),
+  dir_src: 'src',
+  dir_build: 'build',
+  dir_test: 'tests',
 
   // ----------------------------------
   // Server Configuration
   // ----------------------------------
-  server_protocol    : process.env.PROTOCOL || 'http',
-  server_host        : process.env.HOST || 'localhost',
-  server_port        : process.env.PORT || 3000,
+  server_protocol: process.env.PROTOCOL || 'http',
+  server_host: process.env.HOST || 'localhost',
+  server_port: process.env.PORT || 3003,
 
   // ----------------------------------
   // BrowserSync Options
   // ----------------------------------
-  browser_sync_port        : 3010,
-  browser_sync_ui_port     : 3011,
-  browser_sync_open_window : false,
+  browser_sync_port: 3010,
+  browser_sync_ui_port: 3011,
+  browser_sync_open_window: false,
 
   // ----------------------------------
   // Rollbar Tokens
   // ----------------------------------
-  rollbar_client  : 'bc54120a29d747309c1beeb8d2e024a1',
-  rollbar_server  : '85651afd5f674040bdd94969fa856680',
+  rollbar_client: 'bc54120a29d747309c1beeb8d2e024a1',
+  rollbar_server: '85651afd5f674040bdd94969fa856680',
 
   // ----------------------------------
   // Analytics
   // ----------------------------------
-  segment_dev  : 'QpF5Rgp3JayD8pwJ3uwlOAUKI95wWRvk',
-  segment_prod : 'Qt0CVzWXKQzk4TTAm4QoR87mliiNRtsZ',
+  segment_dev: 'QpF5Rgp3JayD8pwJ3uwlOAUKI95wWRvk',
+  segment_prod: 'Qt0CVzWXKQzk4TTAm4QoR87mliiNRtsZ',
 
   // ----------------------------------
   // Graphql
   // ----------------------------------
-  graphql_server  : 'us-west-2.api.scaphold.io/graphql/very-react',
-  graphql_clientReadWrite : 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MDIzOTAzNDEsImlhdCI6MTUwMTA5NDM0MSwiYXVkIjoiYWM0YjhjMWEtZWNmNS00NmM0LWFiNDUtNzU2NmEzNzA4MGM1IiwiaXNzIjoiaHR0cHM6Ly9zY2FwaG9sZC5pbyIsInN1YiI6IjE0In0.QAQqOqVFZVzJlhm2y87bXHQomtUn12V2ZOI91I-W3qA',
+  graphql_server: 'us-west-2.api.scaphold.io/graphql/very-react',
+  graphql_clientReadWrite:
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MDIzOTAzNDEsImlhdCI6MTUwMTA5NDM0MSwiYXVkIjoiYWM0YjhjMWEtZWNmNS00NmM0LWFiNDUtNzU2NmEzNzA4MGM1IiwiaXNzIjoiaHR0cHM6Ly9zY2FwaG9sZC5pbyIsInN1YiI6IjE0In0.QAQqOqVFZVzJlhm2y87bXHQomtUn12V2ZOI91I-W3qA',
 
   // ----------------------------------
   // Auth0
@@ -64,18 +65,20 @@ const config = {
   // ----------------------------------
   // Compiler Configuration
   // ----------------------------------
-  compiler_options         : {
+  compiler_options: {
     env: process.env.NODE_ENV || 'development'
   },
-  compiler_stats           : {
-    chunks : false,
-    chunkModules : false,
-    colors : true
+  compiler_stats: {
+    chunks: false,
+    chunkModules: false,
+    colors: true
   },
-  compiler_fail_on_warning : false
+  compiler_fail_on_warning: false
 }
 
-config.server_url = `${config.server_protocol}://${config.server_host}:${config.server_port}`
+config.server_url = `${config.server_protocol}://${config.server_host}:${
+  config.server_port
+}`
 config.testServer = process.env.TEST_SERVER || `${config.server_url}`
 
 // ------------------------------------
@@ -83,37 +86,37 @@ config.testServer = process.env.TEST_SERVER || `${config.server_url}`
 // ------------------------------------
 // N.B.: globals added here must _also_ be added to .eslintrc
 config.globals = {
-  'process.env'  : {
-    NODE_ENV : JSON.stringify(config.env)
+  'process.env': {
+    NODE_ENV: JSON.stringify(config.env)
   },
-  NODE_ENV        : config.env,
-  __DEV__         : config.env === 'development',
-  __PROD__        : config.env === 'production',
-  __TEST__        : config.env === 'test',
-  __DEBUG__       : config.env === 'development' && !argv.no_debug,
-  __COVERAGE__    : !argv.watch && config.env === 'test',
-  __PROTOCOL__    : config.server_protocol,
-  __HOST__        : config.server_host,
-  __PORT__        : config.server_port,
-  __TEST_SERVER__ : config.test_server,
-  __GRAPHQL_API__ : JSON.stringify(config.graphql_server),
+  NODE_ENV: config.env,
+  __DEV__: config.env === 'development',
+  __PROD__: config.env === 'production',
+  __TEST__: config.env === 'test',
+  __DEBUG__: config.env === 'development' && !argv.no_debug,
+  __COVERAGE__: !argv.watch && config.env === 'test',
+  __PROTOCOL__: config.server_protocol,
+  __HOST__: config.server_host,
+  __PORT__: config.server_port,
+  __TEST_SERVER__: config.test_server,
+  __GRAPHQL_API__: JSON.stringify(config.graphql_server),
   __CLIENT_TOKEN__: JSON.stringify(config.graphql_clientReadWrite),
-  __AUTH_CID__    : JSON.stringify(config.auth_cid),
-  __AUTH_URL__    : JSON.stringify(config.auth_url)
+  __AUTH_CID__: JSON.stringify(config.auth_cid),
+  __AUTH_URL__: JSON.stringify(config.auth_url)
 }
 
 // ------------------------------------
 // Utilities
 // ------------------------------------
-function base () {
+function base() {
   const args = [config.path_base].concat([].slice.call(arguments))
   return path.resolve.apply(path, args)
 }
 
 config.utils_paths = {
-  base      : base,
-  src       : base.bind(null, config.dir_src),
-  build     : base.bind(null, config.dir_build),
+  base: base,
+  src: base.bind(null, config.dir_src),
+  build: base.bind(null, config.dir_build)
 }
 
 // ========================================================

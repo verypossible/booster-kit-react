@@ -22,27 +22,27 @@ declare interface Window {
 
 /* ES6 Object Methods */
 declare interface ObjectConstructor {
-  assign (target: any, ...sources: any[]): any,
-  entries (target: any): any
+  assign(target: any, ...sources: any[]): any
+  entries(target: any): any
 }
 
 /* Non-JS File Imports */
 declare module '*.png' {
-    const value: string
-    export = value
+  const value: string
+  export = value
 }
 
 declare module '*.md' {
-    const value: any
-    export = value
+  const value: any
+  export = value
 }
 
 declare module '*.svg' {
-    const value: any
-    export = value
+  const value: any
+  export = value
 }
 
 declare module '*.json' {
-    const value: any
-    export = value
+  const value: any
+  export = value
 }

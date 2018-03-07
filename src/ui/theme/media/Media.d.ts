@@ -1,7 +1,7 @@
 declare interface MediaSizes {
-  [key: string]: () => void,
-  large?: () => void,
-  medium?: () => void,
+  [key: string]: () => void
+  large?: () => void
+  medium?: () => void
   small?: () => void
 }
 

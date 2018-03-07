@@ -1,7 +1,7 @@
 /** When we add more input component types, add them to the type field */
 interface FormCommon {
-  label?: string,
-  placeholder?: string,
+  label?: string
+  placeholder?: string
   type: string
 }
 
@@ -12,9 +12,9 @@ declare interface FormInput extends FormCommon {
 declare interface FormField extends FormCommon {
   input: {
     name: string
-  },
+  }
   meta: {
-    touched: boolean,
+    touched: boolean
     error: boolean | string
   }
   disabled: boolean
@@ -24,22 +24,24 @@ declare interface FieldSetConfig {
   fields: FormInput[]
 }
 
-declare type FormFieldSelector = React.SFC<FormInput> | React.ComponentClass<FormInput>
+declare type FormFieldSelector =
+  | React.SFC<FormInput>
+  | React.ComponentClass<FormInput>
 
 declare interface FormProps {
-  children?: any,
-  formName: string,
-  handleSubmit: () => void,
-  pristine: boolean,
-  submitting: boolean,
-  submitText: string,
+  children?: any
+  formName: string
+  handleSubmit: () => void
+  pristine: boolean
+  submitting: boolean
+  submitText: string
   error: string
 }
 
 declare interface FormCompletedProps {
-  message?: string,
+  message?: string
   redirectTo?: {
-    pathname: string,
+    pathname: string
     state?: object
   }
 }

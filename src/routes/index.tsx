@@ -1,8 +1,9 @@
 import * as React from 'react'
 
-import withSubRoutes, { SubRoutes } from 'hoc/withSubRoutes'
+import withSubRoutes, { ISubRoutes } from 'hoc/withSubRoutes'
 
 import EntryLayout from './layout'
+import routes from './routes'
 
 /** LayoutProps Shorthand */
 type LP = any
@@ -13,7 +14,8 @@ const AppEntry = withSubRoutes<LP>(EntryLayout)
 //   ...props
 // })
 
-const Routes: React.SFC<SubRoutes<LP>> = ({ routes, store }) =>
+const Routes: React.SFC<ISubRoutes<LP>> = ({ store }) => (
   <AppEntry routes={routes} store={store} />
+)
 
 export default Routes

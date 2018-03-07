@@ -15,26 +15,19 @@ interface Config {
 
 export const wrapConnectState = <OP extends {}>({
   stateHOC = withStateHOC
-}: Config = {}) => (
-    mapStateToProps,
-    mapActionsToProps?: any
-  ) => {
+}: Config = {}) => (mapStateToProps, mapActionsToProps?: any) => {
   const makeMapStateToProps = () => mapSelectors(selectors, mapStateToProps)
 
   let connectState = connect(makeMapStateToProps)
 
   if (mapActionsToProps) {
-    const mapDispatchToProps = (dispatch: Dispatch<State>, ownProps: OP) => (
+    const mapDispatchToProps = (dispatch: Dispatch<State>, ownProps: OP) =>
       mapActions(actions, mapActionsToProps, { dispatch, ownProps })
-    )
 
     connectState = connect(makeMapStateToProps, mapDispatchToProps)
   }
 
-  return compose(
-   connectState,
-   stateHOC
-  )
+  return compose(connectState, stateHOC)
 }
 
 export default wrapConnectState()

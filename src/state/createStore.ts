@@ -1,23 +1,19 @@
 import { applyMiddleware, compose, createStore } from 'redux'
-import { autoRehydrate } from 'redux-persist'
-import { REHYDRATE } from 'redux-persist/constants'
-import thunk from 'redux-thunk'
+import { persistStore } from 'redux-persist'
 
-import actionBuffer from './actionBuffer'
-import persistState from './persistState'
-import reducers from './stateManager'
+import reducers from './reducers'
 
 const makeStore = (preloadedState = {}) => {
   // ======================================================
   // Middleware Configuration
   // ======================================================
-  const middleware = [thunk, actionBuffer(REHYDRATE)]
+  const middleware: any = []
 
   // ======================================================
   // Store Enhancers
   // ======================================================
-  const enhancers = [autoRehydrate()]
-  if (__DEBUG__) {
+  const enhancers = []
+  if (process.env.NODE_ENV === 'development') {
     const devToolsExtension = window.devToolsExtension
     if (typeof devToolsExtension === 'function') {
       enhancers.push(devToolsExtension())
@@ -28,24 +24,18 @@ const makeStore = (preloadedState = {}) => {
   // Store Instantiation and HMR Setup
   // ======================================================
   const store = createStore(
-    reducers(),
+    reducers,
     preloadedState,
-    compose(
-      applyMiddleware(...middleware),
-      ...enhancers
-    )
+    compose(applyMiddleware(...middleware), ...enhancers)
   )
 
-  persistState({ store })
+  const persistor = persistStore(store)
 
   if (module.hot) {
-    module.hot.accept('./stateManager', () => {
-      const newReducers = require('./stateManager').default
-      store.replaceReducer(newReducers)
-    })
+    module.hot.accept('./reducers', () => store.replaceReducer(reducers))
   }
 
-  return store
+  return { store, persistor }
 }
 
 export default makeStore

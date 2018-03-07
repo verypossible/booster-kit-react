@@ -3,8 +3,4 @@ import query from './queries'
 import * as GraphQL from './schema'
 
 /* Queries and Mutations */
-export {
-  mutate,
-  query,
-  GraphQL
-}
+export { mutate, query, GraphQL }

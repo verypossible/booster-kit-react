@@ -4,9 +4,7 @@ import thunk from 'redux-thunk'
 
 import actionBuffer from 'state/actionBuffer'
 
-const middlewares = [
-  thunk, actionBuffer(REHYDRATE)
-]
+const middlewares = [thunk, actionBuffer(REHYDRATE)]
 
 const mockStore = configureStore(middlewares)
 

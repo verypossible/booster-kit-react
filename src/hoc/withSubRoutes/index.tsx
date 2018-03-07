@@ -6,13 +6,13 @@ import { Store } from 'lib/types'
 
 import { getDisplayName } from '../helpers'
 
-export interface RouteProps {
-  routes: RouteConfig[],
+export interface IRouteProps {
+  routes?: RouteConfig[]
   store: Store<{}>
 }
 
-export interface SubRoutes<LayoutProps> extends RouteProps {
-  layout?: LayoutProps,
+export interface ISubRoutes<LayoutProps> extends IRouteProps {
+  layout?: LayoutProps
 }
 
 /**
@@ -34,24 +34,37 @@ export interface SubRoutes<LayoutProps> extends RouteProps {
 const composedMatchSubRoutes = <LP extends {}>(
   WrappedComponent: React.SFC<LP>
 ) => {
-  const MatchRoutes: React.SFC<SubRoutes<LP>> = ({ routes, store, layout }) => {
+  const MatchRoutes: React.SFC<ISubRoutes<LP>> = ({
+    routes,
+    store,
+    layout
+  }) => {
     return (
       <WrappedComponent {...layout}>
         <Switch>
-          {routes.map(({
-            routeComponent: RouteComponent,
-            routes: subRoutes,
-            ...route
-          }) => (
-            <Route
-              key={route.id}
-              {...route}
-              children={({ ...routerProps }) => (
-                <RouteComponent {...routerProps} store={store} routes={subRoutes} />
-              )}
-            />
-          ))}
-          <Route path='*' render={({ location }) => <NotFound location={location} />} />
+          {routes.map(
+            ({
+              routeComponent: RouteComponent,
+              routes: subRoutes,
+              ...route
+            }) => (
+              <Route
+                key={route.id}
+                {...route}
+                children={({ ...routerProps }) => (
+                  <RouteComponent
+                    {...routerProps}
+                    store={store}
+                    routes={subRoutes}
+                  />
+                )}
+              />
+            )
+          )}
+          <Route
+            path="*"
+            render={({ location }) => <NotFound location={location} />}
+          />
         </Switch>
       </WrappedComponent>
     )

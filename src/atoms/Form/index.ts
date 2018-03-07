@@ -10,11 +10,6 @@ const FormAtoms = {
   Label
 }
 
-export {
-  FieldSet,
-  Form,
-  Input,
-  Label
-}
+export { FieldSet, Form, Input, Label }
 
 export default FormAtoms

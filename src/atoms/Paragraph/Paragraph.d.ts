@@ -1,4 +1,4 @@
 declare interface Paragraph extends Theme {
-  color?: string,
+  color?: string
   invert?: boolean
 }

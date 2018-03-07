@@ -1,5 +1,5 @@
 /* tslint:disable:ban-types */
-export default function compose (...funcs: Function[]) {
+export default function compose(...funcs: Function[]) {
   if (funcs.length === 0) {
     return (arg: () => void) => arg
   }

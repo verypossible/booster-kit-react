@@ -1,15 +1,11 @@
-const flat = ({
-  background,
-  theme,
-  fill
-}: Button) => `
+const flat = ({ background, theme, fill }: Button) => `
   color: ${fill ? '#FFF' : theme.colors.action};
-  background-color: ${fill ? (background || theme.colors.action) : '#FFF'};
+  background-color: ${fill ? background || theme.colors.action : '#FFF'};
   border-color: ${theme.colors.action};
 
   &:hover {
     color: ${fill ? theme.colors.action : '#FFF'};
-    background-color: ${fill ? '#FFF' : (background || theme.colors.action)};
+    background-color: ${fill ? '#FFF' : background || theme.colors.action};
     transition: ${theme.transitions.easeInOut300}
   }
 
@@ -22,10 +18,7 @@ const flat = ({
   }
 `
 
-const social = ({
-  background = '#000',
-  color = '#FFF'
-}: Button) => `
+const social = ({ background = '#000', color = '#FFF' }: Button) => `
   color: ${color};
   background-color: ${background};
 `

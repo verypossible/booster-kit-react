@@ -1,6 +1,6 @@
 declare interface ThemeGrid {
   grid?: {
-    columnGutter?: ThemeSizeOptions,
+    columnGutter?: ThemeSizeOptions
     rowGutter?: ThemeSizeOptions
   }
 }

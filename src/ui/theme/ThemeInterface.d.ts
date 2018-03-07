@@ -1,27 +1,40 @@
 declare interface ThemeMinSizeOptions {
-  small?: string,
-  medium?: string,
+  small?: string
+  medium?: string
   large?: string
 }
 
-declare type ThemeSizeSelector = 'small' | 'medium' | 'large' | 'xLarge' | 'xXLarge' | string
+declare type ThemeSizeSelector =
+  | 'small'
+  | 'medium'
+  | 'large'
+  | 'xLarge'
+  | 'xXLarge'
+  | string
 
 declare interface ThemeSizeOptions extends ThemeMinSizeOptions {
-  xLarge?: string,
-  xSmall?: string,
+  xLarge?: string
+  xSmall?: string
   xXLarge?: string
 }
 
 declare type ThemeStatusSelector = 'alert' | 'ok' | 'warning'
 
 declare interface ThemeStatus {
-  alert?: string,
-  ok?: string,
+  alert?: string
+  ok?: string
   warning?: string
 }
 
-declare interface ThemeInterface extends ThemeBreakpoints, ThemeColors, ThemeFont, ThemeGrid, // tslint:disable-line
- ThemeIcons, ThemeLayout, ThemeTransitions, Media {
+declare interface ThemeInterface
+  extends ThemeBreakpoints,
+    ThemeColors,
+    ThemeFont,
+    ThemeGrid, // tslint:disable-line
+    ThemeIcons,
+    ThemeLayout,
+    ThemeTransitions,
+    Media {
   status?: ThemeStatus
 }
 

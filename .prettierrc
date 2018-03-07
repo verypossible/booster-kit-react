@@ -1,0 +1,3 @@
+parser: typescript
+semi: false
+singleQuote: true

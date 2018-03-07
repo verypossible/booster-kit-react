@@ -4,11 +4,6 @@ import { KEY } from './index'
 
 const sessionState = (state: State) => state[KEY]
 
-const getSession = createSelector(
-  [sessionState],
-  (session: Session) => session
-)
+const getSession = createSelector([sessionState], (session: Session) => session)
 
-export {
-  getSession
-}
+export { getSession }

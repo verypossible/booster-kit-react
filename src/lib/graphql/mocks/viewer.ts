@@ -4,8 +4,8 @@ import S from 'string'
 
 const mockPages = () => {
   const id = faker.random.alphaNumeric(15)
-  const words = (c) => faker.random.words(c)
-  const slug = (c) => S(words(c)).slugify().s
+  const words = c => faker.random.words(c)
+  const slug = c => S(words(c)).slugify().s
   return {
     node: {
       __typename: 'PageEdge',

@@ -1,5 +1,3 @@
 import fontFace from './fontFace'
 
-export {
-  fontFace
-}
+export { fontFace }

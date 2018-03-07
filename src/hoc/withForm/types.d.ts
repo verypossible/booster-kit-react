@@ -1,10 +1,10 @@
 declare interface SubmitError<Errors, FieldErrors> {
-  errors: { _error?: string } | FieldErrors,
+  errors: { _error?: string } | FieldErrors
   response: object[]
 }
 
 declare interface OnSubmitOptions<D, P, E> {
-  props: P,
+  props: P
   submitError: (errorParams: SubmitError<E>) => Error
   values: D
 }
@@ -16,19 +16,26 @@ declare interface OnSubmitOptions<D, P, E> {
  * Errors: The error object to pass to the form's SubmissionError
  */
 declare type HandleSubmit<Data, Props, Errors> = (
-  { props, submitError, values }:
-  { props: Props, submitError: (error: SubmitError<Errors, Data>) => Error, values: Data }
+  {
+    props,
+    submitError,
+    values
+  }: {
+    props: Props
+    submitError: (error: SubmitError<Errors, Data>) => Error
+    values: Data
+  }
 ) => Promise<void | Error>
 
 declare interface FormConfig {
-  destroyOnUnmount?: boolean,
-  enableReinitialize?: boolean,
-  form: string,
-  keepDirtyOnReinitialize?: boolean,
-  handleSubmit: HandleSubmit,
-  pure?: boolean,
-  validate?: () => void,
-  onSuccess?: React.SFC<object>,
+  destroyOnUnmount?: boolean
+  enableReinitialize?: boolean
+  form: string
+  keepDirtyOnReinitialize?: boolean
+  handleSubmit: HandleSubmit
+  pure?: boolean
+  validate?: () => void
+  onSuccess?: React.SFC<object>
   submitButtonText?: string
 }
 

@@ -1,11 +1,11 @@
 /* Actions */
 declare type SessionActionHandlers = {
-  payload?: ActiveSession,
+  payload?: ActiveSession
   type: 'session/START_SESSION' | 'session/CLEAR_SESSION'
 }
 
 declare interface SessionActions {
-  startSession: (payload: ActiveSesion) => SessionActionHandlers,
+  startSession: (payload: ActiveSesion) => SessionActionHandlers
   clearSession: () => SessionActionHandlers
 }
 
@@ -13,17 +13,17 @@ declare interface SessionActions {
 
 /** ActiveSession model mirrors the server's User type */
 declare interface ActiveSession extends SessionType {
-  avatar?: string | null,
-  email?: string | null,
-  githubUsername?: string | null,
-  googleUsername?: string | null,
-  id: string,
-  name?: string | null,
-  username?: string,
-  createdAt?: string,
-  expiresAt?: number | null,
-  lastLogin?: string,
-  modifiedAt?: string,
+  avatar?: string | null
+  email?: string | null
+  githubUsername?: string | null
+  googleUsername?: string | null
+  id: string
+  name?: string | null
+  username?: string
+  createdAt?: string
+  expiresAt?: number | null
+  lastLogin?: string
+  modifiedAt?: string
   token: string
   sessionType: string
 }
@@ -38,5 +38,5 @@ declare interface SessionState {
 
 /* Selectors */
 declare interface GetSession {
-  getSession: SelectState<Session>,
+  getSession: SelectState<Session>
 }

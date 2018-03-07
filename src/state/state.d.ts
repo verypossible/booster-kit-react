@@ -1,10 +1,8 @@
 /**
  *  State shape. Each module declares its own shape.
  */
-declare interface State extends
-  CounterState,
-  LastActionState {
-  readonly form: any,
+declare interface State extends CounterState, LastActionState {
+  readonly form: any
   readonly apollo: any
 }
 
@@ -21,4 +19,8 @@ declare type Selectors = GetCount & ActionRehydrate & GetSession
 /**
  *  S = Selector
  */
-declare type SelectState<S> = (state: State, props?: object, ownProps?: object) => S
+declare type SelectState<S> = (
+  state: State,
+  props?: object,
+  ownProps?: object
+) => S

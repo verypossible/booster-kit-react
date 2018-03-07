@@ -3,29 +3,29 @@ declare interface ComposedRoute {
 }
 
 declare interface RouterLocation {
-  key?: string,
-  pathname: string,
-  search: string,
-  hash: string,
+  key?: string
+  pathname: string
+  search: string
+  hash: string
   state: {
-    error?: string,
+    error?: string
     user?: object
   }
   host: string
 }
 
 declare interface Match {
-  path?: string,
-  isExact?: boolean,
-  url?: string,
+  path?: string
+  isExact?: boolean
+  url?: string
   params?: object
 }
 
 declare interface Route {
-  exact?: true,
-  id?: string,
-  path?: string,
-  routeComponent?: ReactNode,
+  exact?: true
+  id?: string
+  path?: string
+  routeComponent?: ReactNode
 }
 
 declare interface RouteConfig extends Route {
@@ -37,6 +37,6 @@ declare type ReplaceHistory = (pathname: string, state: object) => void
 declare type RouterMatch = Match
 
 declare interface RouterHistory {
-  location: RouterLocation,
+  location: RouterLocation
   replace: ReplaceHistory
 }

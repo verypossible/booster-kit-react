@@ -1,7 +1,7 @@
 declare interface NavItem {
-  id?: string,
-  to?: string,
-  className?: string,
+  id?: string
+  to?: string
+  className?: string
   text?: string
 }
 

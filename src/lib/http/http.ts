@@ -3,9 +3,15 @@ import axios from 'axios'
 import { HTTP } from './types'
 import validateStatus from './validateStatus'
 
-export default function ({ method, url, data: postData, params, requestHeaders }: HTTP) {
+export default function({
+  method,
+  url,
+  data: postData,
+  params,
+  requestHeaders
+}: HTTP) {
   const headers = {
-    'Accept': 'application/json',
+    Accept: 'application/json',
     'Content-Type': 'application/json',
     ...requestHeaders
   }

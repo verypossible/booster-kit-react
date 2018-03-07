@@ -5,10 +5,10 @@ interface FontSizeConfig extends ThemeSizeOptions {
 declare interface ThemeFont {
   font?: {
     family?: {
-      [key: string]: string,
-      headings?: string,
+      [key: string]: string
+      headings?: string
       text?: string
-    },
+    }
     size?: FontSizeConfig
   }
 }

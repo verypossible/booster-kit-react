@@ -31,7 +31,7 @@ export const errors = {
   message: 'Incorrect Message Type: The message must be a string.'
 }
 
-export function validate (message: string, data: object) {
+export function validate(message: string, data: object) {
   return new Promise((resolve, reject) => {
     if (typeof message !== 'string') {
       reject(new Error(errors.message))

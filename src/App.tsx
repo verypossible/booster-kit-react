@@ -1,32 +1,36 @@
 import * as React from 'react'
 import { ApolloProvider } from 'react-apollo'
-import { BrowserRouter, Route } from 'react-router-dom'
+import { hot } from 'react-hot-loader'
+import { Provider } from 'react-redux'
+import { BrowserRouter } from 'react-router-dom'
+import { Store } from 'redux'
+import { PersistGate } from 'redux-persist/integration/react'
 
-import client from './lib/graphql/client'
-import { Store } from './lib/types'
-import Routes from './routes'
-import routeConfig from './routes/routes'
+import client from 'lib/graphql/client'
+import Routes from 'routes'
 
-interface RootProps {
+import { renderGlobalStyles, theme, ThemeProvider } from 'ui'
+
+interface IApp {
   store: Store<{}>
+  persistor: any
 }
 
-const Root: React.SFC<RootProps> = ({ store }) => {
-  return (
-    <BrowserRouter>
-      <Route
-        path='/'
-        children={({ history }) => {
-          const apolloClient = client(history)
-          return (
-            <ApolloProvider store={store} client={apolloClient}>
-              <Routes routes={routeConfig} store={store} />
-            </ApolloProvider>
-          )
-        }}
-      />
-    </BrowserRouter>
-  )
-}
+renderGlobalStyles()
 
-export default Root
+const App: React.SFC<IApp> = ({ store, persistor }) => (
+  <ApolloProvider client={client}>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <ThemeProvider theme={theme.light}>
+          <BrowserRouter>
+            <Routes />
+          </BrowserRouter>
+        </ThemeProvider>
+      </PersistGate>
+    </Provider>
+  </ApolloProvider>
+)
+
+export { IApp }
+export default hot(module)(App)
